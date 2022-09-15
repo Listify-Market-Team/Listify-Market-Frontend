@@ -1,14 +1,26 @@
-import { StatusBar } from "expo-status-bar";
 import { StyleSheet, Text, View, TouchableHighlight } from "react-native";
 import { SimpleLineIcons } from "@expo/vector-icons";
 import { Feather } from "@expo/vector-icons";
 import { useFonts } from "expo-font";
 
+const menuIconHandler = () => {
+  console.log("Press");
+};
+
+const helpIconHandler = () => {
+  console.log("Press");
+};
+
 const MenuIcon = () => {
   return (
-    <TouchableHighlight onPress={() => {}} style={styles.MenuIcon}>
+    <TouchableHighlight
+      onPress={() => {
+        menuIconHandler();
+      }}
+      style={styles.Icons}
+    >
       <View>
-        <SimpleLineIcons name="menu" size={24} color="black" />
+        <SimpleLineIcons name="menu" size={26} color="black" />
       </View>
     </TouchableHighlight>
   );
@@ -16,9 +28,14 @@ const MenuIcon = () => {
 
 const HelpIcon = () => {
   return (
-    <TouchableHighlight onPress={() => {}}>
+    <TouchableHighlight
+      onPress={() => {
+        helpIconHandler();
+      }}
+      style={styles.Icons}
+    >
       <View>
-        <Feather name="help-circle" size={24} color="black" />
+        <Feather name="help-circle" size={26} color="black" />
       </View>
     </TouchableHighlight>
   );
@@ -46,14 +63,16 @@ const styles = StyleSheet.create({
     padding: 14,
     flexDirection: "row",
     justifyContent: "space-between",
-    alignItems: 'center',
+    alignItems: "center",
     backgroundColor: "#fff",
   },
-  MenuIcon: {
-    // Algun codigo de estilos va aqui, cual no se
+  Icons: {
+    padding: 4,
   },
   HeaderTitle: {
+    flex: 1,
     fontFamily: "Inter-SemiBold",
     fontSize: 16,
+    marginLeft: 30,
   },
 });

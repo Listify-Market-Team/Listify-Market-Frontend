@@ -15,5 +15,7 @@ export default function App() {
 
 const styles = StyleSheet.create({
   container: {
+    height: '100%',
+    backgroundColor: "#B5D3D3",
   },
 });
