@@ -1,21 +1,12 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
-import { Header } from './Components/Header';
-
-const viewName = 'Home'
+import * as React from "react";
+import { NavigationContainer } from "@react-navigation/native";
+import { MainStackNavigator } from "./Navigation/StackNavigator";
+import { DrawerNavigator } from "./Navigation/DrawerNavigator";
 
 export default function App() {
   return (
-    <View style={styles.container}>
-      <Header title={viewName}/>
-      <StatusBar style="auto"/>
-    </View>
+    <NavigationContainer>
+      <DrawerNavigator/>
+    </NavigationContainer>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    height: '100%',
-    backgroundColor: "#B5D3D3",
-  },
-});
