@@ -1,22 +1,18 @@
 import { StyleSheet, View, TouchableHighlight } from "react-native";
 import { SimpleLineIcons } from "@expo/vector-icons";
 import { Feather } from "@expo/vector-icons";
-
-const menuIconHandler = () => {
-  console.log("Press");
-};
-
-const helpIconHandler = () => {
-  console.log("Press");
-};
+import { Ionicons } from '@expo/vector-icons';
+import { useNavigation } from '@react-navigation/native';
+import { useDrawerStatus } from '@react-navigation/drawer';
+import { DrawerActions } from '@react-navigation/native';
 
 export const MenuIcon = () => {
+  const navigation = useNavigation()
   return (
     <TouchableHighlight
       onPress={() => {
-        menuIconHandler();
+        navigation.dispatch(DrawerActions.openDrawer())
       }}
-      style={styles.MenuIcon}
     >
       <View>
         <SimpleLineIcons name="menu" size={26} color="black" />
@@ -26,10 +22,11 @@ export const MenuIcon = () => {
 };
 
 export const HelpIcon = () => {
+  const navigation = useNavigation()
   return (
     <TouchableHighlight
       onPress={() => {
-        helpIconHandler();
+        navigation.navigate("Help")
       }}
     >
       <View>
@@ -39,8 +36,17 @@ export const HelpIcon = () => {
   );
 };
 
-const styles = StyleSheet.create({
-  MenuIcon: {
-    paddingRight: 40,
-  },
-});
+export const BackIcon = () => {
+  const navigation = useNavigation()
+  return (
+    <TouchableHighlight
+      onPress={() => {
+        navigation.goBack()
+      }}
+    >
+      <View>
+        <Ionicons name="arrow-back" size={26} color="black" />
+      </View>
+    </TouchableHighlight>
+  );
+}

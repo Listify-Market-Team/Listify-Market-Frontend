@@ -1,11 +1,12 @@
-import React from "react";
-import { Button, StyleSheet, Text, View } from "react-native";
+import React from 'react'
+import { Button, StyleSheet, Text, View } from 'react-native';
+
 
 export default function HomeScreen() {
 
   return (
     <View style={styles.container}>
-      <Text>Home Screen</Text>
+      <Text>Help Screen</Text>
     </View>
   );
 }
@@ -13,9 +14,9 @@ export default function HomeScreen() {
 const styles = StyleSheet.create({
   container: {
     fontFamily: "Inter-SemiBold",
-    height: "100%",
+    height: '100%',
     backgroundColor: "#B5D3D3",
-    alignContent: "center",
-    alignItems: "center",
+    alignContent: 'center',
+    alignItems: 'center'
   },
 });
