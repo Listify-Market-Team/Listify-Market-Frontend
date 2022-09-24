@@ -2,7 +2,7 @@ import React from 'react'
 import { Button, StyleSheet, Text, View } from 'react-native';
 
 
-export default function HomeScreen() {
+export default function HelpScreen() {
 
   return (
     <View style={styles.container}>
@@ -13,9 +13,9 @@ export default function HomeScreen() {
 
 const styles = StyleSheet.create({
   container: {
-    fontFamily: "Inter-SemiBold",
     height: '100%',
     backgroundColor: "#B5D3D3",
+    justifyContent: "center",
     alignContent: 'center',
     alignItems: 'center'
   },

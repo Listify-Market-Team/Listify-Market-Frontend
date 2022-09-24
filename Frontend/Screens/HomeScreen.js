@@ -12,9 +12,10 @@ export default function HomeScreen() {
 
 const styles = StyleSheet.create({
   container: {
-    fontFamily: "Inter-SemiBold",
     height: "100%",
     backgroundColor: "#B5D3D3",
+    flex: 1,
+    justifyContent: "center",
     alignContent: "center",
     alignItems: "center",
   },
