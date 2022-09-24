@@ -32,9 +32,10 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     borderRadius: "15px",
     backgroundColor: "#d9e8e9",
-    width: "fit-content"
+    width: "70%"
   },
   textInput: {
+    fontFamily: "Verdana",
     width: "100%",
     borderRadius: "15px",
     padding: "4px",
