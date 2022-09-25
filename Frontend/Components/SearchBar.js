@@ -30,23 +30,22 @@ const SearchBar = () => {
 const styles = StyleSheet.create({
   container: {
     flexDirection: "row",
-    borderRadius: "15px",
+    borderRadius: 15,
     backgroundColor: "#d9e8e9",
-    width: "70%"
+    width: "80%",
   },
   textInput: {
-    fontFamily: "Verdana",
     width: "100%",
-    borderRadius: "15px",
-    padding: "4px",
+    borderRadius: 15,
+    padding: 4,
+    fontSize: 15,
     backgroundColor: "#d9e8e9",
   },
   searchButton: {
+    justifyContent: 'center',
     alignItems: "center",
     backgroundColor: "#00d36e",
-    borderWidth: 0.5,
-    borderColor: "#fff",
-    borderRadius: "15px",
+    borderRadius: 15,
   },
   buttonImageIconStyle: {
     margin: 3,

@@ -23,13 +23,18 @@ const ListMainScreen = () => {
     </View>
 
       <View style={styles.container}>
+
         <View style={styles.buttonTituleContainer}>
           <Text style={styles.titule}>My lists</Text>
           <TouchableOpacity style={styles.addNewBoton}>
             <Text>ADD NEW</Text>
           </TouchableOpacity>
         </View>
-        <List/>
+
+        <View style={styles.listContainer}>
+          <List/>
+        </View>
+
       </View>
     </View>
   );
@@ -39,12 +44,12 @@ const styles = StyleSheet.create({
   screen: {
     flex: 1, // investigar
     backgroundColor: "#b5d3d2",
-    alignItems: "center",
   },
   searchBarContainer:{
-    alignItems: "center",
     width:"100%",
-    marginVertical: "6%"
+    marginTop:47,
+    marginBottom: 30,
+    alignItems: "center",
   },
   container: {
     paddingTop: "10%",
@@ -59,9 +64,11 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
   },
   titule: {
-    fontFamily: "Verdana",
-    fontSize: "180%",
+    fontSize: 30,
     fontWeight: "bold",
+  },
+  listContainer:{
+    marginTop: 15
   },
   addNewBoton: {
     alignItems: "center",
@@ -70,7 +77,7 @@ const styles = StyleSheet.create({
     borderWidth: 2,
     borderColor: "#b5b7b7",
     padding: "5%",
-    borderRadius: "15px",
+    borderRadius: 15,
     width: "40%",
   },
 });
