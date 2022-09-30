@@ -1,17 +1,16 @@
-import { StyleSheet, View, TouchableHighlight } from "react-native";
+import { View, TouchableHighlight } from "react-native";
 import { SimpleLineIcons } from "@expo/vector-icons";
 import { Feather } from "@expo/vector-icons";
-import { Ionicons } from '@expo/vector-icons';
-import { useNavigation } from '@react-navigation/native';
-import { useDrawerStatus } from '@react-navigation/drawer';
-import { DrawerActions } from '@react-navigation/native';
+import { Ionicons } from "@expo/vector-icons";
+import { useNavigation } from "@react-navigation/native";
+import { DrawerActions } from "@react-navigation/native";
 
 export const MenuIcon = () => {
-  const navigation = useNavigation()
+  const navigation = useNavigation();
   return (
     <TouchableHighlight
       onPress={() => {
-        navigation.dispatch(DrawerActions.openDrawer())
+        navigation.dispatch(DrawerActions.openDrawer());
       }}
     >
       <View>
@@ -22,11 +21,11 @@ export const MenuIcon = () => {
 };
 
 export const HelpIcon = () => {
-  const navigation = useNavigation()
+  const navigation = useNavigation();
   return (
     <TouchableHighlight
       onPress={() => {
-        navigation.navigate("Help")
+        navigation.navigate("Help");
       }}
     >
       <View>
@@ -37,11 +36,11 @@ export const HelpIcon = () => {
 };
 
 export const BackIcon = () => {
-  const navigation = useNavigation()
+  const navigation = useNavigation();
   return (
     <TouchableHighlight
       onPress={() => {
-        navigation.goBack()
+        navigation.goBack();
       }}
     >
       <View>
@@ -49,4 +48,4 @@ export const BackIcon = () => {
       </View>
     </TouchableHighlight>
   );
-}
+};
