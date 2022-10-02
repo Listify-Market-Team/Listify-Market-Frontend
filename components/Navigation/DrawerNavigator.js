@@ -12,7 +12,7 @@ export const DrawerNavigator = () => {
   return (
     <Drawer.Navigator
       drawerContent={props => <Menu {...props} />}
-      initialRouteName="Home"
+      initialRouteName="NewList"
     >
       <Drawer.Screen
         name="Home"
