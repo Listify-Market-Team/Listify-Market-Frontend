@@ -5,6 +5,7 @@ import Menu from "../../components/Menu";
 import HomeScreen from "../../screens/HomeScreen";
 import HelpScreen from "../../screens/HelpScreen";
 import ProductInfoScreen from "../../screens/ProductInfoScreen";
+import NewListScreen from "../../screens/NewListScreen";
 
 const Drawer = createDrawerNavigator();
 
@@ -12,7 +13,7 @@ export const DrawerNavigator = () => {
   return (
     <Drawer.Navigator
       drawerContent={props => <Menu {...props} />}
-      initialRouteName="Home"
+      initialRouteName="NewList"
     >
       <Drawer.Screen
         name="Home"
@@ -34,9 +35,20 @@ export const DrawerNavigator = () => {
           ),
         }}
       />
+      <Drawer.Screen 
+      name="NewList" 
+      component={NewListScreen} />
+      
       <Drawer.Screen
       name="ProductInfo"
       component={ProductInfoScreen}/>
+<<<<<<< HEAD
+      <Drawer.Screen
+      name="ProductInfo"
+      component={ProductInfoScreen}/>
+=======
+      <Drawer.Screen name="NewList" component={NewListScreen} />
+>>>>>>> cf6a01a24f4e49d805198daf9e37335d82b298cb
     </Drawer.Navigator>
   );
 };
