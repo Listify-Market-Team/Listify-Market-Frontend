@@ -4,6 +4,7 @@ import { Feather } from "@expo/vector-icons";
 import Menu from "../../components/Menu";
 import HomeScreen from "../../screens/HomeScreen";
 import HelpScreen from "../../screens/HelpScreen";
+import ProductInfoScreen from "../../screens/ProductInfoScreen";
 
 const Drawer = createDrawerNavigator();
 
@@ -33,6 +34,9 @@ export const DrawerNavigator = () => {
           ),
         }}
       />
+      <Drawer.Screen
+      name="ProductInfo"
+      component={ProductInfoScreen}/>
     </Drawer.Navigator>
   );
 };
