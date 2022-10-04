@@ -4,6 +4,7 @@ import { Feather } from "@expo/vector-icons";
 import Menu from "../../components/Menu";
 import HomeScreen from "../../screens/HomeScreen";
 import HelpScreen from "../../screens/HelpScreen";
+import NewListScreen from "../../screens/NewListScreen";
 
 const Drawer = createDrawerNavigator();
 
@@ -11,7 +12,7 @@ export const DrawerNavigator = () => {
   return (
     <Drawer.Navigator
       drawerContent={props => <Menu {...props} />}
-      initialRouteName="Home"
+      initialRouteName="NewList"
     >
       <Drawer.Screen
         name="Home"
@@ -33,6 +34,7 @@ export const DrawerNavigator = () => {
           ),
         }}
       />
+      <Drawer.Screen name="NewList" component={NewListScreen} />
     </Drawer.Navigator>
   );
 };
