@@ -13,7 +13,7 @@ export const DrawerNavigator = () => {
   return (
     <Drawer.Navigator
       drawerContent={props => <Menu {...props} />}
-      initialRouteName="NewList"
+      initialRouteName="ProductInfo"
     >
       <Drawer.Screen
         name="Home"
@@ -42,13 +42,8 @@ export const DrawerNavigator = () => {
       <Drawer.Screen
       name="ProductInfo"
       component={ProductInfoScreen}/>
-<<<<<<< HEAD
-      <Drawer.Screen
-      name="ProductInfo"
-      component={ProductInfoScreen}/>
-=======
-      <Drawer.Screen name="NewList" component={NewListScreen} />
->>>>>>> cf6a01a24f4e49d805198daf9e37335d82b298cb
+
+
     </Drawer.Navigator>
   );
 };
