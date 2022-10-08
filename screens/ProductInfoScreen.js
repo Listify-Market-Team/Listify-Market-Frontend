@@ -51,7 +51,7 @@ export default class ProductInfoScreen extends Component
 
       this.increaseOnPress = this.increaseOnPress.bind(this)
       this.decreaseOnPress = this.decreaseOnPress.bind(this)
-      this.openDrawer = this.openDrawer.bind(this)
+      // this.openDrawer = this.openDrawer.bind(this)
     }
 
     increaseOnPress (){
@@ -70,9 +70,9 @@ export default class ProductInfoScreen extends Component
     
     }
 
-    openDrawer(){
-      <DrawerNavigator/>
-    }
+    // openDrawer(){
+    //   <DrawerNavigator/>
+    // }
 
     render () {
 
