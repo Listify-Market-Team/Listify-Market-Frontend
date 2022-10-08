@@ -1,6 +1,7 @@
 import React, {Component, useState} from 'react';
 import { ActivityIndicator, FlatList, Text, View, Image, TouchableOpacity, StyleSheet } from 'react-native';
 import Pressable from 'react-native/Libraries/Components/Pressable/Pressable';
+import { NavigationContainer } from "@react-navigation/native";
 
 
 //Random Data
@@ -50,6 +51,7 @@ export default class ProductInfoScreen extends Component
 
       this.increaseOnPress = this.increaseOnPress.bind(this)
       this.decreaseOnPress = this.decreaseOnPress.bind(this)
+      this.openDrawer = this.openDrawer.bind(this)
     }
 
     increaseOnPress (){
@@ -66,6 +68,10 @@ export default class ProductInfoScreen extends Component
         })
       }
     
+    }
+
+    openDrawer(){
+      <DrawerNavigator/>
     }
 
     render () {
@@ -115,6 +121,15 @@ export default class ProductInfoScreen extends Component
                         <Text> - </Text>
                       </Pressable>
                     </View>
+                    
+                    {/* <View>
+                      <Pressable
+                          style={styles.addButton}
+                          onPress={this.openDrawer}
+                          >
+                          <Text> Agregar </Text>
+                      </Pressable>
+                    </View> */}
                     
 
               </View>
@@ -227,7 +242,12 @@ export default class ProductInfoScreen extends Component
     quantityNumber:{
       backgroundColor:"white",
       borderRadius:10
+    },
+    addButton:{
+      borderRadius: 5,
+      fontsize: 10,
+      fontWeight: 'normal',
+      backgroundColor: '#d1efef'
     }
-
     
   });
