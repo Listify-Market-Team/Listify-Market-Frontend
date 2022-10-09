@@ -1,13 +1,16 @@
-import "react-native-gesture-handler";
-import { NavigationContainer } from "@react-navigation/native";
-import { MainStackNavigator } from "./components/Navigation/StackNavigator";
-import { DrawerNavigator } from "./components/Navigation/DrawerNavigator";
+import { StyleSheet, Text, View } from "react-native";
+import { AddProduct } from "./screens/AddProductScreen";
 
 export default function App() {
-  return (
-    <NavigationContainer>
-      {/* <MainStackNavigator /> */}
-      <DrawerNavigator />
-    </NavigationContainer>
+  return (     
+    <View style={styles.container}>
+      <AddProduct></AddProduct>
+    </View>   
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+});
