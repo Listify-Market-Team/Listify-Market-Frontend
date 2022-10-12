@@ -1,28 +1,21 @@
 import { StyleSheet, View, Text, Image, ImageBackground, ScrollView } from "react-native";
-
-let numberOfProducts = [...Array(5).keys()];
-
-// const axios = require("axios");
-const options = {
-  url: "https://localhost:7209/api/Product/GetAll",
-  method: "get",
-  headers: {},
-  timeout: 20000
-};
-
-console.log("peticion al backend", options.url);
-
-// axios(options)
-//   .then(products => {
-//     numberOfProducts = products.data;
-//     console.log(products);
-//   })
-//   .catch(err => {
-//     console.log("Fallo ", err);
-//   });
-
+import axios from "axios";
+import { useEffect, useState } from "react";
 
 const SearchProductScreen = () => {
+  let [Products, setProducts] = useState([]);
+
+  useEffect( ()=>{
+    const doGetRequest = async () => {
+      const res = await axios.get("https://localhost:7209/api/Product/GetAll");
+      const data = await res.data.products;
+
+      console.log(data);
+      setProducts(data);
+    };
+    doGetRequest();
+  }, []);
+
   return (
     <View style={styles.SearchProduct}>
 
@@ -39,22 +32,23 @@ const SearchProductScreen = () => {
       {/*Product cards */}
       <ScrollView>
         {
-          numberOfProducts.map( (product) => {
-            return (      
+          Products.map( (product) => {
+            console.log();
+            return (
               // eslint-disable-next-line react/jsx-key
               <View style={styles.product_card}>
-                <Image style={styles.product_card_image} source={require("../resources/sirena.jpeg")} />
+                <Image style={styles.product_card_image} source={{uri: product.image}} />
                 <View>
-                  <Text>Product Name {"\n"} {"\n"}</Text>
-                  <Text>Product Description</Text>
+                  <Text>Nombre: {product.name}{"\n"} {"\n"}</Text>
+                  <Text>Precio: {product.price}</Text>
                 </View>
               </View>
             );
           })
         }
       </ScrollView>
-    
-    </View> 
+
+    </View>
 
   );
 };
