@@ -82,6 +82,7 @@ export default function RegisterScreen() {
               onChangeText={setPassword}
               value={password}
               placeholder="Password"
+              placeholderTextColor={"#FFF"}
               secureTextEntry={true}
             />
             <TextInput
@@ -89,6 +90,7 @@ export default function RegisterScreen() {
               onChangeText={setconfirmPassword}
               value={confirmPassword}
               placeholder="Confirm Password"
+              placeholderTextColor={"#FFF"}
               secureTextEntry={true}
             />
           </SafeAreaView>

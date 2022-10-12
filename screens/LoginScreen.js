@@ -11,9 +11,10 @@ import {
 } from "react-native";
 import React from "react";
 
-export default function LoginScreen() {
+function Login(props) {
   const [userField, setUserField] = React.useState("");
   const [password, setPassword] = React.useState("");
+
   return (
     <ImageBackground
       source={require("../resources/Login-Background.png")}
@@ -32,12 +33,14 @@ export default function LoginScreen() {
             onChangeText={setUserField}
             value={userField}
             placeholder="Phone Number or Email"
+            placeholderTextColor={"#FFF"}
           />
           <TextInput
             style={styles.input}
             onChangeText={setPassword}
             value={password}
             placeholder="Password"
+            placeholderTextColor={"#FFF"}
             secureTextEntry={true}
           />
         </SafeAreaView>
@@ -53,7 +56,7 @@ export default function LoginScreen() {
           <Text style={styles.footer_text}>Dont have an account?</Text>
           <Pressable
             onPress={() => {
-              console.log("Sign Up");
+              props.navigate("Register");
             }}
           >
             <Text style={styles.footer_signup}>Sign Up</Text>
@@ -64,7 +67,27 @@ export default function LoginScreen() {
   );
 }
 
+export default function LoginScreen({ navigation: { navigate }}) {
+  return (
+    <KeyboardAvoidingView
+      behavior={Platform.OS === "ios" ? "padding" : null}
+      style={styles.view}
+    >
+      <Login navigate={navigate}/>
+    </KeyboardAvoidingView>
+  );
+}
+
 const styles = StyleSheet.create({
+  view: {
+    flex: 1,
+  },
+
+  container: {
+    flex: 1,
+    justifyContent: "flex-end",
+  },
+
   image: {
     width: "100%",
     height: "100%",
@@ -73,7 +96,6 @@ const styles = StyleSheet.create({
     width: 180,
     height: 180,
     alignSelf: "center",
-    marginTop: 50,
     marginBottom: 20,
   },
   title: {
@@ -81,13 +103,12 @@ const styles = StyleSheet.create({
     alignSelf: "center",
     fontWeight: "bold",
     fontSize: 30,
-    marginTop: 10,
-    marginBottom: 20,
+    marginTop: 40,
     textDecorationLine: "underline",
   },
   input: {
     height: 40,
-    marginTop: 70,
+    marginTop: 60,
     marginRight: 40,
     marginLeft: 40,
     borderBottomWidth: 3,
@@ -120,13 +141,13 @@ const styles = StyleSheet.create({
   footer: {
     justifyContent: "center",
     flexDirection: "row",
+    marginBottom: 50,
   },
   footer_text: {
     color: "#FFF",
     fontSize: 14,
     textAlign: "center",
     fontWeight: "600",
-    letterSpacing: 0.5,
   },
   footer_signup: {
     marginLeft: 5,
@@ -134,6 +155,5 @@ const styles = StyleSheet.create({
     fontSize: 14,
     textAlign: "center",
     fontWeight: "600",
-    letterSpacing: 0.5,
   },
 });
