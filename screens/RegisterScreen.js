@@ -14,7 +14,7 @@ import {
 import React, { useState } from "react";
 import axios from "axios";
 
-export default function RegisterScreen() {
+function Register(props) {
   const [userField, setUserField] = React.useState("");
   const [confirmPassword, setconfirmPassword] = React.useState("");
   const [password, setPassword] = React.useState("");
@@ -76,6 +76,7 @@ export default function RegisterScreen() {
               onChangeText={setUserField}
               value={userField}
               placeholder="Phone Number or Email"
+              placeholderTextColor={"#FFF"}
             />
             <TextInput
               style={styles.input}
@@ -97,18 +98,13 @@ export default function RegisterScreen() {
           <View style={styles.buttons}>
             <Pressable
               onPress={() => {
-                console.log("Back to Login");
+                props.goBack();
               }}
               style={styles.back}
             >
               <Text style={styles.back_text}>Back</Text>
             </Pressable>
             <Pressable
-              // onPress={() => {
-              //   console.log(
-              //     `User: ${userField}, Password: ${password}, Confirm Password: ${confirmPassword}`
-              //   );
-              // }}
               onPress={submit}
               style={styles.login}
             >
@@ -199,7 +195,26 @@ export default function RegisterScreen() {
   );
 }
 
+export default function RegisterScreen({ navigation: { goBack } }) {
+  return (
+    <KeyboardAvoidingView
+      behavior={Platform.OS === "ios" ? "padding" : null}
+      style={styles.view}
+    >
+      <Register goBack={goBack} />
+    </KeyboardAvoidingView>
+  );
+}
+
 const styles = StyleSheet.create({
+  view: {
+    flex: 1,
+  },
+
+  container: {
+    flex: 1,
+    justifyContent: "flex-end",
+  },
   image: {
     width: "100%",
     height: "100%",
@@ -208,7 +223,6 @@ const styles = StyleSheet.create({
     width: 180,
     height: 180,
     alignSelf: "center",
-    marginTop: 50,
     marginBottom: 20,
   },
   title: {
@@ -254,6 +268,7 @@ const styles = StyleSheet.create({
   footer: {
     justifyContent: "center",
     flexDirection: "row",
+    marginBottom: 30,
   },
   footer_text: {
     color: "#FFF",
