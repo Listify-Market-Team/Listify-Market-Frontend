@@ -2,7 +2,12 @@ import { View, StyleSheet } from "react-native";
 import Input from "../Input";
 import styles from "../../styles";
 
-export default function ListDataFields({ onChangeName, onChangeDescription }) {
+export default function ListDataFields({
+  onChangeName,
+  onChangeDescription,
+  name,
+  description,
+}) {
   return (
     <View style={{ ...fieldsStyles.card, ...styles.shadow }}>
       <Input
@@ -10,6 +15,7 @@ export default function ListDataFields({ onChangeName, onChangeDescription }) {
         labelStyle={fieldsStyles.label}
         onChangeText={onChangeName}
         style={{ ...fieldsStyles.input, ...fieldsStyles.spacing }}
+        value={name}
       />
       <Input
         label="Descripción"
@@ -17,6 +23,7 @@ export default function ListDataFields({ onChangeName, onChangeDescription }) {
         onChangeText={onChangeDescription}
         multiline
         style={{ ...fieldsStyles.input, ...fieldsStyles.textarea }}
+        value={description}
       />
     </View>
   );

@@ -1,24 +1,36 @@
 import { View, StyleSheet } from "react-native";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import ListDataFields from "./ListDataFields";
 import AppButton from "../AppButton";
 import styles from "../../styles";
 
-export default function SimpleListForm({ onSubmit }) {
+export default function SimpleListForm({ onSubmit, initialValues }) {
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
 
-  const changeNameHandler = value => setName(value);
-  const changeDescriptHandler = value => setDescription(value);
+  useEffect(() => {
+    if (!initialValues) {
+      return;
+    }
+    setName(initialValues.name);
+    setDescription(initialValues.description);
+  }, []);
+
+  const finishBtnText = !initialValues ? "guardar" : "guardar cambios";
+
+  const changeNameHandler = (value) => setName(value);
+  const changeDescriptHandler = (value) => setDescription(value);
 
   return (
     <View style={formStyles.container}>
       <ListDataFields
         onChangeName={changeNameHandler}
         onChangeDescription={changeDescriptHandler}
+        name={name}
+        description={description}
       />
       <AppButton
-        text="Guardar"
+        text={finishBtnText}
         onPress={() => onSubmit({ name, description })}
         btnStyle={{ ...formStyles.btn, ...styles.shadow }}
         textStyle={formStyles.btnText}

@@ -1,22 +1,28 @@
 import { View, Text, StyleSheet } from "react-native";
 import SimpleListForm from "../components/ListForm/SimpleListForm";
+import { useEffect } from "react";
 
-export default function NewListScreen({ navigation }) {
+export default function UpdateListScreen() {
   const sendNewList = (list) => {
     console.log(list);
   };
+  const listName = "My Test List"; // navigator.getParams("name");
+  const listDescrpt = "This list was created for testing purposes"; //navigator.getParams("description");
 
   return (
     <View style={screenStyles.base}>
       <View style={screenStyles.container}>
-        <Text style={screenStyles.title}>Nueva lista</Text>
-        <SimpleListForm onSubmit={sendNewList} />
+        <Text style={screenStyles.title}>Actualizar lista</Text>
+        <SimpleListForm
+          onSubmit={sendNewList}
+          initialValues={{ name: listName, description: listDescrpt }}
+        />
       </View>
     </View>
   );
 }
 
-NewListScreen.navigationOptions = {
+UpdateListScreen.navigationOptions = {
   title: "Nueva Lista",
 };
 
