@@ -6,10 +6,9 @@ import SearchProduct from "./screens/SearchProductScreen";
 
 export default function App() {
   return (
-    // <NavigationContainer>
-    //   {/* <MainStackNavigator /> */}
-    //   <DrawerNavigator />
-    // </NavigationContainer>
-    <SearchProduct />
+    <NavigationContainer>
+      {/* <MainStackNavigator /> */}
+      <DrawerNavigator />
+    </NavigationContainer>
   );
 }
