@@ -1,6 +1,8 @@
-import React from "react";
-import {FlatList, Text, View, Image, StyleSheet } from "react-native";
-import Pressable from "react-native/Libraries/Components/Pressable/Pressable";
+
+import React, {Component, useState} from 'react';
+import { ActivityIndicator, FlatList, Text, View, Image, TouchableOpacity, StyleSheet } from 'react-native';
+import Pressable from 'react-native/Libraries/Components/Pressable/Pressable';
+
 
 
 //Random Data
@@ -45,11 +47,13 @@ export default class ProductInfoScreen extends Component
       super(props);
 
       this.state = {
-        productQuantity : 0
+        productQuantity : 0,
+        productID: 0
       }
 
       this.increaseOnPress = this.increaseOnPress.bind(this)
       this.decreaseOnPress = this.decreaseOnPress.bind(this)
+      // this.openDrawer = this.openDrawer.bind(this)
     }
 
     increaseOnPress (){
@@ -67,6 +71,16 @@ export default class ProductInfoScreen extends Component
       }
     
     }
+
+    // setProduct(productID){
+    //   this.setState({
+    //     productID: this.state.productID = productID
+    //   })
+    // }
+    
+    // openDrawer(){
+    //   <DrawerNavigator/>
+    // }
 
     render () {
 
@@ -117,10 +131,16 @@ export default class ProductInfoScreen extends Component
                         <Text> - </Text>
                       </Pressable>
                     </View>
-                    
+               </View>
 
+               <View style={styles.addView}>
+                <Pressable
+                    style={styles.addButton}
+                    onPress={this.setProduct(this.state.productID)}
+                    >
+                    <Text> Agregar </Text>
+                </Pressable>
               </View>
-              
             </View>
         </View>
       )
@@ -143,7 +163,6 @@ export default class ProductInfoScreen extends Component
       borderRadius: 4
     },
     imageStyle: {
-      display: "block",
       width: "90%", 
       height: "90%" 
     },
@@ -162,7 +181,7 @@ export default class ProductInfoScreen extends Component
     title: {
       fontSize: 36,
       marginBottom: 14,
-      fontVariant: "bold",
+      fontWeight: "bold",
       textTransform: "capitalize"
     },
     info: {
@@ -183,7 +202,6 @@ export default class ProductInfoScreen extends Component
       textAlign: "center"
     },
     prices: {
-      // height: 75,
       marginTop: 16,
       backgroundColor: "#d1efef"
     },
@@ -206,7 +224,22 @@ export default class ProductInfoScreen extends Component
     quantityNumber:{
       backgroundColor:"white",
       borderRadius:10
-    }
+    },
+    addButton:{
+      borderRadius: 5,
+      fontsize: 10,
+      fontWeight: 'normal',
+      backgroundColor: '#d1efef',
+      borderRadius: 100
+    },
+    addView:{
+      width:'100%',
+      height: 50,
+      padding: 10,
+      justifyContent:'space-evenly',
+      alignItems:'center',
+      
 
+    }
     
   });
