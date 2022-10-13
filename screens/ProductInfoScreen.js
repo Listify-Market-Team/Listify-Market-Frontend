@@ -1,6 +1,6 @@
-import React, {Component, useState} from 'react';
-import { ActivityIndicator, FlatList, Text, View, Image, TouchableOpacity, StyleSheet } from 'react-native';
-import Pressable from 'react-native/Libraries/Components/Pressable/Pressable';
+import React from "react";
+import {FlatList, Text, View, Image, StyleSheet } from "react-native";
+import Pressable from "react-native/Libraries/Components/Pressable/Pressable";
 
 
 //Random Data
@@ -80,19 +80,21 @@ export default class ProductInfoScreen extends Component
                   source = {{uri: 'https://cdn-icons-png.flaticon.com/512/1548/1548682.png'}}/> 
                       
               </View>
+
               <Text style={styles.title}>Product Name</Text>
               <Text style={styles.info}>Lorem Ipsum is simply dummy text of the printing and typesetting industry</Text>
 
               <View style={styles.prices}>
-              <FlatList
-                data={DATA_WITH_ID}
-                renderItem={renderList}
-                keyExtractor={item => item.id}
-                horizontal = {true}
-                />
+                  <FlatList
+                  data={DATA_WITH_ID}
+                  renderItem={renderList}
+                  keyExtractor={(_,item) => item.id}
+                  horizontal = {true}
+                  />
               </View>
 
                 <View style={styles.quantityContainer}>
+
 
                     <View style={{flex:3}}>
                       <Text>Quantity</Text>
@@ -149,34 +151,11 @@ export default class ProductInfoScreen extends Component
       fontSize: 18,
       fontWeight: 'bold',
     },
-    // midContainer: {
-    //   flex:2,
-    //   marginBottom: 20, 
-    //   borderWidth: 2, 
-    //   justifyContent: 'space-between', 
-    //   alignItems: 'center', 
-    //   backgroundColor: '#DAE9E9'
-    // },
-    // bottomContainer:{
-    //   flex:2,
-    //   marginBottom: 20, 
-    //   borderWidth: 2, 
-    //   justifyContent: 'space-between', 
-    //   alignItems: 'center', 
-    //   backgroundColor: '#DAE9E9'
-    // },
+    
     listItem:{
-        // flex:2,
-        // justifyContent: 'space-evenly',
-        // alignItems: 'strech',
-        // backgroundColor: '#d1efef',
-        // height: 150,
-        // width: "100%"
         padding: 14,
-        // marginRight: 10
     },
     listItemText:{
-      // backgroundColor: "#B5D3D3",
       fontWeight: "bold",
       fontSize: 14
     },
