@@ -27,18 +27,10 @@ function Register(props) {
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
   const [invalidPassword, setInvalidPassword] = useState(false);
-  const [emptyUser, setEmptyUser] = useState(false);
-  const [emptyPassword, setEmptyPassword] = useState(false);
+
+  const userRegex = /^(?:\d{10}|\w+@\w+\.\w{2,3})$/;
 
   const submit = (data) => {
-    if (data.user.trim() === "") {
-      setEmptyUser(true);
-      return;
-    }
-    if (data.password.trim() === "") {
-      setEmptyPassword(true);
-      return;
-    }
     if (data.password !== data.confirmPassword) {
       setInvalidPassword(true);
       return;
@@ -58,10 +50,8 @@ function Register(props) {
   };
 
   const closeModal = () => {
-    setEmptyUser(false);
-    setInvalidPassword(false);
     setSuccess(false);
-    setEmptyPassword(false);
+    setInvalidPassword(false);
   };
 
   return (
@@ -82,18 +72,21 @@ function Register(props) {
               control={control}
               name="user"
               placeholder="Phone Number or Email"
+              rules={{ required: "Phone Number or Email is required", pattern: {value: userRegex, message: "Invalid Phone Number or Email"}}}
             />
             <LoginInput
               control={control}
               name="password"
               placeholder="Password"
               secureTextEntry
+              rules={{ required: "Password is required" }}
             />
             <LoginInput
               control={control}
               name="confirmPassword"
               placeholder="Confirm Password"
               secureTextEntry
+              rules={{ required: "Confirm Password is required" }}
             />
           </SafeAreaView>
           <View style={styles.buttons}>
@@ -155,36 +148,6 @@ function Register(props) {
             <Text>Las contraseñas no coinciden.</Text>
             <Pressable onPress={closeModal} style={styles.btn}>
               <Text style={styles.btnText}>Intentar de nuevo</Text>
-            </Pressable>
-          </View>
-        </View>
-      </Modal>
-      <Modal
-        style={styles.modal}
-        visible={emptyUser}
-        transparent={true}
-        animationType="slide"
-      >
-        <View style={styles.modalContainer}>
-          <View style={styles.modalContent}>
-            <Text>El usuario es requerido.</Text>
-            <Pressable onPress={closeModal} style={styles.btn}>
-              <Text style={styles.btnText}>Ok</Text>
-            </Pressable>
-          </View>
-        </View>
-      </Modal>
-      <Modal
-        style={styles.modal}
-        visible={emptyPassword}
-        transparent={true}
-        animationType="slide"
-      >
-        <View style={styles.modalContainer}>
-          <View style={styles.modalContent}>
-            <Text>El la contraseña es requerida.</Text>
-            <Pressable onPress={closeModal} style={styles.btn}>
-              <Text style={styles.btnText}>Ok</Text>
             </Pressable>
           </View>
         </View>

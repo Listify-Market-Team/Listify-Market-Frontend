@@ -14,12 +14,14 @@ import { useForm } from "react-hook-form";
 import LoginInput from "../components/LoginInput";
 
 function Login(props) {
-  const { control, handleSubmit } = useForm({
+  const { control, handleSubmit, formState:{errors} } = useForm({
     defaultValues: {
       user: "",
       password: "",
     },
   });
+
+  const userRegex = /^(?:\d{10}|\w+@\w+\.\w{2,3})$/;
 
   const onSubmit = (data) => console.log(data);
 
@@ -40,12 +42,14 @@ function Login(props) {
             control={control}
             name="user"
             placeholder="Phone Number or Email"
+            rules={{ required: "Phone Number or Email is required", pattern: {value: userRegex, message: "Invalid Phone Number or Email"}}}
           />
           <LoginInput
             control={control}
             name="password"
             placeholder="Password"
             secureTextEntry
+            rules={{ required: "Password is required" }}
           />
         </SafeAreaView>
         <Pressable onPress={handleSubmit(onSubmit)} style={styles.login}>
