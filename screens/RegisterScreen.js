@@ -12,28 +12,34 @@ import {
   Modal,
 } from "react-native";
 import React, { useState } from "react";
+import { useForm } from "react-hook-form";
+import LoginInput from "../components/LoginInput";
 import axios from "axios";
 
 function Register(props) {
-  const [userField, setUserField] = React.useState("");
-  const [confirmPassword, setconfirmPassword] = React.useState("");
-  const [password, setPassword] = React.useState("");
+  const { control, handleSubmit } = useForm({
+    defaultValues: {
+      user: "",
+      password: "",
+      confirmPassword: ""
+    },
+  });
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
   const [invalidPassword, setInvalidPassword] = useState(false);
   const [emptyUser, setEmptyUser] = useState(false);
   const [emptyPassword, setEmptyPassword] = useState(false);
 
-  const submit = () => {
-    if (userField.trim() === "") {
+  const submit = (data) => {
+    if (data.user.trim() === "") {
       setEmptyUser(true);
       return;
     }
-    if (password.trim() === "") {
+    if (data.password.trim() === "") {
       setEmptyPassword(true);
       return;
     }
-    if (password !== confirmPassword) {
+    if (data.password !== data.confirmPassword) {
       setInvalidPassword(true);
       return;
     }
@@ -41,6 +47,7 @@ function Register(props) {
     setTimeout(() => {
       setLoading(false);
       setSuccess(true);
+      console.log(data);
     }, 3000);
     // axios.post("http://api", { email: userField, password }).then(response => {
     //   if (response.status === 200) {
@@ -71,28 +78,22 @@ function Register(props) {
           />
           <Text style={styles.title}>Create your account</Text>
           <SafeAreaView>
-            <TextInput
-              style={styles.input}
-              onChangeText={setUserField}
-              value={userField}
+            <LoginInput
+              control={control}
+              name="user"
               placeholder="Phone Number or Email"
-              placeholderTextColor={"#FFF"}
             />
-            <TextInput
-              style={styles.input}
-              onChangeText={setPassword}
-              value={password}
+            <LoginInput
+              control={control}
+              name="password"
               placeholder="Password"
-              placeholderTextColor={"#FFF"}
-              secureTextEntry={true}
+              secureTextEntry
             />
-            <TextInput
-              style={styles.input}
-              onChangeText={setconfirmPassword}
-              value={confirmPassword}
+            <LoginInput
+              control={control}
+              name="confirmPassword"
               placeholder="Confirm Password"
-              placeholderTextColor={"#FFF"}
-              secureTextEntry={true}
+              secureTextEntry
             />
           </SafeAreaView>
           <View style={styles.buttons}>
@@ -104,10 +105,7 @@ function Register(props) {
             >
               <Text style={styles.back_text}>Back</Text>
             </Pressable>
-            <Pressable
-              onPress={submit}
-              style={styles.login}
-            >
+            <Pressable onPress={handleSubmit(submit)} style={styles.login}>
               <Text style={styles.login_text}>Sign Up</Text>
             </Pressable>
           </View>
@@ -197,10 +195,7 @@ function Register(props) {
 
 export default function RegisterScreen({ navigation: { goBack } }) {
   return (
-    <KeyboardAvoidingView
-      behavior={Platform.OS === "ios" ? "padding" : null}
-      style={styles.view}
-    >
+    <KeyboardAvoidingView style={styles.view}>
       <Register goBack={goBack} />
     </KeyboardAvoidingView>
   );
@@ -210,7 +205,6 @@ const styles = StyleSheet.create({
   view: {
     flex: 1,
   },
-
   container: {
     flex: 1,
     justifyContent: "flex-end",
@@ -220,10 +214,9 @@ const styles = StyleSheet.create({
     height: "100%",
   },
   logo: {
-    width: 180,
-    height: 180,
+    width: 160,
+    height: 160,
     alignSelf: "center",
-    marginBottom: 20,
   },
   title: {
     color: "#FFF",
@@ -231,19 +224,7 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     fontSize: 30,
     marginTop: 10,
-    marginBottom: 20,
     textDecorationLine: "underline",
-  },
-  input: {
-    height: 40,
-    marginTop: 40,
-    marginRight: 40,
-    marginLeft: 40,
-    borderBottomWidth: 3,
-    borderColor: "#FFF",
-    color: "#FFF",
-    fontSize: 12,
-    padding: 10,
   },
   login: {
     marginRight: 15,

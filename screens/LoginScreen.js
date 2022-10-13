@@ -10,10 +10,18 @@ import {
   KeyboardAvoidingView,
 } from "react-native";
 import React from "react";
+import { useForm } from "react-hook-form";
+import LoginInput from "../components/LoginInput";
 
 function Login(props) {
-  const [userField, setUserField] = React.useState("");
-  const [password, setPassword] = React.useState("");
+  const { control, handleSubmit } = useForm({
+    defaultValues: {
+      user: "",
+      password: "",
+    },
+  });
+
+  const onSubmit = (data) => console.log(data);
 
   return (
     <ImageBackground
@@ -28,28 +36,19 @@ function Login(props) {
         />
         <Text style={styles.title}>Login to your account</Text>
         <SafeAreaView>
-          <TextInput
-            style={styles.input}
-            onChangeText={setUserField}
-            value={userField}
+          <LoginInput
+            control={control}
+            name="user"
             placeholder="Phone Number or Email"
-            placeholderTextColor={"#FFF"}
           />
-          <TextInput
-            style={styles.input}
-            onChangeText={setPassword}
-            value={password}
+          <LoginInput
+            control={control}
+            name="password"
             placeholder="Password"
-            placeholderTextColor={"#FFF"}
-            secureTextEntry={true}
+            secureTextEntry
           />
         </SafeAreaView>
-        <Pressable
-          onPress={() => {
-            console.log(`User: ${userField}, Password: ${password}`);
-          }}
-          style={styles.login}
-        >
+        <Pressable onPress={handleSubmit(onSubmit)} style={styles.login}>
           <Text style={styles.login_text}>Log In</Text>
         </Pressable>
         <View style={styles.footer}>
@@ -67,13 +66,10 @@ function Login(props) {
   );
 }
 
-export default function LoginScreen({ navigation: { navigate }}) {
+export default function LoginScreen({ navigation: { navigate } }) {
   return (
-    <KeyboardAvoidingView
-      behavior={Platform.OS === "ios" ? "padding" : null}
-      style={styles.view}
-    >
-      <Login navigate={navigate}/>
+    <KeyboardAvoidingView style={styles.view}>
+      <Login navigate={navigate} />
     </KeyboardAvoidingView>
   );
 }
@@ -82,7 +78,6 @@ const styles = StyleSheet.create({
   view: {
     flex: 1,
   },
-
   container: {
     flex: 1,
     justifyContent: "flex-end",
@@ -105,17 +100,6 @@ const styles = StyleSheet.create({
     fontSize: 30,
     marginTop: 40,
     textDecorationLine: "underline",
-  },
-  input: {
-    height: 40,
-    marginTop: 60,
-    marginRight: 40,
-    marginLeft: 40,
-    borderBottomWidth: 3,
-    borderColor: "#FFF",
-    color: "#FFF",
-    fontSize: 12,
-    padding: 10,
   },
   login: {
     marginTop: 70,
