@@ -1,7 +1,7 @@
 import { StyleSheet, TextInput, View, Text } from "react-native";
 import { Controller } from "react-hook-form";
 import React from "react";
-
+import { Ionicons } from "@expo/vector-icons";
 export default function LoginInput({
   control,
   name,
@@ -29,7 +29,12 @@ export default function LoginInput({
               placeholderTextColor={"#FFF"}
               secureTextEntry={secureTextEntry}
             />
-            {error && <Text style={styles.error}>{error.message}</Text>}
+            {error && (
+              <View style={styles.error}>
+                <Ionicons name="warning-outline" size={16} color="red" />
+                <Text style={styles.errorText}>{error.message}</Text>
+              </View>
+            )}
           </View>
         </>
       )}
@@ -52,9 +57,14 @@ const styles = StyleSheet.create({
     padding: 10,
   },
   error: {
-    color: "red",
-    fontSize: 12,
+    flexDirection: "row",
+    alignItems: "center",
     marginTop: 5,
-    fontWeight: 700,
+  },
+  errorText: {
+    marginLeft: 3,
+    color: "red",
+    fontSize: 13,
+    fontWeight: "650",
   },
 });

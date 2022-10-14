@@ -45,27 +45,25 @@ function Login(props) {
           source={require("../resources/Logo-Proyecto2-1.png")}
         />
         <Text style={styles.title}>Login to your account</Text>
-        <SafeAreaView>
-          <LoginInput
-            control={control}
-            name="user"
-            placeholder="Phone Number or Email"
-            rules={{
-              required: "Phone Number or Email is required",
-              pattern: {
-                value: userRegex,
-                message: "Invalid Phone Number or Email",
-              },
-            }}
-          />
-          <LoginInput
-            control={control}
-            name="password"
-            placeholder="Password"
-            secureTextEntry
-            rules={{ required: "Password is required" }}
-          />
-        </SafeAreaView>
+        <LoginInput
+          control={control}
+          name="user"
+          placeholder="Phone Number or Email"
+          rules={{
+            required: "Phone Number or Email is required",
+            pattern: {
+              value: userRegex,
+              message: "Invalid Phone Number or Email",
+            },
+          }}
+        />
+        <LoginInput
+          control={control}
+          name="password"
+          placeholder="Password"
+          secureTextEntry
+          rules={{ required: "Password is required" }}
+        />
         <Pressable onPress={handleSubmit(onSubmit)} style={styles.login}>
           <Text style={styles.login_text}>Log In</Text>
         </Pressable>
@@ -116,11 +114,12 @@ const styles = StyleSheet.create({
     alignSelf: "center",
     fontWeight: "bold",
     fontSize: 30,
+    marginTop: 20,
     marginBottom: 20,
     textDecorationLine: "underline",
   },
   login: {
-    marginTop: 100,
+    marginTop: 60,
     marginBottom: 50,
     alignItems: "center",
     alignSelf: "center",
@@ -143,7 +142,7 @@ const styles = StyleSheet.create({
   footer: {
     justifyContent: "center",
     flexDirection: "row",
-    marginBottom: 50,
+    marginBottom: 60,
   },
   footer_text: {
     color: "#FFF",

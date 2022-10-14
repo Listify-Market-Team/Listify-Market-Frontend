@@ -3953,6 +3953,11 @@
   "resolved" "https://registry.npmjs.org/dag-map/-/dag-map-1.0.2.tgz"
   "version" "1.0.2"
 
+"date-and-time@0.9.0":
+  "integrity" "sha512-4JybB6PbR+EebpFx/KyR5Ybl+TcdXMLIJkyYsCx3P4M4CWGMuDyFF19yh6TyasMAIF5lrsgIxiSHBXh2FFc7Fg=="
+  "resolved" "https://registry.npmjs.org/date-and-time/-/date-and-time-0.9.0.tgz"
+  "version" "0.9.0"
+
 "dayjs@^1.8.15":
   "integrity" "sha512-CAdX5Q3YW3Gclyo5Vpqkgpj8fSdLQcRuzfX6mC6Phy0nfJ0eGYOeS7m4mt2plDWLAtA4TqTakvbboHvUxfe4iA=="
   "resolved" "https://registry.npmjs.org/dayjs/-/dayjs-1.11.5.tgz"
@@ -9029,6 +9034,13 @@
   "resolved" "https://registry.npmjs.org/react-is/-/react-is-17.0.2.tgz"
   "version" "17.0.2"
 
+"react-native-animated-input@^1.1.0":
+  "integrity" "sha512-T7g3dQ/Vw80ll7ewdeVT48+XXLgyirjjlFw6a3dLIDWy5oDl03swh6RbY7GKRj3cSXt98d5yKHoC3R5bhCuFtw=="
+  "resolved" "https://registry.npmjs.org/react-native-animated-input/-/react-native-animated-input-1.1.0.tgz"
+  "version" "1.1.0"
+  dependencies:
+    "react-native-masked-text" "^1.13.0"
+
 "react-native-codegen@^0.69.2":
   "integrity" "sha512-yPcgMHD4mqLbckqnWjFBaxomDnBREfRjDi2G/WxNyPBQLD+PXUEmZTkDx6QoOXN+Bl2SkpnNOSsLE2+/RUHoPw=="
   "resolved" "https://registry.npmjs.org/react-native-codegen/-/react-native-codegen-0.69.2.tgz"
@@ -9054,6 +9066,14 @@
   "integrity" "sha512-+4JpbIx42zGTONhBTIXSyfyHICHC29VTvhkkoUOJAh/XHPEixpuBduYgf6Y4y9wsN1ARlQhBBoptTvXvAFQf5g=="
   "resolved" "https://registry.npmjs.org/react-native-gradle-plugin/-/react-native-gradle-plugin-0.0.7.tgz"
   "version" "0.0.7"
+
+"react-native-masked-text@^1.13.0":
+  "integrity" "sha512-iMku5Ky6DP4fTRosjsYNJOhH8yoBQCzRALBdv1wVDKmCBQhhVE8RHr5EW4SNUjkYTZL473sDdEKl4NI948q9FQ=="
+  "resolved" "https://registry.npmjs.org/react-native-masked-text/-/react-native-masked-text-1.13.0.tgz"
+  "version" "1.13.0"
+  dependencies:
+    "date-and-time" "0.9.0"
+    "tinymask" "1.0.2"
 
 "react-native-reanimated@>= 1.0.0", "react-native-reanimated@~2.9.1":
   "integrity" "sha512-309SIhDBwY4F1n6e5Mr5D1uPZm2ESIcmZsGXHUu8hpKX4oIOlZj2MilTk+kHhi05LjChoJkcpfkstotCJmPRPg=="
@@ -10524,6 +10544,11 @@
   "integrity" "sha512-qsdtZH+vMoCARQtyod4imc2nIJwg9Cc7lPRrw9CzF8ZKR0khdr8+2nX80PBhET3tcyTtJDxAffGh2rXH4tyU8A=="
   "resolved" "https://registry.npmjs.org/timsort/-/timsort-0.3.0.tgz"
   "version" "0.3.0"
+
+"tinymask@1.0.2":
+  "integrity" "sha512-2FjNINAMq0s3e94ns2PuElOQZOt9QVgnrv0JZ8yNblwecyQDhVsSre6Rs+WJj/IHEcgdfYbDMP7zvECTfV/Xnw=="
+  "resolved" "https://registry.npmjs.org/tinymask/-/tinymask-1.0.2.tgz"
+  "version" "1.0.2"
 
 "tmp@^0.0.33":
   "integrity" "sha512-jRCJlojKnZ3addtTOjdIqoRuPEKBvNXcGYqzO6zWZX8KfKEpnGY5jfggJQ3EjKuu8D4bJRr0y+cYJFmYbImXGw=="

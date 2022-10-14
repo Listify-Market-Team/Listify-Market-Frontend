@@ -3,11 +3,10 @@ import React, {useContext} from "react";
 import {AuthContext} from "../context/AuthContext";
 
 export default function HomeScreen({ navigation }) {
-  const { logout } = useContext(AuthContext);
   return (
     <View style={styles.container}>
       <Text>Home Screen</Text>
-      <Button title="Help" onPress={() => logout()} />
+      <Button title="Help" onPress={() => navigation.navigate("Help")} />
     </View>
   );
 }
