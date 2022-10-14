@@ -7,7 +7,7 @@ import {
   TouchableOpacity,
   Image
 } from "react-native";
-import searchIcon from "../resources/1024px-Search_Icon.svg.png"
+import searchIcon from "../img/magnifier.png"
 
 const SearchBar = () => {
   return (

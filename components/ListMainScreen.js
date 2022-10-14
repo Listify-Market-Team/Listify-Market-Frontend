@@ -1,23 +1,35 @@
 import { useEffect, useState } from "react";
 import { StatusBar } from "react-native";
-import { StyleSheet, View, Text, Button, TouchableOpacity } from "react-native";
+import { StyleSheet, View, Text, Button, TouchableOpacity, FlatList } from "react-native";
 import SearchBar from "./SearchBar";
 import List from "./List";
+import useFetch from "../Hooks/useFetch";
 
 // const fetchList = async () => {
-//     const res = await fetch("https://localhost:7209/api/Inventory/Getall")
+//     const res = await fetch("https://localhost:7209/api/AppUsers/GetAll")
 //     const json = await res.json();
 // console.log(json)
 // }
-// fetchList()
+
+// const fetchData = async () => {
+//   const res = useFetch("https://jsonplaceholder.typicode.com/todos/1")
+//   console.log(res)
+// };
 
 const ListMainScreen = () => {
+  const res = useFetch("https://localhost:7209/api/Inventory/GetAll")
+  const data = res.data.inventories
+ 
+
+
   // useEffect(() => {
-  //     fetchList()
+  //   setReload(1)
+  //   console.log(reload)
+
   // }, [])
   return (
+    
     <View style={styles.screen}>
-
     <View style={styles.searchBarContainer}>
     <SearchBar style={styles.searchBar}/>
     </View>
@@ -32,7 +44,15 @@ const ListMainScreen = () => {
         </View>
 
         <View style={styles.listContainer}>
-          <List/>
+            <FlatList
+            data={data}
+            keyExtractor={x => x.id}
+            renderItem={({item}) => 
+            <List
+              list={item}
+              />
+            }
+            />
         </View>
 
       </View>
