@@ -9,12 +9,18 @@ import {
   Pressable,
   KeyboardAvoidingView,
 } from "react-native";
-import React from "react";
+import React, { useContext } from "react";
 import { useForm } from "react-hook-form";
 import LoginInput from "../components/LoginInput";
+import { AuthContext } from "../context/AuthContext";
 
 function Login(props) {
-  const { control, handleSubmit, formState:{errors} } = useForm({
+  const { login } = useContext(AuthContext);
+  const {
+    control,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
     defaultValues: {
       user: "",
       password: "",
@@ -23,7 +29,9 @@ function Login(props) {
 
   const userRegex = /^(?:\d{10}|\w+@\w+\.\w{2,3})$/;
 
-  const onSubmit = (data) => console.log(data);
+  const onSubmit = (data) => {
+    login(data.user, data.password);
+  };
 
   return (
     <ImageBackground
@@ -42,7 +50,13 @@ function Login(props) {
             control={control}
             name="user"
             placeholder="Phone Number or Email"
-            rules={{ required: "Phone Number or Email is required", pattern: {value: userRegex, message: "Invalid Phone Number or Email"}}}
+            rules={{
+              required: "Phone Number or Email is required",
+              pattern: {
+                value: userRegex,
+                message: "Invalid Phone Number or Email",
+              },
+            }}
           />
           <LoginInput
             control={control}
