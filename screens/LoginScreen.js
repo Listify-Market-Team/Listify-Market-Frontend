@@ -116,11 +116,11 @@ const styles = StyleSheet.create({
     alignSelf: "center",
     fontWeight: "bold",
     fontSize: 30,
-    marginTop: 40,
+    marginBottom: 20,
     textDecorationLine: "underline",
   },
   login: {
-    marginTop: 70,
+    marginTop: 100,
     marginBottom: 50,
     alignItems: "center",
     alignSelf: "center",
