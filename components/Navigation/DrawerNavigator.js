@@ -9,6 +9,7 @@ import Menu from "../../components/Menu";
 import ListMainScreen from "../../screens/ListMainScreen";
 import ProductInfoScreen from "../../screens/ProductInfoScreen";
 import NewListScreen from "../../screens/NewListScreen";
+import UpdateListScreen from "../../screens/UpdateListScreen";
 
 
 const Drawer = createDrawerNavigator();
@@ -41,7 +42,15 @@ export const DrawerNavigator = () => {
         }}
       /> */}
       />
-      <Drawer.Screen name="NewList" component={NewListScreen} />
+      <Drawer.Screen
+        name="NewList"
+        component={NewListScreen}
+        options={{ headerTitle: "Nueva Lista" }}
+      />
+      <Drawer.Screen
+        name="UpdateList"
+        component={UpdateListScreen}
+        options={{ headerTitle: "Actualizar Lista" }}
       <Drawer.Screen
         name="ProductInfo"
         component={ProductInfoScreen}
