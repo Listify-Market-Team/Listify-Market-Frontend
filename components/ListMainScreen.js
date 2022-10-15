@@ -20,7 +20,7 @@ const ListMainScreen = () => {
   const res = useFetch("https://localhost:7209/api/Inventory/GetAll")
   const data = res.data.inventories
  
-
+  // console.log(count)
 
   // useEffect(() => {
   //   setReload(1)
@@ -44,15 +44,9 @@ const ListMainScreen = () => {
         </View>
 
         <View style={styles.listContainer}>
-            <FlatList
-            data={data}
-            keyExtractor={x => x.id}
-            renderItem={({item}) => 
             <List
-              list={item}
+              
               />
-            }
-            />
         </View>
 
       </View>

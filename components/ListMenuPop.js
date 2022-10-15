@@ -6,36 +6,29 @@ import useFetch from "../Hooks/useFetch";
 
 
 const deviceHeight = Dimensions.get("window").height
-const items = [
-  {
-    name: "Eliminar",
-    action: async (id) => {
-      // console.log(id)
-      // await axios.delete("https://localhost:7209/api/Inventory/Delete",{
-      //   id: id
-      // })
-      axios({
-        method: 'delete',
-        url: 'https://localhost:7209/api/Inventory/Delete',
-        headers: {}, 
-        data: {
-          id: id
-        }
-      });
-    }
-  }, 
-  {
-    name: "Editar",
-    action: 0
-  },
-   {
-    name: "Favorito",
-    action:0
-   }
-  ]
+
 
 
 const ListMenuPop = (props) => {
+
+  const items = [
+    {
+      name: "Eliminar",
+      action: (id) => {
+        props.deleteList(id)
+      }
+    }, 
+    {
+      name: "Editar",
+      action: 0
+    },
+     {
+      name: "Favorito",
+      action:0
+     }
+    ]
+
+
 
   const renderItem = ({item}) => {
     return(

@@ -10,9 +10,32 @@ import React, { useState, useEffect } from "react";
 import useFetch from "../Hooks/useFetch";
 import ListMenuPop from "./ListMenuPop";
 import detailBTN from "../img/DetailBTN.png";
+import axios from 'axios';
+
+
+
 
 const List = (props) => {
-  const list = props.list
+
+  const [list1, setList] = useState([])
+
+
+  const fetchList = async () => {
+    const res = await fetch("https://localhost:7209/api/Inventory/GetAll")
+    const json = await res.json();
+    const json2 = json.inventories
+    setList(json2)
+    
+  }
+
+  useEffect(() =>{
+    fetchList()
+  },[])
+
+  console.log(list1);
+
+// console.log(props.count[0]);
+  //console.log(list)
 
   const data = 
   [
@@ -43,6 +66,23 @@ const List = (props) => {
   // console.log(list.isModalVisible)
 
 
+const deleteList = (id) => {
+  // console.log(id)
+  // await axios.delete("https://localhost:7209/api/Inventory/Delete",{
+  //   id: id
+  // })
+  axios({
+    method: 'delete',
+    url: 'https://localhost:7209/api/Inventory/Delete',
+    headers: {}, 
+    data: {
+      id: id
+    }
+  });
+
+  fetchList()
+}
+
 
 const setSelectedProduct = (product) => {
   setListModal(product)
@@ -55,7 +95,9 @@ const setSelectedProduct = (product) => {
   return (
     <View>
 
-        <View style={styles.screen}>
+      {list1.map((list,i) =>(
+        
+        <View style={styles.screen} key={i}>
           <Image source="https://cdn0.iconfinder.com/data/icons/cosmo-layout/40/box-512.png" style={styles.imageStyle} />
 
           <View style={styles.content}>
@@ -80,17 +122,22 @@ const setSelectedProduct = (product) => {
               animationType='fade'
               transparent={true}
               visible={isModalVisible}
-              onRequestClose={()=> 
+              onRequestClose={()=> {
+
                 changeModalVisibility(false)
+                
+              }
               }
               >
                 <ListMenuPop
                 list={listModal}
+                deleteList= {deleteList}
                 changeModalVisibility={changeModalVisibility}
                 />
           </Modal>
 
         </View>
+      ))}
       
     </View>
   );
