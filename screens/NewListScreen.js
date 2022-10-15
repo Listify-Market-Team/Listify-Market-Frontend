@@ -1,16 +1,37 @@
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text, StyleSheet, ActivityIndicator } from "react-native";
+import { useState } from "react";
+import axios from "axios";
+
 import SimpleListForm from "../components/ListForm/SimpleListForm";
 
-export default function NewListScreen({ navigation }) {
+export default function NewListScreen({ navigation, route }) {
+  const [loading, setLoading] = useState(false);
+
   const sendNewList = (list) => {
-    console.log(list);
+    setLoading(true);
+
+    try {
+      axios
+        .post("http://localhost:5209/api/Inventory/Create", {
+          name: list.name,
+          description: list.description,
+          appUserId: 1,
+          totalPrice: 1,
+        })
+        .then(() => {
+          setLoading(false);
+          navigation.navigate("Home");
+        });
+    } catch (error) {
+      console.log("something went wrong");
+    }
   };
 
   return (
     <View style={screenStyles.base}>
       <View style={screenStyles.container}>
         <Text style={screenStyles.title}>Nueva lista</Text>
-        <SimpleListForm onSubmit={sendNewList} />
+        <SimpleListForm onSubmit={sendNewList} loading={loading} />
       </View>
     </View>
   );

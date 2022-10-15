@@ -38,7 +38,7 @@ import axios from "axios";
 //   },
 // ];
 
-const List = (props) => {
+const List = ({ navigation }) => {
   const [list1, setList] = useState([]);
   const [listModal, setListModal] = useState();
   const [isModalVisible, setIsModalVisible] = useState(false);
@@ -55,28 +55,40 @@ const List = (props) => {
   };
 
   useEffect(() => {
-    fetchList();
-  }, []);
+    const unsubscribe = navigation.addListener("focus", () => {
+      fetchList();
+    });
+    return unsubscribe;
+  }, [navigation]);
 
   const deleteList = (id) => {
     try {
       axios({
         method: "delete",
-        url: "https://localhost:7209/api/Inventory/Delete",
-        headers: {},
-        data: {
-          id: id,
-        },
-      });
-
-      setList((state) => {
-        return state.filter((list) => list.id !== id);
+        url: "http://localhost:5209/api/Inventory/Delete",
+        data: { id },
+      }).then(() => {
+        setList((state) => {
+          return state.filter((list) => list.id !== id);
+        });
       });
     } catch (error) {
       console.log("something went wrong");
     }
 
     // fetchList()
+  };
+
+  const editList = (id) => {
+    axios
+      .get("http://localhost:5209/api/Inventory/GetById", { params: { id } })
+      .then((res) => {
+        navigation.navigate("UpdateList", {
+          id: id,
+          name: res.data.name,
+          description: res.data.description,
+        });
+      });
   };
 
   const setSelectedProduct = (product) => {
@@ -125,6 +137,7 @@ const List = (props) => {
             <ListMenuPop
               list={listModal}
               deleteList={deleteList}
+              editList={editList}
               changeModalVisibility={changeModalVisibility}
             />
           </Modal>

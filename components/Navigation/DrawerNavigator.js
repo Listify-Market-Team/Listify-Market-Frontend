@@ -11,7 +11,6 @@ import ProductInfoScreen from "../../screens/ProductInfoScreen";
 import NewListScreen from "../../screens/NewListScreen";
 import UpdateListScreen from "../../screens/UpdateListScreen";
 
-
 const Drawer = createDrawerNavigator();
 
 export const DrawerNavigator = () => {
@@ -41,7 +40,6 @@ export const DrawerNavigator = () => {
           ),
         }}
       /> */}
-      />
       <Drawer.Screen
         name="NewList"
         component={NewListScreen}
@@ -51,6 +49,7 @@ export const DrawerNavigator = () => {
         name="UpdateList"
         component={UpdateListScreen}
         options={{ headerTitle: "Actualizar Lista" }}
+      />
       <Drawer.Screen
         name="ProductInfo"
         component={ProductInfoScreen}
