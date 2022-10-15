@@ -6,37 +6,37 @@ export const AuthContext = React.createContext();
 
 export const AuthProvider = ({ children }) => {
   const [isLoading, setIsLoading] = useState(false);
-  const [userToken, setUserToken] = useState(null);
   const [user, setUser] = useState(null);
 
   const login = (user, password) => {
     setIsLoading(true);
-    // axios
-    //   .post("http://localhost:3000/login", {
-    //     user,
-    //     password,
-    //   })
-    //   .then((response) => {
-    //     let user = response.data;
-    //     setUser(user);
-    //     setUserToken(user.token);
-    //     AsyncStorage.setItem("user", JSON.stringify(user));
-    //     AsyncStorage.setItem("userToken", user.token);
-    //     setIsLoading(false);
-    //   })
-    //   .catch((error) => {
-    //     console.log(error);
-    //     setIsLoading(false);
-    //   });
-    AsyncStorage.setItem("userToken", "asdf");
-    setUserToken("asdf");
+    axios
+      .post("https://localhost:7209/api/AppUsers/AuthenticateUser", {
+        user,
+        password,
+      })
+      .then((response) => {
+        let user = response.data;
+        if (user.name !== null) {
+          setUser(user);
+          AsyncStorage.setItem("user", JSON.stringify(user));
+          setIsLoading(false);
+        }
+        else {
+          alert("Invalid credentials");
+          setIsLoading(false);
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+        setIsLoading(false);
+      });
     setIsLoading(false);
   };
 
   const logout = () => {
     setIsLoading(true);
-    setUserToken(null);
-    AsyncStorage.removeItem("userToken");
+    setUser(null);
     AsyncStorage.removeItem("user");
     setIsLoading(false);
   };
@@ -45,12 +45,9 @@ export const AuthProvider = ({ children }) => {
     try {
       setIsLoading(true);
       let user = await AsyncStorage.getItem("user");
-      let userToken = await AsyncStorage.getItem("userToken");
-      // if (user && userToken) {
-      //   setUser(JSON.parse(user));
-      //   setUserToken(userToken);
-      // }
-      setUserToken(userToken);
+      if (user) {
+        setUser(JSON.parse(user));
+      }
       setIsLoading(false);
     } catch (error) {
       console.log("isLogged in error: ", error);
@@ -62,7 +59,7 @@ export const AuthProvider = ({ children }) => {
   }, []);
 
   return (
-    <AuthContext.Provider value={{ login, logout, isLoading, userToken, user }}>
+    <AuthContext.Provider value={{ login, logout, isLoading, user }}>
       {children}
     </AuthContext.Provider>
   );

@@ -71,7 +71,7 @@ function Login(props) {
           <Text style={styles.footer_text}>Dont have an account?</Text>
           <Pressable
             onPress={() => {
-              props.navigate("Register");
+              props.navigate("Personal");
             }}
           >
             <Text style={styles.footer_signup}>Sign Up</Text>
@@ -82,7 +82,7 @@ function Login(props) {
   );
 }
 
-export default function LoginScreen({ navigation: { navigate } }) {
+export default function LoginScreen({ navigation: { navigate} }) {
   return (
     <KeyboardAvoidingView style={styles.view}>
       <Login navigate={navigate} />

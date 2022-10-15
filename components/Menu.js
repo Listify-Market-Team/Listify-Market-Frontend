@@ -8,7 +8,7 @@ import React, { useContext } from "react";
 import { AuthContext } from "../context/AuthContext";
 
 export default function Menu(props) {
-  const { logout } = useContext(AuthContext);
+  const { logout, user } = useContext(AuthContext);
   return (
     <DrawerContentScrollView
       {...props}
@@ -19,7 +19,7 @@ export default function Menu(props) {
           style={styles.logo}
           source={require("../assets/LogoProyecto2.8.png")}
         />
-        <Text style={styles.title}>TestUser</Text>
+        <Text style={styles.title}>{user.name}</Text>
         <DrawerItemList {...props} />
       </View>
       <Pressable style={styles.logout} onPress={() => logout()}>

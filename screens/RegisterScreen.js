@@ -19,7 +19,7 @@ import axios from "axios";
 function Register(props) {
   const { control, handleSubmit } = useForm({
     defaultValues: {
-      user: "",
+      email: "",
       password: "",
       confirmPassword: ""
     },
@@ -28,7 +28,7 @@ function Register(props) {
   const [success, setSuccess] = useState(false);
   const [invalidPassword, setInvalidPassword] = useState(false);
 
-  const userRegex = /^(?:\d{10}|\w+@\w+\.\w{2,3})$/;
+  const userRegex = /^(?:\w+@\w+\.\w{2,3})$/;
 
   const submit = (data) => {
     if (data.password !== data.confirmPassword) {
@@ -36,22 +36,26 @@ function Register(props) {
       return;
     }
     setLoading(true);
-    setTimeout(() => {
+    axios.post("https://localhost:7209/api/AppUsers/Create", { 
+      name:props.data.name, password: data.password, email: data.email, phoneNumber: props.data.phoneNumber}).then(response => {
+      if (response.status === 200) {
+        setLoading(false);
+        setSuccess(true);
+      }
+    }).catch(error => {
       setLoading(false);
-      setSuccess(true);
-      console.log(data);
-    }, 3000);
-    // axios.post("http://api", { email: userField, password }).then(response => {
-    //   if (response.status === 200) {
-    //     setLoading(false);
-    //     setSuccess(true);
-    //   }
-    // });
+      setSuccess(false);
+      alert("Error");
+    });
   };
 
   const closeModal = () => {
+    if (success) {
+      props.navigate("Login");
+    } else {
+      setInvalidPassword(false);
+    }
     setSuccess(false);
-    setInvalidPassword(false);
   };
 
   return (
@@ -70,9 +74,9 @@ function Register(props) {
           <SafeAreaView>
             <LoginInput
               control={control}
-              name="user"
-              placeholder="Phone Number or Email"
-              rules={{ required: "Phone Number or Email is required", pattern: {value: userRegex, message: "Invalid Phone Number or Email"}}}
+              name="email"
+              placeholder="Email"
+              rules={{ required: "Email is required", pattern: {value: userRegex, message: "Invalid Email"}}}
             />
             <LoginInput
               control={control}
@@ -156,10 +160,10 @@ function Register(props) {
   );
 }
 
-export default function RegisterScreen({ navigation: { goBack } }) {
+export default function RegisterScreen({ navigation: { goBack, navigate }, route }) {
   return (
     <KeyboardAvoidingView style={styles.view}>
-      <Register goBack={goBack} />
+      <Register goBack={goBack} navigate={navigate} data={route.params}/>
     </KeyboardAvoidingView>
   );
 }

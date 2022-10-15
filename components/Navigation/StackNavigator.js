@@ -5,6 +5,7 @@ import HomeScreen from "../../screens/HomeScreen";
 import HelpScreen from "../../screens/HelpScreen";
 import LoginScreen from "../../screens/LoginScreen";
 import RegisterScreen from "../../screens/RegisterScreen";
+import PersonalScreen from "../../screens/PersonalScreen";
 
 const Stack = createNativeStackNavigator();
 
@@ -53,9 +54,8 @@ export const AuthStackNavigation = () => {
       }}
     >
       <Stack.Screen name="Login" component={LoginScreen} />
+      <Stack.Screen name="Personal" component={PersonalScreen} />
       <Stack.Screen name="Register" component={RegisterScreen} />
     </Stack.Navigator>
   );
 };
-
-

@@ -6,7 +6,7 @@ import { AuthContext } from "../../context/AuthContext";
 import { ActivityIndicator, View, StyleSheet } from "react-native";
 
 const AppNavigator = () => {
-  const { isLoading, userToken } = useContext(AuthContext);
+  const { isLoading, user } = useContext(AuthContext);
 
   if (isLoading) {
     return (
@@ -17,7 +17,7 @@ const AppNavigator = () => {
   }
   return (
     <NavigationContainer>
-      {userToken !== null ? <DrawerNavigator /> : <AuthStackNavigation />}
+      {user !== null ? <DrawerNavigator /> : <AuthStackNavigation />}
     </NavigationContainer>
   );
 };
