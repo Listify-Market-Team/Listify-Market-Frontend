@@ -16,10 +16,6 @@ export default function NewListScreen({ navigation }) {
   );
 }
 
-NewListScreen.navigationOptions = {
-  title: "Nueva Lista",
-};
-
 const screenStyles = StyleSheet.create({
   base: {
     backgroundColor: "#B5D3D3",

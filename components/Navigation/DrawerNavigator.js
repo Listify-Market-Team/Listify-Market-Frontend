@@ -35,8 +35,16 @@ export const DrawerNavigator = () => {
           ),
         }}
       />
-      <Drawer.Screen name="NewList" component={NewListScreen} />
-      <Drawer.Screen name="UpdateList" component={UpdateListScreen} />
+      <Drawer.Screen
+        name="NewList"
+        component={NewListScreen}
+        options={{ headerTitle: "Nueva Lista" }}
+      />
+      <Drawer.Screen
+        name="UpdateList"
+        component={UpdateListScreen}
+        options={{ headerTitle: "Actualizar Lista" }}
+      />
     </Drawer.Navigator>
   );
 };

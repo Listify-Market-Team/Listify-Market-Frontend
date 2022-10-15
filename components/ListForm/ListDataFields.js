@@ -9,12 +9,12 @@ export default function ListDataFields({
   description,
 }) {
   return (
-    <View style={{ ...fieldsStyles.card, ...styles.shadow }}>
+    <View style={[fieldsStyles.card, styles.shadow]}>
       <Input
         label="Nombre"
         labelStyle={fieldsStyles.label}
         onChangeText={onChangeName}
-        style={{ ...fieldsStyles.input, ...fieldsStyles.spacing }}
+        style={[fieldsStyles.input, fieldsStyles.spacing]}
         value={name}
       />
       <Input
@@ -22,7 +22,7 @@ export default function ListDataFields({
         labelStyle={fieldsStyles.label}
         onChangeText={onChangeDescription}
         multiline
-        style={{ ...fieldsStyles.input, ...fieldsStyles.textarea }}
+        style={[fieldsStyles.input, fieldsStyles.textarea]}
         value={description}
       />
     </View>
