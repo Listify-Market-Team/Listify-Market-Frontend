@@ -10,20 +10,25 @@ export const ListData = () =>{
   const [Listdata, setListData] = useState([]);
   const [Checked, setChecked] = useState([]);
 
+  const product = {
+    id: 5,
+    quantity: 2
+  };
+
+  const userid = 3;
+
   useEffect(()=>{
     const doGetRequest = async () => {
-      const res = await axios.get("https://rickandmortyapi.com/api/character");
-      const data = await res.data.results;
-      //const data = await res.data.users;
+      const res = await axios.get(`https://localhost:7209/api/Inventory/GetByUserId?userID=${userid}`);
+      //const data = await res.data.results;
+      const data = await res.data.inventories;
       const check = new Array(data.length).fill(false);
-      setChecked(check);
+      setChecked(check); 
       setListData(data);
       setLoading(false);
     };
     doGetRequest();
   },[]);
-
-  console.log(Checked); 
 
   const handleOnChange = (position) => {
     const updatedListdata = Checked.map((item ,index) =>
@@ -32,41 +37,44 @@ export const ListData = () =>{
     setChecked(updatedListdata);
   };
   
-
   return (   
     Loading ? <Text>Cargando...</Text> :
-      <View style={styles.dataContainer}>
-        <ScrollView>
-          {Listdata.map((element, index)=>(           
-            <View style={styles.ListElementContainer} key={index}>     
+      Listdata.length==0 ? 
+        <Text 
+          style={styles.textDontExist}>
+        No existe ninguna lista. Cree una primero para insertar un producto.
+        </Text> :
+        <View style={styles.dataContainer}>
+          <ScrollView>         
+            {Listdata.map((element, index)=>(           
+              <View style={styles.ListElementContainer} key={index}>     
 
-              <Checkbox 
-                style={styles.checkbox} 
-                name={element.name}
-                value={Checked[index]}
-                onValueChange={() => handleOnChange(index)}>
-              </Checkbox>
-              
-              <Pressable 
-                style={styles.list}            
-                onPress={() => handleOnChange(index)}>
-                
-                <Image 
-                  style={styles.tinyLogo} 
-                  source={element.image}>
-                </Image>
-                
-                <View>
-                  <Text style={styles.text}>MY LIST</Text>
-                  <Text style={styles.text}>{element.name}</Text>
-                </View>           
-              </Pressable>
-            </View>
-          ))}      
-        </ScrollView>
-        <AddProductButton data={Listdata} datacheck={Checked}/>
-      </View>
-      
+                <Checkbox 
+                  style={styles.checkbox} 
+                  name={element.name}
+                  value={Checked[index]}
+                  onValueChange={() => handleOnChange(index)}>
+                </Checkbox>
+                  
+                <Pressable 
+                  style={styles.list}            
+                  onPress={() => handleOnChange(index)}>
+                    
+                  <Image 
+                    style={styles.tinyLogo} 
+                    source={element.image}>
+                  </Image>
+                    
+                  <View>
+                    <Text style={styles.text}>MY LIST</Text>
+                    <Text style={styles.text}>{element.name}</Text>
+                  </View>           
+                </Pressable>
+              </View>
+            ))}         
+          </ScrollView>
+          <AddProductButton data={Listdata} datacheck={Checked} product={product}/>
+        </View>     
   );
 };
 
@@ -75,6 +83,12 @@ const styles = StyleSheet.create({
     fontSize: 15,
     alignContent: "center",
     fontWeight: "bold",
+  },
+  textDontExist:{
+    fontSize: 15,
+    alignItems: "center",
+    padding: "7%",
+    marginTop: "60%"
   },
   checkbox:{
     marginVertical: 40,
@@ -115,11 +129,6 @@ const styles = StyleSheet.create({
   },
   Icon:{
     padding: 15,
-  },
-  text:{
-    fontSize: 15,
-    alignContent: "center",
-    fontWeight: "bold"
   },
   button: {
     alignItems: "center",

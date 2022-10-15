@@ -1,6 +1,7 @@
 import React from "react";
 import {View, TouchableHighlight, StyleSheet, Text, Pressable} from "react-native";
 import { Ionicons } from "@expo/vector-icons";
+import axios, { Axios } from "axios";
 
 export const IconBack = () => {
   return(
@@ -14,23 +15,40 @@ export const IconBack = () => {
 };
 
 export const AddProductButton = (props) => {
-  const array = [];
+
+  const List = [];
+  const prod = props.product;
+  
   const results = () =>{
     props.data.map((d,index1) =>{
       props.datacheck.map((c, index2) =>{
         if (index1 == index2 && c === true) 
         {
-          array.push(d.name);
+          const doGetRequest = async () => {
+            const res = await axios.put("https://localhost:7209/api/Inventory/AddProductToInventory", {
+              "inventoryID": d.id,
+              "productID": prod.id,
+              "quantity": prod.quantity
+            }).catch(error => {({ errorMessage: error.message });});
+
+            const data = await res.status;
+            console.log(data);
+            SetRequest(data);
+          };
+          
+          doGetRequest();
+        
+          List.push(d.id);
         }
       });
     });
+   
+    //console.log(request);
 
-    console.log(array);
-
-    if (array.length == 0) {
+    if (List.length == 0) {
       alert("Seleccione algo");
     }else{
-      alert(array);
+      alert(List);
     }
   };
 
