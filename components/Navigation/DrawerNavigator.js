@@ -1,6 +1,8 @@
 import { createDrawerNavigator } from "@react-navigation/drawer";
 import { Ionicons } from "@expo/vector-icons";
 import { Feather } from "@expo/vector-icons";
+import { AntDesign } from "@expo/vector-icons";
+
 import Menu from "../../components/Menu";
 import HomeScreen from "../../screens/HomeScreen";
 import HelpScreen from "../../screens/HelpScreen";
@@ -12,7 +14,7 @@ const Drawer = createDrawerNavigator();
 export const DrawerNavigator = () => {
   return (
     <Drawer.Navigator
-      drawerContent={props => <Menu {...props} />}
+      drawerContent={(props) => <Menu {...props} />}
       initialRouteName="ProductInfo"
     >
       <Drawer.Screen
@@ -35,15 +37,19 @@ export const DrawerNavigator = () => {
           ),
         }}
       />
-      <Drawer.Screen 
-      name="NewList" 
-      component={NewListScreen} />
-      
+      <Drawer.Screen name="NewList" component={NewListScreen} />
+
       <Drawer.Screen
-      name="ProductInfo"
-      component={ProductInfoScreen}/>
-
-
+        name="ProductInfo"
+        component={ProductInfoScreen}
+        options={{
+          headerTitle: "Información de producto",
+          title: "Información de producto",
+          drawerIcon: () => (
+            <AntDesign name="infocirlceo" size={24} color="#00DE68" />
+          ),
+        }}
+      />
     </Drawer.Navigator>
   );
 };
