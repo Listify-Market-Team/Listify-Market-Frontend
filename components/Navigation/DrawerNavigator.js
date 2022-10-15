@@ -4,10 +4,12 @@ import { Feather } from "@expo/vector-icons";
 import { AntDesign } from "@expo/vector-icons";
 
 import Menu from "../../components/Menu";
-import HomeScreen from "../../screens/HomeScreen";
-import HelpScreen from "../../screens/HelpScreen";
+// import HomeScreen from "../../screens/HomeScreen";
+// import HelpScreen from "../../screens/HelpScreen";
+import ListMainScreen from "../../screens/ListMainScreen";
 import ProductInfoScreen from "../../screens/ProductInfoScreen";
 import NewListScreen from "../../screens/NewListScreen";
+
 
 const Drawer = createDrawerNavigator();
 
@@ -15,19 +17,20 @@ export const DrawerNavigator = () => {
   return (
     <Drawer.Navigator
       drawerContent={(props) => <Menu {...props} />}
-      initialRouteName="ProductInfo"
+      initialRouteName="Home"
     >
       <Drawer.Screen
         name="Home"
-        component={HomeScreen}
+        component={ListMainScreen}
         options={{
-          title: "Home",
+          title: "Inicio",
+          headerTitle: "Inicio",
           drawerIcon: () => (
             <Ionicons name="home-outline" size={24} color="#00DE68" />
           ),
         }}
       />
-      <Drawer.Screen
+      {/* <Drawer.Screen
         name="Help"
         component={HelpScreen}
         options={{
@@ -36,9 +39,9 @@ export const DrawerNavigator = () => {
             <Feather name="help-circle" size={24} color="#00DE68" />
           ),
         }}
+      /> */}
       />
       <Drawer.Screen name="NewList" component={NewListScreen} />
-
       <Drawer.Screen
         name="ProductInfo"
         component={ProductInfoScreen}
