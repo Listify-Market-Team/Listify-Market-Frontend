@@ -1,11 +1,16 @@
 import { createDrawerNavigator } from "@react-navigation/drawer";
 import { Ionicons } from "@expo/vector-icons";
 import { Feather } from "@expo/vector-icons";
+import { AntDesign } from "@expo/vector-icons";
+
 import Menu from "../../components/Menu";
-import HomeScreen from "../../screens/HomeScreen";
-import HelpScreen from "../../screens/HelpScreen";
+// import HomeScreen from "../../screens/HomeScreen";
+// import HelpScreen from "../../screens/HelpScreen";
+import ListMainScreen from "../../screens/ListMainScreen";
+import ProductInfoScreen from "../../screens/ProductInfoScreen";
 import NewListScreen from "../../screens/NewListScreen";
 import UpdateListScreen from "../../screens/UpdateListScreen";
+
 
 const Drawer = createDrawerNavigator();
 
@@ -17,15 +22,16 @@ export const DrawerNavigator = () => {
     >
       <Drawer.Screen
         name="Home"
-        component={HomeScreen}
+        component={ListMainScreen}
         options={{
-          title: "Home",
+          title: "Inicio",
+          headerTitle: "Inicio",
           drawerIcon: () => (
             <Ionicons name="home-outline" size={24} color="#00DE68" />
           ),
         }}
       />
-      <Drawer.Screen
+      {/* <Drawer.Screen
         name="Help"
         component={HelpScreen}
         options={{
@@ -34,6 +40,7 @@ export const DrawerNavigator = () => {
             <Feather name="help-circle" size={24} color="#00DE68" />
           ),
         }}
+      /> */}
       />
       <Drawer.Screen
         name="NewList"
@@ -44,6 +51,16 @@ export const DrawerNavigator = () => {
         name="UpdateList"
         component={UpdateListScreen}
         options={{ headerTitle: "Actualizar Lista" }}
+      <Drawer.Screen
+        name="ProductInfo"
+        component={ProductInfoScreen}
+        options={{
+          headerTitle: "Información de producto",
+          title: "Información de producto",
+          drawerIcon: () => (
+            <AntDesign name="infocirlceo" size={24} color="#00DE68" />
+          ),
+        }}
       />
     </Drawer.Navigator>
   );
