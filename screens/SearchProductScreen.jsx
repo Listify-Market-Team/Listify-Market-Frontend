@@ -3,14 +3,13 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 
 const SearchProductScreen = () => {
-  let [Products, setProducts] = useState([]);
+  const [products, setProducts] = useState([]);
 
   useEffect( ()=>{
     const doGetRequest = async () => {
       const res = await axios.get("https://localhost:7209/api/Product/GetAll");
       const data = await res.data.products;
 
-      console.log(data);
       setProducts(data);
     };
     doGetRequest();
@@ -32,8 +31,7 @@ const SearchProductScreen = () => {
       {/*Product cards */}
       <ScrollView>
         {
-          Products.map( (product) => {
-            console.log();
+          products.map( (product) => {
             return (
               // eslint-disable-next-line react/jsx-key
               <View style={styles.product_card}>
