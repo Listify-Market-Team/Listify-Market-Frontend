@@ -80,7 +80,11 @@ const deleteList = (id) => {
     }
   });
 
-  fetchList()
+  setList((state)=> {
+    return state.filter(list => list.id !== id)
+  })
+
+  // fetchList()
 }
 
 
