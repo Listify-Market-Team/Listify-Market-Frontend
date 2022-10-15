@@ -7,90 +7,81 @@ import {
   Modal,
 } from "react-native";
 import React, { useState, useEffect } from "react";
-import useFetch from "../Hooks/useFetch";
+// import useFetch from "../Hooks/useFetch";
 import ListMenuPop from "./ListMenuPop";
 import detailBTN from "../img/DetailBTN.png";
-import axios from 'axios';
+import axios from "axios";
 
-
-
+// const data = [
+//   {
+//     image:
+//       "https://cdn0.iconfinder.com/data/icons/cosmo-layout/40/box-512.png",
+//     name: "Bravo",
+// const data = [
+//   {
+//     image:
+//       "https://cdn0.iconfinder.com/data/icons/cosmo-layout/40/box-512.png",
+//     name: "Bravo",
+//     products: [
+//       { id: 1, product: "pan" },
+//       { id: 2, product: "leche" },
+//     ],
+//   },
+//   {
+//     image:
+//       "https://cdn0.iconfinder.com/data/icons/cosmo-layout/40/box-512.png",
+//     name: "La Sirena",
+//     products: [
+//       { id: 3, product: "huevos" },
+//       { id: 4, product: "jabon" },
+//     ],
+//   },
+// ];
 
 const List = (props) => {
-
-  const [list1, setList] = useState([])
-
+  const [list1, setList] = useState([]);
+  const [listModal, setListModal] = useState();
+  const [isModalVisible, setIsModalVisible] = useState(false);
 
   const fetchList = async () => {
-    const res = await fetch("https://localhost:7209/api/Inventory/GetAll")
-    const json = await res.json();
-    const json2 = json.inventories
-    setList(json2)
-    
-  }
-
-  useEffect(() =>{
-    fetchList()
-  },[])
-
-  console.log(list1);
-
-// console.log(props.count[0]);
-  //console.log(list)
-
-  const data = 
-  [
-    {
-      image:
-        "https://cdn0.iconfinder.com/data/icons/cosmo-layout/40/box-512.png",
-      name: "Bravo",
-      products: [
-        { id: 1, product: "pan" },
-        { id: 2, product: "leche" },
-      ],
-    },
-    {
-      image:
-        "https://cdn0.iconfinder.com/data/icons/cosmo-layout/40/box-512.png",
-      name: "La Sirena",
-      products: [
-        { id: 3, product: "huevos" },
-        { id: 4, product: "jabon" },
-      ],
-    },
-  ];
-
-  const [listModal, setListModal] = useState()
-  const [isModalVisible, setIsModalVisible] = useState(false);
-  // const [list, setList] = useState(data);
-
-  // console.log(list.isModalVisible)
-
-
-const deleteList = (id) => {
-  // console.log(id)
-  // await axios.delete("https://localhost:7209/api/Inventory/Delete",{
-  //   id: id
-  // })
-  axios({
-    method: 'delete',
-    url: 'https://localhost:7209/api/Inventory/Delete',
-    headers: {}, 
-    data: {
-      id: id
+    try {
+      const res = await fetch("http://localhost:5209/api/Inventory/GetAll");
+      const json = await res.json();
+      const json2 = json.inventories;
+      setList(json2);
+    } catch (error) {
+      console.log("something went wrong");
     }
-  });
+  };
 
-  setList((state)=> {
-    return state.filter(list => list.id !== id)
-  })
+  useEffect(() => {
+    fetchList();
+  }, []);
 
-  // fetchList()
-}
+  const deleteList = (id) => {
+    try {
+      axios({
+        method: "delete",
+        url: "https://localhost:7209/api/Inventory/Delete",
+        headers: {},
+        data: {
+          id: id,
+        },
+      });
 
+      setList((state) => {
+        return state.filter((list) => list.id !== id);
+      });
+    } catch (error) {
+      console.log("something went wrong");
+    }
 
-const setSelectedProduct = (product) => {
-  setListModal(product)
-}
+    // fetchList()
+  };
+
+  const setSelectedProduct = (product) => {
+    setListModal(product);
+  };
 
   const changeModalVisibility = (bool) => {
     setIsModalVisible(bool);
@@ -98,11 +89,13 @@ const setSelectedProduct = (product) => {
 
   return (
     <View>
-
-      {list1.map((list,i) =>(
-        
+      {list1.length === 0 && <Text>No hay listas para mostrar</Text>}
+      {list1.map((list, i) => (
         <View style={styles.screen} key={i}>
-          <Image source="https://cdn0.iconfinder.com/data/icons/cosmo-layout/40/box-512.png" style={styles.imageStyle} />
+          <Image
+            source="https://cdn0.iconfinder.com/data/icons/cosmo-layout/40/box-512.png"
+            style={styles.imageStyle}
+          />
 
           <View style={styles.content}>
             <Text style={styles.listName}>{list.name}</Text>
@@ -112,10 +105,9 @@ const setSelectedProduct = (product) => {
           <View style={styles.detailContainer}>
             <TouchableOpacity
               onPress={(e) => {
-                 changeModalVisibility(true);
-                 setSelectedProduct(list);
-                  }
-                }
+                changeModalVisibility(true);
+                setSelectedProduct(list);
+              }}
               style={styles.detailBotonStyle}
             >
               <Image source={detailBTN} style={styles.detailImageStyle} />
@@ -123,26 +115,21 @@ const setSelectedProduct = (product) => {
           </View>
 
           <Modal
-              animationType='fade'
-              transparent={true}
-              visible={isModalVisible}
-              onRequestClose={()=> {
-
-                changeModalVisibility(false)
-                
-              }
-              }
-              >
-                <ListMenuPop
-                list={listModal}
-                deleteList= {deleteList}
-                changeModalVisibility={changeModalVisibility}
-                />
+            animationType="fade"
+            transparent={true}
+            visible={isModalVisible}
+            onRequestClose={() => {
+              changeModalVisibility(false);
+            }}
+          >
+            <ListMenuPop
+              list={listModal}
+              deleteList={deleteList}
+              changeModalVisibility={changeModalVisibility}
+            />
           </Modal>
-
         </View>
       ))}
-      
     </View>
   );
 };
@@ -157,7 +144,7 @@ const styles = StyleSheet.create({
     position: "relative",
     zIndex: 1,
   },
-  listName: { 
+  listName: {
     fontSize: 20,
     fontWeight: "bold",
   },
@@ -182,17 +169,6 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "flex-end",
     flex: 1,
-  },
-  prueba: {
-    height: 50,
-    width: 50,
-    // marginLeft: 300,
-    // marginTop: 220,
-    backgroundColor: "black",
-  },
-  modal: {
-    alignItems: "center",
-    justifyContent: "center",
   },
 });
 
