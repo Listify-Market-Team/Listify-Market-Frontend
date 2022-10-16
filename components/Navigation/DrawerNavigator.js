@@ -5,8 +5,11 @@ import { AntDesign } from "@expo/vector-icons";
 import { Entypo } from "@expo/vector-icons";
 
 import Menu from "../../components/Menu";
-// import HomeScreen from "../../screens/HomeScreen";
-// import HelpScreen from "../../screens/HelpScreen";
+import HomeScreen from "../../screens/HomeScreen";
+import HelpScreen from "../../screens/HelpScreen";
+import LoginScreen from "../../screens/LoginScreen";
+import RegisterScreen from "../../screens/RegisterScreen";
+import { MainStackNavigator } from "./StackNavigator";
 import ListMainScreen from "../../screens/ListMainScreen";
 import ProductInfoScreen from "../../screens/ProductInfoScreen";
 import NewListScreen from "../../screens/NewListScreen";
@@ -42,7 +45,7 @@ export const DrawerNavigator = () => {
             <Feather name="help-circle" size={24} color="#00DE68" />
           ),
         }}
-      /> */}
+      />  */}
       <Drawer.Screen
         name="Products"
         component={SearchProductScreen}
