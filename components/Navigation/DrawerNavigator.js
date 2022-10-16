@@ -74,6 +74,14 @@ export const DrawerNavigator = () => {
         component={UpdateListScreen}
         options={{ headerTitle: "Actualizar Lista" }}
       />
+      <Drawer.Screen
+        name="Products"
+        component={SearchProductScreen}
+        options={{
+          title: "Products",
+          drawerIcon: () => <Feather name="search" size={24} color="#00DE68" />,
+        }}
+      />
     </Drawer.Navigator>
   );
 };
