@@ -40,12 +40,11 @@ const DATA_WITH_ID = [
 const renderList = ({ item }) => {
   return (
     <View style={styles.listItem}>
-      <TouchableOpacity
-      onPress={() => this.priceSelector(item.id)}
-      style={item.id === this.state.selectedId ? styles.selected : null}>
-      <Text style={styles.listItemText}>{item.title}</Text>
-      <Text style={styles.listItemPrice}>{item.price}</Text>
-      </TouchableOpacity>
+      <Pressable onPress={() => this.priceSelector(item)}>
+        <Text style={styles.listItemText}>{item.title}</Text>
+        <Text style={styles.listItemPrice}>{item.price}</Text>  
+      </Pressable>
+      
     </View>
   );
 };
@@ -59,14 +58,13 @@ export default class ProductInfoScreen extends Component {
     this.state = {
       productQuantity: 0,
       showLists: false,
-      loadingLists: false,
-      selectedPriceId: 0
+      loadingLists: false
     };
 
     this.increaseOnPress = this.increaseOnPress.bind(this);
     this.decreaseOnPress = this.decreaseOnPress.bind(this);
     this.addProductToList = this.addProductToList.bind(this);
-    this.priceSelector = this.price.bind(this);
+    this.priceSelector = this.priceSelector.bind(this);
   }
 
   increaseOnPress() {
@@ -94,15 +92,14 @@ export default class ProductInfoScreen extends Component {
     // }, 2000);
   }
 
-  priceSelector(id) {
-    var selectedId = this.state.selectedPriceId
-  
-    if(selectedId === id)
-      this.setState({selectedItem:null})
-    else
-      this.setState({selectedItem:id})
-  }
-
+  priceSelector (data) {
+      data.item.isSelect = !data.item.isSelect;
+      data.item.selectedClass = data.item.isSelect ? styles.selected : styles.listItem;
+    
+      const index = this.state.dataSource.findIndex(
+        item => data.item.id === item.id
+      );
+    }
   render() {
     return (
       <View style={styles.base}>
@@ -127,9 +124,7 @@ export default class ProductInfoScreen extends Component {
               renderItem={renderList}
               keyExtractor={(item) => item.id}
               horizontal
-              extraData={
-                this.state.selectedId
-              }
+              
             />
           </View>
 
@@ -378,6 +373,6 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
   },
   selected: {
-    borderColor:"green"
+    backgroundColor:"green"
   }
 });
