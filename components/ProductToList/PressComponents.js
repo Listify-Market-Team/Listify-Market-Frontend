@@ -73,7 +73,7 @@ export const AddProductButton = (props) => {
 
   return (
     <Pressable style={styles.button} onPress={results}>
-      <Text style={styles.text}>Add Product</Text>
+      <Text style={styles.text}>Agregar producto</Text>
     </Pressable>
   );
 };

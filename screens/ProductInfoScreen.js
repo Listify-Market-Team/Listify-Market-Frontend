@@ -17,22 +17,22 @@ import { Modal } from "react-native";
 const DATA_WITH_ID = [
   {
     id: "bd7acbea-c1b1-46c2-aed5-3ad53abb28ba",
-    title: "First Item",
+    title: "Bravo",
     price: 120,
   },
   {
     id: "3ac68afc-c605-48d3-a4f8-fbd91aa97f63",
-    title: "Second Item",
+    title: "La Sirena",
     price: 300,
   },
   {
     id: "58694a0f-3da1-471f-bd96-145571e29d72",
-    title: "Third Item",
+    title: "Jumbo",
     price: 820,
   },
   {
     id: "58694a0f-3da1-471f-bd96-145571e29d2312",
-    title: "Fourth Item",
+    title: "Olé",
     price: 820,
   },
 ];
@@ -76,12 +76,14 @@ export default class ProductInfoScreen extends Component {
   }
 
   addProductToList() {
-    this.setState({ showLists: true, loadingLists: true });
+    // this.setState({ showLists: true, loadingLists: true });
     // console.log("added!");
+    const id = this.props.route.params.id;
+    this.props.navigation.navigate("AddProduct", { id });
 
-    setTimeout(() => {
-      this.setState({ loadingLists: false });
-    }, 2000);
+    // setTimeout(() => {
+    //   this.setState({ loadingLists: false });
+    // }, 2000);
   }
 
   render() {
@@ -96,7 +98,7 @@ export default class ProductInfoScreen extends Component {
               }}
             />
           </View>
-          <Text style={styles.title}>Product Name</Text>
+          <Text style={styles.title}>{this.props.route.params.name}</Text>
           <Text style={styles.info}>
             Lorem Ipsum is simply dummy text of the printing and typesetting
             industry
@@ -113,7 +115,7 @@ export default class ProductInfoScreen extends Component {
 
           <View style={styles.quantityContainer}>
             <View>
-              <Text style={styles.quantityLabel}>Quantity</Text>
+              <Text style={styles.quantityLabel}>Cantidad</Text>
             </View>
 
             <View style={styles.quantityBtnWrapper}>
@@ -252,6 +254,7 @@ const styles = StyleSheet.create({
     // height: 75,
     marginTop: 16,
     backgroundColor: "#d1efef",
+    overflow: "visible",
   },
   quantityContainer: {
     flexDirection: "row",

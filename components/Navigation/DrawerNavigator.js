@@ -12,6 +12,7 @@ import ProductInfoScreen from "../../screens/ProductInfoScreen";
 import NewListScreen from "../../screens/NewListScreen";
 import UpdateListScreen from "../../screens/UpdateListScreen";
 import AddProductScreen from "../../screens/AddProductScreen";
+import SearchProductScreen from "../../screens/SearchProductScreen";
 
 const Drawer = createDrawerNavigator();
 
@@ -43,6 +44,14 @@ export const DrawerNavigator = () => {
         }}
       /> */}
       <Drawer.Screen
+        name="Products"
+        component={SearchProductScreen}
+        options={{
+          title: "Products",
+          drawerIcon: () => <Feather name="search" size={24} color="#00DE68" />,
+        }}
+      />
+      <Drawer.Screen
         name="ProductInfo"
         component={ProductInfoScreen}
         options={{
@@ -67,20 +76,12 @@ export const DrawerNavigator = () => {
       <Drawer.Screen
         name="NewList"
         component={NewListScreen}
-        options={{ headerTitle: "Nueva Lista" }}
+        options={{ title: "Agregar Lista", headerTitle: "Nueva Lista" }}
       />
       <Drawer.Screen
         name="UpdateList"
         component={UpdateListScreen}
         options={{ headerTitle: "Actualizar Lista" }}
-      />
-      <Drawer.Screen
-        name="Products"
-        component={SearchProductScreen}
-        options={{
-          title: "Products",
-          drawerIcon: () => <Feather name="search" size={24} color="#00DE68" />,
-        }}
       />
     </Drawer.Navigator>
   );

@@ -74,7 +74,6 @@ export const ListData = ({ navigation }) => {
               <Image style={styles.tinyLogo} source={element.image}></Image>
 
               <View>
-                <Text style={styles.text}>MY LIST</Text>
                 <Text style={styles.text}>{element.name}</Text>
               </View>
             </Pressable>
