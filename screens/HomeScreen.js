@@ -1,4 +1,6 @@
 import { StyleSheet, Text, View, Button } from "react-native";
+import React, {useContext} from "react";
+import {AuthContext} from "../context/AuthContext";
 
 export default function HomeScreen({ navigation }) {
   return (

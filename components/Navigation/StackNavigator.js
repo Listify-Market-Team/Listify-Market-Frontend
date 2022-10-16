@@ -3,6 +3,9 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { MenuIcon, HelpIcon, BackIcon } from "../Header";
 import HomeScreen from "../../screens/HomeScreen";
 import HelpScreen from "../../screens/HelpScreen";
+import LoginScreen from "../../screens/LoginScreen";
+import RegisterScreen from "../../screens/RegisterScreen";
+import PersonalScreen from "../../screens/PersonalScreen";
 
 const Stack = createNativeStackNavigator();
 
@@ -43,29 +46,16 @@ export const MainStackNavigator = () => {
   );
 };
 
-// these classes just have placeholder names, you can update them as desired
-const styles = StyleSheet.create({
-  class1: {
-    flexDirection: "row",
-    justifyContent: "flex-end",
-    alignItems: "center",
-    left: 10,
-    paddingRight: 20,
-  },
-  class2: {
-    flexDirection: "row",
-    justifyContent: "flex-end",
-    alignItems: "center",
-    right: 10,
-  },
-  class3: {
-    flexDirection: "row",
-    justifyContent: "flex-end",
-    alignItems: "center",
-    left: 10,
-    paddingRight: 20,
-  },
-  class4: {
-    backgroundColor: "#B5D3D3",
-  },
-});
+export const AuthStackNavigation = () => {
+  return (
+    <Stack.Navigator
+      screenOptions={{
+        headerShown: false,
+      }}
+    >
+      <Stack.Screen name="Login" component={LoginScreen} />
+      <Stack.Screen name="Personal" component={PersonalScreen} />
+      <Stack.Screen name="Register" component={RegisterScreen} />
+    </Stack.Navigator>
+  );
+};
