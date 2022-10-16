@@ -18,7 +18,7 @@ export default function UpdateListScreen({ navigation, route }) {
     setLoading(true);
     try {
       axios
-        .put("http://localhost:5209/api/Inventory/UpdateInventory", {
+        .put("https://listifym-backend.herokuapp.com/Inventory/UpdateInventory", {
           ...list,
           id,
           appUserId: 1,

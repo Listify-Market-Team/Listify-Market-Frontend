@@ -37,7 +37,7 @@ function Register(props) {
     }
     setLoading(true);
     axios
-      .post("http://localhost:5209/api/AppUsers/Create", {
+      .post("https://listifym-backend.herokuapp.com/api/AppUsers/Create", {
         name: props.data.name,
         password: data.password,
         email: data.email,

@@ -11,7 +11,7 @@ export const AuthProvider = ({ children }) => {
   const login = (user, password) => {
     setIsLoading(true);
     axios
-      .post("http://localhost:5209/api/AppUsers/AuthenticateUser", {
+      .post("https://listifym-backend.herokuapp.com/api/AppUsers/AuthenticateUser", {
         user,
         password,
       })

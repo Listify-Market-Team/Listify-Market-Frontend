@@ -16,7 +16,7 @@ const SearchProductScreen = ({ navigation }) => {
 
   useEffect(() => {
     const doGetRequest = async () => {
-      const res = await axios.get("http://localhost:5209/api/Product/GetAll");
+      const res = await axios.get("https://listifym-backend.herokuapp.com/api/Product/GetAll");
       const data = await res.data.products;
 
       setProducts(data);
@@ -30,7 +30,7 @@ const SearchProductScreen = ({ navigation }) => {
   const goToProductDetail = (id) => {
     try {
       axios
-        .get("http://localhost:5209/api/Product/GetById", { params: { id } })
+        .get("https://listifym-backend.herokuapp.com/api/Product/GetById", { params: { id } })
         .then((res) => {
           const product = res.data;
           navigation.navigate("ProductInfo", {
