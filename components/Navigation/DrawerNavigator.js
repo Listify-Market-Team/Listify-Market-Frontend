@@ -61,6 +61,7 @@ export const DrawerNavigator = () => {
           ),
         }}
       />
+      
     </Drawer.Navigator>
   );
 };
