@@ -1,33 +1,33 @@
 import React from "react";
-import {StyleSheet, Text, View} from "react-native";
-import {ListData} from "../components/ProductToList/Data";
-import {IconBack} from "../components/ProductToList/PressComponents";
+import { StyleSheet, Text, View } from "react-native";
 
-export const AddProduct = () => {
+import { ListData } from "../components/ProductToList/Data";
+import { IconBack } from "../components/ProductToList/PressComponents";
+
+export default function AddProduct({ navigation }) {
   return (
-    <View style={styles.screen}>   
-      <IconBack/>  
-      
+    <View style={styles.screen}>
+      <IconBack />
+
       <View style={styles.container}>
-
         <View style={styles.ItemsContainer}>
-          <Text style={styles.title}>My Lists</Text>
+          <Text style={styles.title}>Mis listas</Text>
 
-          <View style={styles.ListDataContainer}> 
-            <ListData/>
+          <View style={styles.ListDataContainer}>
+            <ListData navigation={navigation} />
           </View>
-        </View> 
+        </View>
       </View>
     </View>
   );
-};
+}
 
 const styles = StyleSheet.create({
-  screen:{
+  screen: {
     flex: 1,
     backgroundColor: "#B5D3D3",
   },
-  container:{
+  container: {
     flex: 1,
     width: "100%",
     borderTopLeftRadius: 15,
@@ -35,8 +35,8 @@ const styles = StyleSheet.create({
     alignItems: "center",
     backgroundColor: "#DAEAEA",
   },
-  ItemsContainer:{
-    width: "90%", 
+  ItemsContainer: {
+    width: "90%",
     height: "93%",
     marginTop: "2%",
     alignContent: "center",
@@ -44,10 +44,9 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 35,
-    fontWeight: "bold"
+    fontWeight: "bold",
   },
-  ListDataContainer:{
+  ListDataContainer: {
     flex: 1,
   },
 });
-
