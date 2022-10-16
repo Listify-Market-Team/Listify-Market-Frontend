@@ -39,21 +39,24 @@ import axios from "axios";
 // ];
 
 const List = (props) => {
+const userId = 1
+
   const [list1, setList] = useState([]);
   const [listModal, setListModal] = useState();
   const [isModalVisible, setIsModalVisible] = useState(false);
 
   const fetchList = async () => {
     try {
-      const res = await fetch("http://localhost:5209/api/Inventory/GetAll");
+      const res = await fetch("https://localhost:7209/api/Inventory/GetByUserId?userId=" + userId);
       const json = await res.json();
       const json2 = json.inventories;
       setList(json2);
+      
     } catch (error) {
       console.log("something went wrong");
     }
   };
-
+  console.log(list1);
   useEffect(() => {
     fetchList();
   }, []);

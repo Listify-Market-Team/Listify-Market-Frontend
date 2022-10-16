@@ -10,6 +10,7 @@ import ListMainScreen from "../../screens/ListMainScreen";
 import ProductInfoScreen from "../../screens/ProductInfoScreen";
 import NewListScreen from "../../screens/NewListScreen";
 import UpdateListScreen from "../../screens/UpdateListScreen";
+import ProductListScreen from "../../screens/ProductListScreen";
 
 
 const Drawer = createDrawerNavigator();
@@ -22,7 +23,7 @@ export const DrawerNavigator = () => {
     >
       <Drawer.Screen
         name="Home"
-        component={ListMainScreen}
+        component={ListMainScreen} //CAMBIAR
         options={{
           title: "Inicio",
           headerTitle: "Inicio",
@@ -41,7 +42,6 @@ export const DrawerNavigator = () => {
           ),
         }}
       /> */}
-      />
       <Drawer.Screen
         name="NewList"
         component={NewListScreen}
@@ -50,7 +50,7 @@ export const DrawerNavigator = () => {
       <Drawer.Screen
         name="UpdateList"
         component={UpdateListScreen}
-        options={{ headerTitle: "Actualizar Lista" }}
+        options={{ headerTitle: "Actualizar Lista" }}/>
       <Drawer.Screen
         name="ProductInfo"
         component={ProductInfoScreen}
@@ -62,6 +62,10 @@ export const DrawerNavigator = () => {
           ),
         }}
       />
+        <Drawer.Screen
+        name="productList"
+        component={ProductListScreen}
+        options={{ headerTitle: "productList"}}/>
     </Drawer.Navigator>
   );
 };
