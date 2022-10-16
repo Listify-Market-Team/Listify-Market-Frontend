@@ -44,37 +44,37 @@ function Login(props) {
           style={styles.logo}
           source={require("../resources/Logo-Proyecto2-1.png")}
         />
-        <Text style={styles.title}>Login to your account</Text>
+        <Text style={styles.title}>Inicia sesi&oacute;n</Text>
         <LoginInput
           control={control}
           name="user"
-          placeholder="Phone Number or Email"
+          placeholder="Correo electrónico o teléfono"
           rules={{
-            required: "Phone Number or Email is required",
+            required: "El correo electrónico o teléfono es requerido",
             pattern: {
               value: userRegex,
-              message: "Invalid Phone Number or Email",
+              message: "Correo electrónico o teléfono inválido",
             },
           }}
         />
         <LoginInput
           control={control}
           name="password"
-          placeholder="Password"
+          placeholder="Contraseña"
           secureTextEntry
-          rules={{ required: "Password is required" }}
+          rules={{ required: "La contraseña es requerida" }}
         />
         <Pressable onPress={handleSubmit(onSubmit)} style={styles.login}>
-          <Text style={styles.login_text}>Log In</Text>
+          <Text style={styles.login_text}>Iniciar sesi&oacute;n</Text>
         </Pressable>
         <View style={styles.footer}>
-          <Text style={styles.footer_text}>Dont have an account?</Text>
+          <Text style={styles.footer_text}>¿No tienes una cuenta?</Text>
           <Pressable
             onPress={() => {
               props.navigate("Personal");
             }}
           >
-            <Text style={styles.footer_signup}>Sign Up</Text>
+            <Text style={styles.footer_signup}>Registrate</Text>
           </Pressable>
         </View>
       </View>
@@ -82,7 +82,7 @@ function Login(props) {
   );
 }
 
-export default function LoginScreen({ navigation: { navigate} }) {
+export default function LoginScreen({ navigation: { navigate } }) {
   return (
     <KeyboardAvoidingView style={styles.view}>
       <Login navigate={navigate} />

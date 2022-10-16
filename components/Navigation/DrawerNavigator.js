@@ -55,25 +55,25 @@ export const DrawerNavigator = () => {
         }}
       />
       <Drawer.Screen
-        name="ProductInfo"
-        component={ProductInfoScreen}
-        options={{
-          headerTitle: "Información de producto",
-          title: "Información de producto",
-          drawerIcon: () => (
-            <AntDesign name="infocirlceo" size={24} color="#00DE68" />
-          ),
-        }}
-      />
-      <Drawer.Screen
         name="AddProduct"
         component={AddProductScreen}
         options={{
           headerTitle: "Agregar producto",
           title: "Agregar producto",
-          drawerIcon: () => (
-            <Entypo name="add-to-list" size={24} color="#00DE68" />
-          ),
+          // drawerIcon: () => (
+          //   <Entypo name="add-to-list" size={24} color="#00DE68" />
+          // ),
+        }}
+      />
+      <Drawer.Screen
+        name="ProductInfo"
+        component={ProductInfoScreen}
+        options={{
+          headerTitle: "Información de producto",
+          title: "Información de producto",
+          // drawerIcon: () => (
+          //   <AntDesign name="infocirlceo" size={24} color="#00DE68" />
+          // ),
         }}
       />
       <Drawer.Screen
@@ -84,7 +84,7 @@ export const DrawerNavigator = () => {
       <Drawer.Screen
         name="UpdateList"
         component={UpdateListScreen}
-        options={{ headerTitle: "Actualizar Lista" }}
+        options={{ title: "Actualizar Lista", headerTitle: "Actualizar Lista" }}
       />
     </Drawer.Navigator>
   );

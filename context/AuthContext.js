@@ -11,7 +11,7 @@ export const AuthProvider = ({ children }) => {
   const login = (user, password) => {
     setIsLoading(true);
     axios
-      .post("https://localhost:7209/api/AppUsers/AuthenticateUser", {
+      .post("http://localhost:5209/api/AppUsers/AuthenticateUser", {
         user,
         password,
       })
@@ -21,8 +21,7 @@ export const AuthProvider = ({ children }) => {
           setUser(user);
           AsyncStorage.setItem("user", JSON.stringify(user));
           setIsLoading(false);
-        }
-        else {
+        } else {
           alert("Invalid credentials");
           setIsLoading(false);
         }

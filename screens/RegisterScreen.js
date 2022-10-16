@@ -21,7 +21,7 @@ function Register(props) {
     defaultValues: {
       email: "",
       password: "",
-      confirmPassword: ""
+      confirmPassword: "",
     },
   });
   const [loading, setLoading] = useState(false);
@@ -36,17 +36,24 @@ function Register(props) {
       return;
     }
     setLoading(true);
-    axios.post("https://localhost:7209/api/AppUsers/Create", { 
-      name:props.data.name, password: data.password, email: data.email, phoneNumber: props.data.phoneNumber}).then(response => {
-      if (response.status === 200) {
+    axios
+      .post("http://localhost:5209/api/AppUsers/Create", {
+        name: props.data.name,
+        password: data.password,
+        email: data.email,
+        phoneNumber: props.data.phoneNumber,
+      })
+      .then((response) => {
+        if (response.status === 200) {
+          setLoading(false);
+          setSuccess(true);
+        }
+      })
+      .catch((error) => {
         setLoading(false);
-        setSuccess(true);
-      }
-    }).catch(error => {
-      setLoading(false);
-      setSuccess(false);
-      alert("Error");
-    });
+        setSuccess(false);
+        alert("Error");
+      });
   };
 
   const closeModal = () => {
@@ -70,27 +77,32 @@ function Register(props) {
             style={styles.logo}
             source={require("../resources/Logo-Proyecto2-1.png")}
           />
-          <Text style={styles.title}>Create your account</Text>
+          <Text style={styles.title}>Creaci&oacute;n de cuenta</Text>
           <SafeAreaView>
             <LoginInput
               control={control}
               name="email"
-              placeholder="Email"
-              rules={{ required: "Email is required", pattern: {value: userRegex, message: "Invalid Email"}}}
+              placeholder="Correo electrónico o teléfono"
+              rules={{
+                required: "Correo electrónico o teléfono is requerido",
+                pattern: { value: userRegex, message: "Invalid Email" },
+              }}
             />
             <LoginInput
               control={control}
               name="password"
-              placeholder="Password"
+              placeholder="Contraseña"
               secureTextEntry
-              rules={{ required: "Password is required" }}
+              rules={{ required: "La contraseña es requerida" }}
             />
             <LoginInput
               control={control}
               name="confirmPassword"
-              placeholder="Confirm Password"
+              placeholder="Confirmar contraseña"
               secureTextEntry
-              rules={{ required: "Confirm Password is required" }}
+              rules={{
+                required: "La confirmación de la contraseña es requerida",
+              }}
             />
           </SafeAreaView>
           <View style={styles.buttons}>
@@ -100,16 +112,16 @@ function Register(props) {
               }}
               style={styles.back}
             >
-              <Text style={styles.back_text}>Back</Text>
+              <Text style={styles.back_text}>Volver</Text>
             </Pressable>
             <Pressable onPress={handleSubmit(submit)} style={styles.login}>
-              <Text style={styles.login_text}>Sign Up</Text>
+              <Text style={styles.login_text}>Registrarme</Text>
             </Pressable>
           </View>
           <View style={styles.footer}>
             <Text style={styles.footer_text}>
-              By signing up i accept the terms of use and the data privacy
-              policy
+              Al registrarme acepto las condiciones de uso y la privacidad de
+              datos política
             </Text>
           </View>
         </View>
@@ -160,10 +172,13 @@ function Register(props) {
   );
 }
 
-export default function RegisterScreen({ navigation: { goBack, navigate }, route }) {
+export default function RegisterScreen({
+  navigation: { goBack, navigate },
+  route,
+}) {
   return (
     <KeyboardAvoidingView style={styles.view}>
-      <Register goBack={goBack} navigate={navigate} data={route.params}/>
+      <Register goBack={goBack} navigate={navigate} data={route.params} />
     </KeyboardAvoidingView>
   );
 }

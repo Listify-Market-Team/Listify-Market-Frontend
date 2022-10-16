@@ -21,10 +21,13 @@ function Personal(props) {
     },
   });
 
-  const phoneRegex =/^(?:\d{10})$/;
+  const phoneRegex = /^(?:\d{10})$/;
 
   const submit = (data) => {
-    props.navigate("Register" , {name: data.name, phoneNumber: data.phoneNumber});
+    props.navigate("Register", {
+      name: data.name,
+      phoneNumber: data.phoneNumber,
+    });
   };
 
   return (
@@ -39,21 +42,21 @@ function Personal(props) {
             style={styles.logo}
             source={require("../resources/Logo-Proyecto2-1.png")}
           />
-          <Text style={styles.title}>Create your account</Text>
+          <Text style={styles.title}>Creaci&oacute; de cuenta</Text>
           <SafeAreaView>
             <LoginInput
               control={control}
               name="name"
-              placeholder="Name"
-              rules={{ required: "Name is required" }}
+              placeholder="Nombre"
+              rules={{ required: "El nombre es requerido" }}
             />
             <LoginInput
               control={control}
               name="phoneNumber"
-              placeholder="Phone Number"
+              placeholder="Teléfono"
               rules={{
-                required: "Phone Number is required",
-                pattern: { value: phoneRegex, message: "Invalid Phone Number" },
+                required: "El teléfono es requerido",
+                pattern: { value: phoneRegex, message: "Teléfono inválido" },
               }}
             />
           </SafeAreaView>
@@ -64,10 +67,10 @@ function Personal(props) {
               }}
               style={styles.back}
             >
-              <Text style={styles.back_text}>Back</Text>
+              <Text style={styles.back_text}>Volver</Text>
             </Pressable>
             <Pressable onPress={handleSubmit(submit)} style={styles.login}>
-              <Text style={styles.login_text}>Next</Text>
+              <Text style={styles.login_text}>Siguiente</Text>
             </Pressable>
           </View>
         </View>
