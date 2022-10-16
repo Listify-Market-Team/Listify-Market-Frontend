@@ -38,13 +38,13 @@ const DATA_WITH_ID = [
 ];
 
 const renderList = ({ item }) => {
-  return (
+
+
+
+  return (  
     <View style={styles.listItem}>
-      <Pressable onPress={() => this.priceSelector(item)}>
         <Text style={styles.listItemText}>{item.title}</Text>
         <Text style={styles.listItemPrice}>{item.price}</Text>  
-      </Pressable>
-      
     </View>
   );
 };
@@ -64,7 +64,6 @@ export default class ProductInfoScreen extends Component {
     this.increaseOnPress = this.increaseOnPress.bind(this);
     this.decreaseOnPress = this.decreaseOnPress.bind(this);
     this.addProductToList = this.addProductToList.bind(this);
-    this.priceSelector = this.priceSelector.bind(this);
   }
 
   increaseOnPress() {
@@ -92,14 +91,8 @@ export default class ProductInfoScreen extends Component {
     // }, 2000);
   }
 
-  priceSelector (data) {
-      data.item.isSelect = !data.item.isSelect;
-      data.item.selectedClass = data.item.isSelect ? styles.selected : styles.listItem;
-    
-      const index = this.state.dataSource.findIndex(
-        item => data.item.id === item.id
-      );
-    }
+
+  
   render() {
     return (
       <View style={styles.base}>
