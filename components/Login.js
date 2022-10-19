@@ -12,11 +12,10 @@ import { useForm } from "react-hook-form";
 import LoginInput from "./LoginInput";
 import { AuthContext } from "../context/AuthContext";
 import { login } from "../api/login";
-import { userRegex } from "../api/constants";
+import { deviceHeight, deviceWidth, userRegex } from "../api/constants";
 
 export default function Login(props) {
   const { setUser, setIsLoading } = useContext(AuthContext);
-  const [errors, setErrors] = React.useState([]);
   const { control, handleSubmit } = useForm({
     defaultValues: {
       user: "",
@@ -42,7 +41,6 @@ export default function Login(props) {
         <SafeAreaView>
           <Text style={styles.title}>Inicia sesi&oacute;n</Text>
         </SafeAreaView>
-        {errors && <Text style={styles.error}>{errors}</Text>}
         <LoginInput
           control={control}
           name="user"
@@ -84,38 +82,32 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: "flex-end",
+    width: deviceWidth,
+    height: deviceHeight,
   },
 
   image: {
-    width: "100%",
-    height: "100%",
+    width: deviceWidth,
+    height: deviceHeight,
   },
   logo: {
     width: 180,
     height: 180,
     alignSelf: "center",
-    marginBottom: 20,
+    marginBottom: deviceHeight * 0.04,
   },
   title: {
     color: "#FFF",
     alignSelf: "center",
     fontWeight: "bold",
     fontSize: 30,
-    marginTop: 20,
-    marginBottom: 20,
+    marginTop: deviceHeight * 0.04,
+    marginBottom: deviceHeight * 0.04,
     textDecorationLine: "underline",
   },
-  error: {
-    color: "red",
-    alignSelf: "center",
-    fontWeight: "bold",
-    fontSize: 20,
-    marginTop: 20,
-    marginBottom: 20,
-  },
   login: {
-    marginTop: 60,
-    marginBottom: 50,
+    marginTop: deviceHeight * 0.1,
+    marginBottom: deviceHeight * 0.1,
     alignItems: "center",
     alignSelf: "center",
     justifyContent: "center",
@@ -125,7 +117,7 @@ const styles = StyleSheet.create({
     borderWidth: 3,
     borderColor: "#C7C0C0",
     backgroundColor: "#76B2B2",
-    width: "75%",
+    width: deviceWidth * 0.75,
   },
   login_text: {
     fontSize: 14,
@@ -137,7 +129,7 @@ const styles = StyleSheet.create({
   footer: {
     justifyContent: "center",
     flexDirection: "row",
-    marginBottom: 60,
+    marginBottom: deviceHeight * 0.07,
   },
   footer_text: {
     color: "#FFF",
