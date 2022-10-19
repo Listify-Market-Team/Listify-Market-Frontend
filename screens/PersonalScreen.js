@@ -7,6 +7,7 @@ import {
   SafeAreaView,
   Pressable,
   KeyboardAvoidingView,
+  Platform,
 } from "react-native";
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
@@ -40,24 +41,24 @@ function Personal(props) {
             style={styles.logo}
             source={require("../resources/Logo-Proyecto2-1.png")}
           />
-          <Text style={styles.title}>Creaci&oacute;n de cuenta</Text>
           <SafeAreaView>
-            <LoginInput
-              control={control}
-              name="name"
-              placeholder="Nombre"
-              rules={{ required: "El nombre es requerido" }}
-            />
-            <LoginInput
-              control={control}
-              name="phoneNumber"
-              placeholder="Teléfono"
-              rules={{
-                required: "El teléfono es requerido",
-                pattern: { value: phoneRegex, message: "Teléfono inválido" },
-              }}
-            />
+            <Text style={styles.title}>Creaci&oacute;n de cuenta</Text>
           </SafeAreaView>
+          <LoginInput
+            control={control}
+            name="name"
+            placeholder="Nombre"
+            rules={{ required: "El nombre es requerido" }}
+          />
+          <LoginInput
+            control={control}
+            name="phoneNumber"
+            placeholder="Teléfono"
+            rules={{
+              required: "El teléfono es requerido",
+              pattern: { value: phoneRegex, message: "Teléfono inválido" },
+            }}
+          />
           <View style={styles.buttons}>
             <Pressable
               onPress={() => {
@@ -79,7 +80,10 @@ function Personal(props) {
 
 export default function PersonalScreen({ navigation: { navigate, goBack } }) {
   return (
-    <KeyboardAvoidingView style={styles.view}>
+    <KeyboardAvoidingView
+      behavior={Platform.OS === "ios" ? "padding" : "height"}
+      style={styles.view}
+    >
       <Personal navigate={navigate} goBack={goBack} />
     </KeyboardAvoidingView>
   );

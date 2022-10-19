@@ -12,8 +12,9 @@ import {
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import LoginInput from "./LoginInput";
-import { register } from "../api/Register";
+import { register } from "../api/register";
 import { emailRegex } from "../api/constants";
+import { deviceHeight, deviceWidth } from "../api/constants";
 
 export default function Register(props) {
   const { control, handleSubmit } = useForm({
@@ -32,9 +33,16 @@ export default function Register(props) {
       setInvalidPassword(true);
       return;
     }
-    register(props.data.name, data.password, data.email, props.data.phoneNumber, setLoading, setSuccess);
+    register(
+      props.data.name,
+      data.password,
+      data.email,
+      props.data.phoneNumber,
+      setLoading,
+      setSuccess
+    );
   };
-  
+
   const closeModal = () => {
     if (success) {
       props.navigate("Login");
@@ -56,34 +64,34 @@ export default function Register(props) {
             style={styles.logo}
             source={require("../resources/Logo-Proyecto2-1.png")}
           />
-          <Text style={styles.title}>Creaci&oacute;n de cuenta</Text>
           <SafeAreaView>
-            <LoginInput
-              control={control}
-              name="email"
-              placeholder="Correo electrónico o teléfono"
-              rules={{
-                required: "Correo electrónico o teléfono is requerido",
-                pattern: { value: emailRegex, message: "Invalid Email" },
-              }}
-            />
-            <LoginInput
-              control={control}
-              name="password"
-              placeholder="Contraseña"
-              secureTextEntry
-              rules={{ required: "La contraseña es requerida" }}
-            />
-            <LoginInput
-              control={control}
-              name="confirmPassword"
-              placeholder="Confirmar contraseña"
-              secureTextEntry
-              rules={{
-                required: "La confirmación de la contraseña es requerida",
-              }}
-            />
+            <Text style={styles.title}>Creaci&oacute;n de cuenta</Text>
           </SafeAreaView>
+          <LoginInput
+            control={control}
+            name="email"
+            placeholder="Correo electrónico o teléfono"
+            rules={{
+              required: "Correo electrónico o teléfono is requerido",
+              pattern: { value: emailRegex, message: "Invalid Email" },
+            }}
+          />
+          <LoginInput
+            control={control}
+            name="password"
+            placeholder="Contraseña"
+            secureTextEntry
+            rules={{ required: "La contraseña es requerida" }}
+          />
+          <LoginInput
+            control={control}
+            name="confirmPassword"
+            placeholder="Confirmar contraseña"
+            secureTextEntry
+            rules={{
+              required: "La confirmación de la contraseña es requerida",
+            }}
+          />
           <View style={styles.buttons}>
             <Pressable
               onPress={() => {
@@ -184,7 +192,7 @@ const styles = StyleSheet.create({
     borderWidth: 3,
     borderColor: "#C7C0C0",
     backgroundColor: "#76B2B2",
-    width: "35%",
+    maxWidth: deviceWidth * 0.4,
   },
   login_text: {
     fontSize: 14,

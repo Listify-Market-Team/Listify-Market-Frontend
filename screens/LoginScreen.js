@@ -1,10 +1,12 @@
-import { StyleSheet, KeyboardAvoidingView} from "react-native";
+import { Platform, StyleSheet, KeyboardAvoidingView } from "react-native";
 import React from "react";
 import Login from "../components/Login";
 
 export default function LoginScreen({ navigation: { navigate } }) {
   return (
-    <KeyboardAvoidingView style={styles.view}>
+    <KeyboardAvoidingView
+      behavior={Platform.OS === "ios" ? "padding" : "height"}
+      style={styles.view}>
       <Login navigate={navigate} />
     </KeyboardAvoidingView>
   );

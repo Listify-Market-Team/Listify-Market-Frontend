@@ -5,12 +5,13 @@ import {
   StyleSheet,
   Image,
   Pressable,
+  SafeAreaView,
 } from "react-native";
 import React, { useContext } from "react";
 import { useForm } from "react-hook-form";
 import LoginInput from "./LoginInput";
 import { AuthContext } from "../context/AuthContext";
-import { login } from "../api/Login";
+import { login } from "../api/login";
 import { userRegex } from "../api/constants";
 
 export default function Login(props) {
@@ -38,7 +39,9 @@ export default function Login(props) {
           style={styles.logo}
           source={require("../resources/Logo-Proyecto2-1.png")}
         />
-        <Text style={styles.title}>Inicia sesi&oacute;n</Text>
+        <SafeAreaView>
+          <Text style={styles.title}>Inicia sesi&oacute;n</Text>
+        </SafeAreaView>
         {errors && <Text style={styles.error}>{errors}</Text>}
         <LoginInput
           control={control}

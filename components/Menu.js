@@ -6,6 +6,7 @@ import {
 import { MaterialIcons } from "@expo/vector-icons";
 import React, { useContext } from "react";
 import { AuthContext } from "../context/AuthContext";
+import { deviceHeight, deviceWidth } from "../api/constants";
 
 export default function Menu(props) {
   const { logout, user } = useContext(AuthContext);
@@ -51,14 +52,14 @@ const styles = StyleSheet.create({
   },
   logout: {
     flexDirection: "row",
-    marginTop: "80%",
+    marginTop: deviceHeight * 0.1,
     marginBottom: 20,
     justifyContent: "flex-start",
     alignItems: "center",
     paddingVertical: 12,
     paddingHorizontal: 32,
     borderTopWidth: 2,
-    width: "100%",
+    width: deviceWidth * 1,
   },
   logout_text: {
     marginLeft: 10,
