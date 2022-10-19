@@ -13,6 +13,7 @@ import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import LoginInput from "../components/LoginInput";
 import { phoneRegex } from "../api/constants";
+import { deviceHeight, deviceWidth } from "../api/constants";
 
 function Personal(props) {
   const { control, handleSubmit } = useForm({
@@ -96,27 +97,30 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: "flex-end",
+    width: deviceWidth,
+    height: deviceHeight,
   },
   image: {
-    width: "100%",
-    height: "100%",
+    width: deviceWidth,
+    height: deviceHeight,
   },
   logo: {
-    width: 160,
-    height: 160,
+    width: 180,
+    height: 180,
     alignSelf: "center",
+    marginBottom: deviceHeight * 0.04,
   },
   title: {
     color: "#FFF",
     alignSelf: "center",
     fontWeight: "bold",
     fontSize: 30,
-    marginTop: 10,
-    marginBottom: 40,
+    marginTop: deviceHeight * 0.04,
+    marginBottom: deviceHeight * 0.04,
     textDecorationLine: "underline",
   },
   login: {
-    marginRight: 15,
+    marginRight: deviceWidth * 0.05,
     alignItems: "center",
     alignSelf: "center",
     justifyContent: "center",
@@ -126,7 +130,7 @@ const styles = StyleSheet.create({
     borderWidth: 3,
     borderColor: "#C7C0C0",
     backgroundColor: "#76B2B2",
-    width: "35%",
+    width: deviceWidth * 0.35,
   },
   login_text: {
     fontSize: 14,
@@ -136,14 +140,14 @@ const styles = StyleSheet.create({
     color: "white",
   },
   buttons: {
-    marginTop: 120,
-    marginBottom: 100,
+    marginTop: deviceHeight * 0.15,
+    marginBottom: deviceHeight * 0.1,
     flexDirection: "row",
     justifyContent: "space-around",
     alignItems: "center",
   },
   back: {
-    marginLeft: 15,
+    marginLeft: deviceWidth * 0.05,
     alignItems: "center",
     paddingVertical: 12,
     paddingHorizontal: 32,
@@ -151,7 +155,7 @@ const styles = StyleSheet.create({
     borderWidth: 3,
     borderColor: "#C7C0C0",
     backgroundColor: "#FFF",
-    width: "35%",
+    width: deviceWidth * 0.35,
   },
   back_text: {
     fontSize: 14,
