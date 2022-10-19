@@ -11,7 +11,7 @@ import {
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import LoginInput from "../components/LoginInput";
-import axios from "axios";
+import { phoneRegex } from "../api/constants";
 
 function Personal(props) {
   const { control, handleSubmit } = useForm({
@@ -20,8 +20,6 @@ function Personal(props) {
       phoneNumber: "",
     },
   });
-
-  const phoneRegex = /^(?:\d{10})$/;
 
   const submit = (data) => {
     props.navigate("Register", {
@@ -42,7 +40,7 @@ function Personal(props) {
             style={styles.logo}
             source={require("../resources/Logo-Proyecto2-1.png")}
           />
-          <Text style={styles.title}>Creaci&oacute; de cuenta</Text>
+          <Text style={styles.title}>Creaci&oacute;n de cuenta</Text>
           <SafeAreaView>
             <LoginInput
               control={control}

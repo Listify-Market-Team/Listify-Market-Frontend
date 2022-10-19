@@ -51,7 +51,7 @@ const styles = StyleSheet.create({
   },
   logout: {
     flexDirection: "row",
-    marginTop: "100%",
+    marginTop: "80%",
     marginBottom: 20,
     justifyContent: "flex-start",
     alignItems: "center",

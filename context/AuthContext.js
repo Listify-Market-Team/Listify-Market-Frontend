@@ -8,31 +8,6 @@ export const AuthProvider = ({ children }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [user, setUser] = useState(null);
 
-  const login = (user, password) => {
-    setIsLoading(true);
-    axios
-      .post("https://listifym-backend.herokuapp.com/api/AppUsers/AuthenticateUser", {
-        user,
-        password,
-      })
-      .then((response) => {
-        let user = response.data;
-        if (user.name !== null) {
-          setUser(user);
-          AsyncStorage.setItem("user", JSON.stringify(user));
-          setIsLoading(false);
-        } else {
-          alert("Invalid credentials");
-          setIsLoading(false);
-        }
-      })
-      .catch((error) => {
-        console.log(error);
-        setIsLoading(false);
-      });
-    setIsLoading(false);
-  };
-
   const logout = () => {
     setIsLoading(true);
     setUser(null);
@@ -58,7 +33,7 @@ export const AuthProvider = ({ children }) => {
   }, []);
 
   return (
-    <AuthContext.Provider value={{ login, logout, isLoading, user }}>
+    <AuthContext.Provider value={{ isLoading, user, setUser, logout, setIsLoading }}>
       {children}
     </AuthContext.Provider>
   );
