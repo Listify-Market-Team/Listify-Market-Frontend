@@ -50,6 +50,7 @@ export default function Register(props) {
         <LoginInput
           control={control}
           name="email"
+          type={"emailAddress"}
           placeholder="Correo electrónico o teléfono"
           rules={{
             required: "Correo electrónico o teléfono is requerido",
@@ -60,20 +61,20 @@ export default function Register(props) {
           control={control}
           name="password"
           placeholder="Contraseña"
+          type={"oneTimeCode"}
           secureTextEntry
           rules={{ required: "La contraseña es requerida" }}
         />
-        <SafeAreaView>
-          <LoginInput
-            control={control}
-            name="confirmPassword"
-            placeholder="Confirmar contraseña"
-            secureTextEntry
-            rules={{
-              required: "La confirmación de la contraseña es requerida",
-            }}
-          />
-        </SafeAreaView>
+        <LoginInput
+          control={control}
+          name="confirmPassword"
+          placeholder="Confirmar contraseña"
+          type={"oneTimeCode"}
+          secureTextEntry
+          rules={{
+            required: "La confirmación de la contraseña es requerida",
+          }}
+        />
         <View style={styles.buttons}>
           <Pressable
             onPress={() => {

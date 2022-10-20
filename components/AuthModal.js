@@ -12,7 +12,7 @@ export default function AuthModal({ success, loading, invalidPassword, closeModa
       >
         <View style={styles.modalContainer}>
           <View style={styles.modalContent}>
-            <ActivityIndicator size="small" style={styles.spinner} />
+            <ActivityIndicator size="small" />
           </View>
         </View>
       </Modal>
@@ -56,10 +56,6 @@ const styles = StyleSheet.create({
     height: "100%",
     alignItems: "center",
     justifyContent: "center",
-  },
-  spinner: {
-    width: "100%",
-    height: "100%",
   },
   modalContent: {
     minHeight: 100,

@@ -33,12 +33,14 @@ export default function Personal(props) {
           control={control}
           name="name"
           placeholder="Nombre"
+          type={"name"}
           rules={{ required: "El nombre es requerido" }}
         />
         <LoginInput
           control={control}
           name="phoneNumber"
           placeholder="Teléfono"
+          type={"telephoneNumber"}
           rules={{
             required: "El teléfono es requerido",
             pattern: { value: phoneRegex, message: "Teléfono inválido" },

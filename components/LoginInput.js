@@ -4,6 +4,7 @@ import React from "react";
 import { Ionicons } from "@expo/vector-icons";
 export default function LoginInput({
   control,
+  type,
   name,
   placeholder,
   secureTextEntry,
@@ -25,8 +26,7 @@ export default function LoginInput({
               onChangeText={onChange}
               value={value}
               onBlur={onBlur}
-              blurOnSubmit={false}
-              onSubmitEditing={() => Keyboard.dismiss()}
+              textContentType={type}
               placeholder={placeholder}
               placeholderTextColor={"#FFF"}
               secureTextEntry={secureTextEntry}
