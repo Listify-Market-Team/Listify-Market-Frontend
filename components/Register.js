@@ -1,20 +1,12 @@
-import {
-  ImageBackground,
-  View,
-  Text,
-  StyleSheet,
-  Image,
-  SafeAreaView,
-  Pressable,
-  ActivityIndicator,
-  Modal,
-} from "react-native";
+import { View, Text, StyleSheet, Pressable, SafeAreaView } from "react-native";
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
+import AuthContainer from "./AuthContainer";
 import LoginInput from "./LoginInput";
+import AuthModal from "./AuthModal";
 import { register } from "../api/register";
 import { emailRegex } from "../api/constants";
-import { deviceHeight, deviceWidth } from "../api/constants";
+import { deviceWidth } from "../api/constants";
 
 export default function Register(props) {
   const { control, handleSubmit } = useForm({
@@ -54,35 +46,24 @@ export default function Register(props) {
 
   return (
     <React.Fragment>
-      <ImageBackground
-        source={require("../resources/Login-Background.png")}
-        resizeMode="cover"
-        style={styles.image}
-      >
-        <View style={styles.container}>
-          <Image
-            style={styles.logo}
-            source={require("../resources/Logo-Proyecto2-1.png")}
-          />
-          <SafeAreaView>
-            <Text style={styles.title}>Creaci&oacute;n de cuenta</Text>
-          </SafeAreaView>
-          <LoginInput
-            control={control}
-            name="email"
-            placeholder="Correo electrónico o teléfono"
-            rules={{
-              required: "Correo electrónico o teléfono is requerido",
-              pattern: { value: emailRegex, message: "Invalid Email" },
-            }}
-          />
-          <LoginInput
-            control={control}
-            name="password"
-            placeholder="Contraseña"
-            secureTextEntry
-            rules={{ required: "La contraseña es requerida" }}
-          />
+      <AuthContainer title={"Creación de cuenta"}>
+        <LoginInput
+          control={control}
+          name="email"
+          placeholder="Correo electrónico o teléfono"
+          rules={{
+            required: "Correo electrónico o teléfono is requerido",
+            pattern: { value: emailRegex, message: "Invalid Email" },
+          }}
+        />
+        <LoginInput
+          control={control}
+          name="password"
+          placeholder="Contraseña"
+          secureTextEntry
+          rules={{ required: "La contraseña es requerida" }}
+        />
+        <SafeAreaView>
           <LoginInput
             control={control}
             name="confirmPassword"
@@ -92,95 +73,38 @@ export default function Register(props) {
               required: "La confirmación de la contraseña es requerida",
             }}
           />
-          <View style={styles.buttons}>
-            <Pressable
-              onPress={() => {
-                props.goBack();
-              }}
-              style={styles.back}
-            >
-              <Text style={styles.back_text}>Volver</Text>
-            </Pressable>
-            <Pressable onPress={handleSubmit(submit)} style={styles.login}>
-              <Text style={styles.login_text}>Registrarme</Text>
-            </Pressable>
-          </View>
-          <View style={styles.footer}>
-            <Text style={styles.footer_text}>
-              Al registrarme acepto las condiciones de uso y la privacidad de
-              datos política
-            </Text>
-          </View>
+        </SafeAreaView>
+        <View style={styles.buttons}>
+          <Pressable
+            onPress={() => {
+              props.goBack();
+            }}
+            style={styles.back}
+          >
+            <Text style={styles.back_text}>Volver</Text>
+          </Pressable>
+          <Pressable onPress={handleSubmit(submit)} style={styles.login}>
+            <Text style={styles.login_text}>Registrarme</Text>
+          </Pressable>
         </View>
-      </ImageBackground>
-      <Modal
-        style={styles.modal}
-        visible={loading}
-        transparent={true}
-        animationType="fade"
-      >
-        <View style={styles.modalContainer}>
-          <View style={styles.modalContent}>
-            <ActivityIndicator size="small" style={styles.spinner} />
-          </View>
+        <View style={styles.footer}>
+          <Text style={styles.footer_text}>
+            Al registrarme acepto las condiciones de uso y la privacidad de
+            datos política
+          </Text>
         </View>
-      </Modal>
-      <Modal
-        style={styles.modal}
-        visible={success}
-        transparent={true}
-        animationType="slide"
-      >
-        <View style={styles.modalContainer}>
-          <View style={styles.modalContent}>
-            <Text>Usuario creado exitosamente.</Text>
-            <Pressable onPress={closeModal} style={styles.btn}>
-              <Text style={styles.btnText}>Ok</Text>
-            </Pressable>
-          </View>
-        </View>
-      </Modal>
-      <Modal
-        style={styles.modal}
-        visible={invalidPassword}
-        transparent={true}
-        animationType="slide"
-      >
-        <View style={styles.modalContainer}>
-          <View style={styles.modalContent}>
-            <Text>Las contraseñas no coinciden.</Text>
-            <Pressable onPress={closeModal} style={styles.btn}>
-              <Text style={styles.btnText}>Intentar de nuevo</Text>
-            </Pressable>
-          </View>
-        </View>
-      </Modal>
+        <AuthModal
+          success={success}
+          loading={loading}
+          invalidPassword={invalidPassword}
+          closeModal={closeModal}
+        />
+      </AuthContainer>
     </React.Fragment>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: "flex-end",
-  },
-  image: {
-    width: "100%",
-    height: "100%",
-  },
-  logo: {
-    width: 160,
-    height: 160,
-    alignSelf: "center",
-  },
-  title: {
-    color: "#FFF",
-    alignSelf: "center",
-    fontWeight: "bold",
-    fontSize: 30,
-    marginTop: 10,
-    textDecorationLine: "underline",
-  },
   login: {
     marginRight: 15,
     alignItems: "center",
@@ -237,36 +161,5 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     letterSpacing: 0.25,
     color: "#024059",
-  },
-  modalContainer: {
-    width: "100%",
-    height: "100%",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  spinner: {
-    width: "100%",
-    height: "100%",
-  },
-  modalContent: {
-    minHeight: 100,
-    minWidth: 100,
-    padding: 15,
-    backgroundColor: "#fff",
-    borderRadius: 4,
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  btn: {
-    paddingVertical: 8,
-    paddingHorizontal: 16,
-    backgroundColor: "#76B2B2",
-    marginTop: 16,
-    borderRadius: 16,
-  },
-  btnText: {
-    color: "#fff",
-    fontWeight: "bold",
   },
 });

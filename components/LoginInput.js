@@ -1,4 +1,4 @@
-import { StyleSheet, TextInput, View, Text } from "react-native";
+import { StyleSheet, TextInput, View, Text, Keyboard } from "react-native";
 import { Controller } from "react-hook-form";
 import React from "react";
 import { Ionicons } from "@expo/vector-icons";
@@ -25,6 +25,8 @@ export default function LoginInput({
               onChangeText={onChange}
               value={value}
               onBlur={onBlur}
+              blurOnSubmit={false}
+              onSubmitEditing={() => Keyboard.dismiss()}
               placeholder={placeholder}
               placeholderTextColor={"#FFF"}
               secureTextEntry={secureTextEntry}

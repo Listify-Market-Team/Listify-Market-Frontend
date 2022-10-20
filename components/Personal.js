@@ -1,14 +1,12 @@
 import {
-  ImageBackground,
   View,
   Text,
   StyleSheet,
-  Image,
-  SafeAreaView,
   Pressable,
 } from "react-native";
 import React from "react";
 import { useForm } from "react-hook-form";
+import AuthContainer from "./AuthContainer";
 import LoginInput from "../components/LoginInput";
 import { phoneRegex } from "../api/constants";
 import { deviceHeight, deviceWidth } from "../api/constants";
@@ -30,79 +28,41 @@ export default function Personal(props) {
 
   return (
     <React.Fragment>
-      <ImageBackground
-        source={require("../resources/Login-Background.png")}
-        resizeMode="cover"
-        style={styles.image}
-      >
-        <View style={styles.container}>
-          <Image
-            style={styles.logo}
-            source={require("../resources/Logo-Proyecto2-1.png")}
-          />
-          <SafeAreaView>
-            <Text style={styles.title}>Creaci&oacute;n de cuenta</Text>
-          </SafeAreaView>
-          <LoginInput
-            control={control}
-            name="name"
-            placeholder="Nombre"
-            rules={{ required: "El nombre es requerido" }}
-          />
-          <LoginInput
-            control={control}
-            name="phoneNumber"
-            placeholder="Teléfono"
-            rules={{
-              required: "El teléfono es requerido",
-              pattern: { value: phoneRegex, message: "Teléfono inválido" },
+      <AuthContainer title={"Creación de cuenta"}>
+        <LoginInput
+          control={control}
+          name="name"
+          placeholder="Nombre"
+          rules={{ required: "El nombre es requerido" }}
+        />
+        <LoginInput
+          control={control}
+          name="phoneNumber"
+          placeholder="Teléfono"
+          rules={{
+            required: "El teléfono es requerido",
+            pattern: { value: phoneRegex, message: "Teléfono inválido" },
+          }}
+        />
+        <View style={styles.buttons}>
+          <Pressable
+            onPress={() => {
+              props.goBack();
             }}
-          />
-          <View style={styles.buttons}>
-            <Pressable
-              onPress={() => {
-                props.goBack();
-              }}
-              style={styles.back}
-            >
-              <Text style={styles.back_text}>Volver</Text>
-            </Pressable>
-            <Pressable onPress={handleSubmit(submit)} style={styles.login}>
-              <Text style={styles.login_text}>Siguiente</Text>
-            </Pressable>
-          </View>
+            style={styles.back}
+          >
+            <Text style={styles.back_text}>Volver</Text>
+          </Pressable>
+          <Pressable onPress={handleSubmit(submit)} style={styles.login}>
+            <Text style={styles.login_text}>Siguiente</Text>
+          </Pressable>
         </View>
-      </ImageBackground>
+      </AuthContainer>
     </React.Fragment>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: "flex-end",
-    width: deviceWidth,
-    height: deviceHeight,
-  },
-  image: {
-    width: "100%",
-    height: "100%",
-  },
-  logo: {
-    width: 180,
-    height: 180,
-    alignSelf: "center",
-    marginBottom: deviceHeight * 0.04,
-  },
-  title: {
-    color: "#FFF",
-    alignSelf: "center",
-    fontWeight: "bold",
-    fontSize: 30,
-    marginTop: deviceHeight * 0.04,
-    marginBottom: deviceHeight * 0.04,
-    textDecorationLine: "underline",
-  },
   login: {
     marginRight: deviceWidth * 0.05,
     alignItems: "center",

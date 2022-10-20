@@ -1,14 +1,12 @@
 import {
-  ImageBackground,
   View,
   Text,
   StyleSheet,
-  Image,
   Pressable,
-  SafeAreaView,
 } from "react-native";
 import React, { useContext } from "react";
 import { useForm } from "react-hook-form";
+import AuthContainer from "./AuthContainer";
 import LoginInput from "./LoginInput";
 import { AuthContext } from "../context/AuthContext";
 import { login } from "../api/login";
@@ -28,80 +26,44 @@ export default function Login(props) {
   };
 
   return (
-    <ImageBackground
-      source={require("../resources/Login-Background.png")}
-      resizeMode="cover"
-      style={styles.image}
-    >
-      <View style={styles.container}>
-        <Image
-          style={styles.logo}
-          source={require("../resources/Logo-Proyecto2-1.png")}
-        />
-        <SafeAreaView>
-          <Text style={styles.title}>Inicia sesi&oacute;n</Text>
-        </SafeAreaView>
-        <LoginInput
-          control={control}
-          name="user"
-          placeholder="Correo electrónico o teléfono"
-          rules={{
-            required: "El correo electrónico o teléfono es requerido",
-            pattern: {
-              value: userRegex,
-              message: "Correo electrónico o teléfono inválido",
-            },
+    <AuthContainer title={"Iniciar Sesión"}>
+      <LoginInput
+        control={control}
+        name="user"
+        placeholder="Correo electrónico o teléfono"
+        rules={{
+          required: "El correo electrónico o teléfono es requerido",
+          pattern: {
+            value: userRegex,
+            message: "Correo electrónico o teléfono inválido",
+          },
+        }}
+      />
+      <LoginInput
+        control={control}
+        name="password"
+        placeholder="Contraseña"
+        secureTextEntry
+        rules={{ required: "La contraseña es requerida" }}
+      />
+      <Pressable onPress={handleSubmit(onSubmit)} style={styles.login}>
+        <Text style={styles.login_text}>Iniciar sesi&oacute;n</Text>
+      </Pressable>
+      <View style={styles.footer}>
+        <Text style={styles.footer_text}>¿No tienes una cuenta?</Text>
+        <Pressable
+          onPress={() => {
+            props.navigate("Personal");
           }}
-        />
-        <LoginInput
-          control={control}
-          name="password"
-          placeholder="Contraseña"
-          secureTextEntry
-          rules={{ required: "La contraseña es requerida" }}
-        />
-        <Pressable onPress={handleSubmit(onSubmit)} style={styles.login}>
-          <Text style={styles.login_text}>Iniciar sesi&oacute;n</Text>
+        >
+          <Text style={styles.footer_signup}>Registrate</Text>
         </Pressable>
-        <View style={styles.footer}>
-          <Text style={styles.footer_text}>¿No tienes una cuenta?</Text>
-          <Pressable
-            onPress={() => {
-              props.navigate("Personal");
-            }}
-          >
-            <Text style={styles.footer_signup}>Registrate</Text>
-          </Pressable>
-        </View>
       </View>
-    </ImageBackground>
+    </AuthContainer>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: "flex-end",
-  },
-
-  image: {
-    width: "100%",
-    height: "100%",
-  },
-  logo: {
-    width: 180,
-    height: 180,
-    alignSelf: "center",
-    marginBottom: deviceHeight / 25,
-  },
-  title: {
-    color: "#FFF",
-    alignSelf: "center",
-    fontWeight: "bold",
-    fontSize: 30,
-    marginBottom: deviceHeight * 0.04,
-    textDecorationLine: "underline",
-  },
   login: {
     marginTop: deviceHeight * 0.1,
     marginBottom: deviceHeight * 0.1,
