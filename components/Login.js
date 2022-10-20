@@ -82,26 +82,23 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: "flex-end",
-    width: deviceWidth,
-    height: deviceHeight,
   },
 
   image: {
-    width: deviceWidth,
-    height: deviceHeight,
+    width: "100%",
+    height: "100%",
   },
   logo: {
     width: 180,
     height: 180,
     alignSelf: "center",
-    marginBottom: deviceHeight * 0.04,
+    marginBottom: deviceHeight / 25,
   },
   title: {
     color: "#FFF",
     alignSelf: "center",
     fontWeight: "bold",
     fontSize: 30,
-    marginTop: deviceHeight * 0.04,
     marginBottom: deviceHeight * 0.04,
     textDecorationLine: "underline",
   },
