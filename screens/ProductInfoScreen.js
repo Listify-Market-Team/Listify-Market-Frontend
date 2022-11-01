@@ -7,6 +7,7 @@ import {
   Image,
   TouchableOpacity,
   StyleSheet,
+  Touchable,
 } from "react-native";
 import { Pressable } from "react-native";
 import AppButton from "../components/AppButton";
@@ -37,15 +38,21 @@ const DATA_WITH_ID = [
   },
 ];
 
+const pressHandler = (item) =>{
+  console.log(item.id);
+  console.log(item.title);
+  console.log(item.price);
+}
+
 const renderList = ({ item }) => {
 
-
-
   return (  
-    <View style={styles.listItem}>
+    <TouchableOpacity onPress={() => pressHandler(item)}>
+      <View style={styles.listItem}>
         <Text style={styles.listItemText}>{item.title}</Text>
         <Text style={styles.listItemPrice}>{item.price}</Text>  
-    </View>
+      </View>
+    </TouchableOpacity>
   );
 };
 
