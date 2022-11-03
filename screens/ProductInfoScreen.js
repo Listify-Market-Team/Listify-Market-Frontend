@@ -59,7 +59,8 @@ export default class ProductInfoScreen extends Component {
     this.state = {
       productQuantity: 0,
       showLists: false,
-      loadingLists: false
+      loadingLists: false,
+      productPrice: 0
     };
 
     this.increaseOnPress = this.increaseOnPress.bind(this);
@@ -97,6 +98,10 @@ export default class ProductInfoScreen extends Component {
     console.log(item.id);
     console.log(item.title);
     console.log(item.price);
+    
+    this.setState({
+      productPrice: item.price,
+    });
   }
   
   
