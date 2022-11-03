@@ -38,14 +38,8 @@ const DATA_WITH_ID = [
   },
 ];
 
-const pressHandler = (item) =>{
-  console.log(item.id);
-  console.log(item.title);
-  console.log(item.price);
-}
-
 const renderList = ({ item }) => {
-
+  
   return (  
     <TouchableOpacity onPress={() => pressHandler(item)}>
       <View style={styles.listItem}>
@@ -71,6 +65,7 @@ export default class ProductInfoScreen extends Component {
     this.increaseOnPress = this.increaseOnPress.bind(this);
     this.decreaseOnPress = this.decreaseOnPress.bind(this);
     this.addProductToList = this.addProductToList.bind(this);
+    this.pressHandler = this.pressHandler.bind(this);
   }
 
   increaseOnPress() {
@@ -98,7 +93,13 @@ export default class ProductInfoScreen extends Component {
     // }, 2000);
   }
 
-
+  pressHandler = (item) =>{
+    console.log(item.id);
+    console.log(item.title);
+    console.log(item.price);
+  }
+  
+  
   
   render() {
     return (
