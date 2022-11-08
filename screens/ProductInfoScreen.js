@@ -93,9 +93,6 @@ export default class ProductInfoScreen extends Component {
       this.setState({
         price: item.price,
       })
-      console.log(this.state.productPrice);
-      console.log(this.state.productQuantity);
-    
   }
   
 
