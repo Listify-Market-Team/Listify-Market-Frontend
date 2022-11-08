@@ -3,7 +3,6 @@ import {
   Text,
   View,
   Modal,
-  Dimensions,
   TouchableOpacity,
   FlatList,
 } from "react-native";
@@ -11,8 +10,7 @@ import React from "react";
 import { color } from "react-native-reanimated";
 import axios from "axios";
 import useFetch from "../Hooks/useFetch";
-
-const deviceHeight = Dimensions.get("window").height;
+import { deviceHeight } from "../api/constants";
 
 const ListMenuPop = (props) => {
   const items = [

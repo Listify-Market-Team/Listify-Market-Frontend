@@ -12,7 +12,7 @@ export default function NewListScreen({ navigation, route }) {
 
     try {
       axios
-        .post("http://localhost:5209/api/Inventory/Create", {
+        .post("https://listifym-backend.herokuapp.com/api/Inventory/Create", {
           name: list.name,
           description: list.description,
           appUserId: 1,
