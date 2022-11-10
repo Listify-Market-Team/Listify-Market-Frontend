@@ -5,24 +5,18 @@ import {
   View,
   TextInput,
   TouchableOpacity,
-  Image
+  Image,
 } from "react-native";
-import searchIcon from "../img/magnifier.png"
+import searchIcon from "../img/magnifier.png";
 
 const SearchBar = () => {
   return (
     <View style={styles.container}>
-      <TextInput style={styles.textInput}  />
+      <TextInput style={styles.textInput} />
 
-      <TouchableOpacity
-          style={styles.searchButton}
-          activeOpacity={0.5}>
-
-          <Image
-            source={searchIcon}
-            style={styles.buttonImageIconStyle}
-          />
-    </TouchableOpacity>
+      <TouchableOpacity style={styles.searchButton} activeOpacity={0.5}>
+        <Image source={searchIcon} style={styles.buttonImageIconStyle} />
+      </TouchableOpacity>
     </View>
   );
 };
@@ -42,7 +36,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#d9e8e9",
   },
   searchButton: {
-    justifyContent: 'center',
+    justifyContent: "center",
     alignItems: "center",
     backgroundColor: "#00d36e",
     borderRadius: 15,
@@ -51,7 +45,7 @@ const styles = StyleSheet.create({
     margin: 3,
     height: 19,
     width: 19,
-    resizeMode: 'stretch',
+    resizeMode: "stretch",
   },
 });
 

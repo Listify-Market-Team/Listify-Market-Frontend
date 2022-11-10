@@ -22,14 +22,19 @@ const ListMainScreen = ({ navigation }) => {
 
       <View style={styles.container}>
         <View style={styles.buttonTituleContainer}>
-          <Text style={styles.titule}>My lists</Text>
-          <TouchableOpacity style={styles.addNewBoton} onPress={() => {}}>
-            <Text>ADD NEW</Text>
+          <Text style={styles.titule}>Mis Listas</Text>
+          <TouchableOpacity
+            style={styles.addNewBoton}
+            onPress={() => {
+              navigation.navigate("NewList");
+            }}
+          >
+            <Text>Nueva</Text>
           </TouchableOpacity>
         </View>
 
         <ScrollView style={styles.listContainer}>
-          <List />
+          <List navigation={navigation}/>
         </ScrollView>
       </View>
     </View>
@@ -43,7 +48,7 @@ const styles = StyleSheet.create({
   },
   searchBarContainer: {
     width: "100%",
-    marginTop: 47,
+    marginTop: 30,
     marginBottom: 30,
     alignItems: "center",
   },

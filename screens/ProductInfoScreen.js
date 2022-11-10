@@ -7,58 +7,56 @@ import {
   Image,
   TouchableOpacity,
   StyleSheet,
+  Touchable,
 } from "react-native";
 import { Pressable } from "react-native";
 import AppButton from "../components/AppButton";
 import globalStyles from "../styles";
 import { Modal } from "react-native";
+import { set } from "react-native-reanimated";
 
 //Random Data
 const DATA_WITH_ID = [
   {
     id: "bd7acbea-c1b1-46c2-aed5-3ad53abb28ba",
-    title: "First Item",
+    title: "Bravo",
     price: 120,
   },
   {
     id: "3ac68afc-c605-48d3-a4f8-fbd91aa97f63",
-    title: "Second Item",
+    title: "La Sirena",
     price: 300,
   },
   {
     id: "58694a0f-3da1-471f-bd96-145571e29d72",
-    title: "Third Item",
+    title: "Jumbo",
     price: 820,
   },
   {
     id: "58694a0f-3da1-471f-bd96-145571e29d2312",
-    title: "Fourth Item",
+    title: "Olé",
     price: 820,
   },
 ];
 
-const renderList = ({ item }) => {
-  return (
-    <View style={styles.listItem}>
-      <Text style={styles.listItemText}>{item.title}</Text>
-      <Text style={styles.listItemPrice}>{item.price}</Text>
-    </View>
-  );
-};
 
 export default class ProductInfoScreen extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      productQuantity: 0,
+      dataSource: [],
       showLists: false,
       loadingLists: false,
+      productPrice: 0,
+      productQuantity: 0,
+      productId: 0
     };
 
     this.increaseOnPress = this.increaseOnPress.bind(this);
     this.decreaseOnPress = this.decreaseOnPress.bind(this);
     this.addProductToList = this.addProductToList.bind(this);
+    this.pressHandler = this.pressHandler.bind(this);
   }
 
   increaseOnPress() {
@@ -76,13 +74,48 @@ export default class ProductInfoScreen extends Component {
   }
 
   addProductToList() {
-    this.setState({ showLists: true, loadingLists: true });
+    // this.setState({ showLists: true, loadingLists: true });
     // console.log("added!");
 
-    setTimeout(() => {
-      this.setState({ loadingLists: false });
-    }, 2000);
+    this.props.navigation.navigate("AddProduct", {
+       id:this.props.route.params.id, 
+       price:this.state.productPrice, 
+       quantity: this.state.productQuantity,
+      });
+
+    // setTimeout(() => {
+    //   this.setState({ loadingLists: false });
+    // }, 2000);
   }
+
+  pressHandler(item) {
+
+      this.setState({
+        price: item.price,
+      })
+  }
+  
+
+  // async getProduct(){
+  //   try
+  //   {///Entrar nuevo endpoint de API o conexion aqui
+  //     this.setState({
+  //       productId: this.props.route.params.id
+  //     })
+      
+  //     const response = await fetch("http://localhost:5209/api/Product/GetById/");
+  //     const json = await response.json();
+  //     this.state.dataSource = json;
+  //   }
+  //   catch(error)
+  //   {
+  //     console.error('Error API', error);
+  //   }
+  // }
+  
+  // componentDidMount(){
+  //   this.getProduct()
+  // }
 
   render() {
     return (
@@ -96,7 +129,7 @@ export default class ProductInfoScreen extends Component {
               }}
             />
           </View>
-          <Text style={styles.title}>Product Name</Text>
+          <Text style={styles.title}>{this.props.route.params.name}</Text>
           <Text style={styles.info}>
             Lorem Ipsum is simply dummy text of the printing and typesetting
             industry
@@ -105,15 +138,27 @@ export default class ProductInfoScreen extends Component {
           <View style={styles.prices}>
             <FlatList
               data={DATA_WITH_ID}
-              renderItem={renderList}
+              renderItem=
+              {({ item }) => 
+                {
+                  <TouchableOpacity onPress={() => pressHandler(item)}>
+                    <View style={styles.listItem}>
+                      <Text style={styles.listItemText}>{item.title}</Text>
+                      <Text style={styles.listItemPrice}>{item.price}</Text>  
+                    </View>
+                  </TouchableOpacity>
+                }
+              }
               keyExtractor={(item) => item.id}
               horizontal
+              extraData={this.state}
+              
             />
           </View>
 
           <View style={styles.quantityContainer}>
             <View>
-              <Text style={styles.quantityLabel}>Quantity</Text>
+              <Text style={styles.quantityLabel}>Cantidad</Text>
             </View>
 
             <View style={styles.quantityBtnWrapper}>
@@ -252,6 +297,7 @@ const styles = StyleSheet.create({
     // height: 75,
     marginTop: 16,
     backgroundColor: "#d1efef",
+    overflow: "visible",
   },
   quantityContainer: {
     flexDirection: "row",
@@ -354,4 +400,7 @@ const styles = StyleSheet.create({
     color: "green",
     fontWeight: "bold",
   },
+  selected: {
+    backgroundColor:"green"
+  }
 });

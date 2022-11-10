@@ -1,15 +1,16 @@
 import { StyleSheet, Text, View, Image, ScrollView } from 'react-native'
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
+import { AuthContext } from "../context/AuthContext";
  
 const ProductListScreen = () => {
-
-    const listId = 1
+  const {user} = useContext(AuthContext);
+    
 
     const [products, setProducts] = useState([]);
 
     const fetchList = async () => {
         try {
-          const res = await fetch("https://localhost:7209/api/Product/GetProductsByInventoryID?inventoryID=" + listId);
+          const res = await fetch("https://localhost:7209/api/Product/GetProductsByInventoryID?inventoryID=" + user.id);
           const json = await res.json();
           const products = json.products
           setProducts(products)

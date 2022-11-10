@@ -1,13 +1,37 @@
 import { View, Text, StyleSheet } from "react-native";
 import SimpleListForm from "../components/ListForm/SimpleListForm";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import axios from "axios";
 
-export default function UpdateListScreen() {
+export default function UpdateListScreen({ navigation, route }) {
+  const [loading, setLoading] = useState(false);
+
+  // console.dir(route.params);
+
+  const listName = "name" in route.params ? route.params.name : "";
+  const listDescrpt =
+    "description" in route.params ? route.params.description : "";
+  const id = "id" in route.params ? route.params.id : 0;
+
   const sendNewList = (list) => {
-    console.log(list);
+    // console.log(id);
+    setLoading(true);
+    try {
+      axios
+        .put("https://listifym-backend.herokuapp.com/Inventory/UpdateInventory", {
+          ...list,
+          id,
+          appUserId: 1,
+          totalPrice: 1,
+        })
+        .then(() => {
+          setLoading(false);
+          navigation.navigate("Home");
+        });
+    } catch (error) {
+      console.log("something went wrong!");
+    }
   };
-  const listName = "My Test List"; // navigator.getParams("name");
-  const listDescrpt = "This list was created for testing purposes"; //navigator.getParams("description");
 
   return (
     <View style={screenStyles.base}>
@@ -16,6 +40,7 @@ export default function UpdateListScreen() {
         <SimpleListForm
           onSubmit={sendNewList}
           initialValues={{ name: listName, description: listDescrpt }}
+          loading={loading}
         />
       </View>
     </View>

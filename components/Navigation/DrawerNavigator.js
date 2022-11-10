@@ -2,16 +2,20 @@ import { createDrawerNavigator } from "@react-navigation/drawer";
 import { Ionicons } from "@expo/vector-icons";
 import { Feather } from "@expo/vector-icons";
 import { AntDesign } from "@expo/vector-icons";
+import { Entypo } from "@expo/vector-icons";
 
 import Menu from "../../components/Menu";
-// import HomeScreen from "../../screens/HomeScreen";
-// import HelpScreen from "../../screens/HelpScreen";
+import HomeScreen from "../../screens/HomeScreen";
+import HelpScreen from "../../screens/HelpScreen";
+import LoginScreen from "../../screens/LoginScreen";
+import RegisterScreen from "../../screens/RegisterScreen";
+import { MainStackNavigator } from "./StackNavigator";
 import ListMainScreen from "../../screens/ListMainScreen";
 import ProductInfoScreen from "../../screens/ProductInfoScreen";
 import NewListScreen from "../../screens/NewListScreen";
 import UpdateListScreen from "../../screens/UpdateListScreen";
-import ProductListScreen from "../../screens/ProductListScreen";
-
+import AddProductScreen from "../../screens/AddProductScreen";
+import SearchProductScreen from "../../screens/SearchProductScreen";
 
 const Drawer = createDrawerNavigator();
 
@@ -23,7 +27,7 @@ export const DrawerNavigator = () => {
     >
       <Drawer.Screen
         name="Home"
-        component={ListMainScreen} //CAMBIAR
+        component={ListMainScreen}
         options={{
           title: "Inicio",
           headerTitle: "Inicio",
@@ -41,31 +45,48 @@ export const DrawerNavigator = () => {
             <Feather name="help-circle" size={24} color="#00DE68" />
           ),
         }}
-      /> */}
+      />  */}
       <Drawer.Screen
-        name="NewList"
-        component={NewListScreen}
-        options={{ headerTitle: "Nueva Lista" }}
+        name="Products"
+        component={SearchProductScreen}
+        options={{
+          title: "Products",
+          drawerIcon: () => <Feather name="search" size={24} color="#00DE68" />,
+        }}
+      />
+      <Drawer.Screen
+        name="AddProduct"
+        component={AddProductScreen}
+        options={{
+          headerTitle: "Agregar producto",
+          title: "Agregar producto",
+          // drawerIcon: () => (
+          //   <Entypo name="add-to-list" size={24} color="#00DE68" />
+          // ),
+        }}
       />
       <Drawer.Screen
         name="UpdateList"
         component={UpdateListScreen}
         options={{ headerTitle: "Actualizar Lista" }}/>
+
       <Drawer.Screen
         name="ProductInfo"
         component={ProductInfoScreen}
         options={{
           headerTitle: "Información de producto",
           title: "Información de producto",
-          drawerIcon: () => (
-            <AntDesign name="infocirlceo" size={24} color="#00DE68" />
-          ),
+          // drawerIcon: () => (
+          //   <AntDesign name="infocirlceo" size={24} color="#00DE68" />
+          // ),
         }}
       />
-        <Drawer.Screen
-        name="productList"
-        component={ProductListScreen}
-        options={{ headerTitle: "productList"}}/>
+      <Drawer.Screen
+        name="NewList"
+        component={NewListScreen}
+        options={{ title: "Agregar Lista", headerTitle: "Nueva Lista" }}
+      />
+      
     </Drawer.Navigator>
   );
 };
