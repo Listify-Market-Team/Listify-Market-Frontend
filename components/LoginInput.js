@@ -1,9 +1,10 @@
-import { StyleSheet, TextInput, View, Text } from "react-native";
+import { StyleSheet, TextInput, View, Text, Keyboard } from "react-native";
 import { Controller } from "react-hook-form";
 import React from "react";
 import { Ionicons } from "@expo/vector-icons";
 export default function LoginInput({
   control,
+  type,
   name,
   placeholder,
   secureTextEntry,
@@ -25,6 +26,7 @@ export default function LoginInput({
               onChangeText={onChange}
               value={value}
               onBlur={onBlur}
+              textContentType={type}
               placeholder={placeholder}
               placeholderTextColor={"#FFF"}
               secureTextEntry={secureTextEntry}
