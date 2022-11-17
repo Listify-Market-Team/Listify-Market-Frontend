@@ -8,6 +8,7 @@ import {
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import axios from "axios";
+import { SpinnerCircular } from "spinners-react";
 
 export const IconBack = () => {
   return (
@@ -28,6 +29,14 @@ export const IconBack = () => {
   );
 };
 
+export const Spinner = () => {
+  return (
+    <View style={styles.SpinnerContainer}>
+      <SpinnerCircular style={styles.Spinner}/>
+    </View>
+  );
+};
+
 export const AddProductButton = (props) => {
   const List = [];
   const prod = props.product;
@@ -39,7 +48,7 @@ export const AddProductButton = (props) => {
           const doGetRequest = async () => {
             const res = await axios
               .put(
-                "http://localhost:5209/api/Inventory/AddProductToInventory",
+                "https://listifym-backend.herokuapp.com/api/Inventory/AddProductToInventory",
                 {
                   "inventoryID": d.id,
                   "productID": prod.id,
@@ -51,8 +60,7 @@ export const AddProductButton = (props) => {
               });
 
             const data = await res.status;
-            console.log(data);
-            // SetRequest(data);
+            console.log(data);          
           };
 
           doGetRequest();
@@ -72,7 +80,11 @@ export const AddProductButton = (props) => {
   };
 
   return (
-    <Pressable style={styles.button} onPress={results}>
+    <Pressable style={styles.button} 
+      onPress={() => {
+        results;
+        props.navigation.navigate("Home");
+      }}>
       <Text style={styles.text}>Agregar producto</Text>
     </Pressable>
   );
@@ -83,6 +95,15 @@ const styles = StyleSheet.create({
     fontSize: 15,
     alignContent: "center",
     fontWeight: "bold",
+  },
+  Spinner:{
+    width: "20%",
+    marginTop: "60%"
+  },
+  SpinnerContainer:{
+    alignItems: "center",
+    flex: 1,
+    alignContent: "center"
   },
   Icon: {
     padding: 15,
