@@ -8,6 +8,7 @@ import {
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import axios from "axios";
+import { API_URL } from "../../api/constants";
 
 export const IconBack = () => {
   return (
@@ -38,14 +39,11 @@ export const AddProductButton = (props) => {
         if (index1 == index2 && c === true) {
           const doGetRequest = async () => {
             const res = await axios
-              .put(
-                "http://localhost:5209/api/Inventory/AddProductToInventory",
-                {
-                  "inventoryID": d.id,
-                  "productID": prod.id,
-                  "quantity": prod.quantity,
-                }
-              )
+              .put(`${API_URL}/Inventory/AddProductToInventory`, {
+                inventoryID: d.id,
+                productID: prod.id,
+                quantity: prod.quantity,
+              })
               .catch((error) => {
                 ({ errorMessage: error.message });
               });
