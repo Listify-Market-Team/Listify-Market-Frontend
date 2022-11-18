@@ -37,20 +37,20 @@ export const DrawerNavigator = () => {
         }}
       />
       <Drawer.Screen
-        name="Help"
+        name="Ayuda"
         component={HelpScreen}
         options={{
-          title: "Help",
+          title: "Ayuda",
           drawerIcon: () => (
             <Feather name="help-circle" size={24} color="#00DE68" />
           ),
         }}
       />
       <Drawer.Screen
-        name="Products"
+        name="Productos"
         component={SearchProductScreen}
         options={{
-          title: "Products",
+          title: "Productos",
           drawerIcon: () => <Feather name="search" size={24} color="#00DE68" />,
         }}
       />
