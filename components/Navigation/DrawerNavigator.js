@@ -36,21 +36,21 @@ export const DrawerNavigator = () => {
           ),
         }}
       />
-      {/* <Drawer.Screen
-        name="Help"
+      <Drawer.Screen
+        name="Ayuda"
         component={HelpScreen}
         options={{
-          title: "Help",
+          title: "Ayuda",
           drawerIcon: () => (
             <Feather name="help-circle" size={24} color="#00DE68" />
           ),
         }}
-      />  */}
+      />
       <Drawer.Screen
-        name="Products"
+        name="Productos"
         component={SearchProductScreen}
         options={{
-          title: "Products",
+          title: "Productos",
           drawerIcon: () => <Feather name="search" size={24} color="#00DE68" />,
         }}
       />
@@ -80,11 +80,6 @@ export const DrawerNavigator = () => {
         name="NewList"
         component={NewListScreen}
         options={{ title: "Agregar Lista", headerTitle: "Nueva Lista" }}
-      />
-      <Drawer.Screen
-        name="UpdateList"
-        component={UpdateListScreen}
-        options={{ title: "Actualizar Lista", headerTitle: "Actualizar Lista" }}
       />
     </Drawer.Navigator>
   );

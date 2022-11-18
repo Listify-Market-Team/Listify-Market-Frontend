@@ -1,6 +1,7 @@
 import { View, Text, StyleSheet } from "react-native";
 import SimpleListForm from "../components/ListForm/SimpleListForm";
 import { useEffect, useState } from "react";
+import { API_URL } from "../api/constants";
 import axios from "axios";
 
 export default function UpdateListScreen({ navigation, route }) {
@@ -18,7 +19,7 @@ export default function UpdateListScreen({ navigation, route }) {
     setLoading(true);
     try {
       axios
-        .put("https://listifym-backend.herokuapp.com/Inventory/UpdateInventory", {
+        .put(`${API_URL}/Inventory/UpdateInventory`, {
           ...list,
           id,
           appUserId: 1,

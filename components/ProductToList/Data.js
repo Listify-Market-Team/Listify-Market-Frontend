@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import {
   StyleSheet,
   Text,
@@ -10,19 +10,22 @@ import {
 import Checkbox from "expo-checkbox";
 import axios from "axios";
 import { AddProductButton , Spinner} from "./PressComponents";
+import { API_URL } from "../../api/constants";
+import { AuthContext } from "../../context/AuthContext";
 
 export const ListData = ({ navigation , route}) => {
   const [Loading, setLoading] = useState(true);
   const [listData, setListData] = useState([]);
   const [checked, setChecked] = useState([]);
+  const { user } = useContext(AuthContext);
 
   const product = route.params;
 
   useEffect(() => {
     const doGetRequest = async () => {
-      const userid = 1;
+      const userid = user.id;
       const res = await axios.get(
-        `http://localhost:5209/api/Inventory/GetByUserId?userID=${userid}`
+        `${API_URL}/Inventory/GetByUserId?userID=${userid}`
       );
       //const data = await res.data.results;
       const data = await res.data.inventories;

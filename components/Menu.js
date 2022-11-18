@@ -25,7 +25,7 @@ export default function Menu(props) {
       </View>
       <Pressable style={styles.logout} onPress={() => logout()}>
         <MaterialIcons name="logout" size={24} color="black" />
-        <Text style={styles.logout_text}>Log Out</Text>
+        <Text style={styles.logout_text}>Cerrar sesión</Text>
       </Pressable>
     </DrawerContentScrollView>
   );
