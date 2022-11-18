@@ -11,6 +11,7 @@ import React, { useState, useEffect } from "react";
 import ListMenuPop from "./ListMenuPop";
 import detailBTN from "../img/DetailBTN.png";
 import axios from "axios";
+import { API_URL } from "../api/constants";
 
 // const data = [
 //   {
@@ -45,7 +46,7 @@ const List = ({ navigation }) => {
 
   const fetchList = async () => {
     try {
-      const res = await fetch("https://listifym-backend.herokuapp.com/api/Inventory/GetAll");
+      const res = await fetch(`${API_URL}/Inventory/GetAll`);
       const json = await res.json();
       const json2 = json.inventories;
       setList(json2);
@@ -65,7 +66,7 @@ const List = ({ navigation }) => {
     try {
       axios({
         method: "delete",
-        url: "https://listifym-backend.herokuapp.com/api/Inventory/Delete",
+        url: `${API_URL}/Inventory/Delete`,
         data: { id },
       }).then(() => {
         setList((state) => {
@@ -81,7 +82,9 @@ const List = ({ navigation }) => {
 
   const editList = (id) => {
     axios
-      .get("https://listifym-backend.herokuapp.com/api/Inventory/GetById", { params: { id } })
+      .get(`${API_URL}/Inventory/GetById`, {
+        params: { id },
+      })
       .then((res) => {
         navigation.navigate("UpdateList", {
           id: id,

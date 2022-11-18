@@ -1,21 +1,23 @@
 import { View, Text, StyleSheet, ActivityIndicator } from "react-native";
-import { useState } from "react";
+import { useState, useContext } from "react";
 import axios from "axios";
-
+import { API_URL } from "../api/constants";
+import { AuthContext } from "../context/AuthContext";
 import SimpleListForm from "../components/ListForm/SimpleListForm";
 
 export default function NewListScreen({ navigation, route }) {
   const [loading, setLoading] = useState(false);
+  const { user } = useContext(AuthContext);
 
   const sendNewList = (list) => {
     setLoading(true);
 
     try {
       axios
-        .post("https://listifym-backend.herokuapp.com/api/Inventory/Create", {
+        .post(`${API_URL}/Inventory/Create`, {
           name: list.name,
           description: list.description,
-          appUserId: 1,
+          appUserId: user.id,
           totalPrice: 1,
         })
         .then(() => {
