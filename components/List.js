@@ -11,6 +11,7 @@ import React, { useState, useEffect, useContext } from "react";
 import ListMenuPop from "./ListMenuPop";
 import detailBTN from "../img/DetailBTN.png";
 import axios from "axios";
+import { API_URL } from "../api/constants";
 import { AuthContext } from "../context/AuthContext";
 
 
@@ -61,7 +62,7 @@ const List = (props) => {
   };
   
   useEffect(() => {
-    const unsubscribe = props.navigation.addListener("focus", () => {
+    const unsubscribe = navigation.addListener("focus", () => {
       fetchList();
     });
     return unsubscribe;
@@ -71,7 +72,7 @@ const List = (props) => {
     try {
       axios({
         method: "delete",
-        url: "https://listifym-backend.herokuapp.com/api/Inventory/Delete",
+        url: `${API_URL}/Inventory/Delete`,
         data: { id },
       }).then(() => {
         setList((state) => {
@@ -87,7 +88,9 @@ const List = (props) => {
 
   const editList = (id) => {
     axios
-      .get("https://listifym-backend.herokuapp.com/api/Inventory/GetById", { params: { id } })
+      .get(`${API_URL}/Inventory/GetById`, {
+        params: { id },
+      })
       .then((res) => {
         navigation.navigate("UpdateList", {
           id: id,

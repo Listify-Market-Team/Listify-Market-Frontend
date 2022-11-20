@@ -9,14 +9,14 @@ import {
 } from "react-native";
 import axios from "axios";
 import { useEffect, useState } from "react";
-import AppButton from "../components/AppButton";
+import { API_URL } from "../api/constants";
 
 const SearchProductScreen = ({ navigation }) => {
   const [products, setProducts] = useState([]);
 
   useEffect(() => {
     const doGetRequest = async () => {
-      const res = await axios.get("https://listifym-backend.herokuapp.com/api/Product/GetAll");
+      const res = await axios.get(`${API_URL}/Product/GetAll`);
       const data = await res.data.products;
 
       setProducts(data);
@@ -30,7 +30,7 @@ const SearchProductScreen = ({ navigation }) => {
   const goToProductDetail = (id) => {
     try {
       axios
-        .get("https://listifym-backend.herokuapp.com/api/Product/GetById", { params: { id } })
+        .get(`${API_URL}/Product/GetById`, { params: { id } })
         .then((res) => {
           const product = res.data;
           navigation.navigate("ProductInfo", {

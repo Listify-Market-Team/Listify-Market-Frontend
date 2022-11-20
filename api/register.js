@@ -1,3 +1,4 @@
+import { Alert } from "react-native";
 import { API_URL } from "./constants";
 import axios from "axios";
 
@@ -19,6 +20,6 @@ export const register = (name, password, email, phoneNumber, setLoading, setSucc
     .catch((error) => {
       setLoading(false);
       setSuccess(false);
-      alert("Error");
+      Alert.alert("Error", error.message);
     });
 };
