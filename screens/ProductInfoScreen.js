@@ -50,7 +50,8 @@ export default class ProductInfoScreen extends Component {
       loadingLists: false,
       productPrice: 0,
       productQuantity: 0,
-      productId: 0
+      productId: 0,
+      isSelected: false,
     };
 
     this.increaseOnPress = this.increaseOnPress.bind(this);
@@ -90,12 +91,17 @@ export default class ProductInfoScreen extends Component {
 
   pressHandler(item) {
 
+    try{
       this.setState({
-        price: item.price,
+        productPrice: item.price,
+        isSelected: true,
       })
+    }
+    finally{
       console.log(this.state.productPrice);
       console.log(this.state.productQuantity);
-    
+    }
+      
   }
   
 
@@ -143,18 +149,16 @@ export default class ProductInfoScreen extends Component {
               data={DATA_WITH_ID}
               renderItem=
               {({ item }) => 
-                {
-                  <TouchableOpacity onPress={() => pressHandler(item)}>
-                    <View style={styles.listItem}>
-                      <Text style={styles.listItemText}>{item.title}</Text>
-                      <Text style={styles.listItemPrice}>{item.price}</Text>  
-                    </View>
-                  </TouchableOpacity>
-                }
+                <Pressable 
+                style ={this.state.isSelected ? styles.selected : styles.listItem} 
+                onPress={() => this.pressHandler(item)}>
+                  <Text style={styles.listItemText}>{item.title}</Text>
+                  <Text style={styles.listItemPrice}>{item.price}</Text>  
+                </Pressable>
               }
               keyExtractor={(item) => item.id}
               horizontal
-              extraData={this.state}
+              extraData={this.state.productPrice}
               
             />
           </View>
@@ -404,6 +408,7 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
   },
   selected: {
+    padding: 14,
     backgroundColor:"green"
   }
 });
