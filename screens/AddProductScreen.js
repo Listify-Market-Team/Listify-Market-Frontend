@@ -7,7 +7,7 @@ import { IconBack } from "../components/ProductToList/PressComponents";
 export default function AddProduct({ navigation , route}) {
   return (
     <View style={styles.screen}>
-      <IconBack />
+      <IconBack navigation={navigation}/>
 
       <View style={styles.container}>
         <View style={styles.ItemsContainer}>

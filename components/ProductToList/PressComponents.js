@@ -11,11 +11,11 @@ import axios from "axios";
 import { SpinnerCircular } from "spinners-react";
 import { API_URL } from "../../api/constants";
 
-export const IconBack = () => {
+export const IconBack = (props) => {
   return (
     <TouchableHighlight
       onPress={() => {
-        /*navigation.dispatch(DrawerActions.openDrawer());*/
+        props.navigation.goBack();
       }}
     >
       <View>
@@ -68,21 +68,16 @@ export const AddProductButton = (props) => {
       });
     });
 
-    //console.log(request);
-
     if (List.length == 0) {
       alert("Seleccione algo");
     } else {
-      alert(List);
+      props.navigation.navigate("Home");
     }
   };
 
   return (
     <Pressable style={styles.button} 
-      onPress={() => {
-        results;
-        props.navigation.navigate("Home");
-      }}>
+      onPress={results}>
       <Text style={styles.text}>Agregar producto</Text>
     </Pressable>
   );
