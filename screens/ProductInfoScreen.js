@@ -96,12 +96,6 @@ export default class ProductInfoScreen extends Component {
         productPrice: item.price,
         isSelected: true,
       })
-    }
-    finally{
-      console.log(this.state.productPrice);
-      console.log(this.state.productQuantity);
-    }
-      
   }
   
 
