@@ -40,7 +40,7 @@ import { AuthContext } from "../context/AuthContext";
 //   },
 // ];
 
-const List = (props) => {
+const List = ({ navigation }) => {
 
   const {user} = useContext(AuthContext);
   const [list1, setList] = useState([]);
