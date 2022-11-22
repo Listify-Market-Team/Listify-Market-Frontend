@@ -6,12 +6,14 @@ import {
   TouchableOpacity,
   Modal,
 } from "react-native";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 // import useFetch from "../Hooks/useFetch";
 import ListMenuPop from "./ListMenuPop";
 import detailBTN from "../img/DetailBTN.png";
 import axios from "axios";
 import { API_URL } from "../api/constants";
+import { AuthContext } from "../context/AuthContext";
+
 
 // const data = [
 //   {
@@ -39,22 +41,26 @@ import { API_URL } from "../api/constants";
 //   },
 // ];
 
-const List = ({ navigation }) => {
+const List = (props) => {
+
+  const {user} = useContext(AuthContext);
   const [list1, setList] = useState([]);
   const [listModal, setListModal] = useState();
   const [isModalVisible, setIsModalVisible] = useState(false);
 
   const fetchList = async () => {
     try {
-      const res = await fetch(`${API_URL}/Inventory/GetAll`);
+      console.log(user.id)
+      const res = await fetch("https://listifym-backend.herokuapp.com/api/Inventory/GetByUserId?userID="+user.id);
       const json = await res.json();
       const json2 = json.inventories;
       setList(json2);
+      
     } catch (error) {
       console.log("something went wrong");
     }
   };
-
+  
   useEffect(() => {
     const unsubscribe = navigation.addListener("focus", () => {
       fetchList();

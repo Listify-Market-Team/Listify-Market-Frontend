@@ -7,6 +7,7 @@ import {
   Button,
   TouchableOpacity,
   FlatList,
+  ScrollView
 } from "react-native";
 import SearchBar from "../components/SearchBar";
 import List from "../components/List";
@@ -32,9 +33,9 @@ const ListMainScreen = ({ navigation }) => {
           </TouchableOpacity>
         </View>
 
-        <View style={styles.listContainer}>
-          <List navigation={navigation} />
-        </View>
+        <ScrollView style={styles.listContainer}>
+          <List navigation={navigation}/>
+        </ScrollView>
       </View>
     </View>
   );
