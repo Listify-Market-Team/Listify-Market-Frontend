@@ -14,6 +14,7 @@ import AppButton from "../components/AppButton";
 import globalStyles from "../styles";
 import { Modal } from "react-native";
 import { set } from "react-native-reanimated";
+import { API_URL } from "../api/constants";
 
 //Random Data
 const DATA_WITH_ID = [
@@ -50,7 +51,8 @@ export default class ProductInfoScreen extends Component {
       loadingLists: false,
       productPrice: 0,
       productQuantity: 0,
-      productId: 0
+      productId: 0,
+      selectedPriceID: 0
     };
 
     this.increaseOnPress = this.increaseOnPress.bind(this);
@@ -92,6 +94,7 @@ export default class ProductInfoScreen extends Component {
 
       this.setState({
         price: item.price,
+        selectedPriceID: item.id
       })
   }
   
@@ -103,8 +106,9 @@ export default class ProductInfoScreen extends Component {
   //       productId: this.props.route.params.id
   //     })
       
-  //     const response = await fetch("http://localhost:5209/api/Product/GetById/");
+  //     const response = await fetch(`${API_URL}/Product/GetByID/${this.props.route.params.id}`);
   //     const json = await response.json();
+
   //     this.state.dataSource = json;
   //   }
   //   catch(error)
@@ -141,7 +145,8 @@ export default class ProductInfoScreen extends Component {
               renderItem=
               {({ item }) => 
                 {
-                  <TouchableOpacity onPress={() => pressHandler(item)}>
+                  <TouchableOpacity  
+                    onPress={() => pressHandler(item)}>
                     <View style={styles.listItem}>
                       <Text style={styles.listItemText}>{item.title}</Text>
                       <Text style={styles.listItemPrice}>{item.price}</Text>  
