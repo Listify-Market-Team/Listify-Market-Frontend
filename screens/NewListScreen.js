@@ -4,7 +4,6 @@ import axios from "axios";
 import { API_URL } from "../api/constants";
 import { AuthContext } from "../context/AuthContext";
 import SimpleListForm from "../components/ListForm/SimpleListForm";
-import { AuthContext } from "../context/AuthContext";
 
 export default function NewListScreen({ navigation, route }) {
   const [loading, setLoading] = useState(false);
