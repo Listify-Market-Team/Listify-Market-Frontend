@@ -47,7 +47,7 @@ export const AddProductButton = (props) => {
       props.datacheck.map((c, index2) => {
         if (index1 == index2 && c === true) {
           const doGetRequest = async () => {
-            const res = await axios
+            await axios
               .put(`${API_URL}/Inventory/AddProductToInventory`, {
                 inventoryID: d.id,
                 productID: prod.id,
@@ -56,13 +56,9 @@ export const AddProductButton = (props) => {
               .catch((error) => {
                 ({ errorMessage: error.message });
               });
-
-            const data = await res.status;
-            console.log(data);          
           };
 
           doGetRequest();
-
           List.push(d.id);
         }
       });

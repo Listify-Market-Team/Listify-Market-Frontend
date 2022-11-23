@@ -27,7 +27,6 @@ export const ListData = ({ navigation , route}) => {
       const res = await axios.get(
         `${API_URL}/Inventory/GetByUserId?userID=${userid}`
       );
-      //const data = await res.data.results;
       const data = await res.data.inventories;
       const check = new Array(data.length).fill(false);
       setChecked(check);
