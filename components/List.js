@@ -61,7 +61,7 @@ const List = ({ navigation }) => {
   };
   
   useEffect(() => {
-    const unsubscribe = props.navigation.addListener("focus", () => {
+    const unsubscribe = navigation.addListener("focus", () => {
       fetchList();
     });
     return unsubscribe;
