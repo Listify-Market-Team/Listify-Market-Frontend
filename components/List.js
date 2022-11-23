@@ -50,7 +50,7 @@ const List = ({ navigation }) => {
   const fetchList = async () => {
     try {
       console.log(user.id);
-      const res = await fetch("https://listifym-backend.herokuapp.com/api/Inventory/GetByUserId?userID="+user.id);
+      const res = await fetch(`${API_URL}/Inventory/GetByUserId?userID=${user.id}`);
       const json = await res.json();
       const json2 = json.inventories;
       setList(json2);
@@ -119,7 +119,7 @@ const List = ({ navigation }) => {
 
           <View style={styles.content}>
             <Text style={styles.listName}>{list.name}</Text>
-            <Text>x products</Text>
+            <Text>0 productos</Text>
           </View>
 
           <View style={styles.detailContainer}>
