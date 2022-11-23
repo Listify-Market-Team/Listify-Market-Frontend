@@ -4,17 +4,17 @@ import { StyleSheet, Text, View } from "react-native";
 import { ListData } from "../components/ProductToList/Data";
 import { IconBack } from "../components/ProductToList/PressComponents";
 
-export default function AddProduct({ navigation }) {
+export default function AddProduct({ navigation , route}) {
   return (
     <View style={styles.screen}>
-      <IconBack />
+      <IconBack navigation={navigation}/>
 
       <View style={styles.container}>
         <View style={styles.ItemsContainer}>
           <Text style={styles.title}>Mis listas</Text>
 
           <View style={styles.ListDataContainer}>
-            <ListData navigation={navigation} />
+            <ListData navigation={navigation} route={route}/>
           </View>
         </View>
       </View>

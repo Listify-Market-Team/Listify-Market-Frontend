@@ -14,7 +14,6 @@ import axios from "axios";
 import { API_URL } from "../api/constants";
 import { AuthContext } from "../context/AuthContext";
 
-
 // const data = [
 //   {
 //     image:
@@ -50,7 +49,7 @@ const List = ({ navigation }) => {
 
   const fetchList = async () => {
     try {
-      console.log(user.id)
+      console.log(user.id);
       const res = await fetch("https://listifym-backend.herokuapp.com/api/Inventory/GetByUserId?userID="+user.id);
       const json = await res.json();
       const json2 = json.inventories;
