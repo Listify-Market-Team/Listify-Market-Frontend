@@ -1,10 +1,11 @@
 import { StyleSheet, Text, View, Image, ScrollView } from "react-native";
 import React, { useState, useEffect, useContext } from "react";
-import { useFocusEffect } from "@react-navigation/native";
+import { useIsFocused } from "@react-navigation/native";
 import { API_URL } from "../api/constants";
 
 const ProductListScreen = ({ navigation, route }) => {
   const list = route.params.list;
+  const isFocused = useIsFocused();
 
   const [products, setProducts] = useState([]);
 
@@ -21,11 +22,9 @@ const ProductListScreen = ({ navigation, route }) => {
     }
   };
 
-  useFocusEffect(
-    React.useCallback(() => {
-      fetchList();
-    })
-  );
+  useEffect(() => {
+    fetchList();
+  }, [isFocused]);
 
   return (
     <View style={styles.screen}>
@@ -35,6 +34,7 @@ const ProductListScreen = ({ navigation, route }) => {
       <ScrollView style={styles.container}>
         {products.map((product, i) => (
           <View style={styles.productContainer} key={i}>
+            {console.log(product)}
             <Image
               source="https://cdn2.iconfinder.com/data/icons/e-commerce-line-4-1/1024/open_box4-512.png"
               style={styles.imageStyle}

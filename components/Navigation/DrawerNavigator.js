@@ -90,7 +90,7 @@ export const DrawerNavigator = () => {
       <Drawer.Screen
         name="ProductList"
         component={ProductListScreen}
-        options={{ title: "Lista de Productos", headerTitle: "Lista de Productos" }}
+        options={{ title: "Lista de Productos", headerTitle: "Lista de Productos", unmountOnBlur: true }}
       />
       
     </Drawer.Navigator>
