@@ -1,4 +1,4 @@
-import { Alert } from "react-native";
+import { Alert, Platform } from "react-native";
 import { API_URL } from "./constants";
 import axios from "axios";
 
@@ -20,6 +20,6 @@ export const register = (name, password, email, phoneNumber, setLoading, setSucc
     .catch((error) => {
       setLoading(false);
       setSuccess(false);
-      Alert.alert("Error", error.message);
+      Platform.OS === "web" ? alert(error.message) : Alert.alert("Registro fallido", error.message);
     });
 };

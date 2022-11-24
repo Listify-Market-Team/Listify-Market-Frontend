@@ -39,7 +39,6 @@ const DATA_WITH_ID = [
   },
 ];
 
-
 export default class ProductInfoScreen extends Component {
   constructor(props) {
     super(props);
@@ -50,7 +49,7 @@ export default class ProductInfoScreen extends Component {
       loadingLists: false,
       productPrice: 0,
       productQuantity: 0,
-      productId: 0
+      productId: 0,
     };
 
     this.increaseOnPress = this.increaseOnPress.bind(this);
@@ -78,10 +77,10 @@ export default class ProductInfoScreen extends Component {
     // console.log("added!");
 
     this.props.navigation.navigate("AddProduct", {
-       id:this.props.route.params.id, 
-       price:this.state.productPrice, 
-       quantity: this.state.productQuantity,
-      });
+      id: this.props.route.params.id,
+      price: this.state.productPrice,
+      quantity: this.state.productQuantity,
+    });
 
     // setTimeout(() => {
     //   this.setState({ loadingLists: false });
@@ -89,12 +88,10 @@ export default class ProductInfoScreen extends Component {
   }
 
   pressHandler(item) {
-
-      this.setState({
-        price: item.price,
-      })
+    this.setState({
+      price: item.price,
+    });
   }
-  
 
   // async getProduct(){
   //   try
@@ -102,7 +99,7 @@ export default class ProductInfoScreen extends Component {
   //     this.setState({
   //       productId: this.props.route.params.id
   //     })
-      
+
   //     const response = await fetch("http://localhost:5209/api/Product/GetById/");
   //     const json = await response.json();
   //     this.state.dataSource = json;
@@ -112,7 +109,7 @@ export default class ProductInfoScreen extends Component {
   //     console.error('Error API', error);
   //   }
   // }
-  
+
   // componentDidMount(){
   //   this.getProduct()
   // }
@@ -138,21 +135,17 @@ export default class ProductInfoScreen extends Component {
           <View style={styles.prices}>
             <FlatList
               data={DATA_WITH_ID}
-              renderItem=
-              {({ item }) => 
-                {
-                  <TouchableOpacity onPress={() => pressHandler(item)}>
-                    <View style={styles.listItem}>
-                      <Text style={styles.listItemText}>{item.title}</Text>
-                      <Text style={styles.listItemPrice}>{item.price}</Text>  
-                    </View>
-                  </TouchableOpacity>
-                }
-              }
+              renderItem={({ item }) => {
+                <TouchableOpacity onPress={() => pressHandler(item)}>
+                  <View style={styles.listItem}>
+                    <Text style={styles.listItemText}>{item.title}</Text>
+                    <Text style={styles.listItemPrice}>{item.price}</Text>
+                  </View>
+                </TouchableOpacity>;
+              }}
               keyExtractor={(item) => item.id}
               horizontal
               extraData={this.state}
-              
             />
           </View>
 
@@ -401,6 +394,6 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
   },
   selected: {
-    backgroundColor:"green"
-  }
+    backgroundColor: "green",
+  },
 });

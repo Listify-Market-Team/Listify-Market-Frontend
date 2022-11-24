@@ -1,9 +1,9 @@
 import { StyleSheet, Text, View, Image, ScrollView } from "react-native";
 import React, { useState, useEffect, useContext } from "react";
+import { useFocusEffect } from "@react-navigation/native";
 import { API_URL } from "../api/constants";
 
-const ProductListScreen = ({navigation, route}) => {
-
+const ProductListScreen = ({ navigation, route }) => {
   const list = route.params.list;
 
   const [products, setProducts] = useState([]);
@@ -21,9 +21,11 @@ const ProductListScreen = ({navigation, route}) => {
     }
   };
 
-  useEffect(() => {
-    fetchList();
-  }, []);
+  useFocusEffect(
+    React.useCallback(() => {
+      fetchList();
+    })
+  );
 
   return (
     <View style={styles.screen}>
