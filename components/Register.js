@@ -90,8 +90,8 @@ export default function Register(props) {
         </View>
         <View style={styles.footer}>
           <Text style={styles.footer_text}>
-            Al registrarme acepto las condiciones de uso y la privacidad de
-            datos política
+            Al registrarme acepto las condiciones de uso y la política de
+            privacidad de datos
           </Text>
         </View>
         <AuthModal
