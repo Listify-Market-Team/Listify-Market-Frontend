@@ -14,6 +14,7 @@ import AppButton from "../components/AppButton";
 import globalStyles from "../styles";
 import { Modal } from "react-native";
 import { set } from "react-native-reanimated";
+import { useTranslation } from "react-i18next";
 
 //Random Data
 const DATA_WITH_ID = [
@@ -71,6 +72,7 @@ export default class ProductInfoScreen extends Component {
       });
     }
   }
+  
 
   addProductToList() {
     // this.setState({ showLists: true, loadingLists: true });
@@ -175,7 +177,7 @@ export default class ProductInfoScreen extends Component {
             </View>
           </View>
           <AppButton
-            text="Agregar producto"
+            text={"Agregar producto"}
             onPress={this.addProductToList}
             btnStyle={[styles.btn, globalStyles.shadow]}
             textStyle={styles.btnText}
@@ -191,13 +193,13 @@ export default class ProductInfoScreen extends Component {
                   <Text>All lists</Text>
                   <View style={styles.actions}>
                     <AppButton
-                      text="Volver"
+                      text={"Volver"}
                       btnStyle={[styles.actionBtn, styles.backBtn]}
                       textStyle={styles.backBtnText}
                       onPress={() => this.setState({ showLists: false })}
                     />
                     <AppButton
-                      text="Finalizar"
+                      text={"Finalizar"}
                       btnStyle={[styles.actionBtn, styles.finishBtn]}
                       textStyle={styles.finishBtnText}
                       onPress={() => this.setState({ showLists: false })}

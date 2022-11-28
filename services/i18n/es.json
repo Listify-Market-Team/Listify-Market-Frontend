@@ -1,17 +1,5 @@
 {
   "translation": {
-    "Iniciar Sesión": "Iniciar Sesión",
-    "Correo electrónico o teléfono": "Correo electrónico o teléfono",
-    "Contraseña": "Contraseña",
-    "Confirmar contraseña": "Confirmar contraseña",
-    "¿No tienes una cuenta?": "¿No tienes una cuenta?",
-    "Registrarme": "Registrarme",
-    "Regístrate": "Regístrate",
-    "Creación de cuenta": "Creación de cuenta",
-    "Nombre": "Nombre",
-    "Teléfono": "Teléfono",
-    "Volver": "Volver",
-    "Siguiente": "Siguiente",
-    "Al registrarme acepto las condiciones de uso y la política de privacidad de datos": "Al registrarme acepto las condiciones de uso y la política de privacidad de datos"
+    "Iniciar Sesión": "Iniciar Sesión"
   }
 }

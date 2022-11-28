@@ -11,7 +11,7 @@ import LoginInput from "./LoginInput";
 import { AuthContext } from "../context/AuthContext";
 import { login } from "../api/login";
 import { deviceHeight, deviceWidth, userRegex } from "../api/constants";
-import "../services/i18n/i18n";
+
 
 import { useTranslation } from "react-i18next";
 
@@ -23,12 +23,13 @@ export default function Login(props) {
       password: "",
     },
   });
+  
+  const { t, i18n } = useTranslation();
 
   const onSubmit = (data) => {
-    login(data.user, data.password, setIsLoading, setUser);
+    login(data.user, data.password, setIsLoading, setUser, t);
   };
 
-  const { t, i18n } = useTranslation();
 
   return (
     <AuthContainer title={t("Iniciar Sesión")}>

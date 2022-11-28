@@ -8,6 +8,8 @@ import { register } from "../api/register";
 import { emailRegex } from "../api/constants";
 import { deviceWidth } from "../api/constants";
 
+import { useTranslation } from "react-i18next";
+
 export default function Register(props) {
   const { control, handleSubmit } = useForm({
     defaultValues: {
@@ -44,35 +46,37 @@ export default function Register(props) {
     setSuccess(false);
   };
 
+  const { t, i18n } = useTranslation();
+
   return (
     <React.Fragment>
-      <AuthContainer title={"Creación de cuenta"}>
+      <AuthContainer title={t("Creación de cuenta")}>
         <LoginInput
           control={control}
           name="email"
           type={"emailAddress"}
-          placeholder="Correo electrónico o teléfono"
+          placeholder={t("Correo electrónico o teléfono")}
           rules={{
-            required: "Correo electrónico o teléfono is requerido",
-            pattern: { value: emailRegex, message: "Invalid Email" },
+            required: t("Correo electrónico o teléfono is requerido"),
+            pattern: { value: emailRegex, message: t("Email inválido") },
           }}
         />
         <LoginInput
           control={control}
           name="password"
-          placeholder="Contraseña"
+          placeholder={t("Contraseña")}
           type={"oneTimeCode"}
           secureTextEntry
-          rules={{ required: "La contraseña es requerida" }}
+          rules={{ required: t("La contraseña es requerida") }}
         />
         <LoginInput
           control={control}
           name="confirmPassword"
-          placeholder="Confirmar contraseña"
+          placeholder={t("Confirmar contraseña")}
           type={"oneTimeCode"}
           secureTextEntry
           rules={{
-            required: "La confirmación de la contraseña es requerida",
+            required: t("La confirmación de la contraseña es requerida"),
           }}
         />
         <View style={styles.buttons}>
@@ -82,16 +86,17 @@ export default function Register(props) {
             }}
             style={styles.back}
           >
-            <Text style={styles.back_text}>Volver</Text>
+            <Text style={styles.back_text}>{t("Volver")}</Text>
           </Pressable>
           <Pressable onPress={handleSubmit(submit)} style={styles.login}>
-            <Text style={styles.login_text}>Registrarme</Text>
+            <Text style={styles.login_text}>{t("Registrarme")}</Text>
           </Pressable>
         </View>
         <View style={styles.footer}>
           <Text style={styles.footer_text}>
-            Al registrarme acepto las condiciones de uso y la política de
-            privacidad de datos
+            {t(
+              "Al registrarme acepto las condiciones de uso y la política de privacidad de datos"
+            )}
           </Text>
         </View>
         <AuthModal

@@ -17,6 +17,7 @@ import { NativeModules, Platform } from "react-native";
 
 i18n.use(initReactI18next).init({
   compatibilityJSON: "v3",
+  lng: "es",
   resources: {
     en: en,
     es: es,

@@ -3,7 +3,8 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { API_URL } from "./constants";
 import axios from "axios";
 
-export const login = (user, password, setIsLoading, setUser) => {
+export const login = (user, password, setIsLoading, setUser, t) => {
+
   setIsLoading(true);
   axios
     .post(`${API_URL}/AppUsers/AuthenticateUser`, {
@@ -24,8 +25,8 @@ export const login = (user, password, setIsLoading, setUser) => {
     .catch((error) => {
       if (error.message === "Usuario o contraseña incorrectos") {
         Platform.OS === "web"
-          ? alert(error.message)
-          : Alert.alert("Inicio de sesión fallido", error.message);
+          ? alert(t(error.message))
+          : Alert.alert(t("Inicio de sesión fallido"), t(error.message));
       } else {
         console.log(error);
       }
