@@ -27,7 +27,7 @@ export default function AuthContainer({ children, title }) {
             }}
             style={styles.translation}
           >
-            <MaterialIcons name="translate" size={24} color="black" />
+            <MaterialIcons name="translate" size={30} color="white" />
           </TouchableOpacity>
         </View>
         <Image
@@ -64,7 +64,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "flex-end",
     alignItems: "center",
-    paddingHorizontal: 20,
+    paddingHorizontal: 10,
     paddingVertical: 0,
   },
   logo: {

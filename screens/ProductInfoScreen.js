@@ -14,7 +14,7 @@ import AppButton from "../components/AppButton";
 import globalStyles from "../styles";
 import { Modal } from "react-native";
 import { set } from "react-native-reanimated";
-import { useTranslation } from "react-i18next";
+import { Translation } from "react-i18next";
 
 //Random Data
 const DATA_WITH_ID = [
@@ -72,7 +72,6 @@ export default class ProductInfoScreen extends Component {
       });
     }
   }
-  
 
   addProductToList() {
     // this.setState({ showLists: true, loadingLists: true });
@@ -153,9 +152,12 @@ export default class ProductInfoScreen extends Component {
 
           <View style={styles.quantityContainer}>
             <View>
-              <Text style={styles.quantityLabel}>Cantidad</Text>
+              <Translation>
+                {(t) => (
+                  <Text style={styles.quantityLabel}>{t("Cantidad")}</Text>
+                )}
+              </Translation>
             </View>
-
             <View style={styles.quantityBtnWrapper}>
               <Pressable
                 style={styles.quantityButton}
@@ -176,12 +178,16 @@ export default class ProductInfoScreen extends Component {
               </Pressable>
             </View>
           </View>
-          <AppButton
-            text={"Agregar producto"}
-            onPress={this.addProductToList}
-            btnStyle={[styles.btn, globalStyles.shadow]}
-            textStyle={styles.btnText}
-          />
+          <Translation>
+            {(t) => (
+              <AppButton
+                text={t("Agregar producto")}
+                onPress={this.addProductToList}
+                btnStyle={[styles.btn, globalStyles.shadow]}
+                textStyle={styles.btnText}
+              />
+            )}
+          </Translation>
         </View>
         <Modal visible={this.state.showLists} transparent animationType="fade">
           <View style={styles.centeredView}>
