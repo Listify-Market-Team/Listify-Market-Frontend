@@ -14,7 +14,6 @@ import axios from "axios";
 import { API_URL } from "../api/constants";
 import { AuthContext } from "../context/AuthContext";
 
-
 // const data = [
 //   {
 //     image:
@@ -42,25 +41,25 @@ import { AuthContext } from "../context/AuthContext";
 // ];
 
 const List = ({ navigation }) => {
-
-  const {user} = useContext(AuthContext);
+  const { user } = useContext(AuthContext);
   const [list1, setList] = useState([]);
   const [listModal, setListModal] = useState();
   const [isModalVisible, setIsModalVisible] = useState(false);
 
   const fetchList = async () => {
     try {
-      console.log(user.id)
-      const res = await fetch("https://listifym-backend.herokuapp.com/api/Inventory/GetByUserId?userID="+user.id);
+      const res = await fetch(
+        `${API_URL}/Inventory/GetByUserId?userID=${user.id}`
+      );
       const json = await res.json();
       const json2 = json.inventories;
       setList(json2);
-      
+      console.log(json2);
     } catch (error) {
       console.log("something went wrong");
     }
   };
-  
+
   useEffect(() => {
     const unsubscribe = navigation.addListener("focus", () => {
       fetchList();
@@ -112,45 +111,49 @@ const List = ({ navigation }) => {
     <View>
       {list1.length === 0 && <Text>No hay listas para mostrar</Text>}
       {list1.map((list, i) => (
-        <View style={styles.screen} key={i}>
-          <Image
-            source="https://cdn0.iconfinder.com/data/icons/cosmo-layout/40/box-512.png"
-            style={styles.imageStyle}
-          />
-
-          <View style={styles.content}>
-            <Text style={styles.listName}>{list.name}</Text>
-            <Text>x products</Text>
-          </View>
-
-          <View style={styles.detailContainer}>
-            <TouchableOpacity
-              onPress={(e) => {
-                changeModalVisibility(true);
-                setSelectedProduct(list);
-              }}
-              style={styles.detailBotonStyle}
-            >
-              <Image source={detailBTN} style={styles.detailImageStyle} />
-            </TouchableOpacity>
-          </View>
-
-          <Modal
-            animationType="fade"
-            transparent={true}
-            visible={isModalVisible}
-            onRequestClose={() => {
-              changeModalVisibility(false);
-            }}
-          >
-            <ListMenuPop
-              list={listModal}
-              deleteList={deleteList}
-              editList={editList}
-              changeModalVisibility={changeModalVisibility}
+        <TouchableOpacity onPress={() => navigation.navigate("ProductList",{
+          list: list
+        })} key={i}>
+          <View style={styles.screen}>
+            <Image
+              source="https://cdn0.iconfinder.com/data/icons/cosmo-layout/40/box-512.png"
+              style={styles.imageStyle}
             />
-          </Modal>
-        </View>
+
+            <View style={styles.content}>
+              <Text style={styles.listName}>{list.name}</Text>
+              <Text>{list.product_Inventories.length} productos</Text>
+            </View>
+
+            <View style={styles.detailContainer}>
+              <TouchableOpacity
+                onPress={(e) => {
+                  changeModalVisibility(true);
+                  setSelectedProduct(list);
+                }}
+                style={styles.detailBotonStyle}
+              >
+                <Image source={detailBTN} style={styles.detailImageStyle} />
+              </TouchableOpacity>
+            </View>
+
+            <Modal
+              animationType="fade"
+              transparent={true}
+              visible={isModalVisible}
+              onRequestClose={() => {
+                changeModalVisibility(false);
+              }}
+            >
+              <ListMenuPop
+                list={listModal}
+                deleteList={deleteList}
+                editList={editList}
+                changeModalVisibility={changeModalVisibility}
+              />
+            </Modal>
+          </View>
+        </TouchableOpacity>
       ))}
     </View>
   );

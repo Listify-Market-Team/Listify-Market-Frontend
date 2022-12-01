@@ -29,10 +29,9 @@ const ListMainScreen = ({ navigation }) => {
               navigation.navigate("NewList");
             }}
           >
-            <Text>Nueva</Text>
+            <Text>Nueva Lista</Text>
           </TouchableOpacity>
         </View>
-
         <ScrollView style={styles.listContainer}>
           <List navigation={navigation}/>
         </ScrollView>

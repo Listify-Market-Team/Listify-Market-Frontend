@@ -1,4 +1,4 @@
-import { Alert } from "react-native";
+import { Alert, Platform } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { API_URL } from "./constants";
 import axios from "axios";
@@ -23,7 +23,9 @@ export const login = (user, password, setIsLoading, setUser) => {
     })
     .catch((error) => {
       if (error.message === "Usuario o contraseña incorrectos") {
-        Alert.alert("Inicio de sesión fallido", error.message);
+        Platform.OS === "web"
+          ? alert(error.message)
+          : Alert.alert("Inicio de sesión fallido", error.message);
       } else {
         console.log(error);
       }

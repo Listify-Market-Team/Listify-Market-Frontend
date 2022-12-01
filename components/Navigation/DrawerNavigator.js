@@ -16,6 +16,7 @@ import NewListScreen from "../../screens/NewListScreen";
 import UpdateListScreen from "../../screens/UpdateListScreen";
 import AddProductScreen from "../../screens/AddProductScreen";
 import SearchProductScreen from "../../screens/SearchProductScreen";
+import ProductListScreen from "../../screens/productListScreen";
 
 const Drawer = createDrawerNavigator();
 
@@ -81,6 +82,17 @@ export const DrawerNavigator = () => {
         component={NewListScreen}
         options={{ title: "Agregar Lista", headerTitle: "Nueva Lista" }}
       />
+      <Drawer.Screen
+        name="UpdateList"
+        component={UpdateListScreen}
+        options={{ title: "Editar Lista", headerTitle: "Editar Lista" }}
+      />
+      <Drawer.Screen
+        name="ProductList"
+        component={ProductListScreen}
+        options={{ title: "Lista de Productos", headerTitle: "Lista de Productos", unmountOnBlur: true }}
+      />
+      
     </Drawer.Navigator>
   );
 };
