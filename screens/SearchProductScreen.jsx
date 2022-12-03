@@ -66,10 +66,10 @@ const SearchProductScreen = ({ navigation }) => {
     try {
       axios({
         method: "get",
-        url: `https://localhost:7209/api/Product/GetProductsByMarketName?marketName=`+marketName,
+        url: `${API_URL}/Product/GetProductsByMarketName?marketName=`+marketName,
         
       }).then((res) => {
-        // console.log(marketName);
+        //console.log(marketName);
         // console.log(res.data.products)
         setProducts(res.data.products)
       });
