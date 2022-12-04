@@ -34,7 +34,6 @@ const ProductListScreen = ({ navigation, route }) => {
       <ScrollView style={styles.container}>
         {products.map((product, i) => (
           <View style={styles.productContainer} key={i}>
-            {console.log(product)}
             <Image
               source="https://cdn2.iconfinder.com/data/icons/e-commerce-line-4-1/1024/open_box4-512.png"
               style={styles.imageStyle}

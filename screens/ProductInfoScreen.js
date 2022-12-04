@@ -45,18 +45,19 @@ export default class ProductInfoScreen extends Component {
     super(props);
 
     this.state = {
-      dataSource: [],
+      // dataSource: [],
       showLists: false,
       loadingLists: false,
       productPrice: 0,
       productQuantity: 0,
-      productId: 0,
+      markets: []
     };
 
     this.increaseOnPress = this.increaseOnPress.bind(this);
     this.decreaseOnPress = this.decreaseOnPress.bind(this);
     this.addProductToList = this.addProductToList.bind(this);
     this.pressHandler = this.pressHandler.bind(this);
+    // this.markets = this.pricesList.bind(this);
   }
 
   increaseOnPress() {
@@ -94,17 +95,16 @@ export default class ProductInfoScreen extends Component {
     });
   }
 
-  // async getProduct(){
+  // async getPrices(){
   //   try
-  //   {///Entrar nuevo endpoint de API o conexion aqui
-  //     this.setState({
-  //       productId: this.props.route.params.id
-  //     })
+  //   {
+  //     const response = await fetch(`${API_URL}/Product/GetByID?id=${this.props.route.params.id}`);
 
-  //     const response = await fetch("http://localhost:5209/api/Product/GetById/");
-  //     const json = await response.json();
+  //     const data = await response.json();
 
-  //     this.state.dataSource = json;
+  //     console.log(data.product_Markets);
+
+  //     this.setState({dataSource: data});
   //   }
   //   catch(error)
   //   {
@@ -112,11 +112,34 @@ export default class ProductInfoScreen extends Component {
   //   }
   // }
 
-  // componentDidMount(){
-  //   this.getProduct()
-  // }
+  updateMarkets(props){
+    this.setState({markets: this.props.route.params.product.product_Markets})
+  }
+
+  componentDidUpdate(){
+  //   console.log(this.props);
+  //   console.log(this.props.route.params.product.product_Markets);
+    
+  //   const [products_Markets] = this.props.route.params.product.product_Markets;
+  //   // console.log(products_Markets);
+
+  //   this.setState({
+  //     markets: products_Markets
+  //   })
+  //   this.setState({markets: [...this.state.markets, ...this.props.route.params.product.product_Markets]})
+    
+  //   console.log(this.state.markets);
+    updateMarkets();
+  }
+
 
   render() {
+
+    // const price_array = this.state.dataSource.product_Markets;
+    // const priceList = price_array.map((product) =>
+    // <li>{product}</li>
+    // );
+
     return (
       <View style={styles.base}>
         <View style={styles.container}>
@@ -124,11 +147,11 @@ export default class ProductInfoScreen extends Component {
             <Image
               style={styles.imageStyle}
               source={{
-                uri: "https://cdn-icons-png.flaticon.com/512/1548/1548682.png",
+                uri: `${this.state.dataSource.image}`,
               }}
             />
           </View>
-          <Text style={styles.title}>{this.props.route.params.name}</Text>
+          <Text style={styles.title}>{this.props.route.params.product.name}</Text>
           <Text style={styles.info}>
             Lorem Ipsum is simply dummy text of the printing and typesetting
             industry
@@ -136,19 +159,20 @@ export default class ProductInfoScreen extends Component {
 
           <View style={styles.prices}>
             <FlatList
-              data={DATA_WITH_ID}
+              data={this.state.markets}
               renderItem={({ item }) => {
                 <TouchableOpacity onPress={() => pressHandler(item)}>
                   <View style={styles.listItem}>
-                    <Text style={styles.listItemText}>{item.title}</Text>
+                    <Text style={styles.listItemText}>{item.marketID}</Text>
                     <Text style={styles.listItemPrice}>{item.price}</Text>
                   </View>
                 </TouchableOpacity>;
               }}
-              keyExtractor={(item) => item.id}
+              keyExtractor={(item) => item.price}
               horizontal
-              extraData={this.state}
+              extraData={this.state.markets}
             />
+            
           </View>
 
           <View style={styles.quantityContainer}>

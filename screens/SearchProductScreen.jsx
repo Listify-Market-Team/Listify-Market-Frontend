@@ -34,9 +34,7 @@ const SearchProductScreen = ({ navigation }) => {
         .then((res) => {
           const product = res.data;
           navigation.navigate("ProductInfo", {
-            id,
-            name: product.name,
-            price: product.price,
+            product
           });
         });
     } catch (error) {
