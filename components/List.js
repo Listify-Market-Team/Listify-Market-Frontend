@@ -12,6 +12,7 @@ import ListMenuPop from "./ListMenuPop";
 import detailBTN from "../img/DetailBTN.png";
 import axios from "axios";
 import { API_URL } from "../api/constants";
+import { API } from "../api/constants";
 import { AuthContext } from "../context/AuthContext";
 
 // const data = [
@@ -42,14 +43,36 @@ import { AuthContext } from "../context/AuthContext";
 
 const List = ({ navigation }) => {
   const { user } = useContext(AuthContext);
-  const [list1, setList] = useState([]);
+  //const [list1, setList] = useState([]);
+  const [list1, setList] = useState([
+    // {
+    //   name: 'list1',
+    //   product_Inventories: [
+    //     {}, 
+    //   ]
+    // },
+    // {
+    //   name: 'list2',
+    //   product_Inventories: [
+    //     {},
+    //     {}
+    //   ]
+    // },
+    // {
+    //   name: 'aaa',
+    //   product_Inventories: [
+    //     {},
+    //     {}
+    //   ]
+    // },
+  ]);
   const [listModal, setListModal] = useState();
   const [isModalVisible, setIsModalVisible] = useState(false);
 
   const fetchList = async () => {
     try {
       const res = await fetch(
-        `${API_URL}/Inventory/GetByUserId?userID=${user.id}`
+        `${API}/Inventory/GetByUserId?userID=${user.id}`
       );
       const json = await res.json();
       const json2 = json.inventories;
@@ -98,6 +121,8 @@ const List = ({ navigation }) => {
         });
       });
   };
+
+
 
   const setSelectedProduct = (product) => {
     setListModal(product);

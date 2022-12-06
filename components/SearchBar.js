@@ -1,4 +1,5 @@
 import { StatusBar } from "expo-status-bar";
+import React, { useState} from "react";
 import {
   Text,
   StyleSheet,
@@ -10,11 +11,27 @@ import {
 import searchIcon from "../img/magnifier.png";
 
 const SearchBar = () => {
+  const [text, setText] = useState('')
+
+  const handleInput = (newText) => {
+    setText(newText)
+  }
+
+  const search = () => {
+    console.log(text)
+  }
+
   return (
     <View style={styles.container}>
-      <TextInput style={styles.textInput} />
+      <TextInput
+      onChangeText={newText => handleInput(newText)}
+      onSubmitEditing={search}
+      value={text}
+      style={styles.textInput} />
 
-      <TouchableOpacity style={styles.searchButton} activeOpacity={0.5}>
+      <TouchableOpacity
+      onPress={search}
+       style={styles.searchButton} activeOpacity={0.5}>
         <Image source={searchIcon} style={styles.buttonImageIconStyle} />
       </TouchableOpacity>
     </View>

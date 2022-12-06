@@ -11,13 +11,32 @@ import {
 } from "react-native";
 import SearchBar from "../components/SearchBar";
 import List from "../components/List";
+import { API_URL } from "../api/constants";
+import { API } from "../api/constants";
 import useFetch from "../Hooks/useFetch";
 
 const ListMainScreen = ({ navigation }) => {
+
+  const searchList = (filterList) => {
+    try {
+      axios
+        .get(`${API}/Inventory/GetInventoryLikeName?inventoryName`, { params: { filterList } })
+        .then(async (res) => { 
+          const json = await res.json();
+          const lists = json.inventories;
+          setList(lists);
+        });
+    } catch (error) {
+      console.log("something went wrong");
+    }
+  }
+
+
+
   return (
     <View style={styles.screen}>
       <View style={styles.searchBarContainer}>
-        <SearchBar style={styles.searchBar} />
+        <SearchBar searchList={searchList} style={styles.searchBar} />
       </View>
 
       <View style={styles.container}>

@@ -8,7 +8,7 @@ import {
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import axios from "axios";
-import { SpinnerCircular } from "spinners-react";
+// import { SpinnerCircular } from "spinners-react";
 import { API_URL } from "../../api/constants";
 
 export const IconBack = (props) => {

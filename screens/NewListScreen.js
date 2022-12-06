@@ -2,6 +2,7 @@ import { View, Text, StyleSheet, ActivityIndicator } from "react-native";
 import { useState, useContext } from "react";
 import axios from "axios";
 import { API_URL } from "../api/constants";
+import { API } from "../api/constants";
 import { AuthContext } from "../context/AuthContext";
 import SimpleListForm from "../components/ListForm/SimpleListForm";
 
@@ -14,7 +15,7 @@ export default function NewListScreen({ navigation, route }) {
 
     try {
       axios
-        .post(`${API_URL}/Inventory/Create`, {
+        .post(`${API}/Inventory/Create`, {
           name: list.name,
           description: list.description,
           appUserId: user.id,
