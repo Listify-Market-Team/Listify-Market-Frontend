@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import { StatusBar } from "react-native";
 import {
   StyleSheet,
@@ -14,15 +14,47 @@ import List from "../components/List";
 import { API_URL } from "../api/constants";
 import { API } from "../api/constants";
 import useFetch from "../Hooks/useFetch";
+import { AuthContext } from "../context/AuthContext";
+import axios from "axios";
 
 const ListMainScreen = ({ navigation }) => {
+  const [list, setList] = useState([])
+  const { user } = useContext(AuthContext);
+
+  useEffect(() => {
+    const unsubscribe = navigation.addListener("focus", () => {
+      fetchList();
+    });
+    return unsubscribe;
+  }, [navigation]);
+
+  const fetchList = async () => {
+    try {
+      const res = await fetch(
+        `${API}/Inventory/GetByUserId?userID=${user.id}`
+      );
+      const json = await res.json();
+      const listResult = json.inventories;
+      setList(listResult);
+      console.log(listResult);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const renderLists = ({ item }) => {
+    return (
+      <List item = {item} navigation={navigation}/>
+    );
+  };
 
   const searchList = (filterList) => {
     try {
       axios
-        .get(`${API}/Inventory/GetInventoryLikeName?inventoryName`, { params: { filterList } })
+        .get(`${API}/Inventory/GetInventoryLikeName?inventoryName=${filterList}&userId=${user.id}`)
         .then(async (res) => { 
-          const json = await res.json();
+          console.log(res.data);
+          const json = await res.data;
           const lists = json.inventories;
           setList(lists);
         });
@@ -36,7 +68,7 @@ const ListMainScreen = ({ navigation }) => {
   return (
     <View style={styles.screen}>
       <View style={styles.searchBarContainer}>
-        <SearchBar searchList={searchList} style={styles.searchBar} />
+        <SearchBar entity={"List"}  fetchList={fetchList} searchList={searchList} style={styles.searchBar} />
       </View>
 
       <View style={styles.container}>
@@ -51,9 +83,19 @@ const ListMainScreen = ({ navigation }) => {
             <Text>Nueva Lista</Text>
           </TouchableOpacity>
         </View>
-        <ScrollView style={styles.listContainer}>
-          <List navigation={navigation}/>
-        </ScrollView>
+
+        {list.length === 0 
+       ? <Text>No hay listas para mostrar</Text>
+       :<FlatList
+          style={styles.listContainer}
+          showsVerticalScrollIndicator={false}
+          data={list}
+          renderItem={renderLists}
+          extraData={list}
+          keyExtractor={(items, index) => index.toString()}
+        />
+          }
+
       </View>
     </View>
   );
