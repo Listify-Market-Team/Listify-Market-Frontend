@@ -10,8 +10,10 @@ import { Ionicons } from "@expo/vector-icons";
 import axios from "axios";
 import { SpinnerCircular } from "spinners-react";
 import { API_URL } from "../../api/constants";
+import { useTranslation } from "react-i18next";
 
 export const IconBack = (props) => {
+
   return (
     <TouchableHighlight
       onPress={() => {
@@ -41,6 +43,7 @@ export const Spinner = () => {
 export const AddProductButton = (props) => {
   const List = [];
   const prod = props.product;
+  const { t, i18n } = useTranslation();
 
   const results = () => {
     props.data.map((d, index1) => {
@@ -65,7 +68,7 @@ export const AddProductButton = (props) => {
     });
 
     if (List.length == 0) {
-      alert("Seleccione algo");
+      alert(t("Seleccione algo"));
     } else {
       props.navigation.navigate("Home");
     }
@@ -74,7 +77,7 @@ export const AddProductButton = (props) => {
   return (
     <Pressable style={styles.button} 
       onPress={results}>
-      <Text style={styles.text}>Agregar producto</Text>
+      <Text style={styles.text}>{t("Agregar producto")}</Text>
     </Pressable>
   );
 };

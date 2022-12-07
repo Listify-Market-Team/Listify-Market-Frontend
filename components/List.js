@@ -13,6 +13,7 @@ import detailBTN from "../img/DetailBTN.png";
 import axios from "axios";
 import { API_URL } from "../api/constants";
 import { AuthContext } from "../context/AuthContext";
+import { useTranslation } from "react-i18next";
 
 // const data = [
 //   {
@@ -45,6 +46,8 @@ const List = ({ navigation }) => {
   const [list1, setList] = useState([]);
   const [listModal, setListModal] = useState();
   const [isModalVisible, setIsModalVisible] = useState(false);
+
+  const { t, i18n } = useTranslation();
 
   const fetchList = async () => {
     try {
@@ -109,7 +112,7 @@ const List = ({ navigation }) => {
 
   return (
     <View>
-      {list1.length === 0 && <Text>No hay listas para mostrar</Text>}
+      {list1.length === 0 && <Text>{t("No hay listas para mostrar")}</Text>}
       {list1.map((list, i) => (
         <TouchableOpacity onPress={() => navigation.navigate("ProductList",{
           list: list
@@ -122,7 +125,7 @@ const List = ({ navigation }) => {
 
             <View style={styles.content}>
               <Text style={styles.listName}>{list.name}</Text>
-              <Text>{list.product_Inventories.length} productos</Text>
+              <Text>{list.product_Inventories.length} {t("productos")}</Text>
             </View>
 
             <View style={styles.detailContainer}>

@@ -5,9 +5,13 @@ import ListDataFields from "./ListDataFields";
 import AppButton from "../AppButton";
 import styles from "../../styles";
 
+import { useTranslation } from "react-i18next";
+
 export default function SimpleListForm({ onSubmit, initialValues, loading }) {
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
+
+  const { t, i18n } = useTranslation();
 
   useEffect(() => {
     if (!initialValues) {
@@ -17,7 +21,7 @@ export default function SimpleListForm({ onSubmit, initialValues, loading }) {
     setDescription(initialValues.description);
   }, [initialValues]);
 
-  const finishBtnText = !initialValues ? "guardar" : "guardar cambios";
+  const finishBtnText = !initialValues ? t("guardar") : t("guardar cambios");
 
   const changeNameHandler = (value) => setName(value);
   const changeDescriptHandler = (value) => setDescription(value);

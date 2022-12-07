@@ -2,6 +2,7 @@ import { Platform, StyleSheet, KeyboardAvoidingView } from "react-native";
 import React from "react";
 import Register from "../components/Register";
 
+
 export default function RegisterScreen({
   navigation: { goBack, navigate },
   route,

@@ -10,9 +10,11 @@ import {
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { API_URL } from "../api/constants";
+import { useTranslation } from "react-i18next";
 
 const SearchProductScreen = ({ navigation }) => {
   const [products, setProducts] = useState([]);
+  const { t, i18n } = useTranslation();
 
   useEffect(() => {
     const doGetRequest = async () => {
@@ -50,18 +52,20 @@ const SearchProductScreen = ({ navigation }) => {
         source={require("../resources/sirena.jpeg")}
         style={styles.background_image}
       >
-        <Text style={styles.text}>Productos</Text>
+        <Text style={styles.text}>{t("Productos")}</Text>
       </ImageBackground>
 
       <View style={styles.filters}>
-        <Text>Sugeridos</Text>
-        <Text>Precio más bajos</Text>
-        <Text>Precios más altos</Text>
+        <Text>{t("Sugeridos")}</Text>
+        <Text>{t("Precios más bajos")}</Text>
+        <Text>{t("Precios más altos")}</Text>
       </View>
 
       {/*Product cards */}
       <ScrollView>
-        {products.length === 0 && <Text>No hay productos para mostrar</Text>}
+        {products.length === 0 && (
+          <Text>{t("No hay productos para mostrar")}</Text>
+        )}
         {products.length > 0 && (
           <View style={styles.products}>
             {products.map((product) => {
