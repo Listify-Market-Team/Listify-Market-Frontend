@@ -112,11 +112,16 @@ export default class ProductInfoScreen extends Component {
   //   }
   // }
 
-  updateMarkets(props){
-    this.setState({markets: this.props.route.params.product.product_Markets})
+  getDerivedStateFromProps(props,state){
+    if (props.route.params.product.product_Markets != state.markets){
+      return ({
+        markets: props.route.params.product.product_Markets
+      });
+    }
+    return null;
   }
 
-  componentDidUpdate(){
+  // componentDidUpdate(prevProps){
   //   console.log(this.props);
   //   console.log(this.props.route.params.product.product_Markets);
     
@@ -129,9 +134,15 @@ export default class ProductInfoScreen extends Component {
   //   this.setState({markets: [...this.state.markets, ...this.props.route.params.product.product_Markets]})
     
   //   console.log(this.state.markets);
-    updateMarkets();
-  }
 
+  // if (prevProps.markets != this.props.route.params.product.product_Markets){
+  //   this.setState({markets: this.props.route.params.product.product_Markets})
+  // }
+  // return null
+
+  // }
+
+  
 
   render() {
 
