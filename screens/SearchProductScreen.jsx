@@ -6,15 +6,32 @@ import {
   ImageBackground,
   ScrollView,
   Pressable,
+  FlatList
 } from "react-native";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { API_URL } from "../api/constants";
 import { useTranslation } from "react-i18next";
+import Filter from '../components/Filter';
 
 const SearchProductScreen = ({ navigation }) => {
   const [products, setProducts] = useState([]);
   const { t, i18n } = useTranslation();
+  const [markets, setMarkets] = useState([
+    {
+      name: "Bravo"
+    },
+    {
+      name: "La Sirena"
+    },
+    {
+      name: "Jumbo"
+    },
+    {
+      name: "Nacional"
+    }
+  ]);
+
 
   useEffect(() => {
     const doGetRequest = async () => {
@@ -46,6 +63,36 @@ const SearchProductScreen = ({ navigation }) => {
     }
   };
 
+  const filtByMarket = (marketName) => {
+
+    try {
+      axios({
+        method: "get",
+        url: `${API_URL}/Product/GetProductsByMarketName?marketName=`+marketName,
+        
+      }).then((res) => {
+        //console.log(marketName);
+        // console.log(res.data.products)
+        setProducts(res.data.products)
+      });
+    } catch (error) {
+      console.log("something went wrong");
+    }
+    
+  }
+
+  const renderFilters = ({item}) => {
+    return(
+    <Filter name={item.name} 
+    filtByMarket={filtByMarket}
+    />
+    )
+  };
+
+  const renderSeparator = () => {
+    return <View style={styles.separator} />;
+  };
+
   return (
     <View style={styles.SearchProduct}>
       <ImageBackground
@@ -56,9 +103,15 @@ const SearchProductScreen = ({ navigation }) => {
       </ImageBackground>
 
       <View style={styles.filters}>
-        <Text>{t("Sugeridos")}</Text>
-        <Text>{t("Precios más bajos")}</Text>
-        <Text>{t("Precios más altos")}</Text>
+      <FlatList
+      style={styles.listFilter}
+      data={markets}
+      horizontal 
+      renderItem={renderFilters}
+      extraData={markets}
+      showsHorizontalScrollIndicator={false}
+      ItemSeparatorComponent={renderSeparator}
+      />
       </View>
 
       {/*Product cards */}
@@ -138,6 +191,12 @@ const styles = StyleSheet.create({
     marginTop: 24,
     gap: 16,
     paddingHorizontal: 10,
+  },
+  listFilter: {
+    marginLeft:10
+  },
+  separator: {
+    width: 7,
   },
 });
 
