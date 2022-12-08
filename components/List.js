@@ -13,6 +13,7 @@ import detailBTN from "../img/DetailBTN.png";
 import axios from "axios";
 import { API_URL } from "../api/constants";
 import { AuthContext } from "../context/AuthContext";
+import { useTranslation } from "react-i18next";
 
 const List = (props) => {
   const list = props.item
@@ -22,6 +23,8 @@ const List = (props) => {
   const [listModal, setListModal] = useState();
   const [isModalVisible, setIsModalVisible] = useState(false);
   
+  const { t, i18n } = useTranslation();
+
   const deleteList = (id) => {
     try {
       axios({
@@ -78,7 +81,7 @@ const List = (props) => {
 
             <View style={styles.content}>
               <Text style={styles.listName}>{list.name}</Text>
-              <Text>{list.product_Inventories.length} productos</Text>
+              <Text>{list.product_Inventories.length} {t("productos")}</Text>
             </View>
 
             <View style={styles.detailContainer}>

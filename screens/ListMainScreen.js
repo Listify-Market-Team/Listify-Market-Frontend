@@ -13,10 +13,13 @@ import SearchBar from "../components/SearchBar";
 import List from "../components/List";
 import { API_URL } from "../api/constants";
 import useFetch from "../Hooks/useFetch";
+import { useTranslation } from "react-i18next";
 import { AuthContext } from "../context/AuthContext";
 import axios from "axios";
 
 const ListMainScreen = ({ navigation }) => {
+  const { t, i18n } = useTranslation();
+
   const [list, setList] = useState([])
   const { user } = useContext(AuthContext);
 
@@ -72,14 +75,14 @@ const ListMainScreen = ({ navigation }) => {
 
       <View style={styles.container}>
         <View style={styles.buttonTituleContainer}>
-          <Text style={styles.titule}>Mis Listas</Text>
+          <Text style={styles.titule}>{t("Mis Listas")}</Text>
           <TouchableOpacity
             style={styles.addNewBoton}
             onPress={() => {
               navigation.navigate("NewList");
             }}
           >
-            <Text>Nueva Lista</Text>
+            <Text>{t("Nueva Lista")}</Text>
           </TouchableOpacity>
         </View>
 

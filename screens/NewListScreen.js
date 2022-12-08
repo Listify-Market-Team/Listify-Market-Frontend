@@ -5,8 +5,10 @@ import { API_URL } from "../api/constants";
 import { API } from "../api/constants";
 import { AuthContext } from "../context/AuthContext";
 import SimpleListForm from "../components/ListForm/SimpleListForm";
+import { useTranslation } from "react-i18next";
 
 export default function NewListScreen({ navigation, route }) {
+  const { t, i18n } = useTranslation();
   const [loading, setLoading] = useState(false);
   const { user } = useContext(AuthContext);
 
@@ -33,7 +35,7 @@ export default function NewListScreen({ navigation, route }) {
   return (
     <View style={screenStyles.base}>
       <View style={screenStyles.container}>
-        <Text style={screenStyles.title}>Nueva lista</Text>
+        <Text style={screenStyles.title}>{t("Nueva lista")}</Text>
         <SimpleListForm onSubmit={sendNewList} loading={loading} />
       </View>
     </View>
