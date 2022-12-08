@@ -1,12 +1,13 @@
-import React from "react";
 import { AuthProvider } from "./context/AuthContext";
-import AppNavigator from "./components/Navigation/AppNavigator";
-import "./services/i18n/i18n";
+import AppWrapper from "./components/AppWrapper";
+import AppContextProvider from "./context/AppContext";
 
 export default function App() {
   return (
-    <AuthProvider>
-      <AppNavigator/>
-    </AuthProvider>
+    <AppContextProvider>
+      <AuthProvider>
+        <AppWrapper />
+      </AuthProvider>
+    </AppContextProvider>
   );
 }
