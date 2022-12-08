@@ -9,7 +9,7 @@ import {
 } from "react-native";
 import Checkbox from "expo-checkbox";
 import axios from "axios";
-import { AddProductButton , Spinner} from "./PressComponents";
+// import { AddProductButton , Spinner} from "./PressComponents";
 import { API_URL } from "../../api/constants";
 import { AuthContext } from "../../context/AuthContext";
 import { useTranslation } from "react-i18next";

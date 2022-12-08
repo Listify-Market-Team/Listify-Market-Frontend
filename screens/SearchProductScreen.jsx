@@ -68,7 +68,7 @@ const SearchProductScreen = ({ navigation }) => {
     try {
       axios({
         method: "get",
-        url: `${API_URL}/Product/GetProductsByMarketName?marketName=`+marketName,
+        url: `${API_URL}/Product/GetProductsByMarketName?marketName=${marketName}`,
         
       }).then((res) => {
         //console.log(marketName);
