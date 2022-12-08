@@ -1,15 +1,12 @@
-import {
-  View,
-  Text,
-  StyleSheet,
-  Pressable,
-} from "react-native";
+import { View, Text, StyleSheet, Pressable } from "react-native";
 import React from "react";
 import { useForm } from "react-hook-form";
 import AuthContainer from "./AuthContainer";
 import LoginInput from "../components/LoginInput";
 import { phoneRegex } from "../api/constants";
 import { deviceHeight, deviceWidth } from "../api/constants";
+
+import { useTranslation } from "react-i18next";
 
 export default function Personal(props) {
   const { control, handleSubmit } = useForm({
@@ -26,24 +23,26 @@ export default function Personal(props) {
     });
   };
 
+  const { t, i18n } = useTranslation();
+
   return (
     <React.Fragment>
-      <AuthContainer title={"Creación de cuenta"}>
+      <AuthContainer title={t("Creación de cuenta")}>
         <LoginInput
           control={control}
           name="name"
-          placeholder="Nombre"
+          placeholder={t("Nombre")}
           type={"name"}
-          rules={{ required: "El nombre es requerido" }}
+          rules={{ required: t("El nombre es requerido") }}
         />
         <LoginInput
           control={control}
           name="phoneNumber"
-          placeholder="Teléfono"
+          placeholder={t("Teléfono")}
           type={"telephoneNumber"}
           rules={{
-            required: "El teléfono es requerido",
-            pattern: { value: phoneRegex, message: "Teléfono inválido" },
+            required: t("El teléfono es requerido"),
+            pattern: { value: phoneRegex, message: t("Teléfono inválido")},
           }}
         />
         <View style={styles.buttons}>
@@ -53,10 +52,10 @@ export default function Personal(props) {
             }}
             style={styles.back}
           >
-            <Text style={styles.back_text}>Volver</Text>
+            <Text style={styles.back_text}>{t("Volver")}</Text>
           </Pressable>
           <Pressable onPress={handleSubmit(submit)} style={styles.login}>
-            <Text style={styles.login_text}>Siguiente</Text>
+            <Text style={styles.login_text}>{t("Siguiente")}</Text>
           </Pressable>
         </View>
       </AuthContainer>

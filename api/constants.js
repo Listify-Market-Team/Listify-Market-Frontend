@@ -1,6 +1,8 @@
 import { Dimensions } from "react-native";
 
-export const API_URL = "https://listifym-backend.herokuapp.com/api";
+//export const API_URL = "https://listifym-backend.herokuapp.com/api";
+
+export const API_URL = "https://localhost:7209/api";
 
 export const deviceHeight = Dimensions.get("window").height;
 

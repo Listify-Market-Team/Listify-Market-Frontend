@@ -11,23 +11,25 @@ import { color } from "react-native-reanimated";
 import axios from "axios";
 import useFetch from "../Hooks/useFetch";
 import { deviceHeight } from "../api/constants";
+import { useTranslation } from "react-i18next";
 
 const ListMenuPop = (props) => {
+  const { t, i18n } = useTranslation();
   const items = [
     {
-      name: "Eliminar",
+      name: t("Eliminar"),
       action: (id) => {
         props.deleteList(id);
       },
     },
     {
-      name: "Editar",
+      name: t("Editar"),
       action: (id) => {
         props.editList(id);
       },
     },
     {
-      name: "Favorito",
+      name: t("Favorito"),
       action: () => {},
     },
   ];

@@ -3,9 +3,12 @@ import SimpleListForm from "../components/ListForm/SimpleListForm";
 import { useEffect, useState } from "react";
 import { API_URL } from "../api/constants";
 import axios from "axios";
+import { useTranslation } from "react-i18next";
 
 export default function UpdateListScreen({ navigation, route }) {
   const [loading, setLoading] = useState(false);
+
+  const { t, i18n } = useTranslation();
 
   // console.dir(route.params);
 
@@ -37,7 +40,7 @@ export default function UpdateListScreen({ navigation, route }) {
   return (
     <View style={screenStyles.base}>
       <View style={screenStyles.container}>
-        <Text style={screenStyles.title}>Actualizar lista</Text>
+        <Text style={screenStyles.title}>{t("Actualizar lista")}</Text>
         <SimpleListForm
           onSubmit={sendNewList}
           initialValues={{ name: listName, description: listDescrpt }}

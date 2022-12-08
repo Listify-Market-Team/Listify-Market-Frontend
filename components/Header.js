@@ -1,9 +1,11 @@
-import { View, TouchableHighlight } from "react-native";
+import { View, TouchableHighlight, TouchableOpacity, StyleSheet } from "react-native";
 import { SimpleLineIcons } from "@expo/vector-icons";
 import { Feather } from "@expo/vector-icons";
 import { Ionicons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 import { DrawerActions } from "@react-navigation/native";
+import { MaterialIcons } from "@expo/vector-icons";
+import i18n from "i18next";
 
 export const MenuIcon = () => {
   const navigation = useNavigation();
@@ -14,9 +16,21 @@ export const MenuIcon = () => {
       }}
     >
       <View>
-        <SimpleLineIcons name="menu" size={26} color="black" />
+        <SimpleLineIcons name="menu" size={20} color="black" />
       </View>
     </TouchableHighlight>
+  );
+};
+
+export const TranslateIcon = () => {
+  return (
+    <TouchableOpacity
+      onPress={() => {
+        i18n.changeLanguage(i18n.language === "en" ? "es" : "en");
+      }}
+    >
+      <MaterialIcons name="translate" size={24} color="black" />
+    </TouchableOpacity>
   );
 };
 
@@ -25,10 +39,10 @@ export const HelpIcon = () => {
   return (
     <TouchableHighlight
       onPress={() => {
-        navigation.navigate("Help");
+        navigation.navigate("Ayuda");
       }}
     >
-      <View>
+      <View style={styles.containerHelp}>
         <Feather name="help-circle" size={26} color="black" />
       </View>
     </TouchableHighlight>
@@ -49,3 +63,9 @@ export const BackIcon = () => {
     </TouchableHighlight>
   );
 };
+
+const styles = StyleSheet.create({
+  containerHelp: {
+    marginLeft: 20
+  }
+});

@@ -1,4 +1,5 @@
 import { StatusBar } from "expo-status-bar";
+import React, { useState} from "react";
 import {
   Text,
   StyleSheet,
@@ -7,14 +8,47 @@ import {
   TouchableOpacity,
   Image,
 } from "react-native";
+import axios from "axios";
+import { API_URL } from "../api/constants";
 import searchIcon from "../img/magnifier.png";
 
-const SearchBar = () => {
+const SearchBar = (props) => {
+  const entity = props.entity
+  const searchList = (text) => props.searchList(text)
+  const fetchList = () => props.fetchList()
+
+  const [text, setText] = useState('')
+
+  const handleInput = (newText) => {
+    setText(newText)
+  }
+
+  const searchCondition = () => {
+    
+    if(text == ""){
+      fetchList()
+    }
+
+    if(entity == "List" && text != "")
+    {
+      searchList(text)
+    }
+    //console.log(text)
+  }
+
+
+
   return (
     <View style={styles.container}>
-      <TextInput style={styles.textInput} />
+      <TextInput
+      onChangeText={newText => handleInput(newText)}
+      onSubmitEditing={searchCondition}
+      value={text}
+      style={styles.textInput} />
 
-      <TouchableOpacity style={styles.searchButton} activeOpacity={0.5}>
+      <TouchableOpacity
+      onPress={searchCondition}
+       style={styles.searchButton} activeOpacity={0.5}>
         <Image source={searchIcon} style={styles.buttonImageIconStyle} />
       </TouchableOpacity>
     </View>
