@@ -3,27 +3,17 @@ import { NavigationContainer } from "@react-navigation/native";
 import { AuthStackNavigation } from "./StackNavigator";
 import { DrawerNavigator } from "./DrawerNavigator";
 import { AuthContext } from "../../context/AuthContext";
-import {
-  ActivityIndicator,
-  View,
-  StyleSheet,
-  ImageBackground,
-} from "react-native";
+import { ActivityIndicator, StyleSheet } from "react-native";
+import Box from "../Box";
 
 const AppNavigator = () => {
   const { isLoading, user } = useContext(AuthContext);
 
   if (isLoading) {
     return (
-      <ImageBackground
-        source={require("../../resources/Login-Background.png")}
-        resizeMode="cover"
-        style={styles.image}
-      >
-        <View style={styles.container}>
-          <ActivityIndicator size={"large"} color="#FFF"/>
-        </View>
-      </ImageBackground>
+      <Box>
+        <ActivityIndicator size="large" color="#FFFFFF" />
+      </Box>
     );
   }
   return (
@@ -33,15 +23,6 @@ const AppNavigator = () => {
   );
 };
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  image: {
-    width: "100%",
-    height: "100%",
-  },
-});
+const styles = StyleSheet.create({});
+
 export default AppNavigator;

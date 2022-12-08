@@ -4,8 +4,9 @@ export default function GradientBackground({ children, style }) {
   return (
     <LinearGradient
       style={style}
-      colors={["#04BF8A", "#025940"]}
-      start={{ x: 0.1, y: 0.1 }}
+      colors={["#024059", "#04BF8A"]}
+      start={{ x: 1, y: 1 }}
+      end={{ x: 0, y: 0 }}
     >
       {children}
     </LinearGradient>
