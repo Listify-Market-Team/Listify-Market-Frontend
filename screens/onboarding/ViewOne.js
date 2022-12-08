@@ -3,6 +3,7 @@ import { useTranslation } from "react-i18next";
 import Box from "../../components/Box";
 import { colors } from "../../styles/globals";
 import Button from "../../components/Button";
+import TranslationProvider from "../../components/TranslationProvider";
 
 export default function ViewOne({ navigation }) {
   const { t } = useTranslation();
@@ -12,21 +13,25 @@ export default function ViewOne({ navigation }) {
   };
 
   return (
-    <Box style={styles.view}>
-      <Text style={styles.title}>{t("Tu compañero de compras favorito")}</Text>
-      <Image
-        source={require("../../assets/canasta.png")}
-        style={styles.image}
-      />
-      <Text style={styles.text}>
-        {t(
-          "Organiza tus compras, enlista productos, compara precios, todo en un solo lugar"
-        )}
-      </Text>
-      <View style={styles.actions}>
-        <Button onPress={goToNextView}>{t("Siguiente")}</Button>
-      </View>
-    </Box>
+    <TranslationProvider>
+      <Box style={styles.view}>
+        <Text style={styles.title}>
+          {t("Tu compañero de compras favorito")}
+        </Text>
+        <Image
+          source={require("../../assets/canasta.png")}
+          style={styles.image}
+        />
+        <Text style={styles.text}>
+          {t(
+            "Organiza tus compras, enlista productos, compara precios, todo en un solo lugar"
+          )}
+        </Text>
+        <View style={styles.actions}>
+          <Button onPress={goToNextView}>{t("Siguiente")}</Button>
+        </View>
+      </Box>
+    </TranslationProvider>
   );
 }
 
