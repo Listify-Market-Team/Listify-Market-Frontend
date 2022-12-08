@@ -1,12 +1,14 @@
 import { AuthProvider } from "./context/AuthContext";
-import AppWrapper from "./components/AppWrapper";
 import AppContextProvider from "./context/AppContext";
+import AppNavigator from "./components/Navigation/AppNavigator";
+import LoadingScreen from "./screens/onboarding/LoadingView";
 
 export default function App() {
   return (
     <AppContextProvider>
       <AuthProvider>
-        <AppWrapper />
+        <AppNavigator />
+        <LoadingScreen />
       </AuthProvider>
     </AppContextProvider>
   );
