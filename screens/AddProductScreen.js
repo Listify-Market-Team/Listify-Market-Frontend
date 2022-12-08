@@ -3,18 +3,20 @@ import { StyleSheet, Text, View } from "react-native";
 
 import { ListData } from "../components/ProductToList/Data";
 import { IconBack } from "../components/ProductToList/PressComponents";
+import { useTranslation } from "react-i18next";
 
-export default function AddProduct({ navigation }) {
+export default function AddProduct({ navigation , route}) {
+  const { t, i18n } = useTranslation();
   return (
     <View style={styles.screen}>
-      <IconBack />
+      <IconBack navigation={navigation}/>
 
       <View style={styles.container}>
         <View style={styles.ItemsContainer}>
-          <Text style={styles.title}>Mis listas</Text>
+          <Text style={styles.title}>{t("Mis listas")}</Text>
 
           <View style={styles.ListDataContainer}>
-            <ListData navigation={navigation} />
+            <ListData navigation={navigation} route={route}/>
           </View>
         </View>
       </View>

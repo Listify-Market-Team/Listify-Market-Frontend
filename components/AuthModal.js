@@ -1,7 +1,13 @@
 import { View, Text, Modal, Pressable, ActivityIndicator, StyleSheet } from "react-native";
 import React from "react";
 
+
+import { useTranslation } from "react-i18next";
+
+
 export default function AuthModal({ success, loading, invalidPassword, closeModal }) {
+  const { t, i18n } = useTranslation();
+
   return (
     <View>
       <Modal
@@ -24,7 +30,7 @@ export default function AuthModal({ success, loading, invalidPassword, closeModa
       >
         <View style={styles.modalContainer}>
           <View style={styles.modalContent}>
-            <Text>Usuario creado exitosamente.</Text>
+            <Text>{t("Usuario creado exitosamente.")}</Text>
             <Pressable onPress={closeModal} style={styles.btn}>
               <Text style={styles.btnText}>Ok</Text>
             </Pressable>
@@ -39,9 +45,9 @@ export default function AuthModal({ success, loading, invalidPassword, closeModa
       >
         <View style={styles.modalContainer}>
           <View style={styles.modalContent}>
-            <Text>Las contraseñas no coinciden.</Text>
+            <Text>{t("Las contraseñas no coinciden.")}</Text>
             <Pressable onPress={closeModal} style={styles.btn}>
-              <Text style={styles.btnText}>Intentar de nuevo</Text>
+              <Text style={styles.btnText}>{t("Intentar nuevamente")}</Text>
             </Pressable>
           </View>
         </View>

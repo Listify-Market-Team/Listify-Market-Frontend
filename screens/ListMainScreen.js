@@ -12,8 +12,11 @@ import {
 import SearchBar from "../components/SearchBar";
 import List from "../components/List";
 import useFetch from "../Hooks/useFetch";
+import { useTranslation } from "react-i18next";
 
 const ListMainScreen = ({ navigation }) => {
+  const { t, i18n } = useTranslation();
+
   return (
     <View style={styles.screen}>
       <View style={styles.searchBarContainer}>
@@ -22,17 +25,16 @@ const ListMainScreen = ({ navigation }) => {
 
       <View style={styles.container}>
         <View style={styles.buttonTituleContainer}>
-          <Text style={styles.titule}>Mis Listas</Text>
+          <Text style={styles.titule}>{t("Mis Listas")}</Text>
           <TouchableOpacity
             style={styles.addNewBoton}
             onPress={() => {
               navigation.navigate("NewList");
             }}
           >
-            <Text>Nueva</Text>
+            <Text>{t("Nueva Lista")}</Text>
           </TouchableOpacity>
         </View>
-
         <ScrollView style={styles.listContainer}>
           <List navigation={navigation}/>
         </ScrollView>

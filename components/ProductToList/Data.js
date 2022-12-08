@@ -9,21 +9,20 @@ import {
 } from "react-native";
 import Checkbox from "expo-checkbox";
 import axios from "axios";
+import { AddProductButton , Spinner} from "./PressComponents";
 import { API_URL } from "../../api/constants";
 import { AuthContext } from "../../context/AuthContext";
+import { useTranslation } from "react-i18next";
 
-import { AddProductButton } from "./PressComponents";
-
-export const ListData = ({ navigation }) => {
+export const ListData = ({ navigation , route}) => {
   const [Loading, setLoading] = useState(true);
   const [listData, setListData] = useState([]);
   const [checked, setChecked] = useState([]);
   const { user } = useContext(AuthContext);
 
-  const product = {
-    id: 5,
-    quantity: 2,
-  };
+  const product = route.params;
+
+  const { t, i18n } = useTranslation();
 
   useEffect(() => {
     const doGetRequest = async () => {
@@ -31,7 +30,6 @@ export const ListData = ({ navigation }) => {
       const res = await axios.get(
         `${API_URL}/Inventory/GetByUserId?userID=${userid}`
       );
-      //const data = await res.data.results;
       const data = await res.data.inventories;
       const check = new Array(data.length).fill(false);
       setChecked(check);
@@ -53,10 +51,10 @@ export const ListData = ({ navigation }) => {
   };
 
   return Loading ? (
-    <Text>Cargando...</Text>
+    <Spinner/>
   ) : listData.length == 0 ? (
     <Text style={styles.textDontExist}>
-      No existe ninguna lista. Cree una primero para insertar un producto.
+      {t("No existe ninguna lista. Cree una primero para insertar un producto.")}  
     </Text>
   ) : (
     <View style={styles.dataContainer}>
@@ -83,7 +81,7 @@ export const ListData = ({ navigation }) => {
           </View>
         ))}
       </ScrollView>
-      <AddProductButton data={listData} datacheck={checked} product={product} />
+      <AddProductButton data={listData} datacheck={checked} navigation={navigation} product={product}/>
     </View>
   );
 };
