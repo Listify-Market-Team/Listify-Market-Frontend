@@ -103,9 +103,15 @@ const SearchProductScreen = ({ navigation }) => {
       </ImageBackground>
 
       <View style={styles.filters}>
-        <Text>Sugeridos</Text>
-        <Text>Precio más bajos</Text>
-        <Text>Precios más altos</Text>
+      <FlatList
+      style={styles.listFilter}
+      data={markets}
+      horizontal 
+      renderItem={renderFilters}
+      extraData={markets}
+      showsHorizontalScrollIndicator={false}
+      ItemSeparatorComponent={renderSeparator}
+      />
       </View>
 
       {/*Product cards */}
