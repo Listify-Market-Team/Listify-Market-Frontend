@@ -10,7 +10,6 @@ import {
 } from "react-native";
 import axios from "axios";
 import { API_URL } from "../api/constants";
-import { API } from "../api/constants";
 import searchIcon from "../img/magnifier.png";
 
 const SearchBar = (props) => {

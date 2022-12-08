@@ -12,7 +12,6 @@ import ListMenuPop from "./ListMenuPop";
 import detailBTN from "../img/DetailBTN.png";
 import axios from "axios";
 import { API_URL } from "../api/constants";
-import { API } from "../api/constants";
 import { AuthContext } from "../context/AuthContext";
 
 const List = (props) => {

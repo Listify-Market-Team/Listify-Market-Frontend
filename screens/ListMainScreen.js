@@ -12,7 +12,6 @@ import {
 import SearchBar from "../components/SearchBar";
 import List from "../components/List";
 import { API_URL } from "../api/constants";
-import { API } from "../api/constants";
 import useFetch from "../Hooks/useFetch";
 import { AuthContext } from "../context/AuthContext";
 import axios from "axios";
@@ -31,7 +30,7 @@ const ListMainScreen = ({ navigation }) => {
   const fetchList = async () => {
     try {
       const res = await fetch(
-        `${API}/Inventory/GetByUserId?userID=${user.id}`
+        `${API_URL}/Inventory/GetByUserId?userID=${user.id}`
       );
       const json = await res.json();
       const listResult = json.inventories;
@@ -51,7 +50,7 @@ const ListMainScreen = ({ navigation }) => {
   const searchList = (filterList) => {
     try {
       axios
-        .get(`${API}/Inventory/GetInventoryLikeName?inventoryName=${filterList}&userId=${user.id}`)
+        .get(`${API_URL}/Inventory/GetInventoryLikeName?inventoryName=${filterList}&userId=${user.id}`)
         .then(async (res) => { 
           console.log(res.data);
           const json = await res.data;
