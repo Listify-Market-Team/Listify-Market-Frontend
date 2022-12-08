@@ -7,9 +7,11 @@ import { MaterialIcons } from "@expo/vector-icons";
 import React, { useContext } from "react";
 import { AuthContext } from "../context/AuthContext";
 import { deviceHeight, deviceWidth } from "../api/constants";
+import { useTranslation } from "react-i18next";
 
 export default function Menu(props) {
   const { logout, user } = useContext(AuthContext);
+  const { t, i18n } = useTranslation();
   return (
     <DrawerContentScrollView
       {...props}
@@ -25,7 +27,7 @@ export default function Menu(props) {
       </View>
       <Pressable style={styles.logout} onPress={() => logout()}>
         <MaterialIcons name="logout" size={24} color="black" />
-        <Text style={styles.logout_text}>Cerrar sesión</Text>
+        <Text style={styles.logout_text}>{t("Cerrar sesión")}</Text>
       </Pressable>
     </DrawerContentScrollView>
   );

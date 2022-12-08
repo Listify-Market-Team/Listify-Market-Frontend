@@ -2,6 +2,7 @@ import { View, Button } from "react-native";
 import { useState } from "react";
 import ListDataFields from "./ListDataFields";
 import ProductsListSelection from "./ProductsListSelection";
+import { useTranslation } from "react-i18next";
 
 const stepsCount = 2;
 export default function ListForm({ onSubmit }) {
@@ -9,6 +10,7 @@ export default function ListForm({ onSubmit }) {
   const [products, setProducts] = useState([]);
   const [step, setStep] = useState(0);
   const isTheLastStep = stepsCount - 1 === step;
+  const { t, i18n } = useTranslation();
 
   const submitHandler = () => {
     onSubmit({ ...list, products });
@@ -56,14 +58,14 @@ export default function ListForm({ onSubmit }) {
       )}
       <View>
         <Button
-          title="Volver"
+          title={t("Volver")}
           onPress={previousStepHandler}
           disabled={step === 0}
         />
         {!isTheLastStep ? (
-          <Button title="Siguiente" onPress={nextStepHandler} />
+          <Button title={t("Siguiente")} onPress={nextStepHandler} />
         ) : (
-          <Button title="Hecho" onPress={submitHandler} />
+          <Button title={t("Hecho")} onPress={submitHandler} />
         )}
       </View>
     </View>

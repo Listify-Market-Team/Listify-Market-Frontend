@@ -1,6 +1,7 @@
 import { View, StyleSheet } from "react-native";
 import Input from "../Input";
 import styles from "../../styles";
+import { useTranslation } from "react-i18next";
 
 export default function ListDataFields({
   onChangeName,
@@ -8,17 +9,18 @@ export default function ListDataFields({
   name,
   description,
 }) {
+  const { t, i18n } = useTranslation();
   return (
     <View style={[fieldsStyles.card, styles.shadow]}>
       <Input
-        label="Nombre"
+        label={t("Nombre")}
         labelStyle={fieldsStyles.label}
         onChangeText={onChangeName}
         style={[fieldsStyles.input, fieldsStyles.spacing]}
         value={name}
       />
       <Input
-        label="Descripción"
+        label={t("Descripción")}
         labelStyle={fieldsStyles.label}
         onChangeText={onChangeDescription}
         multiline

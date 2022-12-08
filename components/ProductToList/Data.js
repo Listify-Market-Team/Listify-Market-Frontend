@@ -9,9 +9,10 @@ import {
 } from "react-native";
 import Checkbox from "expo-checkbox";
 import axios from "axios";
-import { AddProductButton , Spinner} from "./PressComponents";
+// import { AddProductButton , Spinner} from "./PressComponents";
 import { API_URL } from "../../api/constants";
 import { AuthContext } from "../../context/AuthContext";
+import { useTranslation } from "react-i18next";
 
 export const ListData = ({ navigation , route}) => {
   const [Loading, setLoading] = useState(true);
@@ -20,6 +21,8 @@ export const ListData = ({ navigation , route}) => {
   const { user } = useContext(AuthContext);
 
   const product = route.params;
+
+  const { t, i18n } = useTranslation();
 
   useEffect(() => {
     const doGetRequest = async () => {
@@ -51,7 +54,7 @@ export const ListData = ({ navigation , route}) => {
     <Spinner/>
   ) : listData.length == 0 ? (
     <Text style={styles.textDontExist}>
-      No existe ninguna lista. Cree una primero para insertar un producto.  
+      {t("No existe ninguna lista. Cree una primero para insertar un producto.")}  
     </Text>
   ) : (
     <View style={styles.dataContainer}>

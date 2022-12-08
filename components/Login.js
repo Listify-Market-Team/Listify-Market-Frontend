@@ -12,6 +12,9 @@ import { AuthContext } from "../context/AuthContext";
 import { login } from "../api/login";
 import { deviceHeight, deviceWidth, userRegex } from "../api/constants";
 
+
+import { useTranslation } from "react-i18next";
+
 export default function Login(props) {
   const { setUser, setIsLoading } = useContext(AuthContext);
   const { control, handleSubmit } = useForm({
@@ -20,43 +23,46 @@ export default function Login(props) {
       password: "",
     },
   });
+  
+  const { t, i18n } = useTranslation();
 
   const onSubmit = (data) => {
-    login(data.user, data.password, setIsLoading, setUser);
+    login(data.user, data.password, setIsLoading, setUser, t);
   };
 
+
   return (
-    <AuthContainer title={"Iniciar Sesión"}>
+    <AuthContainer title={t("Iniciar Sesión")}>
       <LoginInput
         control={control}
         name="user"
-        placeholder="Correo electrónico o teléfono"
+        placeholder={t("Correo electrónico o teléfono")}
         rules={{
-          required: "El correo electrónico o teléfono es requerido",
+          required: t("El correo electrónico o teléfono es requerido"),
           pattern: {
             value: userRegex,
-            message: "Correo electrónico o teléfono inválido",
+            message: t("Correo electrónico o teléfono inválido"),
           },
         }}
       />
       <LoginInput
         control={control}
         name="password"
-        placeholder="Contraseña"
+        placeholder={t("Contraseña")}
         secureTextEntry
-        rules={{ required: "La contraseña es requerida" }}
+        rules={{ required: t("La contraseña es requerida") }}
       />
       <Pressable onPress={handleSubmit(onSubmit)} style={styles.login}>
-        <Text style={styles.login_text}>Iniciar sesi&oacute;n</Text>
+        <Text style={styles.login_text}>{t("Iniciar sesión")}</Text>
       </Pressable>
       <View style={styles.footer}>
-        <Text style={styles.footer_text}>¿No tienes una cuenta?</Text>
+        <Text style={styles.footer_text}>{t("¿No tienes una cuenta?")}</Text>
         <Pressable
           onPress={() => {
             props.navigate("Personal");
           }}
         >
-          <Text style={styles.footer_signup}>Registrate</Text>
+          <Text style={styles.footer_signup}>{t("Regístrate")}</Text>
         </Pressable>
       </View>
     </AuthContainer>

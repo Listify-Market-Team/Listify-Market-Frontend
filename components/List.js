@@ -13,59 +13,17 @@ import detailBTN from "../img/DetailBTN.png";
 import axios from "axios";
 import { API_URL } from "../api/constants";
 import { AuthContext } from "../context/AuthContext";
+import { useTranslation } from "react-i18next";
 
-// const data = [
-//   {
-//     image:
-//       "https://cdn0.iconfinder.com/data/icons/cosmo-layout/40/box-512.png",
-//     name: "Bravo",
-// const data = [
-//   {
-//     image:
-//       "https://cdn0.iconfinder.com/data/icons/cosmo-layout/40/box-512.png",
-//     name: "Bravo",
-//     products: [
-//       { id: 1, product: "pan" },
-//       { id: 2, product: "leche" },
-//     ],
-//   },
-//   {
-//     image:
-//       "https://cdn0.iconfinder.com/data/icons/cosmo-layout/40/box-512.png",
-//     name: "La Sirena",
-//     products: [
-//       { id: 3, product: "huevos" },
-//       { id: 4, product: "jabon" },
-//     ],
-//   },
-// ];
+const List = (props) => {
+  const list = props.item
+  const navigation = props.navigation
+  
 
-const List = ({ navigation }) => {
-  const { user } = useContext(AuthContext);
-  const [list1, setList] = useState([]);
   const [listModal, setListModal] = useState();
   const [isModalVisible, setIsModalVisible] = useState(false);
-
-  const fetchList = async () => {
-    try {
-      const res = await fetch(
-        `${API_URL}/Inventory/GetByUserId?userID=${user.id}`
-      );
-      const json = await res.json();
-      const json2 = json.inventories;
-      setList(json2);
-      console.log(json2);
-    } catch (error) {
-      console.log("something went wrong");
-    }
-  };
-
-  useEffect(() => {
-    const unsubscribe = navigation.addListener("focus", () => {
-      fetchList();
-    });
-    return unsubscribe;
-  }, [navigation]);
+  
+  const { t, i18n } = useTranslation();
 
   const deleteList = (id) => {
     try {
@@ -82,7 +40,6 @@ const List = ({ navigation }) => {
       console.log("something went wrong");
     }
 
-    // fetchList()
   };
 
   const editList = (id) => {
@@ -99,6 +56,8 @@ const List = ({ navigation }) => {
       });
   };
 
+
+
   const setSelectedProduct = (product) => {
     setListModal(product);
   };
@@ -109,11 +68,11 @@ const List = ({ navigation }) => {
 
   return (
     <View>
-      {list1.length === 0 && <Text>No hay listas para mostrar</Text>}
-      {list1.map((list, i) => (
+      
+      
         <TouchableOpacity onPress={() => navigation.navigate("ProductList",{
           list: list
-        })} key={i}>
+        })} key={list.id}>
           <View style={styles.screen}>
             <Image
               source="https://cdn0.iconfinder.com/data/icons/cosmo-layout/40/box-512.png"
@@ -122,7 +81,7 @@ const List = ({ navigation }) => {
 
             <View style={styles.content}>
               <Text style={styles.listName}>{list.name}</Text>
-              <Text>{list.product_Inventories.length} productos</Text>
+              <Text>{list.product_Inventories.length} {t("productos")}</Text>
             </View>
 
             <View style={styles.detailContainer}>
@@ -154,7 +113,7 @@ const List = ({ navigation }) => {
             </Modal>
           </View>
         </TouchableOpacity>
-      ))}
+   
     </View>
   );
 };
