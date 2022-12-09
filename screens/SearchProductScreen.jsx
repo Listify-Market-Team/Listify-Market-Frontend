@@ -6,32 +6,31 @@ import {
   ImageBackground,
   ScrollView,
   Pressable,
-  FlatList
+  FlatList,
 } from "react-native";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { API_URL } from "../api/constants";
 import { useTranslation } from "react-i18next";
-import Filter from '../components/Filter';
+import Filter from "../components/Filter";
 
 const SearchProductScreen = ({ navigation }) => {
   const [products, setProducts] = useState([]);
   const { t, i18n } = useTranslation();
   const [markets, setMarkets] = useState([
     {
-      name: "Bravo"
+      name: "Bravo",
     },
     {
-      name: "La Sirena"
+      name: "La Sirena",
     },
     {
-      name: "Jumbo"
+      name: "Jumbo",
     },
     {
-      name: "Nacional"
-    }
+      name: "Nacional",
+    },
   ]);
-
 
   useEffect(() => {
     const doGetRequest = async () => {
@@ -64,29 +63,22 @@ const SearchProductScreen = ({ navigation }) => {
   };
 
   const filtByMarket = (marketName) => {
-
     try {
       axios({
         method: "get",
         url: `${API_URL}/Product/GetProductsByMarketName?marketName=${marketName}`,
-        
       }).then((res) => {
         //console.log(marketName);
         // console.log(res.data.products)
-        setProducts(res.data.products)
+        setProducts(res.data.products);
       });
     } catch (error) {
       console.log("something went wrong");
     }
-    
-  }
+  };
 
-  const renderFilters = ({item}) => {
-    return(
-    <Filter name={item.name} 
-    filtByMarket={filtByMarket}
-    />
-    )
+  const renderFilters = ({ item }) => {
+    return <Filter name={item.name} filtByMarket={filtByMarket} />;
   };
 
   const renderSeparator = () => {
@@ -95,23 +87,23 @@ const SearchProductScreen = ({ navigation }) => {
 
   return (
     <View style={styles.SearchProduct}>
-      <ImageBackground
+      {/* <ImageBackground
         source={require("../resources/sirena.jpeg")}
         style={styles.background_image}
       >
         <Text style={styles.text}>{t("Productos")}</Text>
-      </ImageBackground>
+      </ImageBackground> */}
 
       <View style={styles.filters}>
-      <FlatList
-      style={styles.listFilter}
-      data={markets}
-      horizontal 
-      renderItem={renderFilters}
-      extraData={markets}
-      showsHorizontalScrollIndicator={false}
-      ItemSeparatorComponent={renderSeparator}
-      />
+        <FlatList
+          style={styles.listFilter}
+          data={markets}
+          horizontal
+          renderItem={renderFilters}
+          extraData={markets}
+          showsHorizontalScrollIndicator={false}
+          ItemSeparatorComponent={renderSeparator}
+        />
       </View>
 
       {/*Product cards */}
@@ -193,7 +185,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
   },
   listFilter: {
-    marginLeft:10
+    marginLeft: 10,
   },
   separator: {
     width: 7,

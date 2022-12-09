@@ -7,7 +7,7 @@ import {
   Button,
   TouchableOpacity,
   FlatList,
-  ScrollView
+  ScrollView,
 } from "react-native";
 import SearchBar from "../components/SearchBar";
 import List from "../components/List";
@@ -20,7 +20,7 @@ import axios from "axios";
 const ListMainScreen = ({ navigation }) => {
   const { t, i18n } = useTranslation();
 
-  const [list, setList] = useState([])
+  const [list, setList] = useState([]);
   const { user } = useContext(AuthContext);
 
   useEffect(() => {
@@ -45,16 +45,16 @@ const ListMainScreen = ({ navigation }) => {
   };
 
   const renderLists = ({ item }) => {
-    return (
-      <List item = {item} navigation={navigation}/>
-    );
+    return <List item={item} navigation={navigation} />;
   };
 
   const searchList = (filterList) => {
     try {
       axios
-        .get(`${API_URL}/Inventory/GetInventoryLikeName?inventoryName=${filterList}&userId=${user.id}`)
-        .then(async (res) => { 
+        .get(
+          `${API_URL}/Inventory/GetInventoryLikeName?inventoryName=${filterList}&userId=${user.id}`
+        )
+        .then(async (res) => {
           console.log(res.data);
           const json = await res.data;
           const lists = json.inventories;
@@ -63,14 +63,17 @@ const ListMainScreen = ({ navigation }) => {
     } catch (error) {
       console.log("something went wrong");
     }
-  }
-
-
+  };
 
   return (
     <View style={styles.screen}>
       <View style={styles.searchBarContainer}>
-        <SearchBar entity={"List"}  fetchList={fetchList} searchList={searchList} style={styles.searchBar} />
+        <SearchBar
+          entity={"List"}
+          fetchList={fetchList}
+          searchList={searchList}
+          style={styles.searchBar}
+        />
       </View>
 
       <View style={styles.container}>
@@ -86,18 +89,18 @@ const ListMainScreen = ({ navigation }) => {
           </TouchableOpacity>
         </View>
 
-        {list.length === 0 
-       ? <Text>No hay listas para mostrar</Text>
-       :<FlatList
-          style={styles.listContainer}
-          showsVerticalScrollIndicator={false}
-          data={list}
-          renderItem={renderLists}
-          extraData={list}
-          keyExtractor={(items, index) => index.toString()}
-        />
-          }
-
+        {list.length === 0 ? (
+          <Text>No hay listas para mostrar</Text>
+        ) : (
+          <FlatList
+            style={styles.listContainer}
+            showsVerticalScrollIndicator={false}
+            data={list}
+            renderItem={renderLists}
+            extraData={list}
+            keyExtractor={(items, index) => index.toString()}
+          />
+        )}
       </View>
     </View>
   );

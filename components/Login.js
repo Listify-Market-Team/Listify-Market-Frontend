@@ -1,17 +1,12 @@
-import {
-  View,
-  Text,
-  StyleSheet,
-  Pressable,
-} from "react-native";
 import React, { useContext } from "react";
+import { View, Text, StyleSheet, Pressable } from "react-native";
 import { useForm } from "react-hook-form";
 import AuthContainer from "./AuthContainer";
 import LoginInput from "./LoginInput";
 import { AuthContext } from "../context/AuthContext";
 import { login } from "../api/login";
 import { deviceHeight, deviceWidth, userRegex } from "../api/constants";
-
+import Button from "./Button";
 
 import { useTranslation } from "react-i18next";
 
@@ -23,16 +18,17 @@ export default function Login(props) {
       password: "",
     },
   });
-  
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
 
   const onSubmit = (data) => {
     login(data.user, data.password, setIsLoading, setUser, t);
   };
 
+  const title = t("Iniciar sesión");
 
   return (
-    <AuthContainer title={t("Iniciar Sesión")}>
+    <AuthContainer>
+      <Text style={styles.title}>{title}</Text>
       <LoginInput
         control={control}
         name="user"
@@ -52,9 +48,9 @@ export default function Login(props) {
         secureTextEntry
         rules={{ required: t("La contraseña es requerida") }}
       />
-      <Pressable onPress={handleSubmit(onSubmit)} style={styles.login}>
-        <Text style={styles.login_text}>{t("Iniciar sesión")}</Text>
-      </Pressable>
+      <View style={styles.actions}>
+        <Button onPress={handleSubmit(onSubmit)}>{title}</Button>
+      </View>
       <View style={styles.footer}>
         <Text style={styles.footer_text}>{t("¿No tienes una cuenta?")}</Text>
         <Pressable
@@ -70,31 +66,11 @@ export default function Login(props) {
 }
 
 const styles = StyleSheet.create({
-  login: {
-    marginTop: deviceHeight * 0.1,
-    marginBottom: deviceHeight * 0.1,
-    alignItems: "center",
-    alignSelf: "center",
-    justifyContent: "center",
-    paddingVertical: 12,
-    paddingHorizontal: 32,
-    borderRadius: 15,
-    borderWidth: 3,
-    borderColor: "#C7C0C0",
-    backgroundColor: "#76B2B2",
-    width: deviceWidth * 0.75,
-  },
-  login_text: {
-    fontSize: 14,
-    lineHeight: 21,
-    fontWeight: "bold",
-    letterSpacing: 0.25,
-    color: "white",
-  },
   footer: {
     justifyContent: "center",
     flexDirection: "row",
-    marginBottom: deviceHeight * 0.07,
+    marginBottom: 70,
+    marginTop: "auto",
   },
   footer_text: {
     color: "#FFF",
@@ -108,5 +84,16 @@ const styles = StyleSheet.create({
     fontSize: 14,
     textAlign: "center",
     fontWeight: "600",
+  },
+  title: {
+    color: "#fff",
+    fontSize: 30,
+    textAlign: "center",
+    fontWeight: 700,
+    marginTop: 50,
+  },
+  actions: {
+    marginTop: 100,
+    paddingHorizontal: 50,
   },
 });
