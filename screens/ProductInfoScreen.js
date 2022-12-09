@@ -51,7 +51,8 @@ export default class ProductInfoScreen extends Component {
       loadingLists: false,
       productPrice: 0,
       productQuantity: 0,
-      markets: []
+      markets: [],
+      marketId: 0
     };
 
     this.increaseOnPress = this.increaseOnPress.bind(this);
@@ -65,6 +66,8 @@ export default class ProductInfoScreen extends Component {
     this.setState({
       productQuantity: this.state.productQuantity + 1,
     });
+
+    // console.log(this.state.markets)
   }
 
   decreaseOnPress() {
@@ -80,7 +83,7 @@ export default class ProductInfoScreen extends Component {
     // console.log("added!");
 
     this.props.navigation.navigate("AddProduct", {
-      id: this.props.route.params.id,
+      marketID: this.state.marketId,
       price: this.state.productPrice,
       quantity: this.state.productQuantity,
     });
@@ -93,7 +96,9 @@ export default class ProductInfoScreen extends Component {
   pressHandler(item) {
     this.setState({
       price: item.price,
+      marketId: item.marketID
     });
+    console.log(item)
   }
 
   // async getPrices(){
@@ -113,11 +118,19 @@ export default class ProductInfoScreen extends Component {
   //   }
   // }
 
-  updateMarkets(props){
-    this.setState({markets: this.props.route.params.product.product_Markets})
+  static getDerivedStateFromProps(props,state){
+    // console.log(props.route.params.product)
+
+    if (props.route.params.product.product_Markets != state.markets){
+      return ({
+        markets: props.route.params.product.product_Markets
+      });
+          }
+    return null;
   }
 
-  componentDidUpdate(){
+  
+  // componentDidUpdate(prevProps){
   //   console.log(this.props);
   //   console.log(this.props.route.params.product.product_Markets);
     
@@ -130,9 +143,15 @@ export default class ProductInfoScreen extends Component {
   //   this.setState({markets: [...this.state.markets, ...this.props.route.params.product.product_Markets]})
     
   //   console.log(this.state.markets);
-    updateMarkets();
-  }
 
+  // if (prevProps.markets != this.props.route.params.product.product_Markets){
+  //   this.setState({markets: this.props.route.params.product.product_Markets})
+  // }
+  // return null
+
+  // }
+
+  
 
   render() {
 
@@ -148,7 +167,7 @@ export default class ProductInfoScreen extends Component {
             <Image
               style={styles.imageStyle}
               source={{
-                uri: `${this.state.dataSource.image}`,
+                uri: `{https://cdn-icons-png.flaticon.com/512/1548/1548682.png}`,
               }}
             />
           </View>
@@ -157,19 +176,23 @@ export default class ProductInfoScreen extends Component {
             Lorem Ipsum is simply dummy text of the printing and typesetting
             industry
           </Text>
-
+              
+                
+            
           <View style={styles.prices}>
+            
             <FlatList
               data={this.state.markets}
               renderItem={({ item }) => {
-                <TouchableOpacity onPress={() => pressHandler(item)}>
+                return(
+                <TouchableOpacity onPress={() => this.pressHandler(item)}>
                   <View style={styles.listItem}>
                     <Text style={styles.listItemText}>{item.marketID}</Text>
                     <Text style={styles.listItemPrice}>{item.price}</Text>
                   </View>
-                </TouchableOpacity>;
-              }}
-              keyExtractor={(item) => item.price}
+                </TouchableOpacity>
+              )}}
+              keyExtractor={(item) => item.marketID}
               horizontal
               extraData={this.state.markets}
             />
