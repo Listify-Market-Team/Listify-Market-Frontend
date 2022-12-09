@@ -1,85 +1,34 @@
-import {
-  View,
-  Text,
-  ImageBackground,
-  Image,
-  SafeAreaView,
-  StyleSheet,
-  TouchableOpacity,
-} from "react-native";
-import React from "react";
-import { MaterialIcons } from "@expo/vector-icons";
-import { deviceHeight, deviceWidth } from "../api/constants";
-import i18n from "i18next";
+import { View, Image, StyleSheet } from "react-native";
+import GradientBackground from "./GradientBackground";
+import TranslationProvider from "./TranslationProvider";
 
-export default function AuthContainer({ children, title }) {
+export default function AuthContainer({ children }) {
   return (
-    <ImageBackground
-      source={require("../resources/Login-Background.png")}
-      resizeMode="cover"
-      style={styles.image}
-    >
-      <View style={styles.container}>
-        <View style={styles.TranslateButton}>
-          <TouchableOpacity
-            onPress={() => {
-              i18n.changeLanguage(i18n.language === "en" ? "es" : "en");
-            }}
-            style={styles.translation}
-          >
-            <MaterialIcons name="translate" size={30} color="white" />
-          </TouchableOpacity>
+    <GradientBackground style={styles.container}>
+      <TranslationProvider color="#ffffff">
+        <View style={styles.logoContainer}>
+          <Image
+            style={styles.logo}
+            source={require("../assets/LogoProyecto2.8.png")}
+          />
         </View>
-        <Image
-          style={styles.logo}
-          source={require("../resources/Logo-Proyecto2-1.png")}
-        />
-        <SafeAreaView>
-          <Text style={styles.title}>{title}</Text>
-        </SafeAreaView>
         {children}
-      </View>
-    </ImageBackground>
+      </TranslationProvider>
+    </GradientBackground>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: "flex-end",
-    width: deviceWidth,
-    height: deviceHeight,
   },
-  image: {
-    width: "100%",
-    height: "100%",
-  },
-  TranslateButton: {
-    position: "absolute",
-    top: 0,
-    right: 0,
-    margin: 20,
-  },
-  translation: {
-    flexDirection: "row",
-    justifyContent: "flex-end",
+  logoContainer: {
     alignItems: "center",
-    paddingHorizontal: 10,
-    paddingVertical: 0,
   },
   logo: {
     width: 180,
     height: 180,
     alignSelf: "center",
-    marginTop: deviceHeight * 0.04,
-  },
-  title: {
-    color: "#FFF",
-    alignSelf: "center",
-    fontWeight: "bold",
-    fontSize: 30,
-    marginTop: deviceHeight * 0.06,
-    marginBottom: deviceHeight * 0.04,
-    textDecorationLine: "underline",
+    marginTop: 100,
   },
 });
