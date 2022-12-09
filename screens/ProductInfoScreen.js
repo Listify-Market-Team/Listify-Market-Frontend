@@ -15,6 +15,7 @@ import globalStyles from "../styles";
 import { Modal } from "react-native";
 import { set } from "react-native-reanimated";
 import { Translation } from "react-i18next";
+import { API_URL } from "../api/constants";
 
 //Random Data
 const DATA_WITH_ID = [
@@ -45,24 +46,28 @@ export default class ProductInfoScreen extends Component {
     super(props);
 
     this.state = {
-      dataSource: [],
+      // dataSource: [],
       showLists: false,
       loadingLists: false,
       productPrice: 0,
       productQuantity: 0,
-      productId: 0,
+      markets: [],
+      marketId: 0
     };
 
     this.increaseOnPress = this.increaseOnPress.bind(this);
     this.decreaseOnPress = this.decreaseOnPress.bind(this);
     this.addProductToList = this.addProductToList.bind(this);
     this.pressHandler = this.pressHandler.bind(this);
+    // this.markets = this.pricesList.bind(this);
   }
 
   increaseOnPress() {
     this.setState({
       productQuantity: this.state.productQuantity + 1,
     });
+
+    // console.log(this.state.markets)
   }
 
   decreaseOnPress() {
@@ -78,7 +83,7 @@ export default class ProductInfoScreen extends Component {
     // console.log("added!");
 
     this.props.navigation.navigate("AddProduct", {
-      id: this.props.route.params.id,
+      marketID: this.state.marketId,
       price: this.state.productPrice,
       quantity: this.state.productQuantity,
     });
@@ -91,19 +96,21 @@ export default class ProductInfoScreen extends Component {
   pressHandler(item) {
     this.setState({
       price: item.price,
+      marketId: item.marketID
     });
+    console.log(item)
   }
 
-  // async getProduct(){
+  // async getPrices(){
   //   try
-  //   {///Entrar nuevo endpoint de API o conexion aqui
-  //     this.setState({
-  //       productId: this.props.route.params.id
-  //     })
+  //   {
+  //     const response = await fetch(`${API_URL}/Product/GetByID?id=${this.props.route.params.id}`);
 
-  //     const response = await fetch("http://localhost:5209/api/Product/GetById/");
-  //     const json = await response.json();
-  //     this.state.dataSource = json;
+  //     const data = await response.json();
+
+  //     console.log(data.product_Markets);
+
+  //     this.setState({dataSource: data});
   //   }
   //   catch(error)
   //   {
@@ -111,11 +118,48 @@ export default class ProductInfoScreen extends Component {
   //   }
   // }
 
-  // componentDidMount(){
-  //   this.getProduct()
+  static getDerivedStateFromProps(props,state){
+    // console.log(props.route.params.product)
+
+    if (props.route.params.product.product_Markets != state.markets){
+      return ({
+        markets: props.route.params.product.product_Markets
+      });
+          }
+    return null;
+  }
+
+  
+  // componentDidUpdate(prevProps){
+  //   console.log(this.props);
+  //   console.log(this.props.route.params.product.product_Markets);
+    
+  //   const [products_Markets] = this.props.route.params.product.product_Markets;
+  //   // console.log(products_Markets);
+
+  //   this.setState({
+  //     markets: products_Markets
+  //   })
+  //   this.setState({markets: [...this.state.markets, ...this.props.route.params.product.product_Markets]})
+    
+  //   console.log(this.state.markets);
+
+  // if (prevProps.markets != this.props.route.params.product.product_Markets){
+  //   this.setState({markets: this.props.route.params.product.product_Markets})
+  // }
+  // return null
+
   // }
 
+  
+
   render() {
+
+    // const price_array = this.state.dataSource.product_Markets;
+    // const priceList = price_array.map((product) =>
+    // <li>{product}</li>
+    // );
+
     return (
       <View style={styles.base}>
         <View style={styles.container}>
@@ -123,31 +167,36 @@ export default class ProductInfoScreen extends Component {
             <Image
               style={styles.imageStyle}
               source={{
-                uri: "https://cdn-icons-png.flaticon.com/512/1548/1548682.png",
+                uri: `{https://cdn-icons-png.flaticon.com/512/1548/1548682.png}`,
               }}
             />
           </View>
-          <Text style={styles.title}>{this.props.route.params.name}</Text>
+          <Text style={styles.title}>{this.props.route.params.product.name}</Text>
           <Text style={styles.info}>
             Lorem Ipsum is simply dummy text of the printing and typesetting
             industry
           </Text>
-
+              
+                
+            
           <View style={styles.prices}>
+            
             <FlatList
-              data={DATA_WITH_ID}
+              data={this.state.markets}
               renderItem={({ item }) => {
-                <TouchableOpacity onPress={() => pressHandler(item)}>
+                return(
+                <TouchableOpacity onPress={() => this.pressHandler(item)}>
                   <View style={styles.listItem}>
-                    <Text style={styles.listItemText}>{item.title}</Text>
+                    <Text style={styles.listItemText}>{item.marketID}</Text>
                     <Text style={styles.listItemPrice}>{item.price}</Text>
                   </View>
-                </TouchableOpacity>;
-              }}
-              keyExtractor={(item) => item.id}
+                </TouchableOpacity>
+              )}}
+              keyExtractor={(item) => item.marketID}
               horizontal
-              extraData={this.state}
+              extraData={this.state.markets}
             />
+            
           </View>
 
           <View style={styles.quantityContainer}>
