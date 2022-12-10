@@ -8,6 +8,7 @@ import React, { useContext } from "react";
 import { AuthContext } from "../context/AuthContext";
 import { deviceHeight, deviceWidth } from "../api/constants";
 import { useTranslation } from "react-i18next";
+import { colors } from "../styles/globals";
 
 export default function Menu(props) {
   const { logout, user } = useContext(AuthContext);
@@ -48,9 +49,10 @@ const styles = StyleSheet.create({
   },
   title: {
     alignSelf: "center",
-    fontSize: 18,
-    fontWeight: "bold",
-    marginBottom: 20,
+    fontSize: 20,
+    marginBottom: 40,
+    fontFamily: "Cabin-Bold",
+    color: colors.dark,
   },
   logout: {
     flexDirection: "row",
@@ -65,10 +67,10 @@ const styles = StyleSheet.create({
   },
   logout_text: {
     marginLeft: 10,
-    fontSize: 14,
+    fontSize: 16,
     lineHeight: 21,
-    fontWeight: "bold",
     letterSpacing: 0.25,
-    color: "black",
+    fontFamily: "Cabin-Bold",
+    color: colors.dark,
   },
 });
