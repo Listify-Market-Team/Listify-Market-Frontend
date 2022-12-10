@@ -51,6 +51,8 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
     borderTopLeftRadius: 10,
     borderBottomLeftRadius: 10,
+    color: colors.black,
+    fontFamily: "Cabin-Regular",
   },
   searchButton: {
     justifyContent: "center",
