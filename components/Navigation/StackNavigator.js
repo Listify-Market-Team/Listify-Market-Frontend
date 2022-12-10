@@ -48,6 +48,7 @@ export const HomeStackNavigator = () => {
       }}
     >
       <Stack.Screen name="HomeDashboard" component={HomeScreen} />
+      <Stack.Screen name="ProductsDashboard" component={SearchProductScreen} />
     </Stack.Navigator>
   );
 };
@@ -72,12 +73,12 @@ export const InventoriesStackNavigator = () => {
 
   return (
     <Stack.Navigator
-      initialRouteName="Inventories"
+      initialRouteName="InventoriesDashboard"
       screenOptions={{
         headerShown: false,
       }}
     >
-      <Stack.Screen name="Inventories" component={InventoriesScreen} />
+      <Stack.Screen name="InventoriesDashboard" component={InventoriesScreen} />
     </Stack.Navigator>
   );
 };
@@ -87,11 +88,12 @@ export const HelpStackNavigator = () => {
 
   return (
     <Stack.Navigator
+      initialRouteName="HelpDashboard"
       screenOptions={{
         headerShown: false,
       }}
     >
-      <Stack.Screen name="HelpResources" component={HelpScreen} />
+      <Stack.Screen name="HelpDashboad" component={HelpScreen} />
     </Stack.Navigator>
   );
 };
@@ -100,8 +102,13 @@ export const ProductsStackNavigator = () => {
   const { t } = useTranslation();
 
   return (
-    <Stack.Navigator>
-      <Stack.Screen name="Products" component={SearchProductScreen} />
+    <Stack.Navigator
+      initialRouteName="ProductsDashboad"
+      screenOptions={{
+        headerShown: false,
+      }}
+    >
+      <Stack.Screen name="ProductsDashboard" component={SearchProductScreen} />
       <Stack.Screen name="AddProduct" component={AddProductScreen} />
       <Stack.Screen name="ProductInfo" component={ProductInfoScreen} />
     </Stack.Navigator>

@@ -1,19 +1,28 @@
 import React, { useContext } from "react";
-import { StyleSheet, Text, View, Button } from "react-native";
+import { StyleSheet, Text, View } from "react-native";
 import { AuthContext } from "../context/AuthContext";
-import { colors } from "../styles/globals";
-import Box from "../components/Box";
+import { globalStyles } from "../styles/globals";
+import SearchBar from "../components/SearchBar";
+import { useTranslation } from "react-i18next";
 
 export default function HomeScreen({ navigation }) {
+  const { t } = useTranslation();
+
+  const search = (productName, isEmpty) => {
+    if (isEmpty) {
+      return;
+    }
+    navigation.navigate("ProductsDashboard", { term: productName });
+  };
+
+  // for the search-bar
+  const placeholder = t("Buscar productos...");
+
   return (
-    <Box style={styles.container}>
-      <Text>Home Screen</Text>
-    </Box>
+    <View style={globalStyles.view}>
+      <SearchBar onSearch={search} placeholder={placeholder} />
+    </View>
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    backgroundColor: colors.light,
-  },
-});
+// const styles = StyleSheet.create({});
