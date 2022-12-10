@@ -1,56 +1,39 @@
-import { StatusBar } from "expo-status-bar";
-import React, { useState} from "react";
-import {
-  Text,
-  StyleSheet,
-  View,
-  TextInput,
-  TouchableOpacity,
-  Image,
-} from "react-native";
-import axios from "axios";
-import { API_URL } from "../api/constants";
+import React, { useState } from "react";
+import { StyleSheet, View, TextInput, Pressable, Image } from "react-native";
 import searchIcon from "../img/magnifier.png";
+import { colors } from "../styles/globals";
 
 const SearchBar = (props) => {
-  const entity = props.entity
-  const searchList = (text) => props.searchList(text)
-  const fetchList = () => props.fetchList()
+  const { onSearch, placeholder } = props;
 
-  const [text, setText] = useState('')
+  const [text, setText] = useState("");
 
   const handleInput = (newText) => {
-    setText(newText)
-  }
+    setText(newText);
+  };
 
-  const searchCondition = () => {
-    
-    if(text == ""){
-      fetchList()
+  const handleSearch = () => {
+    let isEmpty = false;
+
+    if (text.trim() === "") {
+      isEmpty = true;
     }
 
-    if(entity == "List" && text != "")
-    {
-      searchList(text)
-    }
-    //console.log(text)
-  }
-
-
+    onSearch(text, isEmpty);
+  };
 
   return (
     <View style={styles.container}>
       <TextInput
-      onChangeText={newText => handleInput(newText)}
-      onSubmitEditing={searchCondition}
-      value={text}
-      style={styles.textInput} />
+        onChangeText={(newText) => handleInput(newText)}
+        value={text}
+        style={styles.textInput}
+        placeholder={placeholder}
+      />
 
-      <TouchableOpacity
-      onPress={searchCondition}
-       style={styles.searchButton} activeOpacity={0.5}>
+      <Pressable onPress={handleSearch} style={styles.searchButton}>
         <Image source={searchIcon} style={styles.buttonImageIconStyle} />
-      </TouchableOpacity>
+      </Pressable>
     </View>
   );
 };
@@ -58,28 +41,32 @@ const SearchBar = (props) => {
 const styles = StyleSheet.create({
   container: {
     flexDirection: "row",
-    borderRadius: 15,
-    backgroundColor: "#d9e8e9",
-    width: "80%",
+    width: "100%",
+    marginVertical: 25,
   },
   textInput: {
-    width: "100%",
-    borderRadius: 15,
-    padding: 4,
-    fontSize: 15,
-    backgroundColor: "#d9e8e9",
+    flex: 1,
+    paddingHorizontal: 10,
+    fontSize: 16,
+    backgroundColor: "#fff",
+    borderTopLeftRadius: 10,
+    borderBottomLeftRadius: 10,
+    color: colors.black,
+    fontFamily: "Cabin-Regular",
   },
   searchButton: {
     justifyContent: "center",
     alignItems: "center",
     backgroundColor: "#00d36e",
-    borderRadius: 15,
+    color: colors.ligthGreen,
+    borderTopRightRadius: 10,
+    borderBottomRightRadius: 10,
+    width: 50,
+    height: 40,
   },
   buttonImageIconStyle: {
-    margin: 3,
-    height: 19,
-    width: 19,
-    resizeMode: "stretch",
+    height: 22,
+    width: 22,
   },
 });
 

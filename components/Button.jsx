@@ -1,11 +1,11 @@
-import { Pressable, Text, StyleSheet } from "react-native";
+import { Pressable, Text, StyleSheet, TouchableOpacity } from "react-native";
 import { colors } from "../styles/globals";
 
 export default function Button({ onPress, children }) {
   return (
-    <Pressable onPress={onPress} style={styles.button}>
+    <TouchableOpacity onPress={onPress} style={styles.button}>
       <Text style={styles.btnText}>{children}</Text>
-    </Pressable>
+    </TouchableOpacity>
   );
 }
 
@@ -28,8 +28,9 @@ const styles = StyleSheet.create({
   },
   btnText: {
     color: "#ffffff",
-    fontWeight: 500,
     textTransform: "uppercase",
     textAlign: "center",
+    fontFamily: "Cabin-Bold",
+    fontSize: 24,
   },
 });

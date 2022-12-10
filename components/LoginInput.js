@@ -33,7 +33,7 @@ export default function LoginInput({
             />
             {error && (
               <View style={styles.error}>
-                <Ionicons name="warning-outline" size={16} color="red" />
+                <Ionicons name="warning-outline" size={16} color="yellow" />
                 <Text style={styles.errorText}>{error.message}</Text>
               </View>
             )}
@@ -55,8 +55,9 @@ const styles = StyleSheet.create({
     borderBottomWidth: 3,
     borderColor: "#FFF",
     color: "#FFF",
-    fontSize: 12,
+    fontSize: 18,
     padding: 10,
+    fontFamily: "Cabin-Regular",
   },
   error: {
     flexDirection: "row",
@@ -64,9 +65,10 @@ const styles = StyleSheet.create({
     marginTop: 5,
   },
   errorText: {
-    marginLeft: 3,
-    color: "red",
-    fontSize: 13,
+    marginLeft: 8,
+    color: "yellow",
+    fontSize: 16,
     fontWeight: "650",
+    fontFamily: "Cabin-Regular",
   },
 });

@@ -14,7 +14,7 @@ import { API_URL } from "../api/constants";
 import { useTranslation } from "react-i18next";
 import Filter from "../components/Filter";
 
-const SearchProductScreen = ({ navigation }) => {
+const SearchProductScreen = ({ navigation, route }) => {
   const [products, setProducts] = useState([]);
   const { t, i18n } = useTranslation();
   const [markets, setMarkets] = useState([
@@ -34,10 +34,9 @@ const SearchProductScreen = ({ navigation }) => {
 
   useEffect(() => {
     const doGetRequest = async () => {
-      const res = await axios.get(`${API_URL}/Product/GetAll`);
-      const data = await res.data.products;
-
-      setProducts(data);
+      // const res = await axios.get(`${API_URL}/Product/GetAll`);
+      // const data = await res.data.products;
+      // setProducts(data);
     };
     const unsubscribe = navigation.addListener("focus", () => {
       doGetRequest();
@@ -52,7 +51,7 @@ const SearchProductScreen = ({ navigation }) => {
         .then((res) => {
           const product = res.data;
           navigation.navigate("ProductInfo", {
-            product
+            product,
           });
         });
     } catch (error) {
