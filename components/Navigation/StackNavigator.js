@@ -11,10 +11,12 @@ import HelpScreen from "../../screens/HelpScreen";
 // import ProductListScreen from "../../screens/productListScreen";
 // import NewListScreen from "../../screens/NewListScreen";
 // import UpdateListScreen from "../../screens/UpdateListScreen";
-import HomeScreen from "../../screens/HomeScreen";
 import SearchProductScreen from "../../screens/SearchProductScreen";
 import AddProductScreen from "../../screens/AddProductScreen";
 import ProductInfoScreen from "../../screens/ProductInfoScreen";
+import InventoriesScreen from "../../screens/InventoriesScreen";
+import HomeScreen from "../../screens/HomeScreen";
+import MarketsScreen from "../../screens/MarketsScreen";
 
 const Stack = createNativeStackNavigator();
 
@@ -35,17 +37,48 @@ export const AuthStackNavigation = () => {
   );
 };
 
+export const HomeStackNavigator = () => {
+  const { t } = useTranslation();
+
+  return (
+    <Stack.Navigator
+      initialRouteName="HomeDashboard"
+      screenOptions={{
+        headerShown: false,
+      }}
+    >
+      <Stack.Screen name="HomeDashboard" component={HomeScreen} />
+      <Stack.Screen name="ProductsDashboard" component={SearchProductScreen} />
+    </Stack.Navigator>
+  );
+};
+
+export const MarketsStackNavigator = () => {
+  const { t } = useTranslation();
+
+  return (
+    <Stack.Navigator
+      initialRouteName="MarketsDashboard"
+      screenOptions={{
+        headerShown: false,
+      }}
+    >
+      <Stack.Screen name="MarketsDashboard" component={MarketsScreen} />
+    </Stack.Navigator>
+  );
+};
+
 export const InventoriesStackNavigator = () => {
   const { t } = useTranslation();
 
   return (
     <Stack.Navigator
-      initialRouteName="ProductList"
+      initialRouteName="InventoriesDashboard"
       screenOptions={{
         headerShown: false,
       }}
     >
-      <Stack.Screen name="Home" component={HomeScreen} />
+      <Stack.Screen name="InventoriesDashboard" component={InventoriesScreen} />
     </Stack.Navigator>
   );
 };
@@ -55,11 +88,12 @@ export const HelpStackNavigator = () => {
 
   return (
     <Stack.Navigator
+      initialRouteName="HelpDashboard"
       screenOptions={{
         headerShown: false,
       }}
     >
-      <Stack.Screen name="HelpResources" component={HelpScreen} />
+      <Stack.Screen name="HelpDashboad" component={HelpScreen} />
     </Stack.Navigator>
   );
 };
@@ -68,8 +102,13 @@ export const ProductsStackNavigator = () => {
   const { t } = useTranslation();
 
   return (
-    <Stack.Navigator>
-      <Stack.Screen name="Products" component={SearchProductScreen} />
+    <Stack.Navigator
+      initialRouteName="ProductsDashboad"
+      screenOptions={{
+        headerShown: false,
+      }}
+    >
+      <Stack.Screen name="ProductsDashboard" component={SearchProductScreen} />
       <Stack.Screen name="AddProduct" component={AddProductScreen} />
       <Stack.Screen name="ProductInfo" component={ProductInfoScreen} />
     </Stack.Navigator>

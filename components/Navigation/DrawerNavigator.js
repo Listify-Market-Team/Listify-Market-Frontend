@@ -10,6 +10,8 @@ import {
   InventoriesStackNavigator,
   ProductsStackNavigator,
   HelpStackNavigator,
+  HomeStackNavigator,
+  MarketsStackNavigator,
 } from "./StackNavigator";
 
 const Drawer = createDrawerNavigator();
@@ -20,6 +22,7 @@ export const DrawerNavigator = () => {
   const productsTitle = t("Productos");
   const marketsTitle = t("Supermercados");
   const helpTitle = t("Ayuda");
+  const inventoryTitle = t("Listas");
 
   const iconsColor = "#00DE68";
 
@@ -30,10 +33,32 @@ export const DrawerNavigator = () => {
     >
       <Drawer.Screen
         name="Home"
-        component={InventoriesStackNavigator}
+        component={HomeStackNavigator}
         options={{
           title: homeTitle,
           headerTitle: homeTitle,
+          drawerIcon: () => (
+            <Ionicons name="home-outline" size={24} color={iconsColor} />
+          ),
+        }}
+      />
+      <Drawer.Screen
+        name="Inventories"
+        component={InventoriesStackNavigator}
+        options={{
+          title: inventoryTitle,
+          headerTitle: inventoryTitle,
+          drawerIcon: () => (
+            <Ionicons name="home-outline" size={24} color={iconsColor} />
+          ),
+        }}
+      />
+      <Drawer.Screen
+        name="Markets"
+        component={MarketsStackNavigator}
+        options={{
+          title: marketsTitle,
+          headerTitle: marketsTitle,
           drawerIcon: () => (
             <Ionicons name="home-outline" size={24} color={iconsColor} />
           ),
