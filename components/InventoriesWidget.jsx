@@ -27,14 +27,14 @@ export default function InventoriesWidget() {
 
   useEffect(() => {
     try {
-      // axios.get(`${API_URL}/Inventory/GetAll`).then((response) => {
-      //   if (response.status === 200) {
-      //     setInventories({ loading: false, data: response.data.inventories });
-      //     return;
-      //   }
-      //   setInventories({ loading: false, data: [] });
-      // });
-      setInventories({ loading: false, data: data });
+      axios.get(`${API_URL}/Inventory/GetAll`).then((response) => {
+        if (response.status === 200) {
+          setInventories({ loading: false, data: response.data.inventories });
+          return;
+        }
+        setInventories({ loading: false, data: [] });
+      });
+      // setInventories({ loading: false, data: data });
     } catch (error) {
       console.log("Error loading inventories");
       setInventories({ loading: false, data: [] });
