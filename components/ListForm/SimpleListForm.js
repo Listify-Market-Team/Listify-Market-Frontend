@@ -2,7 +2,7 @@ import { View, StyleSheet, ActivityIndicator } from "react-native";
 import { useState, useEffect } from "react";
 
 import ListDataFields from "./ListDataFields";
-import AppButton from "../AppButton";
+import Button from "../Button";
 import styles from "../../styles";
 
 import { useTranslation } from "react-i18next";
@@ -34,7 +34,7 @@ export default function SimpleListForm({ onSubmit, initialValues, loading }) {
         name={name}
         description={description}
       />
-      <AppButton
+      <Button
         text={
           loading ? (
             <ActivityIndicator size="small" color="#fff" />
