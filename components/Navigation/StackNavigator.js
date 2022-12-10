@@ -17,6 +17,7 @@ import ProductInfoScreen from "../../screens/ProductInfoScreen";
 import InventoriesScreen from "../../screens/InventoriesScreen";
 import HomeScreen from "../../screens/HomeScreen";
 import MarketsScreen from "../../screens/MarketsScreen";
+import InventoryProductsScreen from "../../screens/InventoryProductsScreen";
 
 const Stack = createNativeStackNavigator();
 
@@ -49,6 +50,10 @@ export const HomeStackNavigator = () => {
     >
       <Stack.Screen name="HomeDashboard" component={HomeScreen} />
       <Stack.Screen name="ProductsDashboard" component={SearchProductScreen} />
+      <Stack.Screen
+        name="InventoryProducts"
+        component={InventoryProductsScreen}
+      />
     </Stack.Navigator>
   );
 };

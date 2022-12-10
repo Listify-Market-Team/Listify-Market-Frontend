@@ -3,33 +3,37 @@ import React, { useState, useEffect, useContext } from "react";
 import { useIsFocused } from "@react-navigation/native";
 import { API_URL } from "../api/constants";
 
-const ProductListScreen = ({ navigation, route }) => {
-  const list = route.params.list;
+const InventoryProductsScreen = ({ navigation, route }) => {
   const isFocused = useIsFocused();
 
+  const [inventory, setInventory] = useState({});
   const [products, setProducts] = useState([]);
 
-  const fetchList = async () => {
+  const fetchInventory = async () => {
     try {
       const res = await fetch(
-        `${API_URL}/Product/GetProductsByInventoryID?inventoryID=${list.id}`
+        `${API_URL}/Product/GetProductsByInventoryID?inventoryID=${route.params.id}`
       );
-      const json = await res.json();
-      const products = json.products;
-      setProducts(products);
+      if (res.status !== 200) {
+        return;
+      }
+
+      const data = await res.json();
+      setInventory(data);
+      setProducts(data.products);
     } catch (error) {
-      console.log("something went wrong " + error);
+      console.log("Error loading inventory with id" + route.params.id);
     }
   };
 
   useEffect(() => {
-    fetchList();
+    fetchInventory();
   }, [isFocused]);
 
   return (
     <View style={styles.screen}>
       <View style={styles.header}>
-        <Text style={styles.titule}>{list.name}</Text>
+        <Text style={styles.titule}>{inventory.name}</Text>
       </View>
       <ScrollView style={styles.container}>
         {products.map((product, i) => (
@@ -38,16 +42,10 @@ const ProductListScreen = ({ navigation, route }) => {
               source="https://cdn2.iconfinder.com/data/icons/e-commerce-line-4-1/1024/open_box4-512.png"
               style={styles.imageStyle}
             />
-
             <View style={styles.tituleContainer}>
               <Text style={styles.productName}>{product.name}</Text>
               <Text>{product.price}</Text>
             </View>
-
-            {/* <View style={styles.detailContainer}>
-                    <Text>{product.price}</Text>
-                    
-                </View> */}
           </View>
         ))}
       </ScrollView>
@@ -55,7 +53,7 @@ const ProductListScreen = ({ navigation, route }) => {
   );
 };
 
-export default ProductListScreen;
+export default InventoryProductsScreen;
 
 const styles = StyleSheet.create({
   screen: {
@@ -101,12 +99,5 @@ const styles = StyleSheet.create({
   tituleContainer: {
     paddingLeft: "4%",
     justifyContent: "center",
-  },
-  detailContainer: {
-    width: "100%",
-    flexDirection: "row",
-    alignContent: "center",
-    justifyContent: "flex-end",
-    flex: 1,
   },
 });
