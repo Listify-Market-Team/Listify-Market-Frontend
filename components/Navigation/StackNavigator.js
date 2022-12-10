@@ -1,6 +1,7 @@
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { Feather } from "@expo/vector-icons";
 import { useTranslation } from "react-i18next";
+import { Pressable, StyleSheet } from "react-native";
 
 import LoginScreen from "../../screens/LoginScreen";
 import RegisterScreen from "../../screens/RegisterScreen";
@@ -18,6 +19,8 @@ import InventoriesScreen from "../../screens/InventoriesScreen";
 import HomeScreen from "../../screens/HomeScreen";
 import MarketsScreen from "../../screens/MarketsScreen";
 import InventoryProductsScreen from "../../screens/InventoryProductsScreen";
+import { colors } from "../../styles/globals";
+
 
 const Stack = createNativeStackNavigator();
 
@@ -38,84 +41,160 @@ export const AuthStackNavigation = () => {
   );
 };
 
-export const HomeStackNavigator = () => {
+export const HomeStackNavigator = ({ navigation }) => {
   const { t } = useTranslation();
+  const homeTitle = t("Inicio");
+  const productsTitle = t("Productos");
+
+  const openDrawer = () => navigation.openDrawer();
 
   return (
     <Stack.Navigator
       initialRouteName="HomeDashboard"
-      screenOptions={{
-        headerShown: false,
-      }}
+      screenOptions={{ headerTitleStyle: styles.headerText }}
     >
-      <Stack.Screen name="HomeDashboard" component={HomeScreen} />
-      <Stack.Screen name="ProductsDashboard" component={SearchProductScreen} />
+      <Stack.Screen
+        name="HomeDashboard"
+        component={HomeScreen}
+        options={{
+          headerTitle: homeTitle,
+          headerLeft: () => (
+            <Pressable onPress={openDrawer} style={styles.menuBtn}>
+              <Feather name="menu" size={30} color={colors.dark} />
+            </Pressable>
+          ),
+        }}
+      />
+      <Stack.Screen
+        name="ProductsDashboard"
+        component={SearchProductScreen}
+        options={{ headerTitle: productsTitle }}
+      />
       <Stack.Screen
         name="InventoryProducts"
         component={InventoryProductsScreen}
+       />
+    </Stack.Navigator>
+  );
+};
+
+export const MarketsStackNavigator = ({ navigation }) => {
+  const { t } = useTranslation();
+  const marketsTitle = t("Supermercados");
+
+  const openDrawer = () => navigation.openDrawer();
+
+  return (
+    <Stack.Navigator
+      initialRouteName="MarketsDashboard"
+      screenOptions={{ headerTitleStyle: styles.headerText }}
+    >
+      <Stack.Screen
+        name="MarketsDashboard"
+        component={MarketsScreen}
+        options={{
+          headerTitle: marketsTitle,
+          headerLeft: () => (
+            <Pressable onPress={openDrawer} style={styles.menuBtn}>
+              <Feather name="menu" size={30} color={colors.dark} />
+            </Pressable>
+          ),
+        }}
       />
     </Stack.Navigator>
   );
 };
 
-export const MarketsStackNavigator = () => {
+export const InventoriesStackNavigator = ({ navigation }) => {
   const { t } = useTranslation();
+  const inventoriesTitle = t("Listas");
 
-  return (
-    <Stack.Navigator
-      initialRouteName="MarketsDashboard"
-      screenOptions={{
-        headerShown: false,
-      }}
-    >
-      <Stack.Screen name="MarketsDashboard" component={MarketsScreen} />
-    </Stack.Navigator>
-  );
-};
-
-export const InventoriesStackNavigator = () => {
-  const { t } = useTranslation();
+  const openDrawer = () => navigation.openDrawer();
 
   return (
     <Stack.Navigator
       initialRouteName="InventoriesDashboard"
-      screenOptions={{
-        headerShown: false,
-      }}
+      screenOptions={{ headerTitleStyle: styles.headerText }}
     >
-      <Stack.Screen name="InventoriesDashboard" component={InventoriesScreen} />
+      <Stack.Screen
+        name="InventoriesDashboard"
+        component={InventoriesScreen}
+        options={{
+          headerTitle: inventoriesTitle,
+          headerLeft: () => (
+            <Pressable onPress={openDrawer} style={styles.menuBtn}>
+              <Feather name="menu" size={30} color={colors.dark} />
+            </Pressable>
+          ),
+        }}
+      />
     </Stack.Navigator>
   );
 };
 
-export const HelpStackNavigator = () => {
+export const HelpStackNavigator = ({ navigation }) => {
   const { t } = useTranslation();
+  const helpTitle = t("Ayuda");
+
+  const openDrawer = () => navigation.openDrawer();
 
   return (
     <Stack.Navigator
       initialRouteName="HelpDashboard"
-      screenOptions={{
-        headerShown: false,
-      }}
+      screenOptions={{ headerTitleStyle: styles.headerText }}
     >
-      <Stack.Screen name="HelpDashboad" component={HelpScreen} />
+      <Stack.Screen
+        name="HelpDashboad"
+        component={HelpScreen}
+        options={{
+          headerTitle: helpTitle,
+          headerLeft: () => (
+            <Pressable onPress={openDrawer} style={styles.menuBtn}>
+              <Feather name="menu" size={30} color={colors.dark} />
+            </Pressable>
+          ),
+        }}
+      />
     </Stack.Navigator>
   );
 };
 
-export const ProductsStackNavigator = () => {
+export const ProductsStackNavigator = ({ navigation }) => {
   const { t } = useTranslation();
+  const productsTitle = t("Productos");
+
+  const openDrawer = () => navigation.openDrawer();
 
   return (
     <Stack.Navigator
       initialRouteName="ProductsDashboad"
-      screenOptions={{
-        headerShown: false,
-      }}
+      screenOptions={{ headerTitleStyle: styles.headerText }}
     >
-      <Stack.Screen name="ProductsDashboard" component={SearchProductScreen} />
+      <Stack.Screen
+        name="ProductsDashboard"
+        component={SearchProductScreen}
+        options={{
+          headerTitle: productsTitle,
+          headerLeft: () => (
+            <Pressable onPress={openDrawer} style={styles.menuBtn}>
+              <Feather name="menu" size={30} color={colors.dark} />
+            </Pressable>
+          ),
+        }}
+      />
       <Stack.Screen name="AddProduct" component={AddProductScreen} />
       <Stack.Screen name="ProductInfo" component={ProductInfoScreen} />
     </Stack.Navigator>
   );
 };
+
+const styles = StyleSheet.create({
+  menuBtn: {
+    marginHorizontal: 11,
+  },
+  headerText: {
+    fontFamily: "Cabin-Medium",
+    fontSize: 18,
+    color: colors.dark,
+  },
+});

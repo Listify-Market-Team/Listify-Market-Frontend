@@ -4,7 +4,8 @@ import { Feather } from "@expo/vector-icons";
 import { View } from "react-native";
 import { useTranslation } from "react-i18next";
 import Menu from "../../components/Menu";
-import { MenuIcon, HelpIcon, TranslateIcon } from "../Header";
+import { StyleSheet } from "react-native";
+import { colors } from "../../styles/globals";
 
 import {
   InventoriesStackNavigator,
@@ -30,6 +31,10 @@ export const DrawerNavigator = () => {
     <Drawer.Navigator
       drawerContent={(props) => <Menu {...props} />}
       initialRouteName="Home"
+      screenOptions={{
+        headerShown: false,
+        drawerLabelStyle: styles.drawerItem,
+      }}
     >
       <Drawer.Screen
         name="Home"
@@ -100,3 +105,11 @@ export const DrawerNavigator = () => {
     </Drawer.Navigator>
   );
 };
+
+const styles = StyleSheet.create({
+  drawerItem: {
+    fontFamily: "Cabin-Regular",
+    fontSize: 18,
+    color: colors.dark,
+  },
+});
