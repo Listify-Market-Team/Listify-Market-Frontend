@@ -4,10 +4,10 @@ import { AuthContext } from "../context/AuthContext";
 import { colors } from "../styles/globals";
 import Box from "../components/Box";
 
-export default function HomeScreen({ navigation }) {
+export default function MarketsScreen({ navigation }) {
   return (
     <Box style={styles.container}>
-      <Text>Home Screen</Text>
+      <Text>Markets Screen</Text>
     </Box>
   );
 }

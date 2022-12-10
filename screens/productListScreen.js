@@ -12,7 +12,7 @@ const ProductListScreen = ({ navigation, route }) => {
   const fetchList = async () => {
     try {
       const res = await fetch(
-        `${API_URL}/Product/GetProductsByInventoryID?inventoryID=` + list.id
+        `${API_URL}/Product/GetProductsByInventoryID?inventoryID=${list.id}`
       );
       const json = await res.json();
       const products = json.products;
