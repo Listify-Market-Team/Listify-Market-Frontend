@@ -47,7 +47,10 @@ export const HomeStackNavigator = ({ navigation }) => {
   const openDrawer = () => navigation.openDrawer();
 
   return (
-    <Stack.Navigator initialRouteName="HomeDashboard">
+    <Stack.Navigator
+      initialRouteName="HomeDashboard"
+      screenOptions={{ headerTitleStyle: styles.headerText }}
+    >
       <Stack.Screen
         name="HomeDashboard"
         component={HomeScreen}
@@ -76,7 +79,10 @@ export const MarketsStackNavigator = ({ navigation }) => {
   const openDrawer = () => navigation.openDrawer();
 
   return (
-    <Stack.Navigator initialRouteName="MarketsDashboard">
+    <Stack.Navigator
+      initialRouteName="MarketsDashboard"
+      screenOptions={{ headerTitleStyle: styles.headerText }}
+    >
       <Stack.Screen
         name="MarketsDashboard"
         component={MarketsScreen}
@@ -100,7 +106,10 @@ export const InventoriesStackNavigator = ({ navigation }) => {
   const openDrawer = () => navigation.openDrawer();
 
   return (
-    <Stack.Navigator initialRouteName="InventoriesDashboard">
+    <Stack.Navigator
+      initialRouteName="InventoriesDashboard"
+      screenOptions={{ headerTitleStyle: styles.headerText }}
+    >
       <Stack.Screen
         name="InventoriesDashboard"
         component={InventoriesScreen}
@@ -124,7 +133,10 @@ export const HelpStackNavigator = ({ navigation }) => {
   const openDrawer = () => navigation.openDrawer();
 
   return (
-    <Stack.Navigator initialRouteName="HelpDashboard">
+    <Stack.Navigator
+      initialRouteName="HelpDashboard"
+      screenOptions={{ headerTitleStyle: styles.headerText }}
+    >
       <Stack.Screen
         name="HelpDashboad"
         component={HelpScreen}
@@ -148,7 +160,10 @@ export const ProductsStackNavigator = ({ navigation }) => {
   const openDrawer = () => navigation.openDrawer();
 
   return (
-    <Stack.Navigator initialRouteName="ProductsDashboad">
+    <Stack.Navigator
+      initialRouteName="ProductsDashboad"
+      screenOptions={{ headerTitleStyle: styles.headerText }}
+    >
       <Stack.Screen
         name="ProductsDashboard"
         component={SearchProductScreen}
@@ -170,5 +185,10 @@ export const ProductsStackNavigator = ({ navigation }) => {
 const styles = StyleSheet.create({
   menuBtn: {
     marginHorizontal: 11,
+  },
+  headerText: {
+    fontFamily: "Cabin-Medium",
+    fontSize: 18,
+    color: colors.dark,
   },
 });
