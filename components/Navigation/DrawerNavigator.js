@@ -5,6 +5,7 @@ import { View } from "react-native";
 import { useTranslation } from "react-i18next";
 import Menu from "../../components/Menu";
 import { MenuIcon, HelpIcon, TranslateIcon } from "../Header";
+import BackOfficeHome from "../../screens/BackOfficeHome";
 
 import {
   InventoriesStackNavigator,
@@ -28,6 +29,17 @@ export const DrawerNavigator = () => {
       drawerContent={(props) => <Menu {...props} />}
       initialRouteName="Home"
     >
+      <Drawer.Screen
+        name="BackOffice"
+        component={BackOfficeHome}
+        options={{
+          title: "BackOffice",
+          headerTitle: "BackOffice",
+          drawerIcon: () => (
+            <Ionicons name="home-outline" size={24} color={iconsColor} />
+          ),
+        }}
+      />
       <Drawer.Screen
         name="Home"
         component={InventoriesStackNavigator}

@@ -11,6 +11,9 @@
   "dependencies": {
     "@expo/dev-server": "0.1.120",
     "@expo/vector-icons": "^13.0.0",
+    "@mui/material": "^5.10.17",
+    "@nivo/bar": "^0.80.0",
+    "@nivo/core": "^0.80.0",
     "@react-native-async-storage/async-storage": "~1.17.3",
     "@react-native-community/checkbox": "^0.5.12",
     "@react-navigation/drawer": "^6.5.0",
