@@ -10,7 +10,7 @@ import {
   Touchable,
 } from "react-native";
 import { Pressable } from "react-native";
-import AppButton from "../components/AppButton";
+import Button from "../components/Button";
 import globalStyles from "../styles";
 import { Modal } from "react-native";
 import { set } from "react-native-reanimated";
@@ -52,7 +52,7 @@ export default class ProductInfoScreen extends Component {
       productPrice: 0,
       productQuantity: 0,
       markets: [],
-      marketId: 0
+      marketId: 0,
     };
 
     this.increaseOnPress = this.increaseOnPress.bind(this);
@@ -96,9 +96,9 @@ export default class ProductInfoScreen extends Component {
   pressHandler(item) {
     this.setState({
       price: item.price,
-      marketId: item.marketID
+      marketId: item.marketID,
     });
-    console.log(item)
+    console.log(item);
   }
 
   // async getPrices(){
@@ -118,22 +118,21 @@ export default class ProductInfoScreen extends Component {
   //   }
   // }
 
-  static getDerivedStateFromProps(props,state){
+  static getDerivedStateFromProps(props, state) {
     // console.log(props.route.params.product)
 
-    if (props.route.params.product.product_Markets != state.markets){
-      return ({
-        markets: props.route.params.product.product_Markets
-      });
-          }
+    if (props.route.params.product.product_Markets != state.markets) {
+      return {
+        markets: props.route.params.product.product_Markets,
+      };
+    }
     return null;
   }
 
-  
   // componentDidUpdate(prevProps){
   //   console.log(this.props);
   //   console.log(this.props.route.params.product.product_Markets);
-    
+
   //   const [products_Markets] = this.props.route.params.product.product_Markets;
   //   // console.log(products_Markets);
 
@@ -141,7 +140,7 @@ export default class ProductInfoScreen extends Component {
   //     markets: products_Markets
   //   })
   //   this.setState({markets: [...this.state.markets, ...this.props.route.params.product.product_Markets]})
-    
+
   //   console.log(this.state.markets);
 
   // if (prevProps.markets != this.props.route.params.product.product_Markets){
@@ -151,10 +150,7 @@ export default class ProductInfoScreen extends Component {
 
   // }
 
-  
-
   render() {
-
     // const price_array = this.state.dataSource.product_Markets;
     // const priceList = price_array.map((product) =>
     // <li>{product}</li>
@@ -167,36 +163,35 @@ export default class ProductInfoScreen extends Component {
             <Image
               style={styles.imageStyle}
               source={{
-                uri: `{https://cdn-icons-png.flaticon.com/512/1548/1548682.png}`,
+                uri: "https://cdn-icons-png.flaticon.com/512/1548/1548682.png",
               }}
             />
           </View>
-          <Text style={styles.title}>{this.props.route.params.product.name}</Text>
+          <Text style={styles.title}>
+            {this.props.route.params.product.name}
+          </Text>
           <Text style={styles.info}>
             Lorem Ipsum is simply dummy text of the printing and typesetting
             industry
           </Text>
-              
-                
-            
+
           <View style={styles.prices}>
-            
             <FlatList
               data={this.state.markets}
               renderItem={({ item }) => {
-                return(
-                <TouchableOpacity onPress={() => this.pressHandler(item)}>
-                  <View style={styles.listItem}>
-                    <Text style={styles.listItemText}>{item.marketID}</Text>
-                    <Text style={styles.listItemPrice}>{item.price}</Text>
-                  </View>
-                </TouchableOpacity>
-              )}}
+                return (
+                  <TouchableOpacity onPress={() => this.pressHandler(item)}>
+                    <View style={styles.listItem}>
+                      <Text style={styles.listItemText}>{item.marketID}</Text>
+                      <Text style={styles.listItemPrice}>{item.price}</Text>
+                    </View>
+                  </TouchableOpacity>
+                );
+              }}
               keyExtractor={(item) => item.marketID}
               horizontal
               extraData={this.state.markets}
             />
-            
           </View>
 
           <View style={styles.quantityContainer}>
@@ -229,7 +224,7 @@ export default class ProductInfoScreen extends Component {
           </View>
           <Translation>
             {(t) => (
-              <AppButton
+              <Button
                 text={t("Agregar producto")}
                 onPress={this.addProductToList}
                 btnStyle={[styles.btn, globalStyles.shadow]}
@@ -247,13 +242,13 @@ export default class ProductInfoScreen extends Component {
                 <>
                   <Text>All lists</Text>
                   <View style={styles.actions}>
-                    <AppButton
+                    <Button
                       text={"Volver"}
                       btnStyle={[styles.actionBtn, styles.backBtn]}
                       textStyle={styles.backBtnText}
                       onPress={() => this.setState({ showLists: false })}
                     />
-                    <AppButton
+                    <Button
                       text={"Finalizar"}
                       btnStyle={[styles.actionBtn, styles.finishBtn]}
                       textStyle={styles.finishBtnText}

@@ -28,8 +28,9 @@ const styles = StyleSheet.create({
   },
   btnText: {
     color: "#ffffff",
-    fontWeight: 500,
     textTransform: "uppercase",
     textAlign: "center",
+    fontFamily: "Cabin-Bold",
+    fontSize: 24,
   },
 });
