@@ -30,6 +30,7 @@ export const DrawerNavigator = () => {
     <Drawer.Navigator
       drawerContent={(props) => <Menu {...props} />}
       initialRouteName="Home"
+      screenOptions={{ headerShown: false }}
     >
       <Drawer.Screen
         name="Home"
