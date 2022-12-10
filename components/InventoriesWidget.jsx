@@ -45,8 +45,8 @@ export default function InventoriesWidget() {
   const btnText = t("Ver");
   const noDataLabel = t("Sin listas para mostrar");
 
-  const goToInventoryProducts = (id) => {
-    navigate("InventoryProducts", { id });
+  const goToInventoryProducts = (id, name) => {
+    navigate("InventoryProducts", { id, name });
   };
 
   // console.log(inventories);
@@ -77,7 +77,7 @@ export default function InventoriesWidget() {
                     </Text>
                   </View>
                   <Pressable
-                    onPress={() => goToInventoryProducts(item.id)}
+                    onPress={() => goToInventoryProducts(item.id, item.name)}
                     style={styles.btn}
                   >
                     <Text style={styles.text}>{btnText}</Text>

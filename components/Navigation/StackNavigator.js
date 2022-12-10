@@ -21,7 +21,6 @@ import MarketsScreen from "../../screens/MarketsScreen";
 import InventoryProductsScreen from "../../screens/InventoryProductsScreen";
 import { colors } from "../../styles/globals";
 
-
 const Stack = createNativeStackNavigator();
 
 export const AuthStackNavigation = () => {
@@ -45,6 +44,7 @@ export const HomeStackNavigator = ({ navigation }) => {
   const { t } = useTranslation();
   const homeTitle = t("Inicio");
   const productsTitle = t("Productos");
+  const inventoryTitle = t("Lista");
 
   const openDrawer = () => navigation.openDrawer();
 
@@ -73,7 +73,10 @@ export const HomeStackNavigator = ({ navigation }) => {
       <Stack.Screen
         name="InventoryProducts"
         component={InventoryProductsScreen}
-       />
+        options={({ route }) => ({
+          headerTitle: route.params.name || inventoryTitle,
+        })}
+      />
     </Stack.Navigator>
   );
 };
