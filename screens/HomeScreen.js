@@ -4,6 +4,7 @@ import { AuthContext } from "../context/AuthContext";
 import { globalStyles } from "../styles/globals";
 import SearchBar from "../components/SearchBar";
 import { useTranslation } from "react-i18next";
+import InventoriesWidget from "../components/InventoriesWidget";
 
 export default function HomeScreen({ navigation }) {
   const { t } = useTranslation();
@@ -21,6 +22,7 @@ export default function HomeScreen({ navigation }) {
   return (
     <View style={globalStyles.view}>
       <SearchBar onSearch={search} placeholder={placeholder} />
+      <InventoriesWidget />
     </View>
   );
 }

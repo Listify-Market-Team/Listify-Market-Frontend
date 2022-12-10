@@ -18,7 +18,9 @@ import ProductInfoScreen from "../../screens/ProductInfoScreen";
 import InventoriesScreen from "../../screens/InventoriesScreen";
 import HomeScreen from "../../screens/HomeScreen";
 import MarketsScreen from "../../screens/MarketsScreen";
+import InventoryProductsScreen from "../../screens/InventoryProductsScreen";
 import { colors } from "../../styles/globals";
+
 
 const Stack = createNativeStackNavigator();
 
@@ -68,6 +70,10 @@ export const HomeStackNavigator = ({ navigation }) => {
         component={SearchProductScreen}
         options={{ headerTitle: productsTitle }}
       />
+      <Stack.Screen
+        name="InventoryProducts"
+        component={InventoryProductsScreen}
+       />
     </Stack.Navigator>
   );
 };
