@@ -28,7 +28,7 @@ export default function InventoriesScreen({ navigation }) {
     setIsLoading(true);
     try {
       const res = await axios.get(`${API_URL}/Inventory/GetByUserId`, {
-        params: { id: user.id },
+        params: { userId: user.id },
       });
       const inventories = res.data.inventories;
       setInventories(inventories);
@@ -86,7 +86,7 @@ export default function InventoriesScreen({ navigation }) {
         <View style={styles.addBtn}>
           <Button
             onPress={() => {
-              navigation.navigate("NewList");
+              navigation.navigate("NewInventory");
             }}
           >
             <Text>{newListText}</Text>
