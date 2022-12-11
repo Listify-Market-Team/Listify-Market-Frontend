@@ -63,14 +63,14 @@ export default function InventoriesScreen({ navigation }) {
     }
     setIsLoading(true);
     try {
-      // axios
-      //   .get(
-      //     `${API_URL}/Inventory/GetInventoryLikeName?inventoryName=${inventoryName}&userId=${user.id}`
-      //   )
-      //   .then(async (res) => {
-      //     const data = res.data.inventories;
-      //     setInventories(data);
-      //   });
+      axios
+        .get(`${API_URL}/Inventory/GetInventoryLikeName`, {
+          params: { inventoryName, userId: user.id },
+        })
+        .then(async (res) => {
+          const data = res.data.inventories;
+          setInventories(data);
+        });
     } catch (error) {
       console.log("something went wrong");
     } finally {
