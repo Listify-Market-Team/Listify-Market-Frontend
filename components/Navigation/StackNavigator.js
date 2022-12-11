@@ -203,6 +203,7 @@ export const ProductsStackNavigator = ({ navigation }) => {
   const productInfoTitle = t("Información de producto");
   const addproductTitle = t("Información de producto");
   const productSelectionTitle = t("Agregando producto a listas");
+  const inventoriesTitle = t("Listas");
 
   const openDrawer = () => navigation.openDrawer();
 
@@ -241,7 +242,7 @@ export const ProductsStackNavigator = ({ navigation }) => {
       <Stack.Screen
         name="InventoriesDashboard"
         component={InventoriesScreen}
-        options={{ headerTitle: productSelectionTitle }}
+        options={{ headerTitle: inventoriesTitle }}
       />
     </Stack.Navigator>
   );
