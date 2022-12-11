@@ -17,7 +17,7 @@ import Filter from "../components/Filter";
 import Box from "../components/Box";
 import { colors, globalStyles } from "../styles/globals";
 
-export default function SearchProductScreen({ navigation, route }) {
+export default function ProductsScreen({ navigation, route }) {
   const { t } = useTranslation();
   const [products, setProducts] = useState([]);
   const [markets, setMarkets] = useState([
@@ -65,7 +65,14 @@ export default function SearchProductScreen({ navigation, route }) {
       }
     };
     const unsubscribe = navigation.addListener("focus", () => {
-      fetchProducts();
+      if (route.params && route.params.market) {
+        if (route.params.market === "") {
+          return;
+        }
+        filterByMarket(route.params.market);
+      } else {
+        fetchProducts();
+      }
       fetchMarkets();
     });
     return unsubscribe;
