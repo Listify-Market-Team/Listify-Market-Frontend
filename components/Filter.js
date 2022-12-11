@@ -1,44 +1,40 @@
-import { StyleSheet, Text, View, TouchableOpacity } from 'react-native'
-import React from 'react'
-import { useState,useEffect } from 'react';
-
+import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
+import React, { useState, useEffect } from "react";
 
 const Filter = (props) => {
-var [ isPress, setIsPress ] = React.useState(false);
-const[name, setName] = useState(props.name)
+  var [isPress, setIsPress] = React.useState(false);
+  const [name, setName] = useState(props.name);
 
-
-
-const filtMarket = (marketName) => props.filtByMarket(marketName)
-
+  const filtMarket = (marketName) => props.filtByMarket(marketName);
 
   return (
-    <TouchableOpacity
-     style={styles.container}
-     onPress={()=>filtMarket(name)}>
-      <Text>{name}</Text>
+    <TouchableOpacity style={styles.container} onPress={() => filtMarket(name)}>
+      <Text style={styles.name}>{name}</Text>
     </TouchableOpacity>
-  )
-}
+  );
+};
 
-export default Filter
+export default Filter;
 
 const styles = StyleSheet.create({
-    container:{
-        //shadow
-        shadowColor: "#000",
-        shadowOffset: {
-            width: 0,
-            height: 1,
-        },
-        shadowOpacity: 0.22,
-        shadowRadius: 2.22,
-        elevation: 3,
-        //end shadow
+  container: {
+    //shadow
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 1,
+    },
+    shadowOpacity: 0.22,
+    shadowRadius: 2.22,
+    elevation: 3,
+    //end shadow
 
-        backgroundColor: "white",
-        paddingHorizontal: 15,
-        paddingVertical: 3,
-        borderRadius: 20
-    }
-})
+    backgroundColor: "white",
+    paddingHorizontal: 15,
+    paddingVertical: 3,
+    borderRadius: 20,
+  },
+  name: {
+    fontFamily: "Cabin-Regular",
+  },
+});

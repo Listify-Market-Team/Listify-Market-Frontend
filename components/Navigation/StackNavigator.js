@@ -11,7 +11,7 @@ import ViewTwo from "../../screens/onboarding/ViewTwo";
 import HelpScreen from "../../screens/HelpScreen";
 
 import { colors } from "../../styles/globals";
-import SearchProductScreen from "../../screens/SearchProductScreen";
+import ProductsScreen from "../../screens/ProductsScreen";
 import AddProductScreen from "../../screens/AddProductScreen";
 import ProductInfoScreen from "../../screens/ProductInfoScreen";
 import InventoriesScreen from "../../screens/InventoriesScreen";
@@ -67,7 +67,7 @@ export const HomeStackNavigator = ({ navigation }) => {
       />
       <Stack.Screen
         name="ProductsDashboard"
-        component={SearchProductScreen}
+        component={ProductsScreen}
         options={{ headerTitle: productsTitle }}
       />
       <Stack.Screen
@@ -195,7 +195,7 @@ export const ProductsStackNavigator = ({ navigation }) => {
     >
       <Stack.Screen
         name="ProductsDashboard"
-        component={SearchProductScreen}
+        component={ProductsScreen}
         options={{
           headerTitle: productsTitle,
           headerLeft: () => (
