@@ -185,6 +185,8 @@ export const HelpStackNavigator = ({ navigation }) => {
 export const ProductsStackNavigator = ({ navigation }) => {
   const { t } = useTranslation();
   const productsTitle = t("Productos");
+  const productInfoTitle = t("Información de producto");
+  const addproductTitle = t("Información de producto");
 
   const openDrawer = () => navigation.openDrawer();
 
@@ -205,8 +207,16 @@ export const ProductsStackNavigator = ({ navigation }) => {
           ),
         }}
       />
-      <Stack.Screen name="AddProduct" component={AddProductScreen} />
-      <Stack.Screen name="ProductInfo" component={ProductInfoScreen} />
+      <Stack.Screen
+        name="AddProduct"
+        component={AddProductScreen}
+        options={{ headerTitle: addproductTitle }}
+      />
+      <Stack.Screen
+        name="ProductInfo"
+        component={ProductInfoScreen}
+        options={{ headerTitle: productInfoTitle }}
+      />
     </Stack.Navigator>
   );
 };

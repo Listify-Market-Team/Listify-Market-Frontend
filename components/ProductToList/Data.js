@@ -9,12 +9,12 @@ import {
 } from "react-native";
 import Checkbox from "expo-checkbox";
 import axios from "axios";
-import { AddProductButton , Spinner} from "./PressComponents";
+import { AddProductButton, Spinner } from "./PressComponents";
 import { API_URL } from "../../api/constants";
 import { AuthContext } from "../../context/AuthContext";
 import { useTranslation } from "react-i18next";
 
-export const ListData = ({ navigation , route}) => {
+export const ListData = ({ navigation, route }) => {
   const [Loading, setLoading] = useState(true);
   const [listData, setListData] = useState([]);
   const [checked, setChecked] = useState([]);
@@ -51,10 +51,12 @@ export const ListData = ({ navigation , route}) => {
   };
 
   return Loading ? (
-    <Spinner/>
+    <Spinner />
   ) : listData.length == 0 ? (
     <Text style={styles.textDontExist}>
-      {t("No existe ninguna lista. Cree una primero para insertar un producto.")}  
+      {t(
+        "No existe ninguna lista. Cree una primero para insertar un producto."
+      )}
     </Text>
   ) : (
     <View style={styles.dataContainer}>
@@ -81,7 +83,12 @@ export const ListData = ({ navigation , route}) => {
           </View>
         ))}
       </ScrollView>
-      <AddProductButton data={listData} datacheck={checked} navigation={navigation} product={product}/>
+      <AddProductButton
+        data={listData}
+        datacheck={checked}
+        navigation={navigation}
+        product={product}
+      />
     </View>
   );
 };

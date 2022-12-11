@@ -13,7 +13,6 @@ import { API_URL } from "../../api/constants";
 import { useTranslation } from "react-i18next";
 
 export const IconBack = (props) => {
-
   return (
     <TouchableHighlight
       onPress={() => {
@@ -35,7 +34,7 @@ export const IconBack = (props) => {
 export const Spinner = () => {
   return (
     <View style={styles.SpinnerContainer}>
-      <SpinnerCircular style={styles.Spinner}/>
+      <SpinnerCircular style={styles.Spinner} />
     </View>
   );
 };
@@ -52,6 +51,7 @@ export const AddProductButton = (props) => {
           const doGetRequest = async () => {
             await axios
               .put(`${API_URL}/Inventory/AddProductToInventory`, {
+                marketID: product.marketId,
                 inventoryID: d.id,
                 productID: prod.id,
                 quantity: prod.quantity,
@@ -75,8 +75,7 @@ export const AddProductButton = (props) => {
   };
 
   return (
-    <Pressable style={styles.button} 
-      onPress={results}>
+    <Pressable style={styles.button} onPress={results}>
       <Text style={styles.text}>{t("Agregar producto")}</Text>
     </Pressable>
   );
@@ -88,14 +87,14 @@ const styles = StyleSheet.create({
     alignContent: "center",
     fontWeight: "bold",
   },
-  Spinner:{
+  Spinner: {
     width: "20%",
-    marginTop: "60%"
+    marginTop: "60%",
   },
-  SpinnerContainer:{
+  SpinnerContainer: {
     alignItems: "center",
     flex: 1,
-    alignContent: "center"
+    alignContent: "center",
   },
   Icon: {
     padding: 15,
