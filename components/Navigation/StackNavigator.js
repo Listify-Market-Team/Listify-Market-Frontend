@@ -9,9 +9,7 @@ import PersonalScreen from "../../screens/PersonalScreen";
 import ViewOne from "../../screens/onboarding/ViewOne";
 import ViewTwo from "../../screens/onboarding/ViewTwo";
 import HelpScreen from "../../screens/HelpScreen";
-// import ProductListScreen from "../../screens/productListScreen";
-// import NewListScreen from "../../screens/NewListScreen";
-// import UpdateListScreen from "../../screens/UpdateListScreen";
+
 import SearchProductScreen from "../../screens/SearchProductScreen";
 import AddProductScreen from "../../screens/AddProductScreen";
 import ProductInfoScreen from "../../screens/ProductInfoScreen";
@@ -19,6 +17,7 @@ import InventoriesScreen from "../../screens/InventoriesScreen";
 import HomeScreen from "../../screens/HomeScreen";
 import MarketsScreen from "../../screens/MarketsScreen";
 import InventoryProductsScreen from "../../screens/InventoryProductsScreen";
+import NewInventoryScreen from "../../screens/NewInventoryScreen";
 import { colors } from "../../styles/globals";
 
 const Stack = createNativeStackNavigator();
@@ -111,6 +110,7 @@ export const MarketsStackNavigator = ({ navigation }) => {
 export const InventoriesStackNavigator = ({ navigation }) => {
   const { t } = useTranslation();
   const inventoriesTitle = t("Listas");
+  const newInventoryTitle = t("Creación de listas");
 
   const openDrawer = () => navigation.openDrawer();
 
@@ -130,6 +130,11 @@ export const InventoriesStackNavigator = ({ navigation }) => {
             </Pressable>
           ),
         }}
+      />
+      <Stack.Screen
+        name="NewInventory"
+        component={NewInventoryScreen}
+        options={{ headerTitle: newInventoryTitle }}
       />
     </Stack.Navigator>
   );
