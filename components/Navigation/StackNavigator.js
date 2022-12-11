@@ -238,6 +238,11 @@ export const ProductsStackNavigator = ({ navigation }) => {
         component={InventoriesSelectionScreen}
         options={{ headerTitle: productSelectionTitle }}
       />
+      <Stack.Screen
+        name="InventoriesDashboard"
+        component={InventoriesScreen}
+        options={{ headerTitle: productSelectionTitle }}
+      />
     </Stack.Navigator>
   );
 };

@@ -18,7 +18,7 @@ import Button from "../components/Button";
 const Item = ({ name, products = [], onPress, selected }) => {
   const { t } = useTranslation();
 
-  console.log(selected);
+  // console.log(selected);
 
   return (
     <Pressable style={styles.item} onPress={onPress}>
@@ -69,7 +69,7 @@ export default function InventoriesSelectionScreen({ navigation, route }) {
       // update the endpoint and use params object for query params e.g {paramKey: paramValue}
       axios.post(`${API_URL}/`, product, { params: {} });
     });
-    navigation.navigate("InventoriesDasboard");
+    navigation.navigate("InventoriesDashboard");
   };
 
   useEffect(() => {
