@@ -10,36 +10,10 @@ import {
   Touchable,
 } from "react-native";
 import { Pressable } from "react-native";
-import Button from "../components/Button";
-import globalStyles from "../styles";
+import { globalStyles } from "../styles/globals";
 import { Modal } from "react-native";
-import { set } from "react-native-reanimated";
 import { Translation } from "react-i18next";
-import { API_URL } from "../api/constants";
-
-//Random Data
-const DATA_WITH_ID = [
-  {
-    id: "bd7acbea-c1b1-46c2-aed5-3ad53abb28ba",
-    title: "Bravo",
-    price: 120,
-  },
-  {
-    id: "3ac68afc-c605-48d3-a4f8-fbd91aa97f63",
-    title: "La Sirena",
-    price: 300,
-  },
-  {
-    id: "58694a0f-3da1-471f-bd96-145571e29d72",
-    title: "Jumbo",
-    price: 820,
-  },
-  {
-    id: "58694a0f-3da1-471f-bd96-145571e29d2312",
-    title: "Olé",
-    price: 820,
-  },
-];
+import Button from "../components/Button";
 
 export default class ProductInfoScreen extends Component {
   constructor(props) {
@@ -83,6 +57,7 @@ export default class ProductInfoScreen extends Component {
     // console.log("added!");
 
     this.props.navigation.navigate("AddProduct", {
+      productId: this.props.route.params.product.id,
       marketID: this.state.marketId,
       price: this.state.productPrice,
       quantity: this.state.productQuantity,
@@ -98,7 +73,6 @@ export default class ProductInfoScreen extends Component {
       price: item.price,
       marketId: item.marketID,
     });
-    console.log(item);
   }
 
   // async getPrices(){
@@ -155,26 +129,20 @@ export default class ProductInfoScreen extends Component {
     // const priceList = price_array.map((product) =>
     // <li>{product}</li>
     // );
+    const { params } = this.props.route;
 
     return (
-      <View style={styles.base}>
+      <View style={globalStyles.view}>
         <View style={styles.container}>
           <View style={styles.imageContainer}>
             <Image
-              style={styles.imageStyle}
+              style={styles.image}
               source={{
                 uri: "https://cdn-icons-png.flaticon.com/512/1548/1548682.png",
               }}
             />
           </View>
-          <Text style={styles.title}>
-            {this.props.route.params.product.name}
-          </Text>
-          <Text style={styles.info}>
-            Lorem Ipsum is simply dummy text of the printing and typesetting
-            industry
-          </Text>
-
+          <Text style={styles.title}>{params.product.name}</Text>
           <View style={styles.prices}>
             <FlatList
               data={this.state.markets}
@@ -182,7 +150,6 @@ export default class ProductInfoScreen extends Component {
                 return (
                   <TouchableOpacity onPress={() => this.pressHandler(item)}>
                     <View style={styles.listItem}>
-                      <Text style={styles.listItemText}>{item.marketID}</Text>
                       <Text style={styles.listItemPrice}>{item.price}</Text>
                     </View>
                   </TouchableOpacity>
@@ -224,12 +191,9 @@ export default class ProductInfoScreen extends Component {
           </View>
           <Translation>
             {(t) => (
-              <Button
-                text={t("Agregar producto")}
-                onPress={this.addProductToList}
-                btnStyle={[styles.btn, globalStyles.shadow]}
-                textStyle={styles.btnText}
-              />
+              <Button onPress={this.addProductToList}>
+                {t("Agregar producto")}
+              </Button>
             )}
           </Translation>
         </View>
@@ -248,12 +212,9 @@ export default class ProductInfoScreen extends Component {
                       textStyle={styles.backBtnText}
                       onPress={() => this.setState({ showLists: false })}
                     />
-                    <Button
-                      text={"Finalizar"}
-                      btnStyle={[styles.actionBtn, styles.finishBtn]}
-                      textStyle={styles.finishBtnText}
-                      onPress={() => this.setState({ showLists: false })}
-                    />
+                    <Button onPress={() => this.setState({ showLists: false })}>
+                      <Translation>{(t) => t("Finalizar")}</Translation>
+                    </Button>
                   </View>
                 </>
               )}
@@ -266,22 +227,17 @@ export default class ProductInfoScreen extends Component {
 }
 
 const styles = StyleSheet.create({
-  base: {
-    backgroundColor: "#B5D3D3",
-    height: "100%",
-    flex: 1,
-    padding: 16,
-  },
   container: {
     flex: 1,
     backgroundColor: "#fff",
-    borderRadius: 4,
+    borderRadius: 10,
   },
-  imageStyle: {
+  image: {
     display: "block",
     width: "90%",
     height: "90%",
   },
+  name: {},
   // midContainer: {
   //   flex:2,
   //   marginBottom: 20,
@@ -315,14 +271,8 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 36,
-    marginBottom: 14,
-    fontWeight: "bold",
-    textTransform: "capitalize",
-    paddingHorizontal: 10,
-  },
-  info: {
-    fontSize: 16,
-    paddingHorizontal: 10,
+    fontFamily: "Cabin-Bold",
+    paddingVertical: 15,
   },
   imageContainer: {
     width: "100%",

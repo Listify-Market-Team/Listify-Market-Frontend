@@ -11,7 +11,7 @@ import ViewTwo from "../../screens/onboarding/ViewTwo";
 import HelpScreen from "../../screens/HelpScreen";
 
 import { colors } from "../../styles/globals";
-import SearchProductScreen from "../../screens/SearchProductScreen";
+import ProductsScreen from "../../screens/ProductsScreen";
 import AddProductScreen from "../../screens/AddProductScreen";
 import ProductInfoScreen from "../../screens/ProductInfoScreen";
 import InventoriesScreen from "../../screens/InventoriesScreen";
@@ -67,7 +67,7 @@ export const HomeStackNavigator = ({ navigation }) => {
       />
       <Stack.Screen
         name="ProductsDashboard"
-        component={SearchProductScreen}
+        component={ProductsScreen}
         options={{ headerTitle: productsTitle }}
       />
       <Stack.Screen
@@ -185,6 +185,8 @@ export const HelpStackNavigator = ({ navigation }) => {
 export const ProductsStackNavigator = ({ navigation }) => {
   const { t } = useTranslation();
   const productsTitle = t("Productos");
+  const productInfoTitle = t("Información de producto");
+  const addproductTitle = t("Información de producto");
 
   const openDrawer = () => navigation.openDrawer();
 
@@ -195,7 +197,7 @@ export const ProductsStackNavigator = ({ navigation }) => {
     >
       <Stack.Screen
         name="ProductsDashboard"
-        component={SearchProductScreen}
+        component={ProductsScreen}
         options={{
           headerTitle: productsTitle,
           headerLeft: () => (
@@ -205,8 +207,16 @@ export const ProductsStackNavigator = ({ navigation }) => {
           ),
         }}
       />
-      <Stack.Screen name="AddProduct" component={AddProductScreen} />
-      <Stack.Screen name="ProductInfo" component={ProductInfoScreen} />
+      <Stack.Screen
+        name="AddProduct"
+        component={AddProductScreen}
+        options={{ headerTitle: addproductTitle }}
+      />
+      <Stack.Screen
+        name="ProductInfo"
+        component={ProductInfoScreen}
+        options={{ headerTitle: productInfoTitle }}
+      />
     </Stack.Navigator>
   );
 };
