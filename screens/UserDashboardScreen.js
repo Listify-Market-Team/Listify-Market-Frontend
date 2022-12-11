@@ -80,14 +80,14 @@ const exampleData =[
       product_Inventories: 
         [
             {
-                name: 'nintendo switch',
+                name: 'pan de agua',
                 productID: 5,
                 price: 3000,
                 marketName: 'Sirena',
                 color: "#50C878",
             },
             {
-                name: 'controlador de xbox',
+                name: 'lechuga romana',
                 productID: 6,
                 price: 2000,
                 marketName: 'Bravo',
@@ -148,11 +148,13 @@ const filteredData={
 }
 
 const screenWidth = Dimensions.get("window").width;
-const ItemDivider = () => {
+
+//The line we use to divide Flatlist items
+const itemDivider = () => {
         return (
           <View
             style={{
-              height: 1,
+              height: 2,
               width: "100%",
               backgroundColor: '#C0C0C0',
             }}
@@ -160,7 +162,15 @@ const ItemDivider = () => {
         );
       }
 
+    
+
 export default function UserDashboardScreen(){
+
+    const [totalPrice, addPrice] = useState(0);
+    
+    const addToCount = (value) =>{
+        addPrice(totalPrice+value)   
+    }
 
     //Chart Configurations, enter your prefered colors here
     const chartConfig = {
@@ -173,12 +183,21 @@ export default function UserDashboardScreen(){
         useShadowColorFromDataset: false // optional, default false
     };
     
-
+    // const addPriceToTotal(value) => {
+    //     addPrice((totalPrice + value))
+    // };
 
     return (
         <View style={styles.base}>
+
+                <View style={styles.totalPriceCount}>
+                <Text style={styles.countText}>Total</Text>
+                <Text style={styles.countText}>{totalPrice}</Text>
+                </View>
+
                 <View style={styles.container}>
                         <View style={styles.expenditureContainer}>
+
                             <Text style = {styles.expenditureText}> Costo Total</Text>
                                 <PieChart
                                     data={exampleData}
@@ -192,38 +211,40 @@ export default function UserDashboardScreen(){
                                     accessor="totalPrice"
                                     backgroundColor="transparent"
                                     paddingLeft="15"
-                                    absolute //for the absolute number remove if you want percentage
+                                    // absolute //for the absolute number, remove if you want percentage
                                     />
                         </View>
 
                         <View style ={styles.productRankContainer}>
+                            <Text style={styles.productRankTitle}>List Breakdown</Text>
                             <FlatList
                             data={exampleData}
                             renderItem={({item}) =>{
                             return (
                                 <>
-                                <Text style={styles.productRankText}>{item.name}</Text>
-                                <PieChart
-                                    data={item.product_Inventories}
-                                    width={Dimensions.get('window').width}
-                                    height={220}
-                                    chartConfig={chartConfig}
-                                    style={{
-                                        marginVertical: 8,
-                                        borderRadius: 16,
-                                    }}
-                                    accessor="price"
-                                    backgroundColor="none"
-                                    margin="10"
-                                    border='10'
+                                    <Text style={styles.productRankText}>{item.name}</Text>
+                                    <PieChart
+                                        data={item.product_Inventories}
+                                        width={Dimensions.get('window').width}
+                                        height={220}
+                                        chartConfig={chartConfig}
+                                        style={{
+                                            marginVertical: 8,
+                                            borderRadius: 16,
+                                        }}
+                                        accessor="price"
+                                        backgroundColor="none"
+                                        margin="10"
+                                        border='10'
 
-                                    absolute //for the absolute number remove if you want percentage
+                                        absolute //for the absolute number remove if you want percentage
                                     />
                                 </>
+
                             );
                             }}
                             keyExtractor={(item) => item.id}
-                            ItemSeparatorComponent={ItemDivider}
+                            ItemSeparatorComponent={itemDivider}
                             />
 
                             
@@ -256,13 +277,14 @@ const styles = StyleSheet.create({
       },
       productRankContainer:{
         flex: 2,
-        justifyContent:'space-around'
+        justifyContent:'space-around',
+        padding: 40
 
       },
       expenditureText:{
         fontFamily: 'Cabin',
         fontStyle: 'normal',
-        fontweight: '700',
+        fontWeight: '800',
         fontSize: 36,
         lineHeight: 44,
         
@@ -270,7 +292,6 @@ const styles = StyleSheet.create({
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-        
         color: '#0B3F57',
       },
       productRankText:{
@@ -282,6 +303,35 @@ const styles = StyleSheet.create({
         display: 'flex',
         alignItems: 'center',
         color: '#0B3F57',
-
+        
+      },
+      productRankTitle:{
+        fontFamily: 'Cabin',
+        fontStyle: 'normal',
+        fontWeight: '800',
+        fontSize: 36,
+        lineHeight: 24,
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent:'center',
+        color: '#0B3F57',
+      },
+      totalPriceCount:{
+        flex:0.15,
+        backgroundColor: '#00A47E',
+        flexDirection:'row',
+        justifyContent: 'space-evenly',
+        alignItems: 'center',
+        borderRadius: 15,
+        margin: 40,
+      },
+      countText:{
+        fontFamily: 'Cabin',
+        fontSize: 16,
+        fontWeight: '500',
+        lineHeight: 16,
+        letterSpacing: '0em',
+        textAlign: 'left',
+        color: 'rgba(255, 255, 255, 1)'
       }
 })
