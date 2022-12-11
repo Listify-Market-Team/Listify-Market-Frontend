@@ -37,6 +37,14 @@ export default function ProductsScreen({ navigation, route }) {
   const [loadingProducts, setIsLoadingProducts] = useState(true);
   const [loadingMarkets, setIsLoadingMarkets] = useState(true);
   const [selectedFilter, setSeletedFilter] = useState("");
+  const { market } = route.params;
+
+  useEffect(() => {
+    if (!market) {
+      return;
+    }
+    filterByMarket(market);
+  }, [market]);
 
   const fetchProducts = async () => {
     setIsLoadingProducts(true);
