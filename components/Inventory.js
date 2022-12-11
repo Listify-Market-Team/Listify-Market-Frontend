@@ -39,15 +39,9 @@ export default function Inventory({ inventory, onDelete }) {
   };
 
   const updateInventory = (id) => {
-    axios
-      .put(`${API_URL}/Inventory/GetById`, {
-        params: { id },
-      })
-      .then(() => {
-        navigate("UpdateInventory", {
-          inventory,
-        });
-      });
+    navigate("UpdateInventory", {
+      inventory,
+    });
   };
 
   const changeModalVisibility = (bool) => {

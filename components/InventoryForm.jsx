@@ -18,7 +18,7 @@ export default function InventoryForm({ onSubmit, defaultValues, loading }) {
     setDescription(value);
   };
 
-  const btnText = t("Agregar");
+  const btnText = !defaultValues ? t("Agregar") : t("Guardar cambios");
 
   useEffect(() => {
     if (!defaultValues) {
@@ -26,7 +26,7 @@ export default function InventoryForm({ onSubmit, defaultValues, loading }) {
     }
     setName(defaultValues.name);
     setDescription(defaultValues.description);
-  });
+  }, []);
 
   const submit = () => {
     if (name.trim() === "" || description.trim() === "") {
