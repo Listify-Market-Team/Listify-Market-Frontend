@@ -36,6 +36,7 @@ export default function SearchProductScreen({ navigation, route }) {
   ]);
   const [loadingProducts, setIsLoadingProducts] = useState(true);
   const [loadingMarkets, setIsLoadingMarkets] = useState(true);
+  const [selectedFilter, setSeletedFilter] = useState("");
 
   const fetchProducts = async () => {
     setIsLoadingProducts(true);
@@ -77,6 +78,7 @@ export default function SearchProductScreen({ navigation, route }) {
   };
 
   const filterByMarket = (marketName) => {
+    setSeletedFilter(marketName);
     if (marketName === "Todos") {
       fetchProducts();
       return;
@@ -97,7 +99,13 @@ export default function SearchProductScreen({ navigation, route }) {
   };
 
   const renderFilters = ({ item }) => {
-    return <Filter name={item.name} filtByMarket={filterByMarket} />;
+    return (
+      <Filter
+        name={item.name}
+        filtByMarket={filterByMarket}
+        selected={selectedFilter === item.name}
+      />
+    );
   };
 
   const renderSeparator = () => {

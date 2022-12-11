@@ -1,15 +1,27 @@
 import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
 import React, { useState, useEffect } from "react";
+import { colors } from "../styles/globals";
 
 const Filter = (props) => {
   var [isPress, setIsPress] = React.useState(false);
   const [name, setName] = useState(props.name);
+  const { selected } = props;
 
   const filtMarket = (marketName) => props.filtByMarket(marketName);
 
   return (
-    <TouchableOpacity style={styles.container} onPress={() => filtMarket(name)}>
-      <Text style={styles.name}>{name}</Text>
+    <TouchableOpacity
+      style={[
+        styles.container,
+        selected
+          ? { borderColor: colors.green, backgroundColor: "#fff" }
+          : null,
+      ]}
+      onPress={() => filtMarket(name)}
+    >
+      <Text style={[styles.name, selected ? { color: colors.green } : null]}>
+        {name}
+      </Text>
     </TouchableOpacity>
   );
 };
