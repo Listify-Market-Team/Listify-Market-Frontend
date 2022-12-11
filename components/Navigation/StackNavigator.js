@@ -20,6 +20,7 @@ import MarketsScreen from "../../screens/MarketsScreen";
 import InventoryProductsScreen from "../../screens/InventoryProductsScreen";
 import NewInventoryScreen from "../../screens/NewInventoryScreen";
 import UpdateInventoryScreen from "../../screens/UpdateInventoryScreen";
+import InventoriesSelectionScreen from "../../screens/InventoriesSelecctionScreen";
 
 const Stack = createNativeStackNavigator();
 
@@ -201,6 +202,7 @@ export const ProductsStackNavigator = ({ navigation }) => {
   const productsTitle = t("Productos");
   const productInfoTitle = t("Información de producto");
   const addproductTitle = t("Información de producto");
+  const productSelectionTitle = t("Agregando producto a listas");
 
   const openDrawer = () => navigation.openDrawer();
 
@@ -230,6 +232,11 @@ export const ProductsStackNavigator = ({ navigation }) => {
         name="ProductInfo"
         component={ProductInfoScreen}
         options={{ headerTitle: productInfoTitle }}
+      />
+      <Stack.Screen
+        name="InventoriesSelection"
+        component={InventoriesSelectionScreen}
+        options={{ headerTitle: productSelectionTitle }}
       />
     </Stack.Navigator>
   );

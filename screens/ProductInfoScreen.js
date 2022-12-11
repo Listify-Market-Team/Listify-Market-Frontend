@@ -41,9 +41,9 @@ export default function ProductInfoScreen({ navigation, route }) {
     if (!price || quantity <= 0) {
       return;
     }
-    // const productToAdd = { product: { ...product, quantity, price } };
+    const productToAdd = { ...product, quantity, price };
     // console.log(productToAdd);
-    // navigation.navigate("", { product: { ...product, quantity, price } });
+    navigation.navigate("InventoriesSelection", { product: productToAdd });
   };
 
   const selectPrice = (value) => {
