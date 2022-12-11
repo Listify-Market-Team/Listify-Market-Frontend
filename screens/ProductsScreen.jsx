@@ -20,31 +20,10 @@ import { colors, globalStyles } from "../styles/globals";
 export default function ProductsScreen({ navigation, route }) {
   const { t } = useTranslation();
   const [products, setProducts] = useState([]);
-  const [markets, setMarkets] = useState([
-    {
-      name: "Bravo",
-    },
-    {
-      name: "La Sirena",
-    },
-    {
-      name: "Jumbo",
-    },
-    {
-      name: "Nacional",
-    },
-  ]);
+  const [markets, setMarkets] = useState([]);
   const [loadingProducts, setIsLoadingProducts] = useState(true);
   const [loadingMarkets, setIsLoadingMarkets] = useState(true);
   const [selectedFilter, setSeletedFilter] = useState("");
-  const { market } = route.params;
-
-  useEffect(() => {
-    if (!market) {
-      return;
-    }
-    filterByMarket(market);
-  }, [market]);
 
   const fetchProducts = async () => {
     setIsLoadingProducts(true);
@@ -177,9 +156,9 @@ export default function ProductsScreen({ navigation, route }) {
                   <Image style={styles.image} source={{ uri: product.image }} />
                   <View>
                     <Text style={styles.name}>{product.name}</Text>
-                    <Text style={styles.price}>
+                    {/* <Text style={styles.price}>
                       {t("Precio")}: {product.price}
-                    </Text>
+                    </Text> */}
                   </View>
                 </Pressable>
               );
@@ -214,11 +193,11 @@ const styles = StyleSheet.create({
     marginBottom: 5,
     textTransform: "capitalize",
   },
-  price: {
-    color: colors.green,
-    fontSize: 16,
-    fontFamily: "Cabin-Bold",
-  },
+  // price: {
+  //   color: colors.green,
+  //   fontSize: 16,
+  //   fontFamily: "Cabin-Bold",
+  // },
   filters: {
     backgroundColor: colors.ligthGreen,
     flexDirection: "row",

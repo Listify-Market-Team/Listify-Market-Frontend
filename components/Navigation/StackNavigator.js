@@ -85,6 +85,7 @@ export const MarketsStackNavigator = ({ navigation }) => {
   const { t } = useTranslation();
   const marketsTitle = t("Supermercados");
   const productsTitle = t("Productos");
+  const productInfoTitle = t("Información de producto");
 
   const openDrawer = () => navigation.openDrawer();
 
@@ -111,6 +112,11 @@ export const MarketsStackNavigator = ({ navigation }) => {
         options={{
           headerTitle: productsTitle,
         }}
+      />
+      <Stack.Screen
+        name="ProductInfo"
+        component={ProductInfoScreen}
+        options={{ headerTitle: productInfoTitle }}
       />
     </Stack.Navigator>
   );

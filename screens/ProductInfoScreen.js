@@ -1,4 +1,4 @@
-import React, { Component, useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   ActivityIndicator,
   FlatList,
@@ -7,223 +7,102 @@ import {
   Image,
   TouchableOpacity,
   StyleSheet,
-  Touchable,
+  Pressable,
 } from "react-native";
-import { Pressable } from "react-native";
-import { globalStyles } from "../styles/globals";
-import { Modal } from "react-native";
-import { Translation } from "react-i18next";
+
+import { colors, globalStyles } from "../styles/globals";
+import { useTranslation } from "react-i18next";
 import Button from "../components/Button";
 
-export default class ProductInfoScreen extends Component {
-  constructor(props) {
-    super(props);
+export default function ProductInfoScreen({ navigation, route }) {
+  const [product, setProduct] = useState({});
+  const [quantity, setCuantity] = useState();
+  const [markets, setMarkets] = useState();
+  const [price, setPrice] = useState(0);
+  const { t } = useTranslation();
 
-    this.state = {
-      // dataSource: [],
-      showLists: false,
-      loadingLists: false,
-      productPrice: 0,
-      productQuantity: 0,
-      markets: [],
-      marketId: 0,
-    };
-
-    this.increaseOnPress = this.increaseOnPress.bind(this);
-    this.decreaseOnPress = this.decreaseOnPress.bind(this);
-    this.addProductToList = this.addProductToList.bind(this);
-    this.pressHandler = this.pressHandler.bind(this);
-    // this.markets = this.pricesList.bind(this);
-  }
-
-  increaseOnPress() {
-    this.setState({
-      productQuantity: this.state.productQuantity + 1,
+  const increase = () => {
+    setCuantity((value) => value + 1);
+  };
+  const decrease = () => {
+    setCuantity((value) => {
+      if (value <= 0) {
+        return value - 1;
+      }
+      return value;
     });
+  };
 
-    // console.log(this.state.markets)
-  }
-
-  decreaseOnPress() {
-    if (this.state.productQuantity > 0) {
-      this.setState({
-        productQuantity: this.state.productQuantity - 1,
-      });
+  const addToInventories = (product) => {
+    if (!price || quantity <= 0) {
+      return;
     }
-  }
+    // navigation.navigate("", { product: { ...product, quantity, price } });
+  };
 
-  addProductToList() {
-    // this.setState({ showLists: true, loadingLists: true });
-    // console.log("added!");
+  const selectPrice = (value) => {
+    setPrice(value);
+  };
 
-    this.props.navigation.navigate("AddProduct", {
-      productId: this.props.route.params.product.id,
-      marketID: this.state.marketId,
-      price: this.state.productPrice,
-      quantity: this.state.productQuantity,
-    });
-
-    // setTimeout(() => {
-    //   this.setState({ loadingLists: false });
-    // }, 2000);
-  }
-
-  pressHandler(item) {
-    this.setState({
-      price: item.price,
-      marketId: item.marketID,
-    });
-  }
-
-  // async getPrices(){
-  //   try
-  //   {
-  //     const response = await fetch(`${API_URL}/Product/GetByID?id=${this.props.route.params.id}`);
-
-  //     const data = await response.json();
-
-  //     console.log(data.product_Markets);
-
-  //     this.setState({dataSource: data});
-  //   }
-  //   catch(error)
-  //   {
-  //     console.error('Error API', error);
-  //   }
-  // }
-
-  static getDerivedStateFromProps(props, state) {
-    // console.log(props.route.params.product)
-
-    if (props.route.params.product.product_Markets != state.markets) {
-      return {
-        markets: props.route.params.product.product_Markets,
-      };
+  useEffect(() => {
+    if (route.params && route.params.products) {
+      setProduct(route.params.product);
+      setMarkets(route.params.product.product_Markets);
     }
-    return null;
-  }
+  }, []);
 
-  // componentDidUpdate(prevProps){
-  //   console.log(this.props);
-  //   console.log(this.props.route.params.product.product_Markets);
-
-  //   const [products_Markets] = this.props.route.params.product.product_Markets;
-  //   // console.log(products_Markets);
-
-  //   this.setState({
-  //     markets: products_Markets
-  //   })
-  //   this.setState({markets: [...this.state.markets, ...this.props.route.params.product.product_Markets]})
-
-  //   console.log(this.state.markets);
-
-  // if (prevProps.markets != this.props.route.params.product.product_Markets){
-  //   this.setState({markets: this.props.route.params.product.product_Markets})
-  // }
-  // return null
-
-  // }
-
-  render() {
-    // const price_array = this.state.dataSource.product_Markets;
-    // const priceList = price_array.map((product) =>
-    // <li>{product}</li>
-    // );
-    const { params } = this.props.route;
-
-    return (
-      <View style={globalStyles.view}>
-        <View style={styles.container}>
-          <View style={styles.imageContainer}>
-            <Image
-              style={styles.image}
-              source={{
-                uri: "https://cdn-icons-png.flaticon.com/512/1548/1548682.png",
-              }}
-            />
-          </View>
-          <Text style={styles.title}>{params.product.name}</Text>
-          <View style={styles.prices}>
-            <FlatList
-              data={this.state.markets}
-              renderItem={({ item }) => {
-                return (
-                  <TouchableOpacity onPress={() => this.pressHandler(item)}>
-                    <View style={styles.listItem}>
-                      <Text style={styles.listItemPrice}>{item.price}</Text>
-                    </View>
-                  </TouchableOpacity>
-                );
-              }}
-              keyExtractor={(item) => item.marketID}
-              horizontal
-              extraData={this.state.markets}
-            />
-          </View>
-
-          <View style={styles.quantityContainer}>
-            <View>
-              <Translation>
-                {(t) => (
-                  <Text style={styles.quantityLabel}>{t("Cantidad")}</Text>
-                )}
-              </Translation>
-            </View>
-            <View style={styles.quantityBtnWrapper}>
-              <Pressable
-                style={styles.quantityButton}
-                onPress={this.decreaseOnPress}
-              >
-                <Text> - </Text>
-              </Pressable>
-
-              <Text style={styles.quantityNumber}>
-                {this.state.productQuantity}
-              </Text>
-
-              <Pressable
-                style={styles.quantityButton}
-                onPress={this.increaseOnPress}
-              >
-                <Text> + </Text>
-              </Pressable>
-            </View>
-          </View>
-          <Translation>
-            {(t) => (
-              <Button onPress={this.addProductToList}>
-                {t("Agregar producto")}
-              </Button>
-            )}
-          </Translation>
+  return (
+    <View style={globalStyles.view}>
+      <View style={styles.container}>
+        <View style={styles.imageContainer}>
+          <Image
+            style={styles.image}
+            source={{
+              uri: "https://cdn-icons-png.flaticon.com/512/1548/1548682.png",
+            }}
+          />
         </View>
-        <Modal visible={this.state.showLists} transparent animationType="fade">
-          <View style={styles.centeredView}>
-            <View style={styles.modal}>
-              {this.state.loadingLists ? (
-                <ActivityIndicator color="#000" size="large" />
-              ) : (
-                <>
-                  <Text>All lists</Text>
-                  <View style={styles.actions}>
-                    <Button
-                      text={"Volver"}
-                      btnStyle={[styles.actionBtn, styles.backBtn]}
-                      textStyle={styles.backBtnText}
-                      onPress={() => this.setState({ showLists: false })}
-                    />
-                    <Button onPress={() => this.setState({ showLists: false })}>
-                      <Translation>{(t) => t("Finalizar")}</Translation>
-                    </Button>
+        <Text style={styles.title}>{product.name}</Text>
+        <View style={styles.prices}>
+          <FlatList
+            data={markets}
+            renderItem={({ item }) => {
+              return (
+                <TouchableOpacity onPress={() => selectPrice(item.price)}>
+                  <View style={styles.price}>
+                    <Text style={styles.priceText}>{item.price}</Text>
                   </View>
-                </>
-              )}
-            </View>
+                </TouchableOpacity>
+              );
+            }}
+            keyExtractor={(item) => item.marketID}
+            horizontal
+            extraData={markets}
+          />
+        </View>
+
+        <View style={styles.quantityContainer}>
+          <View>
+            <Text style={styles.quantityLabel}>{t("Cantidad")}</Text>
           </View>
-        </Modal>
+          <View style={styles.quantityBtnWrapper}>
+            <Pressable style={styles.quantityButton} onPress={decrease}>
+              <Text> - </Text>
+            </Pressable>
+
+            <Text style={styles.quantityNumber}>{quantity}</Text>
+
+            <Pressable style={styles.quantityButton} onPress={increase}>
+              <Text> + </Text>
+            </Pressable>
+          </View>
+        </View>
       </View>
-    );
-  }
+      <View style={styles.actions}>
+        <Button onPress={addToInventories}>{t("Agregar producto")}</Button>
+      </View>
+    </View>
+  );
 }
 
 const styles = StyleSheet.create({
@@ -231,48 +110,27 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#fff",
     borderRadius: 10,
+    padding: 15,
   },
   image: {
     display: "block",
     width: "90%",
     height: "90%",
   },
-  name: {},
-  // midContainer: {
-  //   flex:2,
-  //   marginBottom: 20,
-  //   borderWidth: 2,
-  //   justifyContent: 'space-between',
-  //   alignItems: 'center',
-  //   backgroundColor: '#DAE9E9'
-  // },
-  // bottomContainer:{
-  //   flex:2,
-  //   marginBottom: 20,
-  //   borderWidth: 2,
-  //   justifyContent: 'space-between',
-  //   alignItems: 'center',
-  //   backgroundColor: '#DAE9E9'
-  // },
-  listItem: {
-    // flex:2,
-    // justifyContent: 'space-evenly',
-    // alignItems: 'strech',
-    // backgroundColor: '#d1efef',
-    // height: 150,
-    // width: "100%"
+  price: {
+    color: colors.green,
     padding: 14,
-    // marginRight: 10
+    marginRight: 6,
   },
-  listItemText: {
-    // backgroundColor: "#B5D3D3",
-    fontWeight: "bold",
-    fontSize: 14,
+  priceText: {
+    fontFamily: "Cabin-Regular",
+    color: colors.dark,
+    fontSize: 18,
   },
   title: {
     fontSize: 36,
     fontFamily: "Cabin-Bold",
-    paddingVertical: 15,
+    marginBottom: 20,
   },
   imageContainer: {
     width: "100%",
@@ -280,18 +138,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
   },
-  listItemPrice: {
-    fontSize: 14,
-    backgroundColor: "#B5D3D3",
-    padding: 6,
-    borderRadius: 4,
-    marginTop: 6,
-    textAlign: "center",
-  },
   prices: {
-    // height: 75,
-    marginTop: 16,
-    backgroundColor: "#d1efef",
     overflow: "visible",
   },
   quantityContainer: {
@@ -328,74 +175,8 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
-  btn: {
-    backgroundColor: "#76B2B2",
-    maxWidth: "100%",
-    padding: 16,
-    borderRadius: 8,
-    textAlign: "center",
-    marginTop: "auto",
-    marginBottom: 16,
-    marginHorizontal: 8,
-  },
-  btnText: {
-    color: "#ffffff",
-    fontWeight: "bold",
-    fontSize: 16,
-    textTransform: "uppercase",
-  },
-  centeredView: {
-    alignItems: "center",
-    justifyContent: "center",
-    height: "100%",
-    width: "100%",
-    backgroundColor: "rgba(0, 0, 0, 0.2)",
-  },
-  modal: {
-    padding: 16,
-    width: 300,
-    height: "75%",
-    overflow: "scroll",
-    justifyContent: "center",
-    borderRadius: 6,
-    backgroundColor: "#fff",
-    borderWidth: 1,
-    borderStyle: "solid",
-    borderColor: "#ddd",
-  },
   actions: {
     marginTop: "auto",
-    flexDirection: "row",
-    // justifyContent: "flex-end",
-    gap: 16,
-  },
-  actionBtn: {
-    paddingHorizontal: 16,
-    paddingVertical: 8,
-    // borderWidth: 1,
-    // borderStyle: "solid",
-    // borderColor: "000",
-    borderRadius: 4,
-    flex: 1,
-    textAlign: "center",
-  },
-  backBtn: {
-    // borderColor: "red",
-  },
-  backBtnText: {
-    fontSize: 18,
-    color: "red",
-    fontWeight: "bold",
-  },
-  finishBtn: {
-    // borderColor: "green",
-  },
-  finishBtnText: {
-    fontSize: 18,
-    color: "green",
-    fontWeight: "bold",
-  },
-  selected: {
-    backgroundColor: "green",
+    marginBottom: 50,
   },
 });
