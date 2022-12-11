@@ -7,23 +7,20 @@ import {
   Modal,
 } from "react-native";
 import React, { useState, useEffect, useContext } from "react";
-// import useFetch from "../Hooks/useFetch";
 import ListMenuPop from "./ListMenuPop";
 import detailBTN from "../img/DetailBTN.png";
 import axios from "axios";
 import { API_URL } from "../api/constants";
 import { AuthContext } from "../context/AuthContext";
 import { useTranslation } from "react-i18next";
+import { useNavigation } from "@react-navigation/native";
 
-const List = (props) => {
-  const list = props.item
-  const navigation = props.navigation
-  
-
-  const [listModal, setListModal] = useState();
+export default function Inventory({ inventory }) {
   const [isModalVisible, setIsModalVisible] = useState(false);
-  
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
+  const { navigate } = useNavigation();
+
+  console.log(inventory);
 
   const deleteList = (id) => {
     try {
@@ -39,7 +36,6 @@ const List = (props) => {
     } catch (error) {
       console.log("something went wrong");
     }
-
   };
 
   const editList = (id) => {
@@ -48,15 +44,13 @@ const List = (props) => {
         params: { id },
       })
       .then((res) => {
-        navigation.navigate("UpdateList", {
+        navigate("UpdateList", {
           id: id,
           name: res.data.name,
           description: res.data.description,
         });
       });
   };
-
-
 
   const setSelectedProduct = (product) => {
     setListModal(product);
@@ -68,55 +62,59 @@ const List = (props) => {
 
   return (
     <View>
-      
-      
-        <TouchableOpacity onPress={() => navigation.navigate("ProductList",{
-          list: list
-        })} key={list.id}>
-          <View style={styles.screen}>
-            <Image
-              source="https://cdn0.iconfinder.com/data/icons/cosmo-layout/40/box-512.png"
-              style={styles.imageStyle}
-            />
+      <TouchableOpacity
+        onPress={() =>
+          navigation.navigate("ProductList", {
+            list: list,
+          })
+        }
+        key={list.id}
+      >
+        <View style={styles.screen}>
+          <Image
+            source="https://cdn0.iconfinder.com/data/icons/cosmo-layout/40/box-512.png"
+            style={styles.imageStyle}
+          />
 
-            <View style={styles.content}>
-              <Text style={styles.listName}>{list.name}</Text>
-              <Text>{list.product_Inventories.length} {t("productos")}</Text>
-            </View>
-
-            <View style={styles.detailContainer}>
-              <TouchableOpacity
-                onPress={(e) => {
-                  changeModalVisibility(true);
-                  setSelectedProduct(list);
-                }}
-                style={styles.detailBotonStyle}
-              >
-                <Image source={detailBTN} style={styles.detailImageStyle} />
-              </TouchableOpacity>
-            </View>
-
-            <Modal
-              animationType="fade"
-              transparent={true}
-              visible={isModalVisible}
-              onRequestClose={() => {
-                changeModalVisibility(false);
-              }}
-            >
-              <ListMenuPop
-                list={listModal}
-                deleteList={deleteList}
-                editList={editList}
-                changeModalVisibility={changeModalVisibility}
-              />
-            </Modal>
+          <View style={styles.content}>
+            <Text style={styles.listName}>{list.name}</Text>
+            <Text>
+              {list.product_Inventories.length} {t("productos")}
+            </Text>
           </View>
-        </TouchableOpacity>
-   
+
+          <View style={styles.detailContainer}>
+            <TouchableOpacity
+              onPress={(e) => {
+                changeModalVisibility(true);
+                setSelectedProduct(list);
+              }}
+              style={styles.detailBotonStyle}
+            >
+              <Image source={detailBTN} style={styles.detailImageStyle} />
+            </TouchableOpacity>
+          </View>
+
+          <Modal
+            animationType="fade"
+            transparent={true}
+            visible={isModalVisible}
+            onRequestClose={() => {
+              changeModalVisibility(false);
+            }}
+          >
+            <ListMenuPop
+              list={listModal}
+              deleteList={deleteList}
+              editList={editList}
+              changeModalVisibility={changeModalVisibility}
+            />
+          </Modal>
+        </View>
+      </TouchableOpacity>
     </View>
   );
-};
+}
 
 const styles = StyleSheet.create({
   screen: {
@@ -155,5 +153,3 @@ const styles = StyleSheet.create({
     flex: 1,
   },
 });
-
-export default List;
