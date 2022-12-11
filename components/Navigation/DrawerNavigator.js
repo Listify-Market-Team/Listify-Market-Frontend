@@ -58,7 +58,7 @@ export const DrawerNavigator = () => {
           ),
         }}
       />
-      <Drawer.Screen
+      {/* <Drawer.Screen
         name="Markets"
         component={MarketsStackNavigator}
         options={{
@@ -68,7 +68,7 @@ export const DrawerNavigator = () => {
             <Ionicons name="home-outline" size={24} color={iconsColor} />
           ),
         }}
-      />
+      /> */}
       <Drawer.Screen
         name="Products"
         component={ProductsStackNavigator}
@@ -76,7 +76,7 @@ export const DrawerNavigator = () => {
           title: productsTitle,
           headerTitle: productsTitle,
           drawerIcon: () => (
-            <Feather name="help-circle" size={24} color={iconsColor} />
+            <Ionicons name="home-outline" size={24} color={iconsColor} />
           ),
         }}
       />
@@ -91,7 +91,7 @@ export const DrawerNavigator = () => {
           ),
         }}
       /> */}
-      <Drawer.Screen
+      {/* <Drawer.Screen
         name="Ayuda"
         component={HelpStackNavigator}
         options={{
@@ -101,7 +101,7 @@ export const DrawerNavigator = () => {
             <Feather name="help-circle" size={24} color={iconsColor} />
           ),
         }}
-      />
+      /> */}
     </Drawer.Navigator>
   );
 };
