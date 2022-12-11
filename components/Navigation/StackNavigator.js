@@ -113,6 +113,7 @@ export const InventoriesStackNavigator = ({ navigation }) => {
   const inventoriesTitle = t("Listas");
   const newInventoryTitle = t("Creación de listas");
   const updateInventoryTitle = t("Modificación de listas");
+  const inventoryTitle = t("Lista");
 
   const openDrawer = () => navigation.openDrawer();
 
@@ -142,6 +143,13 @@ export const InventoriesStackNavigator = ({ navigation }) => {
         name="UpdateInventory"
         component={UpdateInventoryScreen}
         options={{ headerTitle: updateInventoryTitle }}
+      />
+      <Stack.Screen
+        name="InventoryProducts"
+        component={InventoryProductsScreen}
+        options={({ route }) => ({
+          headerTitle: route.params.inventory.name || inventoryTitle,
+        })}
       />
     </Stack.Navigator>
   );
