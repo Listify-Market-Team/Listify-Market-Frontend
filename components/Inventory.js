@@ -5,15 +5,17 @@ import {
   Image,
   TouchableOpacity,
   Modal,
+  Pressable,
 } from "react-native";
 import React, { useState, useEffect, useContext } from "react";
 import ListMenuPop from "./ListMenuPop";
-import detailBTN from "../img/DetailBTN.png";
 import axios from "axios";
 import { API_URL } from "../api/constants";
 import { AuthContext } from "../context/AuthContext";
 import { useTranslation } from "react-i18next";
 import { useNavigation } from "@react-navigation/native";
+import { SimpleLineIcons } from "@expo/vector-icons";
+import { colors } from "../styles/globals";
 
 export default function Inventory({ inventory }) {
   const [isModalVisible, setIsModalVisible] = useState(false);
@@ -22,7 +24,7 @@ export default function Inventory({ inventory }) {
 
   console.log(inventory);
 
-  const deleteList = (id) => {
+  const deleteInventory = (id) => {
     try {
       axios({
         method: "delete",
@@ -30,30 +32,24 @@ export default function Inventory({ inventory }) {
         data: { id },
       }).then(() => {
         setList((state) => {
-          return state.filter((list) => list.id !== id);
+          return state.filter((inv) => inv.id !== id);
         });
       });
     } catch (error) {
-      console.log("something went wrong");
+      console.log("Error deleting inventory");
     }
   };
 
-  const editList = (id) => {
+  const updateInventory = (id) => {
     axios
-      .get(`${API_URL}/Inventory/GetById`, {
+      .put(`${API_URL}/Inventory/GetById`, {
         params: { id },
       })
-      .then((res) => {
-        navigate("UpdateList", {
-          id: id,
-          name: res.data.name,
-          description: res.data.description,
+      .then(() => {
+        navigate("UpdateInventory", {
+          inventory,
         });
       });
-  };
-
-  const setSelectedProduct = (product) => {
-    setListModal(product);
   };
 
   const changeModalVisibility = (bool) => {
@@ -61,95 +57,85 @@ export default function Inventory({ inventory }) {
   };
 
   return (
-    <View>
-      <TouchableOpacity
-        onPress={() =>
-          navigation.navigate("ProductList", {
-            list: list,
-          })
-        }
-        key={list.id}
-      >
-        <View style={styles.screen}>
-          <Image
-            source="https://cdn0.iconfinder.com/data/icons/cosmo-layout/40/box-512.png"
-            style={styles.imageStyle}
-          />
-
-          <View style={styles.content}>
-            <Text style={styles.listName}>{list.name}</Text>
-            <Text>
-              {list.product_Inventories.length} {t("productos")}
-            </Text>
-          </View>
-
-          <View style={styles.detailContainer}>
-            <TouchableOpacity
-              onPress={(e) => {
-                changeModalVisibility(true);
-                setSelectedProduct(list);
-              }}
-              style={styles.detailBotonStyle}
-            >
-              <Image source={detailBTN} style={styles.detailImageStyle} />
-            </TouchableOpacity>
-          </View>
-
-          <Modal
-            animationType="fade"
-            transparent={true}
-            visible={isModalVisible}
-            onRequestClose={() => {
-              changeModalVisibility(false);
-            }}
-          >
-            <ListMenuPop
-              list={listModal}
-              deleteList={deleteList}
-              editList={editList}
-              changeModalVisibility={changeModalVisibility}
-            />
-          </Modal>
+    <TouchableOpacity
+      onPress={() =>
+        navigate("InventoryProducts", {
+          inventory,
+        })
+      }
+      key={inventory.id}
+      style={styles.itemContainer}
+    >
+      <View style={styles.content}>
+        <Image
+          source="https://cdn0.iconfinder.com/data/icons/cosmo-layout/40/box-512.png"
+          style={styles.image}
+        />
+        <View style={styles.info}>
+          <Text style={[styles.name]}>{inventory.name}</Text>
+          <Text style={styles.text}>
+            {inventory.product_Inventories.length} {t("productos")}
+          </Text>
         </View>
-      </TouchableOpacity>
-    </View>
+      </View>
+
+      <Pressable
+        onPress={() => {
+          changeModalVisibility(true);
+        }}
+        style={styles.optionsBtn}
+      >
+        <SimpleLineIcons
+          name="options-vertical"
+          size={30}
+          color={colors.dark}
+        />
+      </Pressable>
+      <Modal
+        animationType="fade"
+        transparent={true}
+        visible={isModalVisible}
+        onRequestClose={() => {
+          changeModalVisibility(false);
+        }}
+      >
+        <ListMenuPop
+          list={inventory}
+          deleteList={deleteInventory}
+          editList={updateInventory}
+          changeModalVisibility={changeModalVisibility}
+        />
+      </Modal>
+    </TouchableOpacity>
   );
 }
 
 const styles = StyleSheet.create({
-  screen: {
+  itemContainer: {
     flexDirection: "row",
-    backgroundColor: "#ffffff",
-    padding: 14,
-    justifyContent: "flex-start",
-    marginBottom: 15,
-    position: "relative",
-    zIndex: 1,
+    justifyContent: "space-between",
+    alignItems: "center",
+    marginBottom: 20,
+    backgroundColor: "#fff",
+    borderRadius: 10,
+    padding: 25,
   },
-  listName: {
-    fontSize: 20,
-    fontWeight: "bold",
+  text: {
+    fontFamily: "Cabin-Regular",
+    fontSize: 18,
   },
-  imageStyle: {
-    height: 50,
-    width: 50,
-  },
-  detailImageStyle: {
-    height: 20,
-    width: 20,
-  },
-  detailBotonStyle: {
-    marginTop: "2%",
+  name: {
+    fontFamily: "Cabin-Bold",
+    fontSize: 18,
   },
   content: {
-    paddingLeft: "4%",
-    justifyContent: "center",
-  },
-  detailContainer: {
-    marginLeft: "3%",
-    width: "100%",
     flexDirection: "row",
-    justifyContent: "flex-end",
-    flex: 1,
+  },
+  info: {
+    marginLeft: 20,
+  },
+  image: {
+    width: 50,
+    height: 50,
   },
 });

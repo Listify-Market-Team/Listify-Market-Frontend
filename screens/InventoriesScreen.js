@@ -98,20 +98,19 @@ export default function InventoriesScreen({ navigation }) {
           <ActivityIndicator size={50} color="#000" />
         </Box>
       ) : (
-        <View>
+        <ScrollView>
           {inventories.length === 0 ? (
             <Box>
               <Text>{noDataLabel}</Text>
             </Box>
           ) : (
             <FlatList
-              style={styles.listContainer}
               showsVerticalScrollIndicator={false}
               data={inventories}
               renderItem={render}
             />
           )}
-        </View>
+        </ScrollView>
       )}
     </View>
   );
@@ -123,7 +122,8 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
-    marginBottom: 50,
+    marginBottom: 30,
+    paddingTop: 10,
   },
   title: {
     fontFamily: "Cabin-Bold",
