@@ -16,17 +16,21 @@ import Button from "../components/Button";
 
 export default function ProductInfoScreen({ navigation, route }) {
   const [product, setProduct] = useState({});
-  const [quantity, setCuantity] = useState();
+  const [quantity, setQuantity] = useState(0);
   const [markets, setMarkets] = useState();
   const [price, setPrice] = useState(0);
   const { t } = useTranslation();
 
+  // console.log(route.params.product);
+  // console.log(product);
+  // console.log(markets);
+
   const increase = () => {
-    setCuantity((value) => value + 1);
+    setQuantity((value) => value + 1);
   };
   const decrease = () => {
-    setCuantity((value) => {
-      if (value <= 0) {
+    setQuantity((value) => {
+      if (value > 0) {
         return value - 1;
       }
       return value;
@@ -37,6 +41,8 @@ export default function ProductInfoScreen({ navigation, route }) {
     if (!price || quantity <= 0) {
       return;
     }
+    // const productToAdd = { product: { ...product, quantity, price } };
+    // console.log(productToAdd);
     // navigation.navigate("", { product: { ...product, quantity, price } });
   };
 
@@ -45,15 +51,16 @@ export default function ProductInfoScreen({ navigation, route }) {
   };
 
   useEffect(() => {
-    if (route.params && route.params.products) {
+    if (route.params && route.params.product) {
       setProduct(route.params.product);
       setMarkets(route.params.product.product_Markets);
     }
-  }, []);
+  }, [route]);
 
   return (
     <View style={globalStyles.view}>
       <View style={styles.container}>
+        <Text style={styles.title}>{product.name}</Text>
         <View style={styles.imageContainer}>
           <Image
             style={styles.image}
@@ -62,7 +69,6 @@ export default function ProductInfoScreen({ navigation, route }) {
             }}
           />
         </View>
-        <Text style={styles.title}>{product.name}</Text>
         <View style={styles.prices}>
           <FlatList
             data={markets}
@@ -70,7 +76,19 @@ export default function ProductInfoScreen({ navigation, route }) {
               return (
                 <TouchableOpacity onPress={() => selectPrice(item.price)}>
                   <View style={styles.price}>
-                    <Text style={styles.priceText}>{item.price}</Text>
+                    <Text
+                      style={[
+                        styles.priceText,
+                        {
+                          backgroundColor:
+                            price === item.price
+                              ? colors.ligthGreen
+                              : colors.green,
+                        },
+                      ]}
+                    >
+                      {item.price}
+                    </Text>
                   </View>
                 </TouchableOpacity>
               );
@@ -118,13 +136,13 @@ const styles = StyleSheet.create({
     height: "90%",
   },
   price: {
-    color: colors.green,
     padding: 14,
     marginRight: 6,
+    borderRadius: 10,
   },
   priceText: {
-    fontFamily: "Cabin-Regular",
-    color: colors.dark,
+    fontFamily: "Cabin-Bold",
+    color: "#fff",
     fontSize: 18,
   },
   title: {
@@ -148,12 +166,17 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     alignItems: "center",
     padding: 10,
-    backgroundColor: "#9ba9a9",
+    borderColor: colors.green,
+    borderRadius: 10,
+    borderWidth: 1,
     marginTop: 16,
   },
   quantityLabel: {
     fontWeight: "bold",
     textTransform: "uppercase",
+    fontFamily: "Cabin-Regular",
+    color: colors.dark,
+    fontSize: 24,
   },
   quantityBtnWrapper: {
     flexDirection: "row",
@@ -162,14 +185,13 @@ const styles = StyleSheet.create({
     paddingHorizontal: 14,
     paddingVertical: 7,
     fontSize: 32,
-    backgroundColor: "#d1efef",
-    fontWeight: "bold",
+    backgroundColor: colors.green,
+    fontFamily: "Cabin-Regular",
   },
   quantityNumber: {
     backgroundColor: "white",
     fontSize: 16,
     fontWeight: "bold",
-    // padding: 16,
     width: 40,
     display: "flex",
     alignItems: "center",
