@@ -7,33 +7,31 @@ import {
   Pressable,
 } from "react-native";
 import { useTranslation } from "react-i18next";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { useNavigation } from "@react-navigation/native";
 import axios from "axios";
 import Box from "../components/Box";
 import { colors } from "../styles/globals";
 import { API_URL } from "../api/constants";
-
-const data = [
-  { id: "123", name: "TestList", totalPrice: 124.89 },
-  { id: "gaefa", name: "TestList", totalPrice: 455.5 },
-  { id: "hsdsfa", name: "TestList", totalPrice: 5475.9 },
-];
+import { AuthContext } from "../context/AuthContext";
 
 export default function InventoriesWidget() {
   const [inventories, setInventories] = useState({ loading: true, data: [] });
   const { t } = useTranslation();
   const { navigate } = useNavigation();
+  const { user } = useContext(AuthContext);
 
   useEffect(() => {
     try {
-      axios.get(`${API_URL}/Inventory/GetAll`).then((response) => {
-        if (response.status === 200) {
-          setInventories({ loading: false, data: response.data.inventories });
-          return;
-        }
-        setInventories({ loading: false, data: [] });
-      });
+      axios
+        .get(`${API_URL}/Inventory/GetByUserId`, { params: { id: user.id } })
+        .then((response) => {
+          if (response.status === 200) {
+            setInventories({ loading: false, data: response.data.inventories });
+            return;
+          }
+          setInventories({ loading: false, data: [] });
+        });
       // setInventories({ loading: false, data: data });
     } catch (error) {
       console.log("Error loading inventories");
@@ -55,7 +53,7 @@ export default function InventoriesWidget() {
     <View style={styles.widgetContainer}>
       {inventories.loading ? (
         <Box>
-          <ActivityIndicator size={40} color="#fff" />
+          <ActivityIndicator size={40} color="#000" />
         </Box>
       ) : (
         <View style={styles.container}>
