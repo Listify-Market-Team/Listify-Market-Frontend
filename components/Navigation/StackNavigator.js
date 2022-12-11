@@ -20,6 +20,7 @@ import HomeScreen from "../../screens/HomeScreen";
 import MarketsScreen from "../../screens/MarketsScreen";
 import InventoryProductsScreen from "../../screens/InventoryProductsScreen";
 import { colors } from "../../styles/globals";
+import UserDashboardScreen from  "../../screens/UserDashboardScreen"
 
 const Stack = createNativeStackNavigator();
 
@@ -187,6 +188,7 @@ export const ProductsStackNavigator = ({ navigation }) => {
       />
       <Stack.Screen name="AddProduct" component={AddProductScreen} />
       <Stack.Screen name="ProductInfo" component={ProductInfoScreen} />
+      <Stack.Screen name="UserDashboard" component={UserDashboardScreen} />
     </Stack.Navigator>
   );
 };

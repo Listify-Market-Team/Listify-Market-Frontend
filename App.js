@@ -4,6 +4,7 @@ import AppContextProvider from "./context/AppContext";
 import AppNavigator from "./components/Navigation/AppNavigator";
 import LoadingScreen from "./screens/onboarding/LoadingView";
 import { useFonts } from "expo-font";
+import DashboardScreen from "./screens/UserDashboardScreen";
 
 export default function App() {
   const [fontsLoaded, error] = useFonts({
@@ -18,11 +19,13 @@ export default function App() {
   }
 
   return (
-    <AppContextProvider>
-      <AuthProvider>
-        <AppNavigator />
-        <LoadingScreen />
-      </AuthProvider>
-    </AppContextProvider>
+    // <AppContextProvider>
+    //   <AuthProvider>
+    //     <AppNavigator />
+    //     <LoadingScreen />
+    //   </AuthProvider>
+    // </AppContextProvider>
+
+    <DashboardScreen/>
   );
 }
