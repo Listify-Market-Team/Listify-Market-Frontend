@@ -17,7 +17,7 @@ import Filter from "../components/Filter";
 import Box from "../components/Box";
 import { colors, globalStyles } from "../styles/globals";
 
-export default function SearchProductScreen({ navigation, route }) {
+export default function ProductsScreen({ navigation, route }) {
   const { t } = useTranslation();
   const [products, setProducts] = useState([]);
   const [markets, setMarkets] = useState([
@@ -37,6 +37,14 @@ export default function SearchProductScreen({ navigation, route }) {
   const [loadingProducts, setIsLoadingProducts] = useState(true);
   const [loadingMarkets, setIsLoadingMarkets] = useState(true);
   const [selectedFilter, setSeletedFilter] = useState("");
+  const { market } = route.params;
+
+  useEffect(() => {
+    if (!market) {
+      return;
+    }
+    filterByMarket(market);
+  }, [market]);
 
   const fetchProducts = async () => {
     setIsLoadingProducts(true);

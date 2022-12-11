@@ -84,6 +84,7 @@ export const HomeStackNavigator = ({ navigation }) => {
 export const MarketsStackNavigator = ({ navigation }) => {
   const { t } = useTranslation();
   const marketsTitle = t("Supermercados");
+  const productsTitle = t("Productos");
 
   const openDrawer = () => navigation.openDrawer();
 
@@ -102,6 +103,13 @@ export const MarketsStackNavigator = ({ navigation }) => {
               <Feather name="menu" size={30} color={colors.dark} />
             </Pressable>
           ),
+        }}
+      />
+      <Stack.Screen
+        name="ProductsDashboard"
+        component={ProductsScreen}
+        options={{
+          headerTitle: productsTitle,
         }}
       />
     </Stack.Navigator>
