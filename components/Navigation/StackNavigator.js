@@ -9,9 +9,8 @@ import PersonalScreen from "../../screens/PersonalScreen";
 import ViewOne from "../../screens/onboarding/ViewOne";
 import ViewTwo from "../../screens/onboarding/ViewTwo";
 import HelpScreen from "../../screens/HelpScreen";
-// import ProductListScreen from "../../screens/productListScreen";
-// import NewListScreen from "../../screens/NewListScreen";
-// import UpdateListScreen from "../../screens/UpdateListScreen";
+
+import { colors } from "../../styles/globals";
 import SearchProductScreen from "../../screens/SearchProductScreen";
 import AddProductScreen from "../../screens/AddProductScreen";
 import ProductInfoScreen from "../../screens/ProductInfoScreen";
@@ -19,7 +18,8 @@ import InventoriesScreen from "../../screens/InventoriesScreen";
 import HomeScreen from "../../screens/HomeScreen";
 import MarketsScreen from "../../screens/MarketsScreen";
 import InventoryProductsScreen from "../../screens/InventoryProductsScreen";
-import { colors } from "../../styles/globals";
+import NewInventoryScreen from "../../screens/NewInventoryScreen";
+import UpdateInventoryScreen from "../../screens/UpdateInventoryScreen";
 
 const Stack = createNativeStackNavigator();
 
@@ -111,6 +111,9 @@ export const MarketsStackNavigator = ({ navigation }) => {
 export const InventoriesStackNavigator = ({ navigation }) => {
   const { t } = useTranslation();
   const inventoriesTitle = t("Listas");
+  const newInventoryTitle = t("Creación de listas");
+  const updateInventoryTitle = t("Modificación de listas");
+  const inventoryTitle = t("Lista");
 
   const openDrawer = () => navigation.openDrawer();
 
@@ -130,6 +133,23 @@ export const InventoriesStackNavigator = ({ navigation }) => {
             </Pressable>
           ),
         }}
+      />
+      <Stack.Screen
+        name="NewInventory"
+        component={NewInventoryScreen}
+        options={{ headerTitle: newInventoryTitle }}
+      />
+      <Stack.Screen
+        name="UpdateInventory"
+        component={UpdateInventoryScreen}
+        options={{ headerTitle: updateInventoryTitle }}
+      />
+      <Stack.Screen
+        name="InventoryProducts"
+        component={InventoryProductsScreen}
+        options={({ route }) => ({
+          headerTitle: route.params.inventory.name || inventoryTitle,
+        })}
       />
     </Stack.Navigator>
   );

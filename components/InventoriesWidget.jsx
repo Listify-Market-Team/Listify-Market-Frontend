@@ -24,7 +24,9 @@ export default function InventoriesWidget() {
   useEffect(() => {
     try {
       axios
-        .get(`${API_URL}/Inventory/GetByUserId`, { params: { id: user.id } })
+        .get(`${API_URL}/Inventory/GetByUserId`, {
+          params: { userId: user.id },
+        })
         .then((response) => {
           if (response.status === 200) {
             setInventories({ loading: false, data: response.data.inventories });
