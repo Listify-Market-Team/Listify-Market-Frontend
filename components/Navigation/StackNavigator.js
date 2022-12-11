@@ -20,7 +20,7 @@ import MarketsScreen from "../../screens/MarketsScreen";
 import InventoryProductsScreen from "../../screens/InventoryProductsScreen";
 import NewInventoryScreen from "../../screens/NewInventoryScreen";
 import UpdateInventoryScreen from "../../screens/UpdateInventoryScreen";
-import InventoriesSelectionScreen from "../../screens/InventoriesSelecctionScreen";
+import InventoriesSelectionScreen from "../../screens/InventoriesSelectionScreen";
 
 const Stack = createNativeStackNavigator();
 
