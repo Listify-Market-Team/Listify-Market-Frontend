@@ -46,8 +46,14 @@ export default function InventoriesScreen({ navigation }) {
     return unsubscribe;
   }, [navigation]);
 
+  const deleteInventory = (id) => {
+    setInventories((state) => {
+      return state.filter((inv) => inv.id !== id);
+    });
+  };
+
   const render = ({ item }) => {
-    return <Inventory inventory={item} />;
+    return <Inventory inventory={item} onDelete={deleteInventory} />;
   };
 
   const searchInventories = (inventoryName, isEmpty) => {

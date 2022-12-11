@@ -17,12 +17,12 @@ import { useNavigation } from "@react-navigation/native";
 import { SimpleLineIcons } from "@expo/vector-icons";
 import { colors } from "../styles/globals";
 
-export default function Inventory({ inventory }) {
+export default function Inventory({ inventory, onDelete }) {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const { t } = useTranslation();
   const { navigate } = useNavigation();
 
-  console.log(inventory);
+  // console.log(inventory);
 
   const deleteInventory = (id) => {
     try {
@@ -31,9 +31,7 @@ export default function Inventory({ inventory }) {
         url: `${API_URL}/Inventory/Delete`,
         data: { id },
       }).then(() => {
-        setList((state) => {
-          return state.filter((inv) => inv.id !== id);
-        });
+        onDelete(id);
       });
     } catch (error) {
       console.log("Error deleting inventory");
