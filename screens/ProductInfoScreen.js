@@ -105,13 +105,13 @@ export default function ProductInfoScreen({ navigation, route }) {
           </View>
           <View style={styles.quantityBtnWrapper}>
             <Pressable style={styles.quantityButton} onPress={decrease}>
-              <Text> - </Text>
+              <Text style={styles.quantityBtnLabel}> - </Text>
             </Pressable>
 
             <Text style={styles.quantityNumber}>{quantity}</Text>
 
             <Pressable style={styles.quantityButton} onPress={increase}>
-              <Text> + </Text>
+              <Text style={styles.quantityBtnLabel}> + </Text>
             </Pressable>
           </View>
         </View>
@@ -136,14 +136,16 @@ const styles = StyleSheet.create({
     height: "90%",
   },
   price: {
-    padding: 14,
     marginRight: 6,
     borderRadius: 10,
   },
   priceText: {
+    paddingHorizontal: 14,
+    paddingVertical: 10,
     fontFamily: "Cabin-Bold",
     color: "#fff",
     fontSize: 18,
+    borderRadius: 15,
   },
   title: {
     fontSize: 36,
@@ -187,6 +189,7 @@ const styles = StyleSheet.create({
     fontSize: 32,
     backgroundColor: colors.green,
     fontFamily: "Cabin-Regular",
+    borderRadius: 10,
   },
   quantityNumber: {
     backgroundColor: "white",
@@ -200,5 +203,10 @@ const styles = StyleSheet.create({
   actions: {
     marginTop: "auto",
     marginBottom: 50,
+  },
+  quantityBtnLabel: {
+    color: "#fff",
+    fontFamily: "Cabin-Bold",
+    fontSize: 20,
   },
 });
