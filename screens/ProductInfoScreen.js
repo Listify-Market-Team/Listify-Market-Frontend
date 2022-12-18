@@ -37,7 +37,7 @@ export default function ProductInfoScreen({ navigation, route }) {
     });
   };
 
-  const addToInventories = (product) => {
+  const addToInventories = () => {
     if (!price || quantity <= 0) {
       return;
     }
@@ -117,7 +117,9 @@ export default function ProductInfoScreen({ navigation, route }) {
         </View>
       </View>
       <View style={styles.actions}>
-        <Button onPress={addToInventories}>{t("Agregar producto")}</Button>
+        <Button onPress={() => addToInventories()}>
+          {t("Agregar producto")}
+        </Button>
       </View>
     </View>
   );
