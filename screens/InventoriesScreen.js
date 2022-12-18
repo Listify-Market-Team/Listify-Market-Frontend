@@ -17,12 +17,14 @@ import axios from "axios";
 import { colors, globalStyles } from "../styles/globals";
 import Box from "../components/Box";
 import Button from "../components/Button";
+import { useIsFocused } from "@react-navigation/native";
 
 export default function InventoriesScreen({ navigation }) {
   const [inventories, setInventories] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const { user } = useContext(AuthContext);
   const { t } = useTranslation();
+  const isFocused = useIsFocused();
 
   const fetchInventories = async () => {
     setIsLoading(true);
@@ -40,11 +42,10 @@ export default function InventoriesScreen({ navigation }) {
   };
 
   useEffect(() => {
-    const unsubscribe = navigation.addListener("focus", () => {
+    if (isFocused) {
       fetchInventories();
-    });
-    return unsubscribe;
-  }, [navigation]);
+    }
+  }, [isFocused]);
 
   const deleteInventory = (id) => {
     setInventories((state) => {

@@ -14,8 +14,9 @@ import { useTranslation } from "react-i18next";
 import { AuthContext } from "../context/AuthContext";
 import Box from "../components/Box";
 import Button from "../components/Button";
+import { useIsFocused } from "@react-navigation/native";
 
-const Item = ({ name, products = [], onPress, selected }) => {
+const Item = ({ name, product_Inventories = [], onPress, selected }) => {
   const { t } = useTranslation();
 
   // console.log(selected);
@@ -31,7 +32,7 @@ const Item = ({ name, products = [], onPress, selected }) => {
       <View>
         <Text style={styles.itemName}>{name}</Text>
         <Text styles={styles.itemProducts}>
-          {t("Productos") + ": " + products.length}
+          {t("Productos") + ": " + product_Inventories.length}
         </Text>
       </View>
     </Pressable>
@@ -44,6 +45,7 @@ export default function InventoriesSelectionScreen({ navigation, route }) {
   const [isLoading, setIsLoading] = useState(true);
   const { user } = useContext(AuthContext);
   const { t } = useTranslation();
+  const isFocused = useIsFocused();
 
   // console.log(route.params);
   // console.log(selectedInventories);
@@ -63,11 +65,25 @@ export default function InventoriesSelectionScreen({ navigation, route }) {
   };
 
   const saveProductInInventories = () => {
-    // fill the object
-    const product = {};
+    const { product } = route.params;
+
+    const marketId =
+      product.product_Markets.find((m) => m.price === product.price).marketID ||
+      0;
+
     selectedInventories.forEach((inv) => {
-      // update the endpoint and use params object for query params e.g {paramKey: paramValue}
-      axios.post(`${API_URL}/`, product, { params: {} });
+      // fill the object
+      const target = {
+        inventoryId: inv.id,
+        productId: product.id,
+        marketId: marketId,
+        quantity: product.quantity,
+      };
+      try {
+        axios.put(`${API_URL}/Inventory/AddProductToInventory`, target);
+      } catch (error) {
+        console.log("Error adding product to inventories: " + error);
+      }
     });
     navigation.navigate("InventoriesDashboard");
   };
@@ -86,8 +102,10 @@ export default function InventoriesSelectionScreen({ navigation, route }) {
         setIsLoading(false);
       }
     };
-    fetchInventories();
-  }, []);
+    if (isFocused) {
+      fetchInventories();
+    }
+  }, [user, isFocused]);
 
   return isLoading ? (
     <Box>

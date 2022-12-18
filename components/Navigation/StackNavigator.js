@@ -46,6 +46,7 @@ export const HomeStackNavigator = ({ navigation }) => {
   const homeTitle = t("Inicio");
   const productsTitle = t("Productos");
   const inventoryTitle = t("Lista");
+  const productInfoTitle = t("Información de producto");
 
   const openDrawer = () => navigation.openDrawer();
 
@@ -77,6 +78,11 @@ export const HomeStackNavigator = ({ navigation }) => {
         options={({ route }) => ({
           headerTitle: route.params.name || inventoryTitle,
         })}
+      />
+      <Stack.Screen
+        name="ProductInfo"
+        component={ProductInfoScreen}
+        options={{ headerTitle: productInfoTitle }}
       />
     </Stack.Navigator>
   );
