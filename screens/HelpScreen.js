@@ -1,9 +1,73 @@
-import { StyleSheet, Text, View, Button } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  View,
+  Button,
+  TouchableHighlight,
+  Image,
+} from "react-native";
+import { Fontisto, AntDesign, Ionicons, Feather } from "@expo/vector-icons";
+import { useTranslation } from "react-i18next";
+import { colors } from "../styles/globals";
+
+function HelpCategory(props) {
+  const { t } = useTranslation();
+  return (
+    <TouchableHighlight onPress={() => {}}>
+      <View style={styles.categoryContainer}>
+        <View style={styles.iconContainer}>
+          <svg
+            width="36"
+            height="36"
+            viewBox="0 0 36 36"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <circle cx="18" cy="18" r="18" fill="#00D36D" />
+          </svg>
+          {
+            props.title === "Listas" ? (
+              <Image source={require("../assets/check-list1.png")} style={styles.imageIcon} />
+            ) : props.title === "Comparaciones" ? (
+              <Image source={require("../assets/leverage1.png")} style={styles.imageIcon} />
+            ) : props.title === "Supermercados" ? (
+              <Image source={require("../assets/restaurant1.png")} style={styles.imageIcon} />
+            ) : props.title === "Categorias" ? (
+              <Image source={require("../assets/categories.png")} style={styles.imageIcon} />
+            ) : null
+          }
+        </View>
+        <Text style={styles.categoryText}>{t(props.title)}</Text>
+        <View style={styles.arrowContainer}>
+          <AntDesign name="down" size={16} color="black" />
+        </View>
+      </View>
+    </TouchableHighlight>
+  );
+}
 
 export default function HelpScreen({ navigation }) {
+  const { t } = useTranslation();
   return (
     <View style={styles.container}>
-      <Text>Help Screen</Text>
+      <Text style={styles.title}>{t("Necesitas ayuda?")}</Text>
+      <View style={styles.HelpCategory}>
+        <HelpCategory title="Listas" />
+        <HelpCategory title="Comparaciones" />
+        <HelpCategory title="Supermercados" />
+        <HelpCategory title="Categorias" />
+      </View>
+      <Text style={styles.title}>{t("Contacto")}</Text>
+      <View style={styles.contactContainer}>
+        <View style={styles.contact}>
+          <Ionicons name="call-outline" size={24} color={colors.lightGreen} />
+          <Text style={styles.text}>{"(809) 111-2222"}</Text>
+        </View>
+        <View style={styles.contact}>
+          <Feather name="mail" size={24} color={colors.lightGreen} />
+          <Text style={styles.text}>soporte@listifymarket.com</Text>
+        </View>
+      </View>
     </View>
   );
 }
@@ -11,9 +75,66 @@ export default function HelpScreen({ navigation }) {
 const styles = StyleSheet.create({
   container: {
     height: "100%",
-    backgroundColor: "#B5D3D3",
-    justifyContent: "center",
-    alignContent: "center",
+    backgroundColor: colors.light,
     alignItems: "center",
+  },
+  HelpCategory: {
+    marginTop: 20,
+    width: "85%",
+  },
+  title: {
+    fontSize: 30,
+    color: colors.dark,
+    textDecorationLine: "underline",
+    marginBottom: 0,
+    marginTop: 60,
+    fontFamily: "Cabin-Bold",
+  },
+  iconContainer: {
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  imageIcon: {
+    width: 28,
+    height: 28,
+    position: "absolute",
+  },
+  categoryContainer: {
+    backgroundColor: "rgba(255, 255, 255, 0.5)",
+    flexDirection: "row",
+    padding: 15,
+    marginTop: 1,
+    justifyContent: "flex-start",
+    alignItems: "center",
+  },
+  arrowContainer: {
+    alignSelf: "flex-end",
+    marginLeft: "auto",
+  },
+  categoryText: {
+    fontSize: 14,
+    marginLeft: 20,
+    marginRight: 90,
+    textAlign: "left",
+    fontFamily: "Cabin-Bold",
+  },
+  contactContainer: {
+    padding: 15,
+    marginTop: 1,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  contact: {
+    flexDirection: "row",
+    padding: 15,
+    marginTop: 1,
+    alignSelf: "stretch",
+  },
+  text: {
+    fontSize: 14,
+    marginLeft: 20,
+    marginRight: 90,
+    textAlign: "left",
+    fontFamily: "Cabin-Bold",
   },
 });

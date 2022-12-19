@@ -5,6 +5,8 @@ import AppNavigator from "./components/Navigation/AppNavigator";
 import LoadingScreen from "./screens/onboarding/LoadingView";
 import { useFonts } from "expo-font";
 import DashboardScreen from "./screens/UserDashboardScreen";
+import "./services/i18n/i18n";
+
 
 export default function App() {
   const [fontsLoaded, error] = useFonts({

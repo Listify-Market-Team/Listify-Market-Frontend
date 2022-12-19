@@ -1,54 +1,100 @@
-import { StyleSheet, Text, View, Image, ScrollView } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  View,
+  Image,
+  ScrollView,
+  ActivityIndicator,
+} from "react-native";
 import React, { useState, useEffect, useContext } from "react";
 import { useIsFocused } from "@react-navigation/native";
 import { API_URL } from "../api/constants";
+import { globalStyles, colors } from "../styles/globals";
+import Box from "../components/Box";
+import { useTranslation } from "react-i18next";
+import axios from "axios";
 
 const InventoryProductsScreen = ({ navigation, route }) => {
-  const isFocused = useIsFocused();
-
   const [inventory, setInventory] = useState({});
   const [products, setProducts] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const isFocused = useIsFocused();
+  const { t } = useTranslation();
 
-  const fetchInventory = async () => {
+  const { id, name, description } = route.params.inventory;
+
+  const fetchInventoryProducts = async () => {
+    setIsLoading(true);
     try {
-      const res = await fetch(
-        `${API_URL}/Product/GetProductsByInventoryID?inventoryID=${route.params.id}`
+      const res = await axios.get(
+        `${API_URL}/Product/GetProductsByInventoryID`,
+        { params: { inventoryId: id } }
       );
       if (res.status !== 200) {
         return;
       }
-
-      const data = await res.json();
-      setInventory(data);
-      setProducts(data.products);
+      const products = res.data.products;
+      setProducts(products);
+      // setProducts([
+      //   { name: "Product 1", price: 123.5 },
+      //   { name: "Product 2", price: 123.5 },
+      // ]);
+      setIsLoading(false);
     } catch (error) {
-      console.log("Error loading inventory with id" + route.params.id);
+      console.log("Error loading products");
+      setIsLoading(false);
     }
   };
 
   useEffect(() => {
-    fetchInventory();
+    setInventory({ name, description });
+    fetchInventoryProducts();
   }, [isFocused]);
 
   return (
-    <View style={styles.screen}>
+    <View style={styles.viewContainer}>
       <View style={styles.header}>
-        <Text style={styles.titule}>{inventory.name}</Text>
+        <Text style={styles.title}>{inventory.name}</Text>
       </View>
-      <ScrollView style={styles.container}>
-        {products.map((product, i) => (
-          <View style={styles.productContainer} key={i}>
-            <Image
-              source="https://cdn2.iconfinder.com/data/icons/e-commerce-line-4-1/1024/open_box4-512.png"
-              style={styles.imageStyle}
-            />
-            <View style={styles.tituleContainer}>
-              <Text style={styles.productName}>{product.name}</Text>
-              <Text>{product.price}</Text>
-            </View>
-          </View>
-        ))}
-      </ScrollView>
+      <View style={globalStyles.view}>
+        {isLoading ? (
+          <Box>
+            <ActivityIndicator size={50} color="#000" />
+          </Box>
+        ) : products.length === 0 ? (
+          <Box>
+            <Text style={styles.text}>
+              {t("No hay productos para mostrar")}
+            </Text>
+          </Box>
+        ) : (
+          <ScrollView style={styles.container}>
+            {products.map((product) => {
+              const productQuantity =
+                product.product_Inventories.find((i) => i.inventoryID === id)
+                  .quantity || 1;
+
+              return (
+                <View style={styles.productContainer} key={product.id}>
+                  <Image
+                    source="https://cdn2.iconfinder.com/data/icons/e-commerce-line-4-1/1024/open_box4-512.png"
+                    style={styles.imageStyle}
+                  />
+                  <View style={styles.content}>
+                    <Text style={styles.productName}>{product.name}</Text>
+                    <Text
+                      style={styles.quantity}
+                    >{`Cantidad: ${productQuantity}`}</Text>
+                    <Text
+                      style={styles.price}
+                    >{`Precio: ${product.price} RD$`}</Text>
+                  </View>
+                </View>
+              );
+            })}
+          </ScrollView>
+        )}
+      </View>
     </View>
   );
 };
@@ -56,48 +102,58 @@ const InventoryProductsScreen = ({ navigation, route }) => {
 export default InventoryProductsScreen;
 
 const styles = StyleSheet.create({
-  screen: {
-    flex: 1, // investigar
-    backgroundColor: "#b5d3d2",
+  viewContainer: {
+    flex: 1,
   },
   header: {
-    backgroundColor: "#559e9f",
+    backgroundColor: colors.green,
+    height: 200,
+    flexDirection: "row",
     justifyContent: "center",
     alignItems: "center",
+    paddingHorizontal: 50,
   },
-  titule: {
-    margin: 30,
-    fontSize: 30,
+  title: {
     color: "white",
+    fontFamily: "Cabin-Bold",
+    fontSize: 36,
+    textAlign: "center",
   },
   container: {
     marginTop: 20,
-    paddingTop: "7%",
-    paddingHorizontal: "6%",
     width: "100%",
-    height: "100%",
-    backgroundColor: "#dae8e9",
   },
   productContainer: {
     flexDirection: "row",
     backgroundColor: "#ffffff",
-    padding: 14,
-    justifyContent: "flex-start",
+    padding: 15,
     marginBottom: 15,
-    position: "relative",
-    zIndex: 1,
+    borderRadius: 10,
+  },
+  content: {
+    marginLeft: 15,
   },
   productName: {
-    marginBottom: 4,
-    fontSize: 20,
-    fontWeight: "bold",
+    marginBottom: 6,
+    fontSize: 18,
+    fontFamily: "Cabin-Bold",
+  },
+  price: {
+    fontFamily: "Cabin-Bold",
+    marginRight: 10,
+    fontSize: 18,
+    color: colors.green,
+  },
+  quantity: {
+    fontFamily: "Cabin-Regular",
+    fontSize: 18,
   },
   imageStyle: {
     height: 50,
     width: 50,
   },
-  tituleContainer: {
-    paddingLeft: "4%",
-    justifyContent: "center",
+  text: {
+    fontFamily: "Cabin-Regular",
+    fontSize: 16,
   },
 });

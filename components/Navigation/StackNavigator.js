@@ -9,17 +9,19 @@ import PersonalScreen from "../../screens/PersonalScreen";
 import ViewOne from "../../screens/onboarding/ViewOne";
 import ViewTwo from "../../screens/onboarding/ViewTwo";
 import HelpScreen from "../../screens/HelpScreen";
-// import ProductListScreen from "../../screens/productListScreen";
-// import NewListScreen from "../../screens/NewListScreen";
-// import UpdateListScreen from "../../screens/UpdateListScreen";
-import SearchProductScreen from "../../screens/SearchProductScreen";
+import TranslationProvider from "../TranslationProvider";
+
+import { colors } from "../../styles/globals";
+import ProductsScreen from "../../screens/ProductsScreen";
 import AddProductScreen from "../../screens/AddProductScreen";
 import ProductInfoScreen from "../../screens/ProductInfoScreen";
 import InventoriesScreen from "../../screens/InventoriesScreen";
 import HomeScreen from "../../screens/HomeScreen";
 import MarketsScreen from "../../screens/MarketsScreen";
 import InventoryProductsScreen from "../../screens/InventoryProductsScreen";
-import { colors } from "../../styles/globals";
+import NewInventoryScreen from "../../screens/NewInventoryScreen";
+import UpdateInventoryScreen from "../../screens/UpdateInventoryScreen";
+import InventoriesSelectionScreen from "../../screens/InventoriesSelectionScreen";
 import UserDashboardScreen from  "../../screens/UserDashboardScreen"
 
 const Stack = createNativeStackNavigator();
@@ -45,7 +47,9 @@ export const HomeStackNavigator = ({ navigation }) => {
   const { t } = useTranslation();
   const homeTitle = t("Inicio");
   const productsTitle = t("Productos");
+  const helpTitle = t("Ayuda");
   const inventoryTitle = t("Lista");
+  const productInfoTitle = t("Información de producto");
 
   const openDrawer = () => navigation.openDrawer();
 
@@ -64,11 +68,32 @@ export const HomeStackNavigator = ({ navigation }) => {
               <Feather name="menu" size={30} color={colors.dark} />
             </Pressable>
           ),
+          headerRight: () => (
+            <Pressable
+              onPress={() => navigation.navigate("HelpDashboard")}
+              style={styles.menuBtn}
+            >
+              <Feather name="help-circle" size={30} color={colors.dark} />
+            </Pressable>
+          ),
         }}
       />
+
+      <Stack.Screen
+        name="HelpDashboard"
+        component={HelpScreen}
+        options={{
+          headerTitle: helpTitle,
+          headerRight: () => (
+            <TranslationProvider color={colors.dark}>
+            </TranslationProvider>
+          ),
+        }}
+      />
+
       <Stack.Screen
         name="ProductsDashboard"
-        component={SearchProductScreen}
+        component={ProductsScreen}
         options={{ headerTitle: productsTitle }}
       />
       <Stack.Screen
@@ -78,6 +103,11 @@ export const HomeStackNavigator = ({ navigation }) => {
           headerTitle: route.params.name || inventoryTitle,
         })}
       />
+      <Stack.Screen
+        name="ProductInfo"
+        component={ProductInfoScreen}
+        options={{ headerTitle: productInfoTitle }}
+      />
     </Stack.Navigator>
   );
 };
@@ -85,6 +115,8 @@ export const HomeStackNavigator = ({ navigation }) => {
 export const MarketsStackNavigator = ({ navigation }) => {
   const { t } = useTranslation();
   const marketsTitle = t("Supermercados");
+  const productsTitle = t("Productos");
+  const productInfoTitle = t("Información de producto");
 
   const openDrawer = () => navigation.openDrawer();
 
@@ -105,6 +137,18 @@ export const MarketsStackNavigator = ({ navigation }) => {
           ),
         }}
       />
+      <Stack.Screen
+        name="ProductsDashboard"
+        component={ProductsScreen}
+        options={{
+          headerTitle: productsTitle,
+        }}
+      />
+      <Stack.Screen
+        name="ProductInfo"
+        component={ProductInfoScreen}
+        options={{ headerTitle: productInfoTitle }}
+      />
     </Stack.Navigator>
   );
 };
@@ -112,6 +156,9 @@ export const MarketsStackNavigator = ({ navigation }) => {
 export const InventoriesStackNavigator = ({ navigation }) => {
   const { t } = useTranslation();
   const inventoriesTitle = t("Listas");
+  const newInventoryTitle = t("Creación de listas");
+  const updateInventoryTitle = t("Modificación de listas");
+  const inventoryTitle = t("Lista");
 
   const openDrawer = () => navigation.openDrawer();
 
@@ -131,6 +178,23 @@ export const InventoriesStackNavigator = ({ navigation }) => {
             </Pressable>
           ),
         }}
+      />
+      <Stack.Screen
+        name="NewInventory"
+        component={NewInventoryScreen}
+        options={{ headerTitle: newInventoryTitle }}
+      />
+      <Stack.Screen
+        name="UpdateInventory"
+        component={UpdateInventoryScreen}
+        options={{ headerTitle: updateInventoryTitle }}
+      />
+      <Stack.Screen
+        name="InventoryProducts"
+        component={InventoryProductsScreen}
+        options={({ route }) => ({
+          headerTitle: route.params.inventory.name || inventoryTitle,
+        })}
       />
     </Stack.Navigator>
   );
@@ -166,6 +230,10 @@ export const HelpStackNavigator = ({ navigation }) => {
 export const ProductsStackNavigator = ({ navigation }) => {
   const { t } = useTranslation();
   const productsTitle = t("Productos");
+  const productInfoTitle = t("Información de producto");
+  const addproductTitle = t("Información de producto");
+  const productSelectionTitle = t("Agregando producto a listas");
+  const inventoriesTitle = t("Listas");
 
   const openDrawer = () => navigation.openDrawer();
 
@@ -176,7 +244,7 @@ export const ProductsStackNavigator = ({ navigation }) => {
     >
       <Stack.Screen
         name="ProductsDashboard"
-        component={SearchProductScreen}
+        component={ProductsScreen}
         options={{
           headerTitle: productsTitle,
           headerLeft: () => (
@@ -186,9 +254,26 @@ export const ProductsStackNavigator = ({ navigation }) => {
           ),
         }}
       />
-      <Stack.Screen name="AddProduct" component={AddProductScreen} />
-      <Stack.Screen name="ProductInfo" component={ProductInfoScreen} />
-      <Stack.Screen name="UserDashboard" component={UserDashboardScreen} />
+      <Stack.Screen
+        name="AddProduct"
+        component={AddProductScreen}
+        options={{ headerTitle: addproductTitle }}
+      />
+      <Stack.Screen
+        name="ProductInfo"
+        component={ProductInfoScreen}
+        options={{ headerTitle: productInfoTitle }}
+      />
+      <Stack.Screen
+        name="InventoriesSelection"
+        component={InventoriesSelectionScreen}
+        options={{ headerTitle: productSelectionTitle }}
+      />
+      <Stack.Screen
+        name="InventoriesDashboard"
+        component={InventoriesScreen}
+        options={{ headerTitle: inventoriesTitle }}
+      />
     </Stack.Navigator>
   );
 };

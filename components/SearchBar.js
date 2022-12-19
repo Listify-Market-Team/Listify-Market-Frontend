@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { StyleSheet, View, TextInput, Pressable, Image } from "react-native";
-import searchIcon from "../img/magnifier.png";
+import searchIcon from "../assets/magnifier.png";
 import { colors } from "../styles/globals";
 
 const SearchBar = (props) => {

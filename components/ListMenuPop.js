@@ -17,21 +17,21 @@ const ListMenuPop = (props) => {
   const { t, i18n } = useTranslation();
   const items = [
     {
-      name: t("Eliminar"),
-      action: (id) => {
-        props.deleteList(id);
-      },
-    },
-    {
       name: t("Editar"),
       action: (id) => {
         props.editList(id);
       },
     },
     {
-      name: t("Favorito"),
-      action: () => {},
+      name: t("Eliminar"),
+      action: (id) => {
+        props.deleteList(id);
+      },
     },
+    // {
+    //   name: t("Favorito"),
+    //   action: () => {},
+    // },
   ];
 
   const renderItem = ({ item }) => {
@@ -116,6 +116,7 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
     justifyContent: "center",
+    paddingVertical: 10,
   },
   itemText: {
     fontSize: 17,
