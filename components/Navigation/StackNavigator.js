@@ -9,6 +9,7 @@ import PersonalScreen from "../../screens/PersonalScreen";
 import ViewOne from "../../screens/onboarding/ViewOne";
 import ViewTwo from "../../screens/onboarding/ViewTwo";
 import HelpScreen from "../../screens/HelpScreen";
+import TranslationProvider from "../TranslationProvider";
 
 import { colors } from "../../styles/globals";
 import ProductsScreen from "../../screens/ProductsScreen";
@@ -45,6 +46,7 @@ export const HomeStackNavigator = ({ navigation }) => {
   const { t } = useTranslation();
   const homeTitle = t("Inicio");
   const productsTitle = t("Productos");
+  const helpTitle = t("Ayuda");
   const inventoryTitle = t("Lista");
   const productInfoTitle = t("Información de producto");
 
@@ -65,8 +67,29 @@ export const HomeStackNavigator = ({ navigation }) => {
               <Feather name="menu" size={30} color={colors.dark} />
             </Pressable>
           ),
+          headerRight: () => (
+            <Pressable
+              onPress={() => navigation.navigate("HelpDashboard")}
+              style={styles.menuBtn}
+            >
+              <Feather name="help-circle" size={30} color={colors.dark} />
+            </Pressable>
+          ),
         }}
       />
+
+      <Stack.Screen
+        name="HelpDashboard"
+        component={HelpScreen}
+        options={{
+          headerTitle: helpTitle,
+          headerRight: () => (
+            <TranslationProvider color={colors.dark}>
+            </TranslationProvider>
+          ),
+        }}
+      />
+
       <Stack.Screen
         name="ProductsDashboard"
         component={ProductsScreen}
