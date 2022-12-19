@@ -69,18 +69,32 @@ const InventoryProductsScreen = ({ navigation, route }) => {
           </Box>
         ) : (
           <ScrollView style={styles.container}>
-            {products.map((product) => (
-              <View style={styles.productContainer} key={product.id}>
-                <Image
-                  source="https://cdn2.iconfinder.com/data/icons/e-commerce-line-4-1/1024/open_box4-512.png"
-                  style={styles.imageStyle}
-                />
-                <View style={styles.content}>
-                  <Text style={styles.productName}>{product.name}</Text>
-                  <Text style={styles.price}>{product.price}</Text>
+            {products.map((product) => {
+              console.log(product);
+              const productQuantity =
+                product.product_Inventories.find((i) => i.inventoryID === id)
+                  .quantity || 1;
+
+              console.log(productQuantity);
+
+              return (
+                <View style={styles.productContainer} key={product.id}>
+                  <Image
+                    source="https://cdn2.iconfinder.com/data/icons/e-commerce-line-4-1/1024/open_box4-512.png"
+                    style={styles.imageStyle}
+                  />
+                  <View style={styles.content}>
+                    <Text style={styles.productName}>{product.name}</Text>
+                    <Text
+                      style={styles.quantity}
+                    >{`Cantidad: ${productQuantity}`}</Text>
+                    <Text
+                      style={styles.price}
+                    >{`Precio: ${product.price} RD$`}</Text>
+                  </View>
                 </View>
-              </View>
-            ))}
+              );
+            })}
           </ScrollView>
         )}
       </View>
@@ -129,8 +143,13 @@ const styles = StyleSheet.create({
   },
   price: {
     fontFamily: "Cabin-Bold",
+    marginRight: 10,
     fontSize: 18,
     color: colors.green,
+  },
+  quantity: {
+    fontFamily: "Cabin-Regular",
+    fontSize: 18,
   },
   imageStyle: {
     height: 50,

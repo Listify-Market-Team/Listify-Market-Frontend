@@ -37,13 +37,13 @@ export default function ProductInfoScreen({ navigation, route }) {
     });
   };
 
-  const addToInventories = (product) => {
-    if (!price || quantity >= 0) {
-      // navigation.navigate("AddProduct", { product: { ...product, quantity, price  } });
+  const addToInventories = () => {
+    if (!price || quantity <= 0) {
       return;
     }
-    // const productToAdd = { product: { ...product, quantity, price } };
+    const productToAdd = { ...product, quantity, price };
     // console.log(productToAdd);
+    navigation.navigate("InventoriesSelection", { product: productToAdd });
   };
 
   const selectPrice = (value) => {
@@ -105,19 +105,21 @@ export default function ProductInfoScreen({ navigation, route }) {
           </View>
           <View style={styles.quantityBtnWrapper}>
             <Pressable style={styles.quantityButton} onPress={decrease}>
-              <Text style={styles.quantityBtnText}> - </Text>
+              <Text style={styles.quantityBtnLabel}> - </Text>
             </Pressable>
 
             <Text style={styles.quantityNumber}>{quantity}</Text>
 
             <Pressable style={styles.quantityButton} onPress={increase}>
-              <Text style={styles.quantityBtnText}> + </Text>
+              <Text style={styles.quantityBtnLabel}> + </Text>
             </Pressable>
           </View>
         </View>
       </View>
       <View style={styles.actions}>
-        <Button onPress={addToInventories}>{t("Agregar producto")}</Button>
+        <Button onPress={() => addToInventories()}>
+          {t("Agregar producto")}
+        </Button>
       </View>
     </View>
   );
@@ -140,19 +142,20 @@ const styles = StyleSheet.create({
     borderRadius: 10
   },
   price: {
-    padding: 14,
     marginRight: 6,
     borderRadius: 10,
   },
   priceText: {
+    paddingHorizontal: 14,
+    paddingVertical: 10,
     fontFamily: "Cabin-Bold",
     color: "#fff",
     fontSize: 18,
-    borderRadius: 5,
     paddingLeft: 10,
     paddingRight: 10,
     paddingTop: 5,
-    paddingBottom: 5
+    paddingBottom: 5,
+    borderRadius: 15,
   },
   title: {
     fontSize: 36,
@@ -212,9 +215,9 @@ const styles = StyleSheet.create({
     marginTop: "auto",
     marginBottom: 50,
   },
-  quantityBtnText:{
-    color: '#fff', 
-    fontWeight: 'bold',
-    fontSize: 20
-  }
+  quantityBtnLabel: {
+    color: "#fff",
+    fontFamily: "Cabin-Bold",
+    fontSize: 20,
+  },
 });

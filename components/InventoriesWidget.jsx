@@ -8,7 +8,7 @@ import {
 } from "react-native";
 import { useTranslation } from "react-i18next";
 import { useState, useEffect, useContext } from "react";
-import { useNavigation } from "@react-navigation/native";
+import { useNavigation, useIsFocused } from "@react-navigation/native";
 import axios from "axios";
 import Box from "../components/Box";
 import { colors } from "../styles/globals";
@@ -20,26 +20,35 @@ export default function InventoriesWidget() {
   const { t } = useTranslation();
   const { navigate } = useNavigation();
   const { user } = useContext(AuthContext);
+  const isFocused = useIsFocused();
 
   useEffect(() => {
-    try {
-      axios
-        .get(`${API_URL}/Inventory/GetByUserId`, {
-          params: { userId: user.id },
-        })
-        .then((response) => {
-          if (response.status === 200) {
-            setInventories({ loading: false, data: response.data.inventories });
-            return;
-          }
-          setInventories({ loading: false, data: [] });
-        });
-      // setInventories({ loading: false, data: data });
-    } catch (error) {
-      console.log("Error loading inventories");
-      setInventories({ loading: false, data: [] });
+    const fetchInventories = () => {
+      try {
+        axios
+          .get(`${API_URL}/Inventory/GetByUserId`, {
+            params: { userId: user.id },
+          })
+          .then((response) => {
+            if (response.status === 200) {
+              setInventories({
+                loading: false,
+                data: response.data.inventories,
+              });
+              return;
+            }
+            setInventories({ loading: false, data: [] });
+          });
+        // setInventories({ loading: false, data: data });
+      } catch (error) {
+        console.log("Error loading inventories");
+        setInventories({ loading: false, data: [] });
+      }
+    };
+    if (isFocused) {
+      fetchInventories();
     }
-  }, []);
+  }, [isFocused]);
 
   const title = t("Mis listas");
   const btnText = t("Ver");
@@ -73,7 +82,7 @@ export default function InventoriesWidget() {
                   <View>
                     <Text style={styles.text}>{item.name}</Text>
                     <Text style={[styles.text, styles.greenText]}>
-                      {item.totalPrice}
+                      {`Total: ${item.totalPrice} RD$`}
                     </Text>
                   </View>
                   <Pressable
