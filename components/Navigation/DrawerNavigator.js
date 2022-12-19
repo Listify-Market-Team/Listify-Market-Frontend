@@ -4,7 +4,7 @@ import { Feather } from "@expo/vector-icons";
 import { View } from "react-native";
 import { useTranslation } from "react-i18next";
 import Menu from "../../components/Menu";
-import { StyleSheet } from "react-native";
+import { StyleSheet, Image } from "react-native";
 import { colors } from "../../styles/globals";
 
 import {
@@ -23,7 +23,7 @@ export const DrawerNavigator = () => {
   const productsTitle = t("Productos");
   const marketsTitle = t("Supermercados");
   const helpTitle = t("Ayuda");
-  const inventoryTitle = t("Listas");
+  const inventoryTitle = t("Mis Listas");
 
   const iconsColor = "#00DE68";
 
@@ -43,29 +43,20 @@ export const DrawerNavigator = () => {
           title: homeTitle,
           headerTitle: homeTitle,
           drawerIcon: () => (
-            <Ionicons name="home-outline" size={24} color={iconsColor} />
-          ),
-        }}
-      />
-      <Drawer.Screen
-        name="Inventories"
-        component={InventoriesStackNavigator}
-        options={{
-          title: inventoryTitle,
-          headerTitle: inventoryTitle,
-          drawerIcon: () => (
-            <Ionicons name="home-outline" size={24} color={iconsColor} />
-          ),
-        }}
-      />
-      <Drawer.Screen
-        name="Markets"
-        component={MarketsStackNavigator}
-        options={{
-          title: marketsTitle,
-          headerTitle: marketsTitle,
-          drawerIcon: () => (
-            <Ionicons name="home-outline" size={24} color={iconsColor} />
+            <View>
+              <svg
+                width="28"
+                height="28"
+                viewBox="0 0 36 36"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <circle cx="18" cy="18" r="18" fill={colors.lightGreen} />
+              </svg>
+              <View style={styles.iconContainer}>
+                <Image source={require("../../assets/HomeLogo.svg")} style={styles.imageIcon} />
+              </View>
+            </View>
           ),
         }}
       />
@@ -76,7 +67,68 @@ export const DrawerNavigator = () => {
           title: productsTitle,
           headerTitle: productsTitle,
           drawerIcon: () => (
-            <Ionicons name="home-outline" size={24} color={iconsColor} />
+            <View>
+              <svg
+                width="28"
+                height="28"
+                viewBox="0 0 36 36"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <circle cx="18" cy="18" r="18" fill={colors.lightGreen} />
+              </svg>
+              <View style={styles.iconContainer}>
+                <Image source={require("../../assets/categories.png")} style={styles.imageIcon} />
+              </View>
+            </View>
+          ),
+        }}
+      />
+      <Drawer.Screen
+        name="Inventories"
+        component={InventoriesStackNavigator}
+        options={{
+          title: inventoryTitle,
+          headerTitle: inventoryTitle,
+          drawerIcon: () => (
+            <View>
+              <svg
+                width="28"
+                height="28"
+                viewBox="0 0 36 36"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <circle cx="18" cy="18" r="18" fill={colors.lightGreen} />
+              </svg>
+              <View style={styles.iconContainer}>
+                <Image source={require("../../assets/check-list1.png")} style={styles.imageIcon} />
+              </View>
+            </View>
+          ),
+        }}
+      />
+      <Drawer.Screen
+        name="Markets"
+        component={MarketsStackNavigator}
+        options={{
+          title: marketsTitle,
+          headerTitle: marketsTitle,
+          drawerIcon: () => (
+            <View>
+              <svg
+                width="28"
+                height="28"
+                viewBox="0 0 36 36"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <circle cx="18" cy="18" r="18" fill={colors.lightGreen} />
+              </svg>
+              <View style={styles.iconContainer}>
+                <Image source={require("../../assets/restaurant1.png")} style={styles.imageIcon} />
+              </View>
+            </View>
           ),
         }}
       />
@@ -100,5 +152,18 @@ const styles = StyleSheet.create({
     fontFamily: "Cabin-Regular",
     fontSize: 18,
     color: colors.dark,
+  },
+  imageIcon: {
+    width: 25,
+    height: 25,
+  },
+  iconContainer: {
+    position: "absolute",
+    top: 0,
+    left: 0,
+    bottom: 0,
+    right: 0,
+    justifyContent: "center",
+    alignItems: "center",
   },
 });

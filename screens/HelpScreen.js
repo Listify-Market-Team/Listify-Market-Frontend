@@ -7,10 +7,8 @@ import {
   Image,
 } from "react-native";
 import { Fontisto, AntDesign, Ionicons, Feather } from "@expo/vector-icons";
-import * as Svg from "react-native-svg";
 import { useTranslation } from "react-i18next";
 import { colors } from "../styles/globals";
-import { SvgUri } from "react-native-svg";
 
 function HelpCategory(props) {
   const { t } = useTranslation();
