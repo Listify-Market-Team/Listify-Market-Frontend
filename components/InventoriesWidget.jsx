@@ -55,7 +55,7 @@ export default function InventoriesWidget() {
   const noDataLabel = t("Sin listas para mostrar");
 
   const goToInventoryProducts = (id, name) => {
-    navigate("InventoryProducts", { id, name });
+    navigate("InventoryProducts", { inventory: { id, name } });
   };
 
   // console.log(inventories);
