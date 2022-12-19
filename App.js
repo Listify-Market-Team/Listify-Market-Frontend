@@ -4,6 +4,7 @@ import AppContextProvider from "./context/AppContext";
 import AppNavigator from "./components/Navigation/AppNavigator";
 import LoadingScreen from "./screens/onboarding/LoadingView";
 import { useFonts } from "expo-font";
+import ProductInfoScreen from "./screens/ProductInfoScreen";
 
 export default function App() {
   const [fontsLoaded, error] = useFonts({

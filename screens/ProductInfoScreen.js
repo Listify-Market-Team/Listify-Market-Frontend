@@ -38,12 +38,12 @@ export default function ProductInfoScreen({ navigation, route }) {
   };
 
   const addToInventories = (product) => {
-    if (!price || quantity <= 0) {
+    if (!price || quantity >= 0) {
+      // navigation.navigate("AddProduct", { product: { ...product, quantity, price  } });
       return;
     }
     // const productToAdd = { product: { ...product, quantity, price } };
     // console.log(productToAdd);
-    // navigation.navigate("", { product: { ...product, quantity, price } });
   };
 
   const selectPrice = (value) => {
@@ -105,13 +105,13 @@ export default function ProductInfoScreen({ navigation, route }) {
           </View>
           <View style={styles.quantityBtnWrapper}>
             <Pressable style={styles.quantityButton} onPress={decrease}>
-              <Text> - </Text>
+              <Text style={styles.quantityBtnText}> - </Text>
             </Pressable>
 
             <Text style={styles.quantityNumber}>{quantity}</Text>
 
             <Pressable style={styles.quantityButton} onPress={increase}>
-              <Text> + </Text>
+              <Text style={styles.quantityBtnText}> + </Text>
             </Pressable>
           </View>
         </View>
@@ -129,11 +129,15 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
     borderRadius: 10,
     padding: 15,
+    marginTop: 20,
+    paddingTop: 10,
+    marginBottom: 10
   },
   image: {
     display: "block",
     width: "90%",
     height: "90%",
+    borderRadius: 10
   },
   price: {
     padding: 14,
@@ -144,6 +148,11 @@ const styles = StyleSheet.create({
     fontFamily: "Cabin-Bold",
     color: "#fff",
     fontSize: 18,
+    borderRadius: 5,
+    paddingLeft: 10,
+    paddingRight: 10,
+    paddingTop: 5,
+    paddingBottom: 5
   },
   title: {
     fontSize: 36,
@@ -176,7 +185,8 @@ const styles = StyleSheet.create({
     textTransform: "uppercase",
     fontFamily: "Cabin-Regular",
     color: colors.dark,
-    fontSize: 24,
+    fontSize: 20,
+    paddingLeft: 20
   },
   quantityBtnWrapper: {
     flexDirection: "row",
@@ -187,6 +197,7 @@ const styles = StyleSheet.create({
     fontSize: 32,
     backgroundColor: colors.green,
     fontFamily: "Cabin-Regular",
+    borderRadius: 10
   },
   quantityNumber: {
     backgroundColor: "white",
@@ -195,10 +206,15 @@ const styles = StyleSheet.create({
     width: 40,
     display: "flex",
     alignItems: "center",
-    justifyContent: "center",
+    justifyContent: "center"
   },
   actions: {
     marginTop: "auto",
     marginBottom: 50,
   },
+  quantityBtnText:{
+    color: '#fff', 
+    fontWeight: 'bold',
+    fontSize: 20
+  }
 });
