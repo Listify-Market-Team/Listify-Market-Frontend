@@ -70,12 +70,9 @@ const InventoryProductsScreen = ({ navigation, route }) => {
         ) : (
           <ScrollView style={styles.container}>
             {products.map((product) => {
-              console.log(product);
               const productQuantity =
                 product.product_Inventories.find((i) => i.inventoryID === id)
                   .quantity || 1;
-
-              console.log(productQuantity);
 
               return (
                 <View style={styles.productContainer} key={product.id}>
