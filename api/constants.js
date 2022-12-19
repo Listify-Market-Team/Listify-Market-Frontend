@@ -1,6 +1,6 @@
 import { Dimensions } from "react-native";
 
-export const API_URL = "https://listifymarket.onrender.com/api/";
+export const API_URL = "https://listifymarket.onrender.com/api";
 
 //export const API_URL = "https://localhost:7209/api";
 
