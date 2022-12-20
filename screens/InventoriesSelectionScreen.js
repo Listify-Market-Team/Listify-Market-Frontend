@@ -85,7 +85,16 @@ export default function InventoriesSelectionScreen({ navigation, route }) {
         console.log("Error adding product to inventories: " + error);
       }
     });
-    navigation.navigate("InventoriesDashboard");
+    // ANTES:
+    //navigation.navigate("InventoriesDashboard");
+
+    // AHORA:
+    navigation.getParent().navigate("Inventories");
+    navigation.reset({
+      index: 0,
+      routes: [{ name: "Inventories" }],
+    });
+
   };
 
   useEffect(() => {
