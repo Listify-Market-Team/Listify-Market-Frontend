@@ -142,9 +142,7 @@ export const DrawerNavigator = () => {
             <Feather name="help-circle" size={24} color={iconsColor} />
           ),
         }}
-      />
-
-      
+      /> */}
     </Drawer.Navigator>
   );
 };
