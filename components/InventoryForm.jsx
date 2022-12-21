@@ -7,7 +7,7 @@ import { colors } from "../styles/globals";
 
 export default function InventoryForm({ onSubmit, defaultValues, loading }) {
   const [name, setName] = useState("");
-  const [description, setDescription] = useState();
+  const [description, setDescription] = useState("");
   const { t } = useTranslation();
 
   const changeNameHandler = (value) => {
@@ -29,7 +29,7 @@ export default function InventoryForm({ onSubmit, defaultValues, loading }) {
   }, []);
 
   const submit = () => {
-    if (name.trim() === "" || description.trim() === "") {
+    if (name.trim() === "") {
       return;
     }
     onSubmit({ name, description });
