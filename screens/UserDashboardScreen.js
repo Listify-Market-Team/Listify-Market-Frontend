@@ -169,7 +169,7 @@ export default function UserDashboardScreen(){
     const [totalPrice, addPrice] = useState(0);
     
     const addToCount = (value) =>{
-        addPrice(totalPrice+value)   
+        addPrice((totalPrice) => totalPrice + value)   
     }
 
     //Chart Configurations, enter your prefered colors here
