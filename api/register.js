@@ -16,6 +16,8 @@ async function supabaseRegister(user, password) {
 
 export const register = (name, password, email, phoneNumber, setLoading, setSuccess) => {
   setLoading(true);
+  const usert = supabaseRegister(email, password);
+  console.log(usert);
   axios
     .post(`${API_URL}/AppUsers/Create`, {
       name: name,
