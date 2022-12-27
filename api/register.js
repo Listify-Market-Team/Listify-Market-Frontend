@@ -1,6 +1,18 @@
 import { Alert, Platform } from "react-native";
 import { API_URL } from "./constants";
+import { supabase } from "./supabase";
 import axios from "axios";
+
+async function supabaseRegister(user, password) {
+  const { user: supabaseUser, error } = await supabase.auth.signUp({
+    email: user,
+    password,
+  });
+  if (error) {
+    throw error;
+  }
+  return supabaseUser;
+}
 
 export const register = (name, password, email, phoneNumber, setLoading, setSuccess) => {
   setLoading(true);

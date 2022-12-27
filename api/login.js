@@ -1,10 +1,25 @@
 import { Alert, Platform } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { API_URL } from "./constants";
+import { supabase } from "./supabase";
 import axios from "axios";
 
-export const login = (user, password, setIsLoading, setUser, t) => {
+async function supabaseLogin(user, password) {
+  const {
+    user: supabaseUser,
+    session,
+    error,
+  } = await supabase.auth.signIn({
+    email: user,
+    password,
+  });
+  if (error) {
+    throw error;
+  }
+  return { user: supabaseUser, session };
+}
 
+export const login = (user, password, setIsLoading, setUser, t) => {
   setIsLoading(true);
   axios
     .post(`${API_URL}/AppUsers/AuthenticateUser`, {
@@ -33,3 +48,4 @@ export const login = (user, password, setIsLoading, setUser, t) => {
       setIsLoading(false);
     });
 };
+
