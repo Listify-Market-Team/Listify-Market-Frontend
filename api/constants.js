@@ -12,7 +12,7 @@ export const emailRegex = new RegExp(
   /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/
 );
 
-export const phoneRegex = new RegExp(/^(?:\d{10})$/);
+export const phoneRegex = new RegExp(/^(?:\d{11})$/);
 
 export const userRegex = new RegExp(
   emailRegex.source + "|" + phoneRegex.source
