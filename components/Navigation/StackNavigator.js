@@ -22,6 +22,7 @@ import InventoryProductsScreen from "../../screens/InventoryProductsScreen";
 import NewInventoryScreen from "../../screens/NewInventoryScreen";
 import UpdateInventoryScreen from "../../screens/UpdateInventoryScreen";
 import InventoriesSelectionScreen from "../../screens/InventoriesSelectionScreen";
+import EmailConfirmView from "../../screens/EmailConfirmationScreen";
 
 const Stack = createNativeStackNavigator();
 
@@ -38,6 +39,7 @@ export const AuthStackNavigation = () => {
       <Stack.Screen name="Login" component={LoginScreen} />
       <Stack.Screen name="Personal" component={PersonalScreen} />
       <Stack.Screen name="Register" component={RegisterScreen} />
+      <Stack.Screen name="EmailConfirmView" component={EmailConfirmView} />
     </Stack.Navigator>
   );
 };

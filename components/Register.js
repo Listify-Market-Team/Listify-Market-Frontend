@@ -39,7 +39,7 @@ export default function Register(props) {
 
   const closeModal = () => {
     if (success) {
-      props.navigate("Login");
+      props.navigate("EmailConfirmView");
     } else {
       setInvalidPassword(false);
     }
