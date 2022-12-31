@@ -50,7 +50,7 @@ const styles = StyleSheet.create({
   text: {
     fontSize: 20,
     fontWeight: 500,
-    marginBottom: 100,
+    marginBottom: 80,
     color: colors.dark,
     fontFamily: "Cabin-Regular",
   },

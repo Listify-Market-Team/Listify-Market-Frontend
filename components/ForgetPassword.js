@@ -2,51 +2,48 @@ import React from "react";
 import { View, Text, StyleSheet, Pressable } from "react-native";
 import { useForm } from "react-hook-form";
 import AuthContainer from "./AuthContainer";
-import LoginInput from "../components/LoginInput";
-import { phoneRegex } from "../api/constants";
+import LoginInput from "./LoginInput";
+import { emailRegex } from "../api/constants";
 import Button from "./Button";
 import { colors } from "../styles/globals";
 
 import { useTranslation } from "react-i18next";
 
-export default function Personal(props) {
+export default function ForgetPassword(props) {
   const { control, handleSubmit } = useForm({
     defaultValues: {
-      name: "",
-      phoneNumber: "",
+      email: "",
     },
   });
   const { t } = useTranslation();
 
   const submit = (data) => {
-    props.navigate("Register", {
-      name: data.name,
-      phoneNumber: data.phoneNumber,
+    props.navigate("PasswordConfirmation", {
+      email: data.email,
     });
   };
 
-  const title = t("Creación de cuenta");
+  const title = t("Reestablecer tu cuenta");
 
   return (
     <React.Fragment>
       <AuthContainer>
         <Text style={styles.title}>{title}</Text>
+        <View style={styles.textContainer}>
+          <Text style={styles.informationText}>
+            {t(
+              "Ingresa el correo electronico con el que te registraste en Listify Market"
+            )}
+          </Text>
+        </View>
         <LoginInput
           control={control}
-          name="name"
-          placeholder={t("Nombre")}
-          type={"name"}
-          rules={{ required: t("El nombre es requerido") }}
-        />
-        <LoginInput
-          control={control}
-          name="phoneNumber"
-          placeholder={t("Teléfono")}
-          type={"telephoneNumber"}
+          name="email"
+          type={"emailAddress"}
+          placeholder={t("Correo electrónico o teléfono")}
           rules={{
-            required: t("El teléfono es requerido"),
-            pattern: { value: phoneRegex, message: t("Teléfono inválido") },
-
+            required: t("Correo electrónico o teléfono is requerido"),
+            pattern: { value: emailRegex, message: t("Email inválido") },
           }}
         />
         <View style={styles.actions}>
@@ -83,7 +80,7 @@ const styles = StyleSheet.create({
     marginTop: 50,
   },
   actions: {
-    marginTop: 100,
+    marginTop: 150,
     paddingHorizontal: 50,
     flexDirection: "row",
     width: "100%",
@@ -116,5 +113,15 @@ const styles = StyleSheet.create({
     color: "#ffffff",
     textAlign: "center",
     fontSize: 18,
+  },
+  textContainer: {
+    paddingHorizontal: 35,
+    marginTop: 30,
+    width: "100%",
+  },
+  informationText: {
+    color: "#fff",
+    fontSize: 16,
+    fontWeight: 300,
   },
 });
