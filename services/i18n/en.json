@@ -82,7 +82,9 @@
     "¡Cuenta creada con éxito!": "Account created successfully!",
     "Reestablecer tu cuenta": "Reset your account",
     "Olvidaste tu contraseña?": "Forgot your password?",
-    "Reestablecer": "Reset"
-
+    "Reestablecer": "Reset",
+    "Correo electrónico": "Email",
+    "Ingresa el correo electrónico con el que te registraste en Listify Market": "Enter the email with which you registered in Listify Market",
+    "Correo electrónico requerido": "Email required"
   }
 }

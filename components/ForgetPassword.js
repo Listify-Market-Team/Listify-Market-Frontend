@@ -32,7 +32,7 @@ export default function ForgetPassword(props) {
         <View style={styles.textContainer}>
           <Text style={styles.informationText}>
             {t(
-              "Ingresa el correo electronico con el que te registraste en Listify Market"
+              "Ingresa el correo electrónico con el que te registraste en Listify Market"
             )}
           </Text>
         </View>
@@ -40,9 +40,9 @@ export default function ForgetPassword(props) {
           control={control}
           name="email"
           type={"emailAddress"}
-          placeholder={t("Correo electrónico o teléfono")}
+          placeholder={t("Correo electrónico")}
           rules={{
-            required: t("Correo electrónico o teléfono is requerido"),
+            required: t("Correo electrónico requerido"),
             pattern: { value: emailRegex, message: t("Email inválido") },
           }}
         />
