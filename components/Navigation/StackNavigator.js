@@ -11,6 +11,11 @@ import ViewTwo from "../../screens/onboarding/ViewTwo";
 import HelpScreen from "../../screens/HelpScreen";
 import TranslationProvider from "../TranslationProvider";
 
+import HelpListScreen from "../../screens/help/HelpListScreen";
+import HelpCategoriesScreen from "../../screens/help/HelpCategoriesScreen";
+import HelpMarketsScreen from "../../screens/help/HelpMarketsScreen";
+import HelpCompareScreen from "../../screens/help/HelpCompareScreen";
+
 import { colors } from "../../styles/globals";
 import ProductsScreen from "../../screens/ProductsScreen";
 import AddProductScreen from "../../screens/AddProductScreen";
@@ -26,7 +31,6 @@ import EmailConfirmView from "../../screens/EmailConfirmationScreen";
 import PasswordResetScreen from "../../screens/PasswordResetScreen";
 import ForgetPasswordScreen from "../../screens/ForgetPasswordScreen";
 import PasswordConfirmationScreen from "../../screens/PasswordConfirmationScreen";
-
 
 const Stack = createNativeStackNavigator();
 
@@ -46,7 +50,10 @@ export const AuthStackNavigation = () => {
       <Stack.Screen name="EmailConfirmView" component={EmailConfirmView} />
       <Stack.Screen name="PasswordReset" component={PasswordResetScreen} />
       <Stack.Screen name="ForgetPassword" component={ForgetPasswordScreen} />
-      <Stack.Screen name="PasswordConfirmation" component={PasswordConfirmationScreen} />
+      <Stack.Screen
+        name="PasswordConfirmation"
+        component={PasswordConfirmationScreen}
+      />
     </Stack.Navigator>
   );
 };
@@ -58,6 +65,10 @@ export const HomeStackNavigator = ({ navigation }) => {
   const helpTitle = t("Ayuda");
   const inventoryTitle = t("Lista");
   const productInfoTitle = t("Información de producto");
+  const helpListTitle = t("Ayuda acerca de las listas");
+  const helpCategoriesTitle = t("Ayuda acerca de las categorías");
+  const helpMarketsTitle = t("Ayuda acerca de los mercados");
+  const helpCompareTitle = t("Ayuda acerca de la comparación");
 
   const openDrawer = () => navigation.openDrawer();
 
@@ -93,8 +104,7 @@ export const HomeStackNavigator = ({ navigation }) => {
         options={{
           headerTitle: helpTitle,
           headerRight: () => (
-            <TranslationProvider color={colors.dark}>
-            </TranslationProvider>
+            <TranslationProvider color={colors.dark}></TranslationProvider>
           ),
         }}
       />
@@ -115,6 +125,47 @@ export const HomeStackNavigator = ({ navigation }) => {
         name="ProductInfo"
         component={ProductInfoScreen}
         options={{ headerTitle: productInfoTitle }}
+      />
+      <Stack.Screen
+        name="HelpList"
+        component={HelpListScreen}
+        options={{
+          headerTitle: helpListTitle,
+          headerRight: () => (
+            <TranslationProvider color={colors.dark}></TranslationProvider>
+          ),
+        }}
+      />
+      <Stack.Screen
+        name="HelpCategories"
+        component={HelpCategoriesScreen}
+        options={{
+          headerTitle: helpCategoriesTitle,
+          headerRight: () => (
+            <TranslationProvider color={colors.dark}></TranslationProvider>
+          ),
+        }}
+      />
+
+      <Stack.Screen
+        name="HelpMarkets"
+        component={HelpMarketsScreen}
+        options={{
+          headerTitle: helpMarketsTitle,
+          headerRight: () => (
+            <TranslationProvider color={colors.dark}></TranslationProvider>
+          ),
+        }}
+      />
+      <Stack.Screen
+        name="HelpCompare"
+        component={HelpCompareScreen}
+        options={{
+          headerTitle: helpCompareTitle,
+          headerRight: () => (
+            <TranslationProvider color={colors.dark}></TranslationProvider>
+          ),
+        }}
       />
     </Stack.Navigator>
   );
@@ -220,16 +271,32 @@ export const HelpStackNavigator = ({ navigation }) => {
       screenOptions={{ headerTitleStyle: styles.headerText }}
     >
       <Stack.Screen
-        name="HelpDashboad"
+        name="HelpDashboard"
         component={HelpScreen}
         options={{
-          headerTitle: helpTitle,
-          headerLeft: () => (
-            <Pressable onPress={openDrawer} style={styles.menuBtn}>
-              <Feather name="menu" size={30} color={colors.dark} />
-            </Pressable>
-          ),
+          headerShown: false,
         }}
+      />
+      <Stack.Screen
+        name="HelpList"
+        component={HelpListScreen}
+        options={{ headerTitle: helpTitle }}
+      />
+      <Stack.Screen
+        name="HelpCategories"
+        component={HelpCategoriesScreen}
+        options={{ headerTitle: helpTitle }}
+      />
+
+      <Stack.Screen
+        name="HelpMarkets"
+        component={HelpMarketsScreen}
+        options={{ headerTitle: helpTitle }}
+      />
+      <Stack.Screen
+        name="HelpCompare"
+        component={HelpCompareScreen}
+        options={{ headerTitle: helpTitle }}
       />
     </Stack.Navigator>
   );

@@ -85,6 +85,12 @@
     "Reestablecer": "Reset",
     "Correo electrónico": "Email",
     "Ingresa el correo electrónico con el que te registraste en Listify Market": "Enter the email with which you registered in Listify Market",
-    "Correo electrónico requerido": "Email required"
+    "Correo electrónico requerido": "Email required",
+    "Ayuda acerca de las listas": "Help about lists",
+    "Ayuda acerca de las categorías": "Help about categories",
+    "Ayuda acerca de los productos": "Help about products",
+    "Ayuda acerca de los mercados": "Help about markets",
+    "Ayuda acerca de la comparación": "Help about comparisons"
+    
   }
 }
