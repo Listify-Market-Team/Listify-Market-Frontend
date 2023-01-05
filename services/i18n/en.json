@@ -71,6 +71,20 @@
     "Comparaciones": "Comparisons",
     "Supermercados": "Supermarkets",
     "Categorias": "Categories",
-    "Contacto": "Contact"
+    "Contacto": "Contact",
+    "La contraseña debe tener al menos 6 caracteres": "The password must be at least 6 characters",
+    "Correo electrónico enviado!": "Email Sent!",
+    "Te hemos enviado un correo con un enlace para verificar tu cuenta.": "We have sent you an email with a link to verify your account.",
+    "Reestablecer contraseña": "Reset password",
+    "Ingresa el correo electronico con el que te registraste en Listify Market": "Enter the email with which you registered in Listify Market",
+    "Te hemos enviado un correo con un enlace para reestablecer tu contraseña": "We have sent you an email with a link to reset your password",
+    "Haz click en el enlace para continuar.": "Click on the link to continue.",
+    "¡Cuenta creada con éxito!": "Account created successfully!",
+    "Reestablecer tu cuenta": "Reset your account",
+    "Olvidaste tu contraseña?": "Forgot your password?",
+    "Reestablecer": "Reset",
+    "Correo electrónico": "Email",
+    "Ingresa el correo electrónico con el que te registraste en Listify Market": "Enter the email with which you registered in Listify Market",
+    "Correo electrónico requerido": "Email required"
   }
 }

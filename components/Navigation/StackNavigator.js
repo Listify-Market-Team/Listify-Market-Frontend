@@ -22,6 +22,11 @@ import InventoryProductsScreen from "../../screens/InventoryProductsScreen";
 import NewInventoryScreen from "../../screens/NewInventoryScreen";
 import UpdateInventoryScreen from "../../screens/UpdateInventoryScreen";
 import InventoriesSelectionScreen from "../../screens/InventoriesSelectionScreen";
+import EmailConfirmView from "../../screens/EmailConfirmationScreen";
+import PasswordResetScreen from "../../screens/PasswordResetScreen";
+import ForgetPasswordScreen from "../../screens/ForgetPasswordScreen";
+import PasswordConfirmationScreen from "../../screens/PasswordConfirmationScreen";
+
 
 const Stack = createNativeStackNavigator();
 
@@ -38,6 +43,10 @@ export const AuthStackNavigation = () => {
       <Stack.Screen name="Login" component={LoginScreen} />
       <Stack.Screen name="Personal" component={PersonalScreen} />
       <Stack.Screen name="Register" component={RegisterScreen} />
+      <Stack.Screen name="EmailConfirmView" component={EmailConfirmView} />
+      <Stack.Screen name="PasswordReset" component={PasswordResetScreen} />
+      <Stack.Screen name="ForgetPassword" component={ForgetPasswordScreen} />
+      <Stack.Screen name="PasswordConfirmation" component={PasswordConfirmationScreen} />
     </Stack.Navigator>
   );
 };
