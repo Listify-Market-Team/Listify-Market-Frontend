@@ -1,3 +1,7 @@
+/* eslint-disable semi */
+/* eslint-disable quotes */
+/* eslint-disable react-native/no-inline-styles */
+/* eslint-disable indent */
 import {
     View,
     Text,
@@ -8,7 +12,7 @@ import {
     Dimensions,
     FlatList,
   } from "react-native";
-  import { useTranslation } from "react-i18next";
+  import { composeInitialProps, useTranslation } from "react-i18next";
   import { useState, useEffect } from "react";
   import { useNavigation } from "@react-navigation/native";
   import axios from "axios";
@@ -16,7 +20,8 @@ import {
   import { colors } from "../styles/globals";
   import { API_URL } from "../api/constants";
   import React from 'react'
-  import { PieChart } from 'react-native-chart-kit';
+  import { PieChart , BarChart} from 'react-native-chart-kit';
+  import { Component } from "spinners-react";
 
 
 //Dummy Data
@@ -33,7 +38,7 @@ const exampleData =[
                 email: "lala@land.com",
                 phoneNumber: "8491234567"
              },
-      totalPrice: 350,
+      totalPrice: 1800,
       isFavorite: true,
       enabled: true,
       color: "#AAFF00",
@@ -50,14 +55,21 @@ const exampleData =[
                     name: 'coca-cola',
                     productID: 2,
                     price: 200,
-                    marketName: 'Sirena',
+                    marketName: 'Nacional',
                     color: "#90EE90"
                 },
                 {   name: 'salami',
                     productID: 3,
-                    price:50,
+                    price: 500,
                     marketName: 'Bravo',
                     color: "#AAFF00"
+                },
+                {
+                    name: 'banana',
+                    productID: 7,
+                    price: 1000,
+                    marketName: 'Ole',
+                    color: "#86C8BC",
                 }
             ]      
     },
@@ -73,7 +85,7 @@ const exampleData =[
                 email: "lala@land.com",
                 phoneNumber: "8491234567"
              },
-      totalPrice: 6000,
+      totalPrice: 6500,
       isFavorite: true,
       enabled: true,
       color: "#AFE1AF",
@@ -90,7 +102,7 @@ const exampleData =[
                 name: 'lechuga romana',
                 productID: 6,
                 price: 2000,
-                marketName: 'Bravo',
+                marketName: 'Nacional',
                 color: "#90EE90",
             },
             {
@@ -99,6 +111,12 @@ const exampleData =[
                 price: 1000,
                 marketName: 'Ole',
                 color: "#AAFF00",
+            },
+            {   name: 'salami',
+                productID: 3,
+                price: 500,
+                marketName: 'Bravo',
+                color: "#86C8BC"
             }
         ]      
     },
@@ -114,7 +132,7 @@ const exampleData =[
                 email: "lala@land.com",
                 phoneNumber: "8491234567"
              },
-      totalPrice: 2999,
+      totalPrice: 3699,
       isFavorite: true,
       enabled: true,
       color: "#50C878",
@@ -133,6 +151,19 @@ const exampleData =[
                 price: 1999,
                 marketName: 'Sirena',
                 color: "#90EE90",
+            },
+            {   name: 'salami',
+                productID: 3,
+                price: 500,
+                marketName: 'Bravo',
+                color: "#AAFF00"
+            },
+            {
+                name: 'coca-cola',
+                productID: 2,
+                price: 200,
+                marketName: 'Sirena',
+                color: "#86C8BC"
             }
         ]      
     }
@@ -162,12 +193,85 @@ const itemDivider = () => {
         );
       }
 
-    
-
 export default function UserDashboardScreen(){
 
     const [totalPrice, addPrice] = useState(0);
+    const [NameProducts, addNameProducts] = useState([]);
+    const [CountProducts, addCountProducts] = useState([]);
+    const [NameMarkets, addNameMarkets] = useState([]);
+    const [CountMarkets, addCountMarkets] = useState([]);
     
+    function sortByValue(dictionary) {
+        const sorted = {};
+        Object.keys(dictionary)
+          .sort((a, b) => dictionary[a] + dictionary[b])
+          .forEach(key => {
+            sorted[key] = dictionary[key];
+          });
+        return sorted;
+    }
+      
+    const AddProductsToCount = () => {
+        const count = {};
+        const entries = [
+          ...Object.entries(exampleData),
+          ...Object.values(exampleData).flatMap(Object.entries)
+        ];
+        for (const [key, value] of entries) { 
+            for (const productkey in value.product_Inventories) {
+                const product = value.product_Inventories[productkey].name
+
+                if (typeof product !== 'string')
+                    continue;
+
+                if (!count[product]){
+                    count[product] = 1;
+                    continue;
+                }
+                           
+                count[product] += 1;
+            }
+        }   
+        
+        const sortedcount = sortByValue(count);
+        console.log(sortedcount)
+        addCountProducts(Object.keys(sortedcount))
+        addNameProducts(Object.values(sortedcount))
+    };
+
+    const AddMarketsToCount = () => {
+        const count = {};
+        const entries = [
+          ...Object.entries(exampleData),
+          ...Object.values(exampleData).flatMap(Object.entries)
+        ];
+        for (const [key, value] of entries) {
+            for (const productkey in value.product_Inventories) {
+                const product = value.product_Inventories[productkey].marketName
+
+                if (typeof product !== 'string')
+                    continue;
+
+                if (!count[product]){
+                    count[product] = 1;
+                    continue;
+                }
+                                       
+                count[product] += 1;
+            }
+        }        
+        
+        const sortedcount = sortByValue(count);
+        console.log(sortedcount)
+        addCountMarkets(Object.keys(sortedcount))
+        addNameMarkets(Object.values(sortedcount))
+    };
+
+    useEffect(() => {
+        AddProductsToCount();
+        AddMarketsToCount();
+    },[])
+
     const addToCount = (value) =>{
         addPrice((totalPrice) => totalPrice + value)   
     }
@@ -188,6 +292,7 @@ export default function UserDashboardScreen(){
     // };
 
     return (
+        
         <View style={styles.base}>
 
                 <View style={styles.totalPriceCount}>
@@ -197,11 +302,11 @@ export default function UserDashboardScreen(){
 
                 <View style={styles.container}>
                         <View style={styles.expenditureContainer}>
-
+                            
                             <Text style = {styles.expenditureText}> Costo Total</Text>
                                 <PieChart
                                     data={exampleData}
-                                    width={Dimensions.get('window').width}
+                                    width={screenWidth}
                                     height={220}
                                     chartConfig={chartConfig}
                                     style={{
@@ -225,7 +330,7 @@ export default function UserDashboardScreen(){
                                     <Text style={styles.productRankText}>{item.name}</Text>
                                     <PieChart
                                         data={item.product_Inventories}
-                                        width={Dimensions.get('window').width}
+                                        width={screenWidth}
                                         height={220}
                                         chartConfig={chartConfig}
                                         style={{
@@ -247,9 +352,60 @@ export default function UserDashboardScreen(){
                             ItemSeparatorComponent={itemDivider}
                             />
 
-                            
+                        </View>
 
+                        <View style ={styles.productRankContainer}>
+                            <Text style={styles.productRankTitle}>Productos más comprados</Text>
+                            <BarChart
+                            data={{labels: CountProducts,
+                                datasets: [
+                                {
+                                    data: NameProducts
+                                },
+                                ],}}
+                            width={screenWidth - 120}
+                            height={220}
+                            chartConfig={{
+                                backgroundColor: '#1cc910',
+                                backgroundGradientFrom: '#eff3ff',
+                                backgroundGradientTo: '#efefef',
+                                
+                                color: (opacity = 1) => `rgba(0, 0, 0, ${opacity})`,
+                                style: {
+                                borderRadius: 16,
+                                },
+                            }}
+                            style={{
+                                borderRadius: 16,
+                            }}
+                            />
+                        </View>
 
+                        <View style ={styles.productRankContainer}>
+                            <Text style={styles.productRankTitle}>Supermercados mas elegido</Text>
+                            <BarChart
+                            data={{labels: CountMarkets,
+                                datasets: [
+                                {
+                                    data: NameMarkets,
+                                },
+                                ],}}
+                            width={screenWidth - 120}
+                            height={220}
+                            chartConfig={{
+                                backgroundColor: '#1cc910',
+                                backgroundGradientFrom: '#eff3ff',
+                                backgroundGradientTo: '#efefef',
+                                
+                                color: (opacity = 1) => `rgba(0, 0, 0, ${opacity})`,
+                                style: {
+                                borderRadius: 16,
+                                },
+                            }}
+                            style={{
+                                borderRadius: 16,
+                            }}
+                            />
                         </View>
                 </View>
         </View>

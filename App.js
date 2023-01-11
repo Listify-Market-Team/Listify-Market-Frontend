@@ -21,12 +21,12 @@ export default function App() {
   }
 
   return (
-    // <AppContextProvider>
-    //   <AuthProvider>
-    //     <AppNavigator />
-    //     <LoadingScreen />
-    //   </AuthProvider>
-    // </AppContextProvider>
+  // <AppContextProvider>
+  //   <AuthProvider>
+  //     <AppNavigator />
+  //     <LoadingScreen />
+  //   </AuthProvider>
+  // </AppContextProvider>
 
     <DashboardScreen/>
   );
