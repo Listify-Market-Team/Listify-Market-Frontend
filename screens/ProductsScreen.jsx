@@ -24,18 +24,38 @@ export default function ProductsScreen({ navigation, route }) {
   const [loadingProducts, setIsLoadingProducts] = useState(true);
   const [loadingMarkets, setIsLoadingMarkets] = useState(true);
   const [selectedFilter, setSeletedFilter] = useState("");
+  const [image, setImage] = useState(false);
 
   const fetchProducts = async () => {
     setIsLoadingProducts(true);
     try {
       const res = await axios.get(`${API_URL}/Product/GetAll`);
       const products = await res.data.products;
-      setProducts(products);
+      // setProducts(products);
+      // setIsLoadingProducts(false);
+
+      //fetching image:
+      let productsWithImg = [];
+      for(let product of products){
+        console.log(products);
+        console.log(product.id);
+        product.image = await getProductImage(product.id);
+        productsWithImg.push(product);
+      }
+      // productsWithImg = products.map((product) => {
+      //   product.image = getProductImage(product.id);
+      //   return product;
+      // });
+
+      setProducts(productsWithImg);
+      console.log("despues del setProducts", productsWithImg);
+      setImage(true);
       setIsLoadingProducts(false);
     } catch (error) {
-      console.log("Error fetching products");
+      console.log("Error fetching products: ", error);
       setIsLoadingProducts(false);
     }
+
   };
 
   useEffect(() => {
@@ -91,6 +111,28 @@ export default function ProductsScreen({ navigation, route }) {
       setIsLoadingProducts(false);
     }
   };
+
+  const getProductImage = async (productId) => {
+    try{
+      let response = await axios.get(`${API_URL}/ConsumeWebApi/GetImages?productID=${productId}`);
+      if (response.data === '')
+        return "https://cdn-icons-png.flaticon.com/512/1548/1548682.png";
+
+      return response.data;
+
+      // axios({
+      //   method: "get",
+      //   url: `${API_URL}/ConsumeWebApi/GetImages?productID=${productId}`
+      // }).then((res) => {
+      //   if (res.data === '')
+      //     return "https://cdn-icons-png.flaticon.com/512/1548/1548682.png";
+
+      //   return res.data; //image as base64
+      // });
+    } catch(error) {
+      console.log("Ha ocurrido un error: ", error);
+    }
+  }
 
   const renderFilters = ({ item }) => {
     return (
@@ -153,7 +195,14 @@ export default function ProductsScreen({ navigation, route }) {
                   key={product.id}
                   onPress={() => goToProductDetail(product)}
                 >
-                  <Image style={styles.image} source={{ uri: product.image }} />
+                  {console.log("is Image", image)}
+                  {console.log("image: ", product.image)}
+                  {
+                    image &&
+                    (
+                      <Image style={styles.image} source={{ uri: `data:image/jpeg;base64,${product.image}` }} />
+                    )
+                  }
                   <View>
                     <Text style={styles.name}>{product.name}</Text>
                     {/* <Text style={styles.price}>
