@@ -22,7 +22,7 @@ import InventoryProductsScreen from "../../screens/InventoryProductsScreen";
 import NewInventoryScreen from "../../screens/NewInventoryScreen";
 import UpdateInventoryScreen from "../../screens/UpdateInventoryScreen";
 import InventoriesSelectionScreen from "../../screens/InventoriesSelectionScreen";
-import UserDashboardScreen from  "../../screens/UserDashboardScreen"
+import UserDashboardScreen from "../../screens/UserDashboardScreen";
 
 const Stack = createNativeStackNavigator();
 
@@ -85,8 +85,7 @@ export const HomeStackNavigator = ({ navigation }) => {
         options={{
           headerTitle: helpTitle,
           headerRight: () => (
-            <TranslationProvider color={colors.dark}>
-            </TranslationProvider>
+            <TranslationProvider color={colors.dark}></TranslationProvider>
           ),
         }}
       />
@@ -274,7 +273,6 @@ export const ProductsStackNavigator = ({ navigation }) => {
         component={InventoriesScreen}
         options={{ headerTitle: inventoriesTitle }}
       />
-      
     </Stack.Navigator>
   );
 };
@@ -305,7 +303,6 @@ export const DashboardStackNavigator = ({ navigation }) => {
     </Stack.Navigator>
   );
 };
-
 
 const styles = StyleSheet.create({
   menuBtn: {

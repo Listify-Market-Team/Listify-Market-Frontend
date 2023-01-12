@@ -23,7 +23,7 @@ export const DrawerNavigator = () => {
   const homeTitle = t("Inicio");
   const productsTitle = t("Productos");
   const marketsTitle = t("Supermercados");
-  const helpTitle = t("Ayuda");
+  // const helpTitle = t("Ayuda");
   const inventoryTitle = t("Mis Listas");
   const dashboardTitle = t("Tablero");
 
