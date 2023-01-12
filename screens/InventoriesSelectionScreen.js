@@ -163,24 +163,24 @@ const styles = StyleSheet.create({
     marginRight: 15,
   },
   itemName: {
-    fontFamily: "Cabin-Bold",
+    fontFamily: "Roboto",
     fontSize: 24,
     color: colors.green,
   },
   itemProducts: {
-    fontFamily: "Cabin-Regular",
+    fontFamily: "Roboto",
     fontSize: 18,
     color: colors.dark,
   },
   title: {
-    fontFamily: "Cabin-Bold",
+    fontFamily: "Roboto",
     fontSize: 48,
     paddingTop: 30,
     marginTop: 50,
     marginBottom: 40,
   },
   text: {
-    fontFamily: "Cabin-Regular",
+    fontFamily: "Roboto",
     fontSize: 16,
     color: colors.dark,
   },

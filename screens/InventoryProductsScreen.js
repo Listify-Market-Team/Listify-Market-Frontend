@@ -115,7 +115,7 @@ const styles = StyleSheet.create({
   },
   title: {
     color: "white",
-    fontFamily: "Cabin-Bold",
+    fontFamily: "Roboto",
     fontSize: 36,
     textAlign: "center",
   },
@@ -136,16 +136,16 @@ const styles = StyleSheet.create({
   productName: {
     marginBottom: 6,
     fontSize: 18,
-    fontFamily: "Cabin-Bold",
+    fontFamily: "Roboto",
   },
   price: {
-    fontFamily: "Cabin-Bold",
+    fontFamily: "Roboto",
     marginRight: 10,
     fontSize: 18,
     color: colors.green,
   },
   quantity: {
-    fontFamily: "Cabin-Regular",
+    fontFamily: "Roboto",
     fontSize: 18,
   },
   imageStyle: {
@@ -153,7 +153,7 @@ const styles = StyleSheet.create({
     width: 50,
   },
   text: {
-    fontFamily: "Cabin-Regular",
+    fontFamily: "Roboto",
     fontSize: 16,
   },
 });

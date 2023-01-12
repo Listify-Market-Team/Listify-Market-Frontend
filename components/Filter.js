@@ -47,6 +47,6 @@ const styles = StyleSheet.create({
     borderRadius: 20,
   },
   name: {
-    fontFamily: "Cabin-Regular",
+    fontFamily: "Roboto",
   },
 });

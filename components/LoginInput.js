@@ -57,7 +57,7 @@ const styles = StyleSheet.create({
     color: "#FFF",
     fontSize: 18,
     padding: 10,
-    fontFamily: "Cabin-Regular",
+    fontFamily: "Roboto",
   },
   error: {
     flexDirection: "row",
@@ -69,6 +69,6 @@ const styles = StyleSheet.create({
     color: "yellow",
     fontSize: 16,
     fontWeight: "650",
-    fontFamily: "Cabin-Regular",
+    fontFamily: "Roboto",
   },
 });

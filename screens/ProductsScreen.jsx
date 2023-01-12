@@ -182,21 +182,21 @@ const styles = StyleSheet.create({
   },
   title: {
     color: "#fff",
-    fontFamily: "Cabin-Bold",
+    fontFamily: "Roboto",
     fontSize: 48,
     textAlign: "center",
   },
   name: {
     color: colors.dark,
     fontSize: 18,
-    fontFamily: "Cabin-Bold",
+    fontFamily: "Roboto",
     marginBottom: 5,
     textTransform: "capitalize",
   },
   // price: {
   //   color: colors.green,
   //   fontSize: 16,
-  //   fontFamily: "Cabin-Bold",
+  //   fontFamily: "Roboto",
   // },
   filters: {
     backgroundColor: colors.ligthGreen,

@@ -66,7 +66,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   label: {
-    fontFamily: "Cabin-Regular",
+    fontFamily: "Roboto",
     color: colors.dark,
     marginBottom: 8,
     fontSize: 16,

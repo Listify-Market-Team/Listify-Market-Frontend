@@ -92,21 +92,21 @@ const styles = StyleSheet.create({
     color: "#FFF",
     fontSize: 18,
     textAlign: "center",
-    fontFamily: "Cabin-Regular",
+    fontFamily: "Roboto",
   },
   footer_signup: {
     marginLeft: 5,
     color: "#A1DDFF",
     fontSize: 18,
     textAlign: "center",
-    fontFamily: "Cabin-Medium",
+    fontFamily: "Roboto",
   },
   title: {
     color: "#fff",
     fontSize: 48,
     textAlign: "center",
     marginTop: 50,
-    fontFamily: "Cabin-Bold",
+    fontFamily: "Roboto",
   },
   actions: {
     marginTop: 60,
@@ -122,13 +122,13 @@ const styles = StyleSheet.create({
     color: "#FFF",
     fontSize: 18,
     textAlign: "center",
-    fontFamily: "Cabin-Regular",
+    fontFamily: "Roboto",
   },
   forgetPassword_forget: {
     marginLeft: 5,
     color: "#A1DDFF",
     fontSize: 18,
     textAlign: "center",
-    fontFamily: "Cabin-Medium",
+    fontFamily: "Roboto",
   }
 });

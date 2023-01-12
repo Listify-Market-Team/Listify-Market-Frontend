@@ -30,7 +30,7 @@ const styles = StyleSheet.create({
     color: "#ffffff",
     textTransform: "uppercase",
     textAlign: "center",
-    fontFamily: "Cabin-Bold",
+    fontFamily: "Roboto",
     fontSize: 24,
   },
 });

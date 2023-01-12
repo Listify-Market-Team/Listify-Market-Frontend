@@ -52,7 +52,7 @@ const styles = StyleSheet.create({
     borderTopLeftRadius: 10,
     borderBottomLeftRadius: 10,
     color: colors.black,
-    fontFamily: "Cabin-Regular",
+    fontFamily: "Roboto",
   },
   searchButton: {
     justifyContent: "center",

@@ -113,11 +113,11 @@ const styles = StyleSheet.create({
     padding: 25,
   },
   text: {
-    fontFamily: "Cabin-Regular",
+    fontFamily: "Roboto",
     fontSize: 18,
   },
   name: {
-    fontFamily: "Cabin-Bold",
+    fontFamily: "Roboto",
     fontSize: 18,
   },
   content: {

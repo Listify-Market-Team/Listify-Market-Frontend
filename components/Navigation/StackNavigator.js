@@ -358,7 +358,7 @@ const styles = StyleSheet.create({
     marginHorizontal: 11,
   },
   headerText: {
-    fontFamily: "Cabin-Medium",
+    fontFamily: "Roboto",
     fontSize: 18,
     color: colors.dark,
   },

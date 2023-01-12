@@ -51,7 +51,7 @@ const styles = StyleSheet.create({
     alignSelf: "center",
     fontSize: 20,
     marginBottom: 40,
-    fontFamily: "Cabin-Bold",
+    fontFamily: "Roboto",
     color: colors.dark,
   },
   logout: {
@@ -70,7 +70,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
     lineHeight: 21,
     letterSpacing: 0.25,
-    fontFamily: "Cabin-Bold",
+    fontFamily: "Roboto",
     color: colors.dark,
   },
 });

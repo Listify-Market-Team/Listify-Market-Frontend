@@ -144,14 +144,14 @@ const styles = StyleSheet.create({
   priceText: {
     paddingHorizontal: 14,
     paddingVertical: 10,
-    fontFamily: "Cabin-Bold",
+    fontFamily: "Roboto",
     color: "#fff",
     fontSize: 18,
     borderRadius: 15,
   },
   title: {
     fontSize: 36,
-    fontFamily: "Cabin-Bold",
+    fontFamily: "Roboto",
     marginBottom: 20,
   },
   imageContainer: {
@@ -178,7 +178,7 @@ const styles = StyleSheet.create({
   quantityLabel: {
     fontWeight: "bold",
     textTransform: "uppercase",
-    fontFamily: "Cabin-Regular",
+    fontFamily: "Roboto",
     color: colors.dark,
     fontSize: 24,
   },
@@ -190,7 +190,7 @@ const styles = StyleSheet.create({
     paddingVertical: 7,
     fontSize: 32,
     backgroundColor: colors.green,
-    fontFamily: "Cabin-Regular",
+    fontFamily: "Roboto",
     borderRadius: 10,
   },
   quantityNumber: {
@@ -208,7 +208,7 @@ const styles = StyleSheet.create({
   },
   quantityBtnLabel: {
     color: "#fff",
-    fontFamily: "Cabin-Bold",
+    fontFamily: "Roboto",
     fontSize: 20,
   },
 });

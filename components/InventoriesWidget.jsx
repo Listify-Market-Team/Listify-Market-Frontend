@@ -118,7 +118,7 @@ const styles = StyleSheet.create({
     padding: 15,
   },
   title: {
-    fontFamily: "Cabin-Bold",
+    fontFamily: "Roboto",
     fontSize: 18,
     color: "#fff",
     textTransform: "uppercase",
@@ -141,7 +141,7 @@ const styles = StyleSheet.create({
   },
   text: {
     color: colors.black,
-    fontFamily: "Cabin-Regular",
+    fontFamily: "Roboto",
     fontSize: 16,
   },
   greenText: {

@@ -133,7 +133,7 @@ const styles = StyleSheet.create({
     paddingTop: 10,
   },
   title: {
-    fontFamily: "Cabin-Bold",
+    fontFamily: "Roboto",
     fontSize: 36,
   },
   addBtn: {

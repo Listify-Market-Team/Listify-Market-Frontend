@@ -62,7 +62,7 @@ const styles = StyleSheet.create({
     fontWeight: 700,
     color: colors.dark,
     marginBottom: 60,
-    fontFamily: "Cabin-Bold",
+    fontFamily: "Roboto",
   },
   image: { width: 330, height: 260, marginBottom: 40 },
   text: {
@@ -70,6 +70,6 @@ const styles = StyleSheet.create({
     fontWeight: 500,
     marginBottom: 100,
     color: colors.dark,
-    fontFamily: "Cabin-Regular",
+    fontFamily: "Roboto",
   },
 });

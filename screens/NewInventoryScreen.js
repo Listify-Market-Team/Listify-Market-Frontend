@@ -68,7 +68,7 @@ export default function NewInventoryScreen({ navigation }) {
 const styles = StyleSheet.create({
   title: {
     fontSize: 36,
-    fontFamily: "Cabin-Bold",
+    fontFamily: "Roboto",
     marginVertical: 30,
     color: colors.green,
   },
@@ -82,7 +82,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
   },
   modalTitle: {
-    fontFamily: "Cabin-Regular",
+    fontFamily: "Roboto",
     fontSize: 28,
     marginBottom: 50,
     textAlign: "center",
@@ -94,7 +94,7 @@ const styles = StyleSheet.create({
   },
   modalBtnText: {
     fontSize: 24,
-    fontFamily: "Cabin-Bold",
+    fontFamily: "Roboto",
     color: colors.green,
     textAlign: "center",
   },

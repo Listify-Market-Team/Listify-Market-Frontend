@@ -111,7 +111,7 @@ const styles = StyleSheet.create({
     textDecorationLine: "underline",
     marginBottom: 0,
     marginTop: 60,
-    fontFamily: "Cabin-Bold",
+    fontFamily: "Roboto",
   },
   iconContainer: {
     alignItems: "center",
@@ -139,7 +139,7 @@ const styles = StyleSheet.create({
     marginLeft: 20,
     marginRight: 90,
     textAlign: "left",
-    fontFamily: "Cabin-Bold",
+    fontFamily: "Roboto",
   },
   contactContainer: {
     padding: 15,
@@ -158,6 +158,6 @@ const styles = StyleSheet.create({
     marginLeft: 20,
     marginRight: 90,
     textAlign: "left",
-    fontFamily: "Cabin-Bold",
+    fontFamily: "Roboto",
   },
 });

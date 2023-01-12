@@ -7,16 +7,6 @@ import { useFonts } from "expo-font";
 import "./services/i18n/i18n";
 
 export default function App() {
-  const [fontsLoaded, error] = useFonts({
-    "Cabin-Regular": require("./assets/fonts/Cabin-Regular.ttf"),
-    "Cabin-Medium": require("./assets/fonts/Cabin-Medium.ttf"),
-    "Cabin-Bold": require("./assets/fonts/Cabin-Bold.ttf"),
-    "Cabin-Italic": require("./assets/fonts/Cabin-Italic.ttf"),
-  });
-
-  if (error) {
-    console.log("Error loading fonts");
-  }
 
   return (
     <AppContextProvider>

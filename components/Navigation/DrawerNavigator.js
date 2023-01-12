@@ -149,7 +149,7 @@ export const DrawerNavigator = () => {
 
 const styles = StyleSheet.create({
   drawerItem: {
-    fontFamily: "Cabin-Regular",
+    fontFamily: "Roboto",
     fontSize: 18,
     color: colors.dark,
   },

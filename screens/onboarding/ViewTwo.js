@@ -44,7 +44,7 @@ const styles = StyleSheet.create({
     fontWeight: 700,
     color: colors.green,
     marginBottom: 60,
-    fontFamily: "Cabin-Bold",
+    fontFamily: "Roboto",
   },
   image: { width: 330, height: 260, marginBottom: 40 },
   text: {
@@ -52,7 +52,7 @@ const styles = StyleSheet.create({
     fontWeight: 500,
     marginBottom: 80,
     color: colors.dark,
-    fontFamily: "Cabin-Regular",
+    fontFamily: "Roboto",
   },
   actions: {
     width: "100%",
