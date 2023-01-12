@@ -16,7 +16,6 @@ import { useTranslation } from "react-i18next";
 import Filter from "../components/Filter";
 import Box from "../components/Box";
 import { colors, globalStyles } from "../styles/globals";
-import { DrawerContentScrollView } from "@react-navigation/drawer";
 
 export default function ProductsScreen({ navigation, route }) {
   const { t } = useTranslation();
@@ -31,22 +30,20 @@ export default function ProductsScreen({ navigation, route }) {
     setIsLoadingProducts(true);
     try {
       const res = await axios.get(`${API_URL}/Product/GetAll`);
-      let products = await res.data.products;
-      products = products.map(x => ({...x, isImageSet: false}));
-
+      const products = await res.data.products;
       setProducts(products);
       setIsLoadingProducts(false);
 
       //fetching image:
-      let productsWithImg = products;
-      console.log("products  length ", productsWithImg.length);
-      for(let i = 0; i < productsWithImg.length; i++) {
-        console.log(productsWithImg[i].id);
-        productsWithImg[i].image = await getProductImage(productsWithImg[i].id);
-        productsWithImg[i].isImageSet = true;
+      let productsWithImg = [];
+      for(let product of products){
+        console.log(product.id);
+        product.image = await getProductImage(product.id);
+        productsWithImg.push(product);
       }
 
       setProducts(productsWithImg);
+      setImage(true);
     } catch (error) {
       console.log("Error fetching products: ", error);
       setIsLoadingProducts(false);
@@ -114,7 +111,7 @@ export default function ProductsScreen({ navigation, route }) {
       if (response.data === '')
         return "https://cdn-icons-png.flaticon.com/512/1548/1548682.png";
 
-      return response.data;  //image as base64
+      return response.data;
     } catch(error) {
       console.log("Ha ocurrido un error: ", error);
     }
@@ -181,13 +178,13 @@ export default function ProductsScreen({ navigation, route }) {
                   key={product.id}
                   onPress={() => goToProductDetail(product)}
                 >
-                  {console.log("is Image", product.isImageSet)}
+                  {console.log("is Image", image)}
                   {console.log("image: ", product.image)}
                   {
-                    product.isImageSet ?
+                    image &&
                     (
                       <Image style={styles.image} source={{ uri: `data:image/jpeg;base64,${product.image}` }} />
-                    ) : <></>
+                    )
                   }
                   <View>
                     <Text style={styles.name}>{product.name}</Text>
@@ -259,9 +256,6 @@ const styles = StyleSheet.create({
   },
   products: {
     paddingVertical: 25,
-  },
-  imageSpinner: {
-    width: 10
   },
   listFilter: {
     marginLeft: 10,
