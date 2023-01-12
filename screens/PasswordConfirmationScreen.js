@@ -5,6 +5,7 @@ import { colors } from "../styles/globals";
 import Button from "../components/Button";
 import TranslationProvider from "../components/TranslationProvider";
 import { supabase } from "../api/supabase";
+import 'react-native-url-polyfill/auto'
 
 async function goToNextView(navigation, email) {
   const linkClicked = false;

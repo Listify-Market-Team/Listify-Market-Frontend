@@ -1,6 +1,7 @@
 import { Alert, Platform } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { API_URL } from "./constants";
+import 'react-native-url-polyfill/auto'
 import { supabase } from "./supabase";
 import axios from "axios";
 

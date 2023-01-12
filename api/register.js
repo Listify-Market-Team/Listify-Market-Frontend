@@ -1,6 +1,7 @@
 import { Alert, Platform } from "react-native";
 import { API_URL } from "./constants";
 import { supabase } from "./supabase";
+import 'react-native-url-polyfill/auto'
 import axios from "axios";
 
 async function supabaseRegisterEmail(email, password) {

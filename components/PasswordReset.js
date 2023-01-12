@@ -8,6 +8,7 @@ import Button from "./Button";
 import { colors } from "../styles/globals";
 import AuthModal from "./AuthModal";
 import { supabase } from "../api/supabase";
+import 'react-native-url-polyfill/auto'
 
 import { useTranslation } from "react-i18next";
 
