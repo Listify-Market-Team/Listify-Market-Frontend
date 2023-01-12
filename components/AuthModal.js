@@ -5,7 +5,7 @@ import React from "react";
 import { useTranslation } from "react-i18next";
 
 
-export default function AuthModal({ success, loading, invalidPassword, closeModal }) {
+export default function AuthModal({ success, loading, invalidPassword, closeModal, text }) {
   const { t, i18n } = useTranslation();
 
   return (
@@ -30,7 +30,7 @@ export default function AuthModal({ success, loading, invalidPassword, closeModa
       >
         <View style={styles.modalContainer}>
           <View style={styles.modalContent}>
-            <Text>{t("Usuario creado exitosamente.")}</Text>
+            <Text>{t(text)}</Text>
             <Pressable onPress={closeModal} style={styles.btn}>
               <Text style={styles.btnText}>Ok</Text>
             </Pressable>

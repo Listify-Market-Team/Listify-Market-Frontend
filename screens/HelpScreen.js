@@ -12,8 +12,21 @@ import { colors } from "../styles/globals";
 
 function HelpCategory(props) {
   const { t } = useTranslation();
+
+  const handlePress = () => {
+    if (props.title === "Listas") {
+      props.navigation.navigate("HelpList");
+    } else if (props.title === "Comparaciones") {
+      props.navigation.navigate("HelpCompare");
+    } else if (props.title === "Supermercados") {
+      props.navigation.navigate("HelpMarkets");
+    } else if (props.title === "Categorias") {
+      props.navigation.navigate("HelpCategories");
+    }
+  };
+
   return (
-    <TouchableHighlight onPress={() => {}}>
+    <TouchableHighlight onPress={handlePress}>
       <View style={styles.categoryContainer}>
         <View style={styles.iconContainer}>
           <svg
@@ -25,21 +38,31 @@ function HelpCategory(props) {
           >
             <circle cx="18" cy="18" r="18" fill="#00D36D" />
           </svg>
-          {
-            props.title === "Listas" ? (
-              <Image source={require("../assets/check-list1.png")} style={styles.imageIcon} />
-            ) : props.title === "Comparaciones" ? (
-              <Image source={require("../assets/leverage1.png")} style={styles.imageIcon} />
-            ) : props.title === "Supermercados" ? (
-              <Image source={require("../assets/restaurant1.png")} style={styles.imageIcon} />
-            ) : props.title === "Categorias" ? (
-              <Image source={require("../assets/categories.png")} style={styles.imageIcon} />
-            ) : null
-          }
+          {props.title === "Listas" ? (
+            <Image
+              source={require("../assets/check-list1.png")}
+              style={styles.imageIcon}
+            />
+          ) : props.title === "Comparaciones" ? (
+            <Image
+              source={require("../assets/leverage1.png")}
+              style={styles.imageIcon}
+            />
+          ) : props.title === "Supermercados" ? (
+            <Image
+              source={require("../assets/restaurant1.png")}
+              style={styles.imageIcon}
+            />
+          ) : props.title === "Categorias" ? (
+            <Image
+              source={require("../assets/categories.png")}
+              style={styles.imageIcon}
+            />
+          ) : null}
         </View>
         <Text style={styles.categoryText}>{t(props.title)}</Text>
         <View style={styles.arrowContainer}>
-          <AntDesign name="down" size={16} color="black" />
+          <AntDesign name="right" size={16} color="black" />
         </View>
       </View>
     </TouchableHighlight>
@@ -52,10 +75,10 @@ export default function HelpScreen({ navigation }) {
     <View style={styles.container}>
       <Text style={styles.title}>{t("Necesitas ayuda?")}</Text>
       <View style={styles.HelpCategory}>
-        <HelpCategory title="Listas" />
-        <HelpCategory title="Comparaciones" />
-        <HelpCategory title="Supermercados" />
-        <HelpCategory title="Categorias" />
+        <HelpCategory title="Listas" navigation={navigation} />
+        <HelpCategory title="Comparaciones" navigation={navigation} />
+        <HelpCategory title="Supermercados" navigation={navigation} />
+        <HelpCategory title="Categorias" navigation={navigation} />
       </View>
       <Text style={styles.title}>{t("Contacto")}</Text>
       <View style={styles.contactContainer}>
@@ -104,11 +127,11 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     padding: 15,
     marginTop: 1,
-    justifyContent: "flex-start",
+    justifyContent: "center",
     alignItems: "center",
   },
   arrowContainer: {
-    alignSelf: "flex-end",
+    alignSelf: "center",
     marginLeft: "auto",
   },
   categoryText: {
