@@ -279,19 +279,19 @@ export const ProductsStackNavigator = ({ navigation }) => {
   );
 };
 
-export const UserDashboardNavigator = ({ navigation }) => {
+export const DashboardStackNavigator = ({ navigation }) => {
   const { t } = useTranslation();
-  const dashboardTitle = t("Dashboard");
+  const dashboardTitle = t("Tablero");
 
   const openDrawer = () => navigation.openDrawer();
 
   return (
     <Stack.Navigator
-      initialRouteName="HelpDashboard"
-      screenOptions={{ headerTitleStyle: styles.headerText }}
+      initialRouteName="UserDashboard"
+      screenOptions={{ headerTextheaderTitleStyle: styles.headerText }}
     >
       <Stack.Screen
-        name="UserDashboad"
+        name="UserDashboard"
         component={UserDashboardScreen}
         options={{
           headerTitle: dashboardTitle,
@@ -305,6 +305,7 @@ export const UserDashboardNavigator = ({ navigation }) => {
     </Stack.Navigator>
   );
 };
+
 
 const styles = StyleSheet.create({
   menuBtn: {
