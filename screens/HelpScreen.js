@@ -9,6 +9,7 @@ import {
 import { Fontisto, AntDesign, Ionicons, Feather } from "@expo/vector-icons";
 import { useTranslation } from "react-i18next";
 import { colors } from "../styles/globals";
+import Svg,{Circle} from 'react-native-svg'
 
 function HelpCategory(props) {
   const { t } = useTranslation();
@@ -29,15 +30,15 @@ function HelpCategory(props) {
     <TouchableHighlight onPress={handlePress}>
       <View style={styles.categoryContainer}>
         <View style={styles.iconContainer}>
-          <svg
+          <Svg
             width="36"
             height="36"
             viewBox="0 0 36 36"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
           >
-            <circle cx="18" cy="18" r="18" fill="#00D36D" />
-          </svg>
+            <Circle cx="18" cy="18" r="18" fill="#00D36D" />
+          </Svg>
           {props.title === "Listas" ? (
             <Image
               source={require("../assets/check-list1.png")}

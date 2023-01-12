@@ -6,6 +6,7 @@ import { useTranslation } from "react-i18next";
 import Menu from "../../components/Menu";
 import { StyleSheet, Image } from "react-native";
 import { colors } from "../../styles/globals";
+import Svg,{Circle} from 'react-native-svg'
 
 import {
   InventoriesStackNavigator,
@@ -44,15 +45,15 @@ export const DrawerNavigator = () => {
           headerTitle: homeTitle,
           drawerIcon: () => (
             <View>
-              <svg
+              <Svg
                 width="28"
                 height="28"
                 viewBox="0 0 36 36"
                 fill="none"
                 xmlns="http://www.w3.org/2000/svg"
               >
-                <circle cx="18" cy="18" r="18" fill={colors.lightGreen} />
-              </svg>
+                <Circle cx="18" cy="18" r="18" fill={colors.lightGreen} />
+              </Svg>
               <View style={styles.iconContainer}>
                 <Image source={require("../../assets/HomeLogo.svg")} style={styles.imageIcon} />
               </View>
@@ -68,15 +69,15 @@ export const DrawerNavigator = () => {
           headerTitle: productsTitle,
           drawerIcon: () => (
             <View>
-              <svg
+              <Svg
                 width="28"
                 height="28"
                 viewBox="0 0 36 36"
                 fill="none"
                 xmlns="http://www.w3.org/2000/svg"
               >
-                <circle cx="18" cy="18" r="18" fill={colors.lightGreen} />
-              </svg>
+                <Circle cx="18" cy="18" r="18" fill={colors.lightGreen} />
+              </Svg>
               <View style={styles.iconContainer}>
                 <Image source={require("../../assets/categories.png")} style={styles.imageIcon} />
               </View>
@@ -92,15 +93,15 @@ export const DrawerNavigator = () => {
           headerTitle: inventoryTitle,
           drawerIcon: () => (
             <View>
-              <svg
+              <Svg
                 width="28"
                 height="28"
                 viewBox="0 0 36 36"
                 fill="none"
                 xmlns="http://www.w3.org/2000/svg"
               >
-                <circle cx="18" cy="18" r="18" fill={colors.lightGreen} />
-              </svg>
+                <Circle cx="18" cy="18" r="18" fill={colors.lightGreen} />
+              </Svg>
               <View style={styles.iconContainer}>
                 <Image source={require("../../assets/check-list1.png")} style={styles.imageIcon} />
               </View>
@@ -116,15 +117,15 @@ export const DrawerNavigator = () => {
           headerTitle: marketsTitle,
           drawerIcon: () => (
             <View>
-              <svg
+              <Svg
                 width="28"
                 height="28"
                 viewBox="0 0 36 36"
                 fill="none"
                 xmlns="http://www.w3.org/2000/svg"
               >
-                <circle cx="18" cy="18" r="18" fill={colors.lightGreen} />
-              </svg>
+                <Circle cx="18" cy="18" r="18" fill={colors.lightGreen} />
+              </Svg>
               <View style={styles.iconContainer}>
                 <Image source={require("../../assets/restaurant1.png")} style={styles.imageIcon} />
               </View>
@@ -139,7 +140,7 @@ export const DrawerNavigator = () => {
           title: helpTitle,
           headerTitle: helpTitle,
           drawerIcon: () => (
-            <Feather name="help-circle" size={24} color={iconsColor} />
+            <Feather name="help-Circle" size={24} color={iconsColor} />
           ),
         }}
       /> */}
