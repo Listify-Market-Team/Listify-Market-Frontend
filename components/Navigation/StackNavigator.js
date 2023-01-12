@@ -27,6 +27,7 @@ import InventoryProductsScreen from "../../screens/InventoryProductsScreen";
 import NewInventoryScreen from "../../screens/NewInventoryScreen";
 import UpdateInventoryScreen from "../../screens/UpdateInventoryScreen";
 import InventoriesSelectionScreen from "../../screens/InventoriesSelectionScreen";
+import UserDashboardScreen from "../../screens/UserDashboardScreen";
 import EmailConfirmView from "../../screens/EmailConfirmationScreen";
 import PasswordResetScreen from "../../screens/PasswordResetScreen";
 import ForgetPasswordScreen from "../../screens/ForgetPasswordScreen";
@@ -348,6 +349,33 @@ export const ProductsStackNavigator = ({ navigation }) => {
         name="InventoriesDashboard"
         component={InventoriesScreen}
         options={{ headerTitle: inventoriesTitle }}
+      />
+    </Stack.Navigator>
+  );
+};
+
+export const UserDashboardStackNavigator = ({ navigation }) => {
+  const { t } = useTranslation();
+  const dashboardTitle = t("Tablero");
+
+  const openDrawer = () => navigation.openDrawer();
+
+  return (
+    <Stack.Navigator
+      initialRouteName="UserDashboard"
+      screenOptions={{ headerTextheaderTitleStyle: styles.headerText }}
+    >
+      <Stack.Screen
+        name="UserDashboard"
+        component={UserDashboardScreen}
+        options={{
+          headerTitle: dashboardTitle,
+          headerLeft: () => (
+            <Pressable onPress={openDrawer} style={styles.menuBtn}>
+              <Feather name="menu" size={30} color={colors.dark} />
+            </Pressable>
+          ),
+        }}
       />
     </Stack.Navigator>
   );
