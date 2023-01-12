@@ -39,7 +39,7 @@ export default function Register(props) {
 
   const closeModal = () => {
     if (success) {
-      props.navigate("Login");
+      props.navigate("EmailConfirmView");
     } else {
       setInvalidPassword(false);
     }
@@ -67,7 +67,13 @@ export default function Register(props) {
           placeholder={t("Contraseña")}
           type={"oneTimeCode"}
           secureTextEntry
-          rules={{ required: t("La contraseña es requerida") }}
+          rules={{
+            required: t("La contraseña es requerida"),
+            minLength: {
+              value: 6,
+              message: t("La contraseña debe tener al menos 6 caracteres"),
+            },
+          }}
         />
         <LoginInput
           control={control}
@@ -77,6 +83,10 @@ export default function Register(props) {
           secureTextEntry
           rules={{
             required: t("La confirmación de la contraseña es requerida"),
+            minLength: {
+              value: 6,
+              message: t("La contraseña debe tener al menos 6 caracteres"),
+            },
           }}
         />
         <View style={styles.buttons}>
@@ -104,6 +114,7 @@ export default function Register(props) {
           loading={loading}
           invalidPassword={invalidPassword}
           closeModal={closeModal}
+          text={t("¡Cuenta creada con éxito!")}
         />
       </AuthContainer>
     </React.Fragment>

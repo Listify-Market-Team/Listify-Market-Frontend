@@ -46,8 +46,24 @@ export default function Login(props) {
         name="password"
         placeholder={t("Contraseña")}
         secureTextEntry
-        rules={{ required: t("La contraseña es requerida") }}
+        rules={{
+          required: t("La contraseña es requerida"),
+          minLength: {
+            value: 6,
+            message: t("La contraseña debe tener al menos 6 caracteres"),
+          }
+        }}
       />
+      <View style={styles.forgetPassword}>
+        <Text style={styles.forgetPassword_text}>{t("Olvidaste tu contraseña?")}</Text>
+        <Pressable
+          onPress={() => {
+            props.navigate("ForgetPassword");
+          }}
+        >
+          <Text style={styles.forgetPassword_forget}>{t("Reestablecer")}</Text>
+        </Pressable>
+      </View>
       <View style={styles.actions}>
         <Button onPress={handleSubmit(onSubmit)}>{title}</Button>
       </View>
@@ -93,7 +109,26 @@ const styles = StyleSheet.create({
     fontFamily: "Cabin-Bold",
   },
   actions: {
-    marginTop: 100,
+    marginTop: 60,
     paddingHorizontal: 50,
   },
+  forgetPassword: {
+    marginTop: 30,
+    justifyContent: "center",
+    flexDirection: "row",
+    marginTop: "auto",
+  },
+  forgetPassword_text: {
+    color: "#FFF",
+    fontSize: 18,
+    textAlign: "center",
+    fontFamily: "Cabin-Regular",
+  },
+  forgetPassword_forget: {
+    marginLeft: 5,
+    color: "#A1DDFF",
+    fontSize: 18,
+    textAlign: "center",
+    fontFamily: "Cabin-Medium",
+  }
 });

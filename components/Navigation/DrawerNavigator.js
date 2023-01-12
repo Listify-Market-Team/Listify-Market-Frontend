@@ -13,7 +13,7 @@ import {
   HelpStackNavigator,
   HomeStackNavigator,
   MarketsStackNavigator,
-  UserDashboardNavigator,
+  UserDashboardStackNavigator,
 } from "./StackNavigator";
 
 const Drawer = createDrawerNavigator();
@@ -148,7 +148,7 @@ export const DrawerNavigator = () => {
       />
       <Drawer.Screen
         name="Dashboard"
-        component={UserDashboardNavigator}
+        component={UserDashboardStackNavigator}
         options={{
           title: dashboardTitle,
           headerTitle: dashboardTitle,

@@ -42,10 +42,11 @@ const styles = StyleSheet.create({
     textAlign: "center",
   },
   title: {
-    fontSize: 48,
+    marginTop: 20,
+    fontSize: 46,
     fontWeight: 700,
     color: colors.dark,
-    marginBottom: 60,
+    marginBottom: 40,
     fontFamily: "Cabin-Bold",
   },
   image: { width: 330, height: 260, marginBottom: 40 },
@@ -59,5 +60,6 @@ const styles = StyleSheet.create({
   actions: {
     width: "100%",
     paddingHorizontal: 20,
+    marginBottom: 50,
   },
 });
