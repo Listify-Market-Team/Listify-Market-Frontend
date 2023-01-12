@@ -31,14 +31,12 @@ export default function ProductsScreen({ navigation, route }) {
     try {
       const res = await axios.get(`${API_URL}/Product/GetAll`);
       const products = await res.data.products;
-      console.log("products:",products);
       setProducts(products);
       setIsLoadingProducts(false);
 
       //fetching image:
-      let productsWithImg = products;
+      let productsWithImg = [];
       for(let product of products){
-        console.log(product.id);
         product.image = await getProductImage(product.id);
         productsWithImg.push(product);
       }

@@ -17,7 +17,7 @@ import axios from "axios";
 import { API_URL } from "../api/constants";
 
 export default function ProductInfoScreen({ navigation, route }) {
-  const [product, setProduct] = useState(route.params.product);
+  const [product, setProduct] = useState({});
   const [image, setImage] = useState("");
   const [quantity, setQuantity] = useState(0);
   const [markets, setMarkets] = useState();
@@ -41,7 +41,6 @@ export default function ProductInfoScreen({ navigation, route }) {
       return;
     }
     const productToAdd = { ...product, quantity, price };
-    // console.log(productToAdd);
     navigation.navigate("InventoriesSelection", { product: productToAdd });
   };
 
@@ -50,16 +49,12 @@ export default function ProductInfoScreen({ navigation, route }) {
   };
 
   //fetch image
-  const fetchImage = async () => {
+  const fetchImage = async (id) => {
     try{
-      let productID = product.id;
-      console.log(productID)
+      console.log(id)
 
-      let response = await axios.get(`${API_URL}/ConsumeWebApi/GetImages?productID=${productID}`);
-      console.log("response of backend: ", response);
+      let response = await axios.get(`${API_URL}/ConsumeWebApi/GetImages?productID=${id}`);
       setImage(response.data);
-      console.log("ProductImg after request to backend: ", image );
-
     } catch (error) {
       console.log("error fetching image ", error);
     }
@@ -70,7 +65,7 @@ export default function ProductInfoScreen({ navigation, route }) {
       setProduct(route.params.product);
       setMarkets(route.params.product.product_Markets);
 
-      fetchImage();
+      fetchImage(route.params.product.id);
     }
   }, [route]);
 
