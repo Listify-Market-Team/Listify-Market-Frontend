@@ -109,7 +109,7 @@ const exampleData =[
                 name: 'banana',
                 productID: 7,
                 price: 1000,
-                marketName: 'Ole',
+                marketName: 'Sirena',
                 color: "#AAFF00",
             },
             {   name: 'salami',
@@ -200,17 +200,11 @@ export default function UserDashboardScreen(){
     const [CountProducts, addCountProducts] = useState([]);
     const [NameMarkets, addNameMarkets] = useState([]);
     const [CountMarkets, addCountMarkets] = useState([]);
-    
-    function sortByValue(dictionary) {
-        const sorted = {};
-        Object.keys(dictionary)
-          .sort((a, b) => dictionary[a] + dictionary[b])
-          .forEach(key => {
-            sorted[key] = dictionary[key];
-          });
-        return sorted;
-    }
-      
+
+    const sorted_product = (item) => {
+        return Object.entries(item).sort((a,b) => b[1] - a[1]).slice(0, 4)
+    } 
+
     const AddProductsToCount = () => {
         const count = {};
         const entries = [
@@ -232,11 +226,9 @@ export default function UserDashboardScreen(){
                 count[product] += 1;
             }
         }   
-        
-        const sortedcount = sortByValue(count);
-        console.log(sortedcount)
-        addCountProducts(Object.keys(sortedcount))
-        addNameProducts(Object.values(sortedcount))
+
+        addCountProducts(Object.keys(Object.fromEntries(sorted_product(count))))
+        addNameProducts(Object.values(Object.fromEntries(sorted_product(count))))
     };
 
     const AddMarketsToCount = () => {
@@ -261,10 +253,8 @@ export default function UserDashboardScreen(){
             }
         }        
         
-        const sortedcount = sortByValue(count);
-        console.log(sortedcount)
-        addCountMarkets(Object.keys(sortedcount))
-        addNameMarkets(Object.values(sortedcount))
+        addCountMarkets(Object.keys(Object.fromEntries(sorted_product(count))))
+        addNameMarkets(Object.values(Object.fromEntries(sorted_product(count))))
     };
 
     useEffect(() => {
@@ -277,7 +267,7 @@ export default function UserDashboardScreen(){
     }
 
     //Chart Configurations, enter your prefered colors here
-    const chartConfig = {
+    const chartConfigPieChart = {
         backgroundGradientFrom: "#1E2923",
         backgroundGradientFromOpacity: 0,
         backgroundGradientTo: "#08130D",
@@ -287,6 +277,16 @@ export default function UserDashboardScreen(){
         useShadowColorFromDataset: false // optional, default false
     };
     
+
+    const chartConfigBarChart = {
+        backgroundColor: '#00FF80',
+        backgroundGradientFrom: '#03D863',
+        backgroundGradientTo: '#39B879',
+        decimalPlaces: 1,
+        color: (opacity = 1) => `rgba(0, 0, 0, ${opacity})`
+    }
+    
+
     // const addPriceToTotal(value) => {
     //     addPrice((totalPrice + value))
     // };
@@ -308,7 +308,7 @@ export default function UserDashboardScreen(){
                                     data={exampleData}
                                     width={screenWidth}
                                     height={220}
-                                    chartConfig={chartConfig}
+                                    chartConfig={chartConfigPieChart}
                                     style={{
                                         marginVertical: 8,
                                         borderRadius: 16,
@@ -332,7 +332,7 @@ export default function UserDashboardScreen(){
                                         data={item.product_Inventories}
                                         width={screenWidth}
                                         height={220}
-                                        chartConfig={chartConfig}
+                                        chartConfig={chartConfigPieChart}
                                         style={{
                                             marginVertical: 8,
                                             borderRadius: 16,
@@ -365,16 +365,7 @@ export default function UserDashboardScreen(){
                                 ],}}
                             width={screenWidth - 120}
                             height={220}
-                            chartConfig={{
-                                backgroundColor: '#1cc910',
-                                backgroundGradientFrom: '#eff3ff',
-                                backgroundGradientTo: '#efefef',
-                                
-                                color: (opacity = 1) => `rgba(0, 0, 0, ${opacity})`,
-                                style: {
-                                borderRadius: 16,
-                                },
-                            }}
+                            chartConfig={chartConfigBarChart}
                             style={{
                                 borderRadius: 16,
                             }}
@@ -392,20 +383,13 @@ export default function UserDashboardScreen(){
                                 ],}}
                             width={screenWidth - 120}
                             height={220}
-                            chartConfig={{
-                                backgroundColor: '#1cc910',
-                                backgroundGradientFrom: '#eff3ff',
-                                backgroundGradientTo: '#efefef',
-                                
-                                color: (opacity = 1) => `rgba(0, 0, 0, ${opacity})`,
-                                style: {
-                                borderRadius: 16,
-                                },
-                            }}
+                            chartConfig={chartConfigBarChart}
                             style={{
                                 borderRadius: 16,
                             }}
+                            
                             />
+                            
                         </View>
                 </View>
         </View>
