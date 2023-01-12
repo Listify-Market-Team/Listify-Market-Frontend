@@ -13,6 +13,7 @@ import {
   HelpStackNavigator,
   HomeStackNavigator,
   MarketsStackNavigator,
+  UserDashboardNavigator,
 } from "./StackNavigator";
 
 const Drawer = createDrawerNavigator();
@@ -143,6 +144,32 @@ export const DrawerNavigator = () => {
           ),
         }}
       /> */}
+
+        <Drawer.Screen
+        name="Dashboard"
+        component={UserDashboardNavigator}
+        options={{
+          title: dashboardTitle,
+          headerTitle: dashboardTitle,
+          drawerIcon: () => (
+            <View>
+              <svg
+                width="28"
+                height="28"
+                viewBox="0 0 36 36"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <circle cx="18" cy="18" r="18" fill={colors.lightGreen} />
+              </svg>
+              <View style={styles.iconContainer}>
+                <Image source={require("../../assets/HomeLogo.svg")} style={styles.imageIcon} />
+              </View>
+            </View>
+          ),
+        }}
+      />
+
     </Drawer.Navigator>
   );
 };

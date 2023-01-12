@@ -274,11 +274,34 @@ export const ProductsStackNavigator = ({ navigation }) => {
         component={InventoriesScreen}
         options={{ headerTitle: inventoriesTitle }}
       />
+      
+    </Stack.Navigator>
+  );
+};
+
+export const UserDashboardNavigator = ({ navigation }) => {
+  const { t } = useTranslation();
+  const dashboardTitle = t("Dashboard");
+
+  const openDrawer = () => navigation.openDrawer();
+
+  return (
+    <Stack.Navigator
+      initialRouteName="HelpDashboard"
+      screenOptions={{ headerTitleStyle: styles.headerText }}
+    >
       <Stack.Screen
-      name="UserDashboard"
-      component={UserDashboardScreen}
-      options={{ headerTitle: userDashboardTitle }}
-    />
+        name="UserDashboad"
+        component={UserDashboardScreen}
+        options={{
+          headerTitle: dashboardTitle,
+          headerLeft: () => (
+            <Pressable onPress={openDrawer} style={styles.menuBtn}>
+              <Feather name="menu" size={30} color={colors.dark} />
+            </Pressable>
+          ),
+        }}
+      />
     </Stack.Navigator>
   );
 };
