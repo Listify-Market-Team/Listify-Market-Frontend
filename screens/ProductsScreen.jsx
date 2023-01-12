@@ -44,7 +44,6 @@ export default function ProductsScreen({ navigation, route }) {
       }
       
       setProducts(productsWithImg);
-      // let productsWithImg = products.map((prod))
 
       setImage(true);
     } catch (error) {
@@ -181,8 +180,6 @@ export default function ProductsScreen({ navigation, route }) {
                   key={product.id}
                   onPress={() => goToProductDetail(product)}
                 >
-                  {console.log("is Image", image)}
-                  {console.log("image: ", product.image)}
                   {
                     image &&
                     (
@@ -228,11 +225,6 @@ const styles = StyleSheet.create({
     marginBottom: 5,
     textTransform: "capitalize",
   },
-  // price: {
-  //   color: colors.green,
-  //   fontSize: 16,
-  //   fontFamily: "Cabin-Bold",
-  // },
   filters: {
     backgroundColor: colors.ligthGreen,
     flexDirection: "row",
@@ -248,9 +240,6 @@ const styles = StyleSheet.create({
     padding: 20,
     borderRadius: 10,
     marginBottom: 20,
-    // borderBottomColor: colors.dark,
-    // borderStyle: "solid",
-    // borderBottomWidth: 1,
   },
   image: {
     width: 50,
