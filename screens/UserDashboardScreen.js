@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet, Dimensions, FlatList, ScrollView} from "react-native";
+import { View, Text, StyleSheet, Dimensions, FlatList, Pressable} from "react-native";
 import { useState, useEffect } from "react";
 import React from "react";
 import { PieChart, BarChart } from "react-native-chart-kit";
@@ -154,7 +154,7 @@ const filteredData = {
   ],
 };
 
-const screenWidth = Dimensions.get("window").width;
+//const screenWidth = Dimensions.get("window").width;
 
 //The line we use to divide Flatlist items
 const itemDivider = () => {
@@ -175,6 +175,11 @@ export default function UserDashboardScreen() {
   const [CountProducts, addCountProducts] = useState([]);
   const [NameMarkets, addNameMarkets] = useState([]);
   const [CountMarkets, addCountMarkets] = useState([]);
+  //To hide
+  const [showExpenditure, switchExpenditure] = useState(false);
+  const [showBreakdown, switchBreakdown] = useState(false);
+  const [showProductRanking, switchProductRanking] = useState(false);
+  const [showMarketRanking, switchMarketRanking] = useState(false);
 
   const sorted_product = (item) => {
     return Object.entries(item)
@@ -200,6 +205,8 @@ export default function UserDashboardScreen() {
         }
 
         count[product] += 1;
+
+        addToCount(value.product_Inventories[productkey].price);
       }
     }
 
@@ -254,8 +261,8 @@ export default function UserDashboardScreen() {
 
   const chartConfigBarChart = {
     backgroundColor: "#00FF80",
-    backgroundGradientFrom: "#03D863",
-    backgroundGradientTo: "#39B879",
+    backgroundGradientFrom: "#FFFFFF",
+    backgroundGradientTo: "#FFFFFF",
     decimalPlaces: 1,
     color: (opacity = 1) => `rgba(0, 0, 0, ${opacity})`,
   };
@@ -264,6 +271,34 @@ export default function UserDashboardScreen() {
   //     addPrice((totalPrice + value))
   // };
 
+  const toggleExpenditure = () => {
+    switchExpenditure(true);
+    switchBreakdown(false);
+    switchProductRanking(false);
+    switchMarketRanking(false);
+  }
+
+  const toggleBreakdown = () => {
+    switchExpenditure(false);
+    switchBreakdown(true);
+    switchProductRanking(false);
+    switchMarketRanking(false);
+  }
+
+  const toggleProductRanking = () => {
+    switchExpenditure(false);
+    switchBreakdown(false);
+    switchProductRanking(true);
+    switchMarketRanking(false);
+  }
+
+  const toggleMarketRanking = () => {
+    switchExpenditure(false);
+    switchBreakdown(false);
+    switchProductRanking(false);
+    switchMarketRanking(true);
+  }
+
   return (
     <View style={styles.base}>
       <View style={styles.totalPriceCount}>
@@ -271,97 +306,126 @@ export default function UserDashboardScreen() {
         <Text style={styles.countText}>{totalPrice}</Text>
       </View>
 
-      {/*<ScrollView contentContainerStyle={styles.scrollView}>*/}
+      {/* <ScrollView contentContainerStyle={styles.scrollView}>*/}
         <View style={styles.container}>
-          <View style={styles.expenditureContainer}>
-            <Text style={styles.expenditureText}> Costo Total</Text>
-            <PieChart
-              data={exampleData}
-              width={Dimensions.get("window").width}
-              height={120}
-              chartConfig={chartConfigPieChart}
-              style={{
-                marginVertical: 8,
-                borderRadius: 16,
-              }}
-              accessor="totalPrice"
-              backgroundColor="transparent"
-              paddingLeft="15"
-              // absolute //for the absolute number, remove if you want percentage
-            />
-          </View>
+            
+            <View>
+              <Pressable style={styles.button_text} onPress={() => toggleExpenditure()}>
+                <Text style={styles.text}>Expenditure</Text>
+              </Pressable>  
+            </View>
+            
+            <View style={showExpenditure ? styles.expenditureContainer : styles.hidden}>
+              <Text style={styles.expenditureText}> Costo Total</Text>
+              <PieChart
+                data={exampleData}
+                width={Dimensions.get("window").width}
+                height={120}
+                chartConfig={chartConfigPieChart}
+                style={{
+                  marginVertical: 8,
+                  borderRadius: 16,
+                }}
+                accessor="totalPrice"
+                backgroundColor="transparent"
+                paddingLeft="15"
+                // absolute //for the absolute number, remove if you want percentage
+              />
+            </View>
 
-          <View style={styles.productRankContainer}>
-            <Text style={styles.productRankTitle}>List Breakdown</Text>
-            <FlatList
-              data={exampleData}
-              renderItem={({ item }) => {
-                return (
-                  <>
-                    <Text style={styles.productRankText}>{item.name}</Text>
-                    <PieChart
-                      data={item.product_Inventories}
-                      width={Dimensions.get("window").width - 100}
-                      height={80} //Aqui cambian el size del graph
-                      chartConfig={chartConfigPieChart}
-                      style={{
-                        marginHorizontal: 4,
-                        borderRadius: 16,
-                        
-                      }}
-                      accessor="price"
-                      backgroundColor="none"
-                      margin="10"
-                      border="10"
-                      absolute //for the absolute number remove if you want percentage
-                    />
-                  </>
-                );
-              }}
-              keyExtractor={(item) => item.id}
-              ItemSeparatorComponent={itemDivider}
-            />
-          </View>
+            <View>
+              <Pressable style={styles.button_text} onPress={() => toggleBreakdown()}>
+                <Text style={styles.text}>List Breakdown</Text>
+              </Pressable>  
+            </View>
+            
+            <View style={showBreakdown ? styles.productRankContainer : styles.hidden}>
+              <Text style={styles.productRankTitle}>List Breakdown</Text>
+              <FlatList
+                data={exampleData}
+                renderItem={({ item }) => {
+                  return (
+                    <>
+                      <Text style={styles.productRankText}>{item.name}</Text>
+                      <PieChart
+                        data={item.product_Inventories}
+                        width={Dimensions.get("window").width - 100}
+                        height={120} //Aqui cambian el size del graph
+                        chartConfig={chartConfigPieChart}
+                        style={{
+                          marginHorizontal: 4,
+                          borderRadius: 16,
+                        }}
+                        accessor="price"
+                        backgroundColor="none"
+                        margin="10"
+                        border="10"
+                        absolute //for the absolute number remove if you want percentage
+                      />
+                    </>
+                  );
+                }}
+                keyExtractor={(item) => item.id}
+                ItemSeparatorComponent={itemDivider}
+              />
+            </View>
 
-          <View style={styles.productRankContainer}>
-            <Text style={styles.productRankTitle}>Productos más comprados</Text>
-            <BarChart
-              data={{
-                labels: CountProducts,
-                datasets: [
-                  {
-                    data: NameProducts,
-                  },
-                ],
-              }}
-              width={Dimensions.get("window").width - 120}
-              height={250}
-              chartConfig={chartConfigBarChart}
-              style={{
-                borderRadius: 16,
-              }}
-            />
-          </View>
+            <View>
+              <Pressable style={styles.button_text} onPress={() => toggleProductRanking()}>
+                <Text style={styles.text}>Product Ranking</Text>
+              </Pressable>  
+            </View>
 
-          <View style={styles.productRankContainer}>
-            <Text style={styles.productRankTitle}>Supermercados mas elegido</Text>
-            <BarChart
-              data={{
-                labels: CountMarkets,
-                datasets: [
-                  {
-                    data: NameMarkets,
-                  },
-                ],
-              }}
-              width={Dimensions.get("window").width - 100}
-              height={250}
-              chartConfig={chartConfigBarChart}
-              style={{
-                borderRadius: 16,
-              }}
-            />
-          </View> 
+            <View style={showProductRanking ? styles.productRankContainer : styles.hidden}>
+              <Text style={styles.productRankTitle}>Productos más comprados</Text>
+              <BarChart
+                data={{
+                  labels: CountProducts,
+                  datasets: [
+                    {
+                      data: NameProducts,
+                    },
+                  ],
+                }}
+                width={Dimensions.get("window").width - 120}
+                height={200}
+                chartConfig={chartConfigBarChart}
+                style={{
+                  backgroundColor: "#B5D3D3",
+                  padding: 10,
+                  marginHorizontal: 4,
+                  borderRadius: 16,
+                }}
+              />
+            </View>
+
+            <View>
+              <Pressable style={styles.button_text} onPress={() => toggleMarketRanking()}>
+                <Text style={styles.text}>Market Ranking</Text>
+              </Pressable>  
+            </View>
+
+            <View style={showMarketRanking ? styles.productRankContainer : styles.hidden}>
+              <Text style={styles.productRankTitle}>Supermercados mas elegido</Text>
+              <BarChart
+                data={{
+                  labels: CountMarkets,
+                  datasets: [
+                    {
+                      data: NameMarkets,
+                    },
+                  ],
+                }}
+                width={Dimensions.get("window").width - 100}
+                height={250}
+                chartConfig={chartConfigBarChart}
+                style={{
+                  backgroundColor: "#B5D3D3",
+                  marginHorizontal: 4,
+                  borderRadius: 16,
+                }}
+              />
+            </View> 
         </View>
       {/*</ScrollView>*/}
     </View>
@@ -373,22 +437,26 @@ const styles = StyleSheet.create({
     backgroundColor: "#B5D3D3",
     height: "100%",
     flex: 1,
-    padding: 16,
+    padding: 16
   },
   container: {
     flex: 1,
     backgroundColor: "#fff",
     borderRadius: 4,
     flexDirection: 'column',
-    justifyContent: 'space-around'
+    justifyContent: 'space-around',
+    flexShrink: 1,
+    alignItems: 'center'
   },
   expenditureContainer: {
-    flex: 2,
+    flex: 1,
   },
   productRankContainer: {
     flex: 2,
     // justifyContent: "space-around",
-    padding: 40,  
+    // padding: 40,  
+    flexShrink: 1, 
+    
   },
   expenditureText: {
     fontFamily: "Cabin",
@@ -447,4 +515,28 @@ const styles = StyleSheet.create({
   scrollView: {
     flex:1
   },
+  hidden:{
+    display:'none'
+  },
+  button: {
+    alignItems: "center",
+    justifyContent: "center",
+    backgroundColor: "#B5D3D3",
+    borderWidth: 2,
+    borderColor: "#b5b7b7",
+    padding: "5%",
+    borderRadius: 15,
+    width: "40%",
+    padding: 20
+    
+  },
+  button_text: {
+    fontFamily: "Cabin",
+    fontSize: 16,
+    fontWeight: "500",
+    lineHeight: 21,
+    letterSpacing: 0.25,
+    color: 'black',
+  },
+    
 });
