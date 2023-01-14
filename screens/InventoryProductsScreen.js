@@ -87,7 +87,7 @@ const InventoryProductsScreen = ({ navigation, route }) => {
                     >{`Cantidad: ${productQuantity}`}</Text>
                     <Text
                       style={styles.price}
-                    >{`Precio: ${product.price} RD$`}</Text>
+                    >{`Precio: ${product.price} $RD`}</Text>
                   </View>
                 </View>
               );
@@ -125,6 +125,7 @@ const styles = StyleSheet.create({
   },
   productContainer: {
     flexDirection: "row",
+    alignItems: "center",
     backgroundColor: "#ffffff",
     padding: 15,
     marginBottom: 15,
