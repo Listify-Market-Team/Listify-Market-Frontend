@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet, Dimensions, FlatList } from "react-native";
+import { View, Text, StyleSheet, Dimensions, FlatList, ScrollView} from "react-native";
 import { useState, useEffect } from "react";
 import React from "react";
 import { PieChart, BarChart } from "react-native-chart-kit";
@@ -271,96 +271,99 @@ export default function UserDashboardScreen() {
         <Text style={styles.countText}>{totalPrice}</Text>
       </View>
 
-      <View style={styles.container}>
-        <View style={styles.expenditureContainer}>
-          <Text style={styles.expenditureText}> Costo Total</Text>
-          <PieChart
-            data={exampleData}
-            width={screenWidth}
-            height={220}
-            chartConfig={chartConfigPieChart}
-            style={{
-              marginVertical: 8,
-              borderRadius: 16,
-            }}
-            accessor="totalPrice"
-            backgroundColor="transparent"
-            paddingLeft="15"
-            // absolute //for the absolute number, remove if you want percentage
-          />
-        </View>
+      {/*<ScrollView contentContainerStyle={styles.scrollView}>*/}
+        <View style={styles.container}>
+          <View style={styles.expenditureContainer}>
+            <Text style={styles.expenditureText}> Costo Total</Text>
+            <PieChart
+              data={exampleData}
+              width={Dimensions.get("window").width}
+              height={120}
+              chartConfig={chartConfigPieChart}
+              style={{
+                marginVertical: 8,
+                borderRadius: 16,
+              }}
+              accessor="totalPrice"
+              backgroundColor="transparent"
+              paddingLeft="15"
+              // absolute //for the absolute number, remove if you want percentage
+            />
+          </View>
 
-        <View style={styles.productRankContainer}>
-          <Text style={styles.productRankTitle}>List Breakdown</Text>
-          <FlatList
-            data={exampleData}
-            renderItem={({ item }) => {
-              return (
-                <>
-                  <Text style={styles.productRankText}>{item.name}</Text>
-                  <PieChart
-                    data={item.product_Inventories}
-                    width={screenWidth}
-                    height={220}
-                    chartConfig={chartConfigPieChart}
-                    style={{
-                      marginVertical: 8,
-                      borderRadius: 16,
-                    }}
-                    accessor="price"
-                    backgroundColor="none"
-                    margin="10"
-                    border="10"
-                    absolute //for the absolute number remove if you want percentage
-                  />
-                </>
-              );
-            }}
-            keyExtractor={(item) => item.id}
-            ItemSeparatorComponent={itemDivider}
-          />
-        </View>
+          <View style={styles.productRankContainer}>
+            <Text style={styles.productRankTitle}>List Breakdown</Text>
+            <FlatList
+              data={exampleData}
+              renderItem={({ item }) => {
+                return (
+                  <>
+                    <Text style={styles.productRankText}>{item.name}</Text>
+                    <PieChart
+                      data={item.product_Inventories}
+                      width={Dimensions.get("window").width - 100}
+                      height={80} //Aqui cambian el size del graph
+                      chartConfig={chartConfigPieChart}
+                      style={{
+                        marginHorizontal: 4,
+                        borderRadius: 16,
+                        
+                      }}
+                      accessor="price"
+                      backgroundColor="none"
+                      margin="10"
+                      border="10"
+                      absolute //for the absolute number remove if you want percentage
+                    />
+                  </>
+                );
+              }}
+              keyExtractor={(item) => item.id}
+              ItemSeparatorComponent={itemDivider}
+            />
+          </View>
 
-        <View style={styles.productRankContainer}>
-          <Text style={styles.productRankTitle}>Productos más comprados</Text>
-          <BarChart
-            data={{
-              labels: CountProducts,
-              datasets: [
-                {
-                  data: NameProducts,
-                },
-              ],
-            }}
-            width={screenWidth - 120}
-            height={220}
-            chartConfig={chartConfigBarChart}
-            style={{
-              borderRadius: 16,
-            }}
-          />
-        </View>
+          <View style={styles.productRankContainer}>
+            <Text style={styles.productRankTitle}>Productos más comprados</Text>
+            <BarChart
+              data={{
+                labels: CountProducts,
+                datasets: [
+                  {
+                    data: NameProducts,
+                  },
+                ],
+              }}
+              width={Dimensions.get("window").width - 120}
+              height={250}
+              chartConfig={chartConfigBarChart}
+              style={{
+                borderRadius: 16,
+              }}
+            />
+          </View>
 
-        <View style={styles.productRankContainer}>
-          <Text style={styles.productRankTitle}>Supermercados mas elegido</Text>
-          <BarChart
-            data={{
-              labels: CountMarkets,
-              datasets: [
-                {
-                  data: NameMarkets,
-                },
-              ],
-            }}
-            width={screenWidth - 120}
-            height={220}
-            chartConfig={chartConfigBarChart}
-            style={{
-              borderRadius: 16,
-            }}
-          />
+          <View style={styles.productRankContainer}>
+            <Text style={styles.productRankTitle}>Supermercados mas elegido</Text>
+            <BarChart
+              data={{
+                labels: CountMarkets,
+                datasets: [
+                  {
+                    data: NameMarkets,
+                  },
+                ],
+              }}
+              width={Dimensions.get("window").width - 100}
+              height={250}
+              chartConfig={chartConfigBarChart}
+              style={{
+                borderRadius: 16,
+              }}
+            />
+          </View> 
         </View>
-      </View>
+      {/*</ScrollView>*/}
     </View>
   );
 }
@@ -376,14 +379,16 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#fff",
     borderRadius: 4,
+    flexDirection: 'column',
+    justifyContent: 'space-around'
   },
   expenditureContainer: {
     flex: 2,
   },
   productRankContainer: {
     flex: 2,
-    justifyContent: "space-around",
-    padding: 40,
+    // justifyContent: "space-around",
+    padding: 40,  
   },
   expenditureText: {
     fontFamily: "Cabin",
@@ -407,6 +412,7 @@ const styles = StyleSheet.create({
     display: "flex",
     alignItems: "center",
     color: "#0B3F57",
+    paddingTop: 20
   },
   productRankTitle: {
     fontFamily: "Cabin",
@@ -418,6 +424,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     color: "#0B3F57",
+    marginBottom: 20
   },
   totalPriceCount: {
     flex: 0.15,
@@ -436,5 +443,8 @@ const styles = StyleSheet.create({
     letterSpacing: "0em",
     textAlign: "left",
     color: "rgba(255, 255, 255, 1)",
+  },
+  scrollView: {
+    flex:1
   },
 });
