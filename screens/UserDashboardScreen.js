@@ -168,7 +168,7 @@ const itemDivider = () => {
   );
 };
 
-export default function UserDashboardScreen({navigation}) {
+export default function UserDashboardScreen({}) {
   const [totalPrice, addPrice] = useState(0);
   const [NameProducts, addNameProducts] = useState([]);
   const [CountProducts, addCountProducts] = useState([]);
