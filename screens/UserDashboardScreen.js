@@ -1,8 +1,7 @@
-import { View, Text, StyleSheet, Dimensions, FlatList, Pressable} from "react-native";
+import { View, Text, StyleSheet, Dimensions, FlatList, Pressable, ScrollView} from "react-native";
 import { useState, useEffect } from "react";
 import React from "react";
 import { PieChart, BarChart } from "react-native-chart-kit";
-
 //Dummy Data
 const exampleData = [
   {
@@ -169,7 +168,7 @@ const itemDivider = () => {
   );
 };
 
-export default function UserDashboardScreen() {
+export default function UserDashboardScreen({navigation}) {
   const [totalPrice, addPrice] = useState(0);
   const [NameProducts, addNameProducts] = useState([]);
   const [CountProducts, addCountProducts] = useState([]);
@@ -206,7 +205,7 @@ export default function UserDashboardScreen() {
 
         count[product] += 1;
 
-        addToCount(value.product_Inventories[productkey].price);
+        addToCount(totalPrice + value.product_Inventories[productkey].price);
       }
     }
 
@@ -299,6 +298,7 @@ export default function UserDashboardScreen() {
     switchMarketRanking(true);
   }
 
+
   return (
     <View style={styles.base}>
       <View style={styles.totalPriceCount}>
@@ -309,11 +309,30 @@ export default function UserDashboardScreen() {
       {/* <ScrollView contentContainerStyle={styles.scrollView}>*/}
         <View style={styles.container}>
             
-            <View>
+
+            <ScrollView 
+            horizontal={true}
+            style={styles.scrollView}
+            >
+
               <Pressable style={styles.button_text} onPress={() => toggleExpenditure()}>
-                <Text style={styles.text}>Expenditure</Text>
+                <Text style={styles.label_text}>Costos</Text>
               </Pressable>  
-            </View>
+
+              <Pressable style={styles.button_text} onPress={() => toggleBreakdown()}>
+                <Text style={styles.label_text}>Productos</Text>
+              </Pressable>  
+
+              <Pressable style={styles.button_text} onPress={() => toggleProductRanking()}>
+                  <Text style={styles.label_text}>Product Ranking</Text>
+                </Pressable>  
+
+              <Pressable style={styles.button_text} onPress={() => toggleMarketRanking()}>
+                <Text style={styles.label_text}>Market Ranking</Text>
+              </Pressable>  
+
+            </ScrollView>
+
             
             <View style={showExpenditure ? styles.expenditureContainer : styles.hidden}>
               <Text style={styles.expenditureText}> Costo Total</Text>
@@ -333,11 +352,6 @@ export default function UserDashboardScreen() {
               />
             </View>
 
-            <View>
-              <Pressable style={styles.button_text} onPress={() => toggleBreakdown()}>
-                <Text style={styles.text}>List Breakdown</Text>
-              </Pressable>  
-            </View>
             
             <View style={showBreakdown ? styles.productRankContainer : styles.hidden}>
               <Text style={styles.productRankTitle}>List Breakdown</Text>
@@ -370,11 +384,6 @@ export default function UserDashboardScreen() {
               />
             </View>
 
-            <View>
-              <Pressable style={styles.button_text} onPress={() => toggleProductRanking()}>
-                <Text style={styles.text}>Product Ranking</Text>
-              </Pressable>  
-            </View>
 
             <View style={showProductRanking ? styles.productRankContainer : styles.hidden}>
               <Text style={styles.productRankTitle}>Productos más comprados</Text>
@@ -393,17 +402,12 @@ export default function UserDashboardScreen() {
                 style={{
                   backgroundColor: "#B5D3D3",
                   padding: 10,
-                  marginHorizontal: 4,
+                  marginHorizontal: 15,
                   borderRadius: 16,
                 }}
               />
             </View>
 
-            <View>
-              <Pressable style={styles.button_text} onPress={() => toggleMarketRanking()}>
-                <Text style={styles.text}>Market Ranking</Text>
-              </Pressable>  
-            </View>
 
             <View style={showMarketRanking ? styles.productRankContainer : styles.hidden}>
               <Text style={styles.productRankTitle}>Supermercados mas elegido</Text>
@@ -421,7 +425,7 @@ export default function UserDashboardScreen() {
                 chartConfig={chartConfigBarChart}
                 style={{
                   backgroundColor: "#B5D3D3",
-                  marginHorizontal: 4,
+                  marginHorizontal: 15,
                   borderRadius: 16,
                 }}
               />
@@ -485,8 +489,8 @@ const styles = StyleSheet.create({
   productRankTitle: {
     fontFamily: "Cabin",
     fontStyle: "normal",
-    fontWeight: "800",
-    fontSize: 36,
+    fontWeight: "600",
+    fontSize: 20,
     lineHeight: 24,
     display: "flex",
     alignItems: "center",
@@ -513,7 +517,9 @@ const styles = StyleSheet.create({
     color: "rgba(255, 255, 255, 1)",
   },
   scrollView: {
-    flex:1
+    flex:1,
+    flexWrap: 'wrap',
+    marginTop: 10
   },
   hidden:{
     display:'none'
@@ -536,7 +542,16 @@ const styles = StyleSheet.create({
     fontWeight: "500",
     lineHeight: 21,
     letterSpacing: 0.25,
-    color: 'black',
+    color: 'rgb(0, 164, 126)',
+
   },
+  label_text:{
+    borderRadius: 5,
+    backgroundColor: 'rgb(232, 232, 232)',
+    marginHorizontal: 10,
+    paddingBottom: 5,
+    paddingTop: 5,
     
+  }
+  
 });
