@@ -13,6 +13,7 @@ import {
   HelpStackNavigator,
   HomeStackNavigator,
   MarketsStackNavigator,
+  UserDashboardStackNavigator,
 } from "./StackNavigator";
 
 const Drawer = createDrawerNavigator();
@@ -22,8 +23,9 @@ export const DrawerNavigator = () => {
   const homeTitle = t("Inicio");
   const productsTitle = t("Productos");
   const marketsTitle = t("Supermercados");
-  const helpTitle = t("Ayuda");
+  // const helpTitle = t("Ayuda");
   const inventoryTitle = t("Mis Listas");
+  const dashboardTitle = t("Tablero");
 
   const iconsColor = "#00DE68";
 
@@ -54,7 +56,10 @@ export const DrawerNavigator = () => {
                 <circle cx="18" cy="18" r="18" fill={colors.lightGreen} />
               </svg>
               <View style={styles.iconContainer}>
-                <Image source={require("../../assets/HomeLogo.svg")} style={styles.imageIcon} />
+                <Image
+                  source={require("../../assets/HomeLogo.svg")}
+                  style={styles.imageIcon}
+                />
               </View>
             </View>
           ),
@@ -78,7 +83,10 @@ export const DrawerNavigator = () => {
                 <circle cx="18" cy="18" r="18" fill={colors.lightGreen} />
               </svg>
               <View style={styles.iconContainer}>
-                <Image source={require("../../assets/categories.png")} style={styles.imageIcon} />
+                <Image
+                  source={require("../../assets/categories.png")}
+                  style={styles.imageIcon}
+                />
               </View>
             </View>
           ),
@@ -102,7 +110,10 @@ export const DrawerNavigator = () => {
                 <circle cx="18" cy="18" r="18" fill={colors.lightGreen} />
               </svg>
               <View style={styles.iconContainer}>
-                <Image source={require("../../assets/check-list1.png")} style={styles.imageIcon} />
+                <Image
+                  source={require("../../assets/check-list1.png")}
+                  style={styles.imageIcon}
+                />
               </View>
             </View>
           ),
@@ -126,23 +137,42 @@ export const DrawerNavigator = () => {
                 <circle cx="18" cy="18" r="18" fill={colors.lightGreen} />
               </svg>
               <View style={styles.iconContainer}>
-                <Image source={require("../../assets/restaurant1.png")} style={styles.imageIcon} />
+                <Image
+                  source={require("../../assets/restaurant1.png")}
+                  style={styles.imageIcon}
+                />
               </View>
             </View>
           ),
         }}
       />
-      {/* <Drawer.Screen
-        name="Ayuda"
-        component={HelpStackNavigator}
+      <Drawer.Screen
+        name="Dashboard"
+        component={UserDashboardStackNavigator}
         options={{
-          title: helpTitle,
-          headerTitle: helpTitle,
+          title: dashboardTitle,
+          headerTitle: dashboardTitle,
           drawerIcon: () => (
-            <Feather name="help-circle" size={24} color={iconsColor} />
+            <View>
+              <svg
+                width="28"
+                height="28"
+                viewBox="0 0 36 36"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <circle cx="18" cy="18" r="18" fill={colors.lightGreen} />
+              </svg>
+              <View style={styles.iconContainer}>
+                <Image
+                  source={require("../../assets/HomeLogo.svg")}
+                  style={styles.imageIcon}
+                />
+              </View>
+            </View>
           ),
         }}
-      /> */}
+      />
     </Drawer.Navigator>
   );
 };

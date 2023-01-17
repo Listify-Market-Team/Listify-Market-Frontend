@@ -23,7 +23,7 @@ export default function ProductsScreen({ navigation, route }) {
   const [markets, setMarkets] = useState([]);
   const [loadingProducts, setIsLoadingProducts] = useState(true);
   const [loadingMarkets, setIsLoadingMarkets] = useState(true);
-  const [selectedFilter, setSeletedFilter] = useState("");
+  const [selectedFilter, setSeletedFilter] = useState("Todos");
   const [image, setImage] = useState(false);
 
   const fetchProducts = async () => {

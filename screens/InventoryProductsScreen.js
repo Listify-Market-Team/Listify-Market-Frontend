@@ -5,14 +5,65 @@ import {
   Image,
   ScrollView,
   ActivityIndicator,
+  Pressable,
 } from "react-native";
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect, useContext, Fragment } from "react";
 import { useIsFocused } from "@react-navigation/native";
 import { API_URL } from "../api/constants";
 import { globalStyles, colors } from "../styles/globals";
 import Box from "../components/Box";
 import { useTranslation } from "react-i18next";
 import axios from "axios";
+import { Ionicons, Feather, AntDesign } from "@expo/vector-icons";
+
+const Product = (props) => {
+  const [removeMode, setRemoveMode] = useState();
+  const { name, price, productQuantity } = props.productData;
+
+  return (
+    <Fragment>
+      {!removeMode ? (
+        <Fragment>
+          <Image
+            source="https://cdn2.iconfinder.com/data/icons/e-commerce-line-4-1/1024/open_box4-512.png"
+            style={styles.imageStyle}
+          />
+          <View style={styles.content}>
+            <Text style={styles.productName}>{name}</Text>
+            <Text
+              style={styles.quantity}
+            >{`Cantidad: ${productQuantity}`}</Text>
+            <Text style={styles.price}>{`Precio: ${price} $RD`}</Text>
+          </View>
+          <Pressable
+            onPress={() => setRemoveMode(true)}
+            style={styles.removeBtn}
+          >
+            <Ionicons
+              name="ios-remove-circle-outline"
+              size={30}
+              color={colors.dark}
+            />
+          </Pressable>
+        </Fragment>
+      ) : (
+        <View style={styles.removeModeContainer}>
+          <Text style={styles.removeText}>
+            ¿Está seguro de remover este producto de la lista?
+          </Text>
+          <View style={styles.removeActions}>
+            <Pressable onPress={() => setRemoveMode(false)}>
+              <Feather name="x" size={30} color={colors.dark} />
+            </Pressable>
+            <Pressable onPress={() => props.onRemove(props.productData)}>
+              <AntDesign name="check" size={30} color={colors.dark} />
+            </Pressable>
+          </View>
+        </View>
+      )}
+    </Fragment>
+  );
+};
 
 const InventoryProductsScreen = ({ navigation, route }) => {
   const [inventory, setInventory] = useState({});
@@ -51,6 +102,18 @@ const InventoryProductsScreen = ({ navigation, route }) => {
     fetchInventoryProducts();
   }, [isFocused]);
 
+  const removeProductFromInventory = async (product) => {
+    setProducts((state) => state.filter((p) => p.id !== product.id));
+    // make request
+    try {
+      await axios.delete(`${API_URL}/Inventory/DeleteProductFromInventory`, {
+        data: { inventoryID: id, productID: product.id },
+      });
+    } catch (error) {
+      console.log("Error removing product");
+    }
+  };
+
   return (
     <View style={styles.viewContainer}>
       <View style={styles.header}>
@@ -76,19 +139,10 @@ const InventoryProductsScreen = ({ navigation, route }) => {
 
               return (
                 <View style={styles.productContainer} key={product.id}>
-                  <Image
-                    source="https://cdn2.iconfinder.com/data/icons/e-commerce-line-4-1/1024/open_box4-512.png"
-                    style={styles.imageStyle}
+                  <Product
+                    productData={{ ...product, productQuantity }}
+                    onRemove={removeProductFromInventory}
                   />
-                  <View style={styles.content}>
-                    <Text style={styles.productName}>{product.name}</Text>
-                    <Text
-                      style={styles.quantity}
-                    >{`Cantidad: ${productQuantity}`}</Text>
-                    <Text
-                      style={styles.price}
-                    >{`Precio: ${product.price} RD$`}</Text>
-                  </View>
                 </View>
               );
             })}
@@ -125,16 +179,19 @@ const styles = StyleSheet.create({
   },
   productContainer: {
     flexDirection: "row",
+    alignItems: "center",
     backgroundColor: "#ffffff",
     padding: 15,
     marginBottom: 15,
     borderRadius: 10,
+    height: 100,
+    overflow: "hidden",
+    width: "100%",
   },
   content: {
     marginLeft: 15,
   },
   productName: {
-    marginBottom: 6,
     fontSize: 18,
     fontFamily: "Cabin-Bold",
   },
@@ -155,5 +212,24 @@ const styles = StyleSheet.create({
   text: {
     fontFamily: "Cabin-Regular",
     fontSize: 16,
+  },
+  removeBtn: {
+    marginLeft: "auto",
+  },
+  removeModeContainer: {
+    width: "100%",
+  },
+
+  removeText: {
+    fontSize: 16,
+    fontFamily: "Cabin-Bold",
+    color: colors.dark,
+    textAlign: "center",
+  },
+  removeActions: {
+    width: "100%",
+    flexDirection: "row",
+    justifyContent: "center",
+    gap: 40,
   },
 });
