@@ -51,8 +51,6 @@ export default function ProductInfoScreen({ navigation, route }) {
   //fetch image
   const fetchImage = async (id) => {
     try{
-      console.log(id)
-
       let response = await axios.get(`${API_URL}/ConsumeWebApi/GetImages?productID=${id}`);
       setImage(response.data);
     } catch (error) {
