@@ -24,6 +24,7 @@ export default function ProductsScreen({ navigation, route }) {
   const [loadingProducts, setIsLoadingProducts] = useState(true);
   const [loadingMarkets, setIsLoadingMarkets] = useState(true);
   const [selectedFilter, setSeletedFilter] = useState("Todos");
+  const [image, setImage] = useState(false);
 
   const fetchProducts = async () => {
     setIsLoadingProducts(true);
@@ -32,10 +33,22 @@ export default function ProductsScreen({ navigation, route }) {
       const products = await res.data.products;
       setProducts(products);
       setIsLoadingProducts(false);
+
+      //fetching image:
+      let productsWithImg = [];
+      for(let product of products){
+        product.image = await getProductImage(product.id);
+        productsWithImg.push(product);
+      }
+      
+      setProducts(productsWithImg);
+
+      setImage(true);
     } catch (error) {
-      console.log("Error fetching products");
+      console.log("Error fetching products: ", error);
       setIsLoadingProducts(false);
     }
+
   };
 
   useEffect(() => {
@@ -91,6 +104,18 @@ export default function ProductsScreen({ navigation, route }) {
       setIsLoadingProducts(false);
     }
   };
+
+  const getProductImage = async (productId) => {
+    try{
+      let response = await axios.get(`${API_URL}/ConsumeWebApi/GetImages?productID=${productId}`);
+      if (response.data === '')
+        return "https://cdn-icons-png.flaticon.com/512/1548/1548682.png";
+
+      return response.data;
+    } catch(error) {
+      console.log("Ha ocurrido un error: ", error);
+    }
+  }
 
   const renderFilters = ({ item }) => {
     return (
@@ -153,7 +178,12 @@ export default function ProductsScreen({ navigation, route }) {
                   key={product.id}
                   onPress={() => goToProductDetail(product)}
                 >
-                  <Image style={styles.image} source={{ uri: product.image }} />
+                  {
+                    image &&
+                    (
+                      <Image style={styles.image} source={{ uri: `data:image/jpeg;base64,${product.image}` }} />
+                    )
+                  }
                   <View>
                     <Text style={styles.name}>{product.name}</Text>
                     {/* <Text style={styles.price}>
@@ -193,11 +223,6 @@ const styles = StyleSheet.create({
     marginBottom: 5,
     textTransform: "capitalize",
   },
-  // price: {
-  //   color: colors.green,
-  //   fontSize: 16,
-  //   fontFamily: "Cabin-Bold",
-  // },
   filters: {
     backgroundColor: colors.ligthGreen,
     flexDirection: "row",
@@ -213,9 +238,6 @@ const styles = StyleSheet.create({
     padding: 20,
     borderRadius: 10,
     marginBottom: 20,
-    // borderBottomColor: colors.dark,
-    // borderStyle: "solid",
-    // borderBottomWidth: 1,
   },
   image: {
     width: 50,

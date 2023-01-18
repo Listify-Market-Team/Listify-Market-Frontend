@@ -13,17 +13,16 @@ import {
 import { colors, globalStyles } from "../styles/globals";
 import { useTranslation } from "react-i18next";
 import Button from "../components/Button";
+import axios from "axios";
+import { API_URL } from "../api/constants";
 
 export default function ProductInfoScreen({ navigation, route }) {
   const [product, setProduct] = useState({});
+  const [image, setImage] = useState("");
   const [quantity, setQuantity] = useState(0);
   const [markets, setMarkets] = useState();
   const [price, setPrice] = useState(0);
   const { t } = useTranslation();
-
-  // console.log(route.params.product);
-  // console.log(product);
-  // console.log(markets);
 
   const increase = () => {
     setQuantity((value) => value + 1);
@@ -42,7 +41,6 @@ export default function ProductInfoScreen({ navigation, route }) {
       return;
     }
     const productToAdd = { ...product, quantity, price };
-    // console.log(productToAdd);
     navigation.navigate("InventoriesSelection", { product: productToAdd });
   };
 
@@ -50,10 +48,22 @@ export default function ProductInfoScreen({ navigation, route }) {
     setPrice(value);
   };
 
+  //fetch image
+  const fetchImage = async (id) => {
+    try{
+      let response = await axios.get(`${API_URL}/ConsumeWebApi/GetImages?productID=${id}`);
+      setImage(response.data);
+    } catch (error) {
+      console.log("error fetching image ", error);
+    }
+  }
+
   useEffect(() => {
     if (route.params && route.params.product) {
       setProduct(route.params.product);
       setMarkets(route.params.product.product_Markets);
+
+      fetchImage(route.params.product.id);
     }
   }, [route]);
 
@@ -62,12 +72,18 @@ export default function ProductInfoScreen({ navigation, route }) {
       <View style={styles.container}>
         <Text style={styles.title}>{product.name}</Text>
         <View style={styles.imageContainer}>
-          <Image
-            style={styles.image}
-            source={{
-              uri: "https://cdn-icons-png.flaticon.com/512/1548/1548682.png",
-            }}
-          />
+          {
+            image &&
+            (<Image
+                style={styles.image}
+                source={{
+                  // uri: "https://cdn-icons-png.flaticon.com/512/1548/1548682.png",
+                  uri: `data:image/jpeg;base64,${image}` 
+                }}
+              />
+            )
+          }
+          
         </View>
         <View style={styles.prices}>
           <FlatList
