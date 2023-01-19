@@ -28,9 +28,10 @@ export default function ProductsScreen({ navigation, route }) {
 
   const fetchProducts = async () => {
     setIsLoadingProducts(true);
+
     try {
-      const res = await axios.get(`${API_URL}/Product/GetAll`);
-      const products = await res.data.products;
+      const res = await axios.get(`${API_URL}/Product/GetAll?PageNumber=1&PageSizze=25`);
+      const products = await res.data.data;
       setProducts(products);
       setIsLoadingProducts(false);
 
@@ -42,8 +43,9 @@ export default function ProductsScreen({ navigation, route }) {
       }
       
       setProducts(productsWithImg);
-
       setImage(true);
+
+      console.log("funciona");
     } catch (error) {
       console.log("Error fetching products: ", error);
       setIsLoadingProducts(false);
