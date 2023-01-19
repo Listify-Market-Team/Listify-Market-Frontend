@@ -27,14 +27,29 @@ export default function ProductsScreen({ navigation, route }) {
   const [image, setImage] = useState(false);
   const [currentPage, setCurrentPage] = useState(1) //Product's pagination
 
-  const pageSize = 25; //amount of products it will fetch each call.
+  const pageSize = 50; //amount of products it will fetch each call.
 
   const fetchProducts = async () => {
+    console.log("products: ", products);
+    let baseProducts = products;
     setIsLoadingProducts(true);
 
     try {
       const res = await axios.get(`${API_URL}/Product/GetAll?PageNumber=${currentPage}&PageSize=${pageSize}`);
-      const newProducts = await res.data.data;
+      const data = await res.data.data;
+
+      let newProducts = [];
+      if(products.length > 0){
+        for(let product of data){
+          if (!products.some(p => p.id === product.id))
+            newProducts.push(product);
+        }
+      } else {
+        newProducts = data;
+      }
+
+      
+      console.log(newProducts);
       setProducts([...products, ...newProducts]);
       setIsLoadingProducts(false);
 
@@ -45,7 +60,7 @@ export default function ProductsScreen({ navigation, route }) {
         productsWithImg.push(product);
       }
       
-      setProducts(productsWithImg);
+      setProducts([...baseProducts, ...productsWithImg]);
       setImage(true);
     } catch (error) {
       console.log("Error fetching products: ", error);
@@ -79,7 +94,7 @@ export default function ProductsScreen({ navigation, route }) {
       fetchMarkets();
     });
     return unsubscribe;
-  }, [currentPage]);
+  }, [navigation]);
 
   const goToProductDetail = (product) => {
     navigation.navigate("ProductInfo", {
@@ -246,7 +261,7 @@ export default function ProductsScreen({ navigation, route }) {
          keyExtractor={item => item.id}
          ListFooterComponent={renderLoader} 
          onEndReached={fetchMoreProducts} 
-         onEndReachedThreshold={0.5}/>
+         onEndReachedThreshold={3}/>
       </View>
     </View>
   );
