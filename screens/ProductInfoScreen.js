@@ -20,7 +20,7 @@ export default function ProductInfoScreen({ navigation, route }) {
   const [product, setProduct] = useState({});
   const [image, setImage] = useState("");
   const [quantity, setQuantity] = useState(0);
-  const [markets, setMarkets] = useState();
+  const [markets, setMarkets] = useState([]);
   const [price, setPrice] = useState(0);
   const { t } = useTranslation();
 
@@ -51,13 +51,15 @@ export default function ProductInfoScreen({ navigation, route }) {
 
   //fetch image
   const fetchImage = async (id) => {
-    try{
-      let response = await axios.get(`${API_URL}/ConsumeWebApi/GetImages?productID=${id}`);
+    try {
+      let response = await axios.get(
+        `${API_URL}/ConsumeWebApi/GetImages?productID=${id}`
+      );
       setImage(response.data);
     } catch (error) {
       console.log("error fetching image ", error);
     }
-  }
+  };
 
   useEffect(() => {
     if (route.params && route.params.product) {
@@ -74,18 +76,15 @@ export default function ProductInfoScreen({ navigation, route }) {
       <View style={styles.container}>
         <Text style={styles.title}>{product.name}</Text>
         <View style={styles.imageContainer}>
-          {
-            image &&
-            (<Image
-                style={styles.image}
-                source={{
-                  // uri: "https://cdn-icons-png.flaticon.com/512/1548/1548682.png",
-                  uri: `data:image/jpeg;base64,${image}` 
-                }}
-              />
-            )
-          }
-          
+          {image && (
+            <Image
+              style={styles.image}
+              source={{
+                // uri: "https://cdn-icons-png.flaticon.com/512/1548/1548682.png",
+                uri: `data:image/jpeg;base64,${image}`,
+              }}
+            />
+          )}
         </View>
         <View style={styles.prices}>
           <FlatList
@@ -105,7 +104,7 @@ export default function ProductInfoScreen({ navigation, route }) {
                         },
                       ]}
                     >
-                      {item.price}
+                      {`${item.price} - ${item.marketName}`}
                     </Text>
                   </View>
                 </TouchableOpacity>

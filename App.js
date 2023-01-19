@@ -14,6 +14,10 @@ export default function App() {
     "Cabin-Italic": require("./assets/fonts/Cabin-Italic.ttf"),
   });
 
+  if (!fontsLoaded) {
+    return null;
+  }
+
   if (error) {
     console.log("Error loading fonts");
   }
