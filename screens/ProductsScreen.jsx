@@ -27,7 +27,7 @@ export default function ProductsScreen({ navigation, route }) {
   const [image, setImage] = useState(false);
   const [currentPage, setCurrentPage] = useState(1) //Product's pagination
 
-  const pageSize = 50; //amount of products it will fetch each call.
+  const pageSize = 15; //amount of products it will fetch each call.
 
   const fetchProducts = async () => {
     let baseProducts = products;

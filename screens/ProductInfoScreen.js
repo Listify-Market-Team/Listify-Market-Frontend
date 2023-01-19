@@ -41,6 +41,7 @@ export default function ProductInfoScreen({ navigation, route }) {
       return;
     }
     const productToAdd = { ...product, quantity, price };
+    product.image = "";
     navigation.navigate("InventoriesSelection", { product: productToAdd });
   };
 
