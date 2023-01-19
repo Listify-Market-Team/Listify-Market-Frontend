@@ -61,10 +61,11 @@ export default function ProductInfoScreen({ navigation, route }) {
 
   useEffect(() => {
     if (route.params && route.params.product) {
+      console.log(route.params.product);
       setProduct(route.params.product);
       setMarkets(route.params.product.product_Markets);
 
-      fetchImage(route.params.product.id);
+      // fetchImage(route.params.product.id);
     }
   }, [route]);
 

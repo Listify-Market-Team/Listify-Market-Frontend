@@ -37,15 +37,16 @@ export default function ProductsScreen({ navigation, route }) {
       const res = await axios.get(`${API_URL}/Product/GetAll?PageNumber=${currentPage}&PageSize=${pageSize}`);
       const data = await res.data.data;
 
-      let newProducts = [];
-      if(products.length > 0){
-        for(let product of data){
-          if (!products.some(p => p.id === product.id))
-            newProducts.push(product);
-        }
-      } else {
-        newProducts = data;
-      }
+      let newProducts = data;
+      // let newProducts = [];
+      // if(products.length > 0){
+      //   for(let product of data){
+      //     if (!products.some(p => p.id === product.id))
+      //       newProducts.push(product);
+      //   }
+      // } else {
+      //   newProducts = data;
+      // }
 
       setProducts([...products, ...newProducts]);
       setIsLoadingProducts(false);

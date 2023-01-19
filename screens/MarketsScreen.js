@@ -72,7 +72,6 @@ export default function MarketsScreen({ navigation, route }) {
                   key={market.id}
                   onPress={() => goToMarketProducts(market)}
                 >
-                  <Image style={styles.image} source={{ uri: market.image }} />
                   <View>
                     <Text style={styles.name}>{market.name}</Text>
                     <Text style={styles.rate}>
