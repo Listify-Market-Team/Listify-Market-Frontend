@@ -2,6 +2,9 @@ import { View, Text, StyleSheet, Dimensions, FlatList, Pressable, ScrollView} fr
 import { useState, useEffect } from "react";
 import React from "react";
 import { PieChart, BarChart } from "react-native-chart-kit";
+import axios from "axios";
+import { API_URL } from "../api/constants";
+
 //Dummy Data
 const exampleData = [
   {
@@ -168,7 +171,7 @@ const itemDivider = () => {
   );
 };
 
-export default function UserDashboardScreen({}) {
+export default function UserDashboardScreen({navigation, route}) {
   const [totalPrice, addPrice] = useState(0);
   const [NameProducts, addNameProducts] = useState([]);
   const [CountProducts, addCountProducts] = useState([]);
@@ -179,6 +182,8 @@ export default function UserDashboardScreen({}) {
   const [showBreakdown, switchBreakdown] = useState(false);
   const [showProductRanking, switchProductRanking] = useState(false);
   const [showMarketRanking, switchMarketRanking] = useState(false);
+  //To replace exampleData
+  const [inventory, setInventories] = useState([]);
 
   const sorted_product = (item) => {
     return Object.entries(item)
@@ -189,8 +194,8 @@ export default function UserDashboardScreen({}) {
   const AddProductsToCount = () => {
     const count = {};
     const entries = [
-      ...Object.entries(exampleData),
-      ...Object.values(exampleData).flatMap(Object.entries),
+      ...Object.entries(inventory),
+      ...Object.values(inventory).flatMap(Object.entries),
     ];
     for (const [key, value] of entries) {
       for (const productkey in value.product_Inventories) {
@@ -216,8 +221,8 @@ export default function UserDashboardScreen({}) {
   const AddMarketsToCount = () => {
     const count = {};
     const entries = [
-      ...Object.entries(exampleData),
-      ...Object.values(exampleData).flatMap(Object.entries),
+      ...Object.entries(inventory),
+      ...Object.values(inventory).flatMap(Object.entries),
     ];
     for (const [key, value] of entries) {
       for (const productkey in value.product_Inventories) {
@@ -238,7 +243,21 @@ export default function UserDashboardScreen({}) {
     addNameMarkets(Object.values(Object.fromEntries(sorted_product(count))));
   };
 
+  const getInvetory = () => {
+    try {
+      const res = axios.get(`${API_URL}/Inventory/GetByUserId`, {
+        params: { userId: user.id },
+      });
+      const inventories = res.data.inventories;
+      setInventories(inventories);
+      console.log(inventories);
+    } catch (error) {
+      console.log("Error loading inventories");
+    }
+  }
+
   useEffect(() => {
+    getInvetory();
     AddProductsToCount();
     AddMarketsToCount();
   }, []);
@@ -337,7 +356,7 @@ export default function UserDashboardScreen({}) {
             <View style={showExpenditure ? styles.expenditureContainer : styles.hidden}>
               <Text style={styles.expenditureText}> Costo Total</Text>
               <PieChart
-                data={exampleData}
+                data={inventory}
                 width={Dimensions.get("window").width}
                 height={120}
                 chartConfig={chartConfigPieChart}
@@ -356,7 +375,7 @@ export default function UserDashboardScreen({}) {
             <View style={showBreakdown ? styles.productRankContainer : styles.hidden}>
               <Text style={styles.productRankTitle}>List Breakdown</Text>
               <FlatList
-                data={exampleData}
+                data={inventory}
                 renderItem={({ item }) => {
                   return (
                     <>
