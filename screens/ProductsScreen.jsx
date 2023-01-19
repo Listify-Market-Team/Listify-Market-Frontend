@@ -25,27 +25,28 @@ export default function ProductsScreen({ navigation, route }) {
   const [loadingMarkets, setIsLoadingMarkets] = useState(true);
   const [selectedFilter, setSeletedFilter] = useState("Todos");
   const [image, setImage] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1) //Product's pagination
+
+  const pageSize = 25; //amount of products it will fetch each call.
 
   const fetchProducts = async () => {
     setIsLoadingProducts(true);
 
     try {
-      const res = await axios.get(`${API_URL}/Product/GetAll?PageNumber=1&PageSizze=25`);
-      const products = await res.data.data;
-      setProducts(products);
+      const res = await axios.get(`${API_URL}/Product/GetAll?PageNumber=${currentPage}&PageSize=${pageSize}`);
+      const newProducts = await res.data.data;
+      setProducts([...products, ...newProducts]);
       setIsLoadingProducts(false);
 
       //fetching image:
       let productsWithImg = [];
-      for(let product of products){
+      for(let product of newProducts){
         product.image = await getProductImage(product.id);
         productsWithImg.push(product);
       }
       
       setProducts(productsWithImg);
       setImage(true);
-
-      console.log("funciona");
     } catch (error) {
       console.log("Error fetching products: ", error);
       setIsLoadingProducts(false);
@@ -78,7 +79,7 @@ export default function ProductsScreen({ navigation, route }) {
       fetchMarkets();
     });
     return unsubscribe;
-  }, [navigation]);
+  }, [currentPage]);
 
   const goToProductDetail = (product) => {
     navigation.navigate("ProductInfo", {
@@ -133,6 +134,48 @@ export default function ProductsScreen({ navigation, route }) {
     return <View style={styles.separator} />;
   };
 
+  const renderLoader = () => {
+    return (
+      <View style={styles.loaderStyles}>
+        <ActivityIndicator size="large" color="#aaa" />
+      </View>
+    )
+  }
+
+  const renderItem = ({item}) => {
+    return(
+      // <View>
+      //   <Image source={{ uri: `data:image/jpeg;base64,${item.image}` }} />
+      //   <View>
+      //     <Text>{`${item.name}`}</Text>
+      //   </View>
+      // </View>
+
+      <Pressable
+        style={styles.productCard}
+        key={item.id}
+        onPress={() => goToProductDetail(item)}
+      >
+        {
+          image &&
+          (
+            <Image style={styles.image} source={{ uri: `data:image/jpeg;base64,${item.image}` }} />
+          )
+        }
+        <View>
+          <Text style={styles.name}>{item.name}</Text>
+        </View>
+      </Pressable>
+    )
+  }
+
+  const fetchMoreProducts = () => {
+    console.log("loading more products...");
+    setCurrentPage(currentPage + 1);
+    fetchProducts();
+    console.log("currentpage ", currentPage);
+  };
+
   return (
     <View style={styles.container}>
       <View style={styles.header}>
@@ -163,7 +206,7 @@ export default function ProductsScreen({ navigation, route }) {
 
       {/*Product cards */}
       <View style={globalStyles.view}>
-        {loadingProducts ? (
+        {/* {loadingProducts ? (
           <Box>
             <ActivityIndicator size={50} color="#000" />
           </Box>
@@ -190,13 +233,20 @@ export default function ProductsScreen({ navigation, route }) {
                     <Text style={styles.name}>{product.name}</Text>
                     {/* <Text style={styles.price}>
                       {t("Precio")}: {product.price}
-                    </Text> */}
+                    </Text> }
                   </View>
                 </Pressable>
               );
             })}
           </ScrollView>
-        )}
+        )} */}
+        <FlatList 
+         data={products} 
+         renderItem={renderItem} 
+         keyExtractor={item => item.id}
+         ListFooterComponent={renderLoader} 
+         onEndReached={fetchMoreProducts} 
+         onEndReachedThreshold={0.5}/>
       </View>
     </View>
   );
@@ -255,4 +305,8 @@ const styles = StyleSheet.create({
   separator: {
     width: 7,
   },
+  loaderStyles: {
+    marginVertical: 16,
+    alignItems: 'center'
+  }
 });
