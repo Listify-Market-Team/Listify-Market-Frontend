@@ -4,6 +4,7 @@ import React from "react";
 import { PieChart, BarChart } from "react-native-chart-kit";
 import axios from "axios";
 import { API_URL } from "../api/constants";
+import { PreventRemoveProvider } from "@react-navigation/native";
 
 //Dummy Data
 const exampleData = [
@@ -183,7 +184,7 @@ export default function UserDashboardScreen({navigation, route}) {
   const [showProductRanking, switchProductRanking] = useState(false);
   const [showMarketRanking, switchMarketRanking] = useState(false);
   //To replace exampleData
-  const [inventory, setInventories] = useState([]);
+  const [inventory, setInventories] = useState(exampleData);
 
   const sorted_product = (item) => {
     return Object.entries(item)
@@ -200,7 +201,8 @@ export default function UserDashboardScreen({navigation, route}) {
     for (const [key, value] of entries) {
       for (const productkey in value.product_Inventories) {
         const product = value.product_Inventories[productkey].name;
-
+        addToCount(totalPrice + value.product_Inventories[productkey].price);
+        
         if (typeof product !== "string") continue;
 
         if (!count[product]) {
@@ -210,7 +212,6 @@ export default function UserDashboardScreen({navigation, route}) {
 
         count[product] += 1;
 
-        addToCount(totalPrice + value.product_Inventories[productkey].price);
       }
     }
 
