@@ -25,24 +25,39 @@ export default function ProductsScreen({ navigation, route }) {
   const [loadingMarkets, setIsLoadingMarkets] = useState(true);
   const [selectedFilter, setSeletedFilter] = useState("Todos");
   const [image, setImage] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1) //Product's pagination
+
+  const pageSize = 50; //amount of products it will fetch each call.
 
   const fetchProducts = async () => {
+    let baseProducts = products;
     setIsLoadingProducts(true);
+
     try {
-      const res = await axios.get(`${API_URL}/Product/GetAll`);
-      const products = await res.data.products;
-      setProducts(products);
+      const res = await axios.get(`${API_URL}/Product/GetAll?PageNumber=${currentPage}&PageSize=${pageSize}`);
+      const data = await res.data.data;
+
+      let newProducts = [];
+      if(products.length > 0){
+        for(let product of data){
+          if (!products.some(p => p.id === product.id))
+            newProducts.push(product);
+        }
+      } else {
+        newProducts = data;
+      }
+
+      setProducts([...products, ...newProducts]);
       setIsLoadingProducts(false);
 
       //fetching image:
       let productsWithImg = [];
-      for(let product of products){
+      for(let product of newProducts){
         product.image = await getProductImage(product.id);
         productsWithImg.push(product);
       }
       
-      setProducts(productsWithImg);
-
+      setProducts([...baseProducts, ...productsWithImg]);
       setImage(true);
     } catch (error) {
       console.log("Error fetching products: ", error);
@@ -131,6 +146,39 @@ export default function ProductsScreen({ navigation, route }) {
     return <View style={styles.separator} />;
   };
 
+  const renderLoader = () => {
+    return (
+      <View style={styles.loaderStyles}>
+        <ActivityIndicator size="large" color="#aaa" />
+      </View>
+    )
+  }
+
+  const renderItem = ({item}) => {
+    return(
+      <Pressable
+        style={styles.productCard}
+        key={item.id}
+        onPress={() => goToProductDetail(item)}
+      >
+        {
+          image &&
+          (
+            <Image style={styles.image} source={{ uri: `data:image/jpeg;base64,${item.image}` }} />
+          )
+        }
+        <View>
+          <Text style={styles.name}>{item.name}</Text>
+        </View>
+      </Pressable>
+    )
+  }
+
+  const fetchMoreProducts = () => {
+    setCurrentPage(currentPage + 1);
+    fetchProducts();
+  };
+
   return (
     <View style={styles.container}>
       <View style={styles.header}>
@@ -161,40 +209,13 @@ export default function ProductsScreen({ navigation, route }) {
 
       {/*Product cards */}
       <View style={globalStyles.view}>
-        {loadingProducts ? (
-          <Box>
-            <ActivityIndicator size={50} color="#000" />
-          </Box>
-        ) : products.length === 0 ? (
-          <Box>
-            <Text>{t("No se encontraron productos")}</Text>
-          </Box>
-        ) : (
-          <ScrollView style={styles.products}>
-            {products.map((product) => {
-              return (
-                <Pressable
-                  style={styles.productCard}
-                  key={product.id}
-                  onPress={() => goToProductDetail(product)}
-                >
-                  {
-                    image &&
-                    (
-                      <Image style={styles.image} source={{ uri: `data:image/jpeg;base64,${product.image}` }} />
-                    )
-                  }
-                  <View>
-                    <Text style={styles.name}>{product.name}</Text>
-                    {/* <Text style={styles.price}>
-                      {t("Precio")}: {product.price}
-                    </Text> */}
-                  </View>
-                </Pressable>
-              );
-            })}
-          </ScrollView>
-        )}
+        <FlatList 
+         data={products} 
+         renderItem={renderItem} 
+         keyExtractor={item => item.id}
+         ListFooterComponent={renderLoader} 
+         onEndReached={fetchMoreProducts} 
+         onEndReachedThreshold={3}/>
       </View>
     </View>
   );
@@ -253,4 +274,8 @@ const styles = StyleSheet.create({
   separator: {
     width: 7,
   },
+  loaderStyles: {
+    marginVertical: 16,
+    alignItems: 'center'
+  }
 });
