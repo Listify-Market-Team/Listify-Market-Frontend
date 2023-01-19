@@ -30,7 +30,6 @@ export default function ProductsScreen({ navigation, route }) {
   const pageSize = 50; //amount of products it will fetch each call.
 
   const fetchProducts = async () => {
-    console.log("products: ", products);
     let baseProducts = products;
     setIsLoadingProducts(true);
 
@@ -48,8 +47,6 @@ export default function ProductsScreen({ navigation, route }) {
         newProducts = data;
       }
 
-      
-      console.log(newProducts);
       setProducts([...products, ...newProducts]);
       setIsLoadingProducts(false);
 
@@ -159,13 +156,6 @@ export default function ProductsScreen({ navigation, route }) {
 
   const renderItem = ({item}) => {
     return(
-      // <View>
-      //   <Image source={{ uri: `data:image/jpeg;base64,${item.image}` }} />
-      //   <View>
-      //     <Text>{`${item.name}`}</Text>
-      //   </View>
-      // </View>
-
       <Pressable
         style={styles.productCard}
         key={item.id}
@@ -185,10 +175,8 @@ export default function ProductsScreen({ navigation, route }) {
   }
 
   const fetchMoreProducts = () => {
-    console.log("loading more products...");
     setCurrentPage(currentPage + 1);
     fetchProducts();
-    console.log("currentpage ", currentPage);
   };
 
   return (
@@ -221,40 +209,6 @@ export default function ProductsScreen({ navigation, route }) {
 
       {/*Product cards */}
       <View style={globalStyles.view}>
-        {/* {loadingProducts ? (
-          <Box>
-            <ActivityIndicator size={50} color="#000" />
-          </Box>
-        ) : products.length === 0 ? (
-          <Box>
-            <Text>{t("No se encontraron productos")}</Text>
-          </Box>
-        ) : (
-          <ScrollView style={styles.products}>
-            {products.map((product) => {
-              return (
-                <Pressable
-                  style={styles.productCard}
-                  key={product.id}
-                  onPress={() => goToProductDetail(product)}
-                >
-                  {
-                    image &&
-                    (
-                      <Image style={styles.image} source={{ uri: `data:image/jpeg;base64,${product.image}` }} />
-                    )
-                  }
-                  <View>
-                    <Text style={styles.name}>{product.name}</Text>
-                    {/* <Text style={styles.price}>
-                      {t("Precio")}: {product.price}
-                    </Text> }
-                  </View>
-                </Pressable>
-              );
-            })}
-          </ScrollView>
-        )} */}
         <FlatList 
          data={products} 
          renderItem={renderItem} 
