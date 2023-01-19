@@ -25,7 +25,7 @@ export default function ProductsScreen({ navigation, route }) {
   const [loadingMarkets, setIsLoadingMarkets] = useState(true);
   const [selectedFilter, setSeletedFilter] = useState("Todos");
   const [image, setImage] = useState(false);
-  const [currentPage, setCurrentPage] = useState(1) //Product's pagination
+  const [currentPage, setCurrentPage] = useState(1); //Product's pagination
 
   const pageSize = 50; //amount of products it will fetch each call.
 
@@ -34,13 +34,15 @@ export default function ProductsScreen({ navigation, route }) {
     setIsLoadingProducts(true);
 
     try {
-      const res = await axios.get(`${API_URL}/Product/GetAll?PageNumber=${currentPage}&PageSize=${pageSize}`);
+      const res = await axios.get(
+        `${API_URL}/Product/GetAll?PageNumber=${currentPage}&PageSize=${pageSize}`
+      );
       const data = await res.data.data;
 
       let newProducts = [];
-      if(products.length > 0){
-        for(let product of data){
-          if (!products.some(p => p.id === product.id))
+      if (products.length > 0) {
+        for (let product of data) {
+          if (!products.some((p) => p.id === product.id))
             newProducts.push(product);
         }
       } else {
@@ -52,18 +54,17 @@ export default function ProductsScreen({ navigation, route }) {
 
       //fetching image:
       let productsWithImg = [];
-      for(let product of newProducts){
+      for (let product of newProducts) {
         product.image = await getProductImage(product.id);
         productsWithImg.push(product);
       }
-      
+
       setProducts([...baseProducts, ...productsWithImg]);
       setImage(true);
     } catch (error) {
       console.log("Error fetching products: ", error);
       setIsLoadingProducts(false);
     }
-
   };
 
   useEffect(() => {
@@ -116,21 +117,24 @@ export default function ProductsScreen({ navigation, route }) {
       });
     } catch (error) {
       console.log("Error filtering by market");
+      setProducts([]);
       setIsLoadingProducts(false);
     }
   };
 
   const getProductImage = async (productId) => {
-    try{
-      let response = await axios.get(`${API_URL}/ConsumeWebApi/GetImages?productID=${productId}`);
-      if (response.data === '')
+    try {
+      let response = await axios.get(
+        `${API_URL}/ConsumeWebApi/GetImages?productID=${productId}`
+      );
+      if (response.data === "")
         return "https://cdn-icons-png.flaticon.com/512/1548/1548682.png";
 
       return response.data;
-    } catch(error) {
+    } catch (error) {
       console.log("Ha ocurrido un error: ", error);
     }
-  }
+  };
 
   const renderFilters = ({ item }) => {
     return (
@@ -151,28 +155,28 @@ export default function ProductsScreen({ navigation, route }) {
       <View style={styles.loaderStyles}>
         <ActivityIndicator size="large" color="#aaa" />
       </View>
-    )
-  }
+    );
+  };
 
-  const renderItem = ({item}) => {
-    return(
+  const renderItem = ({ item }) => {
+    return (
       <Pressable
         style={styles.productCard}
         key={item.id}
         onPress={() => goToProductDetail(item)}
       >
-        {
-          image &&
-          (
-            <Image style={styles.image} source={{ uri: `data:image/jpeg;base64,${item.image}` }} />
-          )
-        }
+        {image && (
+          <Image
+            style={styles.image}
+            source={{ uri: `data:image/jpeg;base64,${item.image}` }}
+          />
+        )}
         <View>
           <Text style={styles.name}>{item.name}</Text>
         </View>
       </Pressable>
-    )
-  }
+    );
+  };
 
   const fetchMoreProducts = () => {
     setCurrentPage(currentPage + 1);
@@ -208,14 +212,15 @@ export default function ProductsScreen({ navigation, route }) {
       </View>
 
       {/*Product cards */}
-      <View style={globalStyles.view}>
-        <FlatList 
-         data={products} 
-         renderItem={renderItem} 
-         keyExtractor={item => item.id}
-         ListFooterComponent={renderLoader} 
-         onEndReached={fetchMoreProducts} 
-         onEndReachedThreshold={3}/>
+      <View style={[globalStyles.view, styles.products]}>
+        <FlatList
+          data={products}
+          renderItem={renderItem}
+          keyExtractor={(item) => item.id}
+          ListFooterComponent={renderLoader}
+          onEndReached={fetchMoreProducts}
+          onEndReachedThreshold={3}
+        />
       </View>
     </View>
   );
@@ -276,6 +281,6 @@ const styles = StyleSheet.create({
   },
   loaderStyles: {
     marginVertical: 16,
-    alignItems: 'center'
-  }
+    alignItems: "center",
+  },
 });

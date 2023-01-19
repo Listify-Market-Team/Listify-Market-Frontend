@@ -94,7 +94,6 @@ export default function InventoriesSelectionScreen({ navigation, route }) {
       index: 0,
       routes: [{ name: "Inventories" }],
     });
-
   };
 
   useEffect(() => {
