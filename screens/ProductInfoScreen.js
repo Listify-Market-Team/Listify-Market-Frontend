@@ -65,7 +65,7 @@ export default function ProductInfoScreen({ navigation, route }) {
       setProduct(route.params.product);
       setMarkets(route.params.product.product_Markets);
 
-      // fetchImage(route.params.product.id);
+      fetchImage(route.params.product.id);
     }
   }, [route]);
 
