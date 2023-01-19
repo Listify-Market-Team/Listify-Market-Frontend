@@ -1,10 +1,12 @@
 import { View, Text, StyleSheet, Dimensions, FlatList, Pressable, ScrollView} from "react-native";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import React from "react";
 import { PieChart, BarChart } from "react-native-chart-kit";
 import axios from "axios";
 import { API_URL } from "../api/constants";
 import { PreventRemoveProvider } from "@react-navigation/native";
+import { AuthContext } from "../context/AuthContext";
+
 
 //Dummy Data
 const exampleData = [
@@ -185,6 +187,8 @@ export default function UserDashboardScreen({navigation, route}) {
   const [showMarketRanking, switchMarketRanking] = useState(false);
   //To replace exampleData
   const [inventory, setInventories] = useState(exampleData);
+  const { user } = useContext(AuthContext);
+  
 
   const sorted_product = (item) => {
     return Object.entries(item)
@@ -192,6 +196,23 @@ export default function UserDashboardScreen({navigation, route}) {
       .slice(0, 4);
   };
 
+
+  const getInventory = async () => {
+    try {
+      const res = await axios.get(`${API_URL}/Inventory/GetByUserId`, {
+        //Aqui va el ID del usuario
+        params: { userId: user.id },
+      });
+      const inventories = res.data.inventories;
+      setInventories(inventories);
+      console.log(inventories);
+    } catch (error) {
+      console.error("Error loading inventories");
+    }
+  }
+
+
+  
   const AddProductsToCount = () => {
     const count = {};
     const entries = [
@@ -244,24 +265,8 @@ export default function UserDashboardScreen({navigation, route}) {
     addNameMarkets(Object.values(Object.fromEntries(sorted_product(count))));
   };
 
-  const getInvetory = () => {
-    try {
-      const res = axios.get(`${API_URL}/Inventory/GetByUserId`, {
-        params: { userId: user.id },
-      });
-      const inventories = res.data.inventories;
-      setInventories(inventories);
-      console.log(inventories);
-    } catch (error) {
-      console.log("Error loading inventories");
-    }
-  }
 
-  useEffect(() => {
-    getInvetory();
-    AddProductsToCount();
-    AddMarketsToCount();
-  }, []);
+ 
 
   const addToCount = (value) => {
     addPrice((totalPrice) => totalPrice + value);
@@ -319,6 +324,13 @@ export default function UserDashboardScreen({navigation, route}) {
   }
 
 
+  useEffect(() => {
+    getInventory();
+    AddProductsToCount();
+    AddMarketsToCount();
+  }, []);
+
+  
   return (
     <View style={styles.base}>
       <View style={styles.totalPriceCount}>
