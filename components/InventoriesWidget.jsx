@@ -82,7 +82,7 @@ export default function InventoriesWidget() {
                   <View>
                     <Text style={styles.text}>{item.name}</Text>
                     <Text style={[styles.text, styles.greenText]}>
-                      {`Total: ${item.totalPrice} RD$`}
+                      {`Total: RD$ ${item.totalPrice}`}
                     </Text>
                   </View>
                   <Pressable

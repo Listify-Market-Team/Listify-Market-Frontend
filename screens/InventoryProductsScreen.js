@@ -18,7 +18,7 @@ import { Ionicons, Feather, AntDesign } from "@expo/vector-icons";
 
 const Product = (props) => {
   const [removeMode, setRemoveMode] = useState();
-  const { name, price, productQuantity } = props.productData;
+  const { name, price, productQuantity, marketName } = props.productData;
 
   return (
     <Fragment>
@@ -33,7 +33,8 @@ const Product = (props) => {
             <Text
               style={styles.quantity}
             >{`Cantidad: ${productQuantity}`}</Text>
-            <Text style={styles.price}>{`Precio: ${price} $RD`}</Text>
+            <Text style={styles.price}>{`Precio: RD$ ${price}`}</Text>
+            <Text style={styles.quantity}>{marketName}</Text>
           </View>
           <Pressable
             onPress={() => setRemoveMode(true)}
@@ -97,6 +98,15 @@ const InventoryProductsScreen = ({ navigation, route }) => {
     }
   };
 
+  let total = 0;
+  if (products.length > 0) {
+    total = products.reduce(
+      (accumulator, current) => accumulator + current.price,
+      0
+    );
+  }
+  console.log(total);
+
   useEffect(() => {
     setInventory({ name, description });
     fetchInventoryProducts();
@@ -136,11 +146,12 @@ const InventoryProductsScreen = ({ navigation, route }) => {
               const productQuantity =
                 product.product_Inventories.find((i) => i.inventoryID === id)
                   .quantity || 1;
+              const marketName = "Supermercado";
 
               return (
                 <View style={styles.productContainer} key={product.id}>
                   <Product
-                    productData={{ ...product, productQuantity }}
+                    productData={{ ...product, productQuantity, marketName }}
                     onRemove={removeProductFromInventory}
                   />
                 </View>
@@ -148,6 +159,11 @@ const InventoryProductsScreen = ({ navigation, route }) => {
             })}
           </ScrollView>
         )}
+        <View style={styles.footer}>
+          <Text style={styles.total}>
+            Total: {isLoading ? t("Calculando...") : total}
+          </Text>
+        </View>
       </View>
     </View>
   );
@@ -184,7 +200,7 @@ const styles = StyleSheet.create({
     padding: 15,
     marginBottom: 15,
     borderRadius: 10,
-    height: 100,
+    height: 130,
     overflow: "hidden",
     width: "100%",
   },
@@ -231,5 +247,25 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "center",
     gap: 40,
+  },
+  footer: {
+    position: "fixed",
+    bottom: 0,
+    left: 0,
+    width: "100%",
+    height: 80,
+    display: "flex",
+    flexDirection: "row",
+    alignItems: "center",
+    zIndex: 88,
+    borderTopWidth: 1,
+    borderTopStyle: "solid",
+    borderTopColor: colors.dark,
+    paddingHorizontal: 25,
+  },
+  total: {
+    fontSize: 18,
+    fontFamily: "Cabin-Bold",
+    color: colors.dark,
   },
 });
